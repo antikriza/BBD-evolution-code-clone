@@ -60,3 +60,6 @@ New content: generateMiniApp() function + call in RUN section
 [2026-02-07 14:00:00] CREATE: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/telegram-archive/course/twa/index.html (217KB)
 Description: Generated Telegram Mini App - single HTML file containing all course content for 42 topics across 5 levels in EN and UK. 4 views: language selector, course overview, level detail, topic detail. Bilingual with instant language switching. Works in Telegram and regular browser. Ready for GitHub Pages hosting.
 ---
+[2026-02-07 14:45:00] CREATE: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/telegram-archive/course/README.md
+Description: Comprehensive project documentation covering architecture, course structure, Mini App details, development workflow, deployment steps, build journey (5 phases), file inventory, and technical notes.
+---
