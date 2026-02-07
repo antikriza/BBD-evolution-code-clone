@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дифузійні моделі - Базова теорія</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background:#0a0a0f; color:#e4e6eb; }
+a { color:#6ab2f2; text-decoration:none; }
+a:hover { text-decoration:underline; }
+.header { background:#111119; padding:16px 24px; border-bottom:1px solid #1e1e2e; display:flex; align-items:center; gap:16px; position:sticky; top:0; z-index:10; }
+.header h1 { font-size:18px; color:#6ab2f2; }
+.header .back { color:#8696a4; font-size:14px; }
+.header .lang-switch { margin-left:auto; font-size:13px; color:#8696a4; }
+.container { max-width:900px; margin:0 auto; padding:24px; }
+.breadcrumb { color:#8696a4; font-size:13px; margin-bottom:20px; }
+.breadcrumb a { color:#6ab2f2; }
+.level-badge { display:inline-block; padding:4px 12px; border-radius:20px; font-size:12px; font-weight:600; margin-bottom:16px; }
+.level-1 { background:rgba(74,222,128,0.15); color:#4ade80; }
+.level-2 { background:rgba(96,165,250,0.15); color:#60a5fa; }
+.level-3 { background:rgba(245,158,11,0.15); color:#f59e0b; }
+.level-4 { background:rgba(239,68,68,0.15); color:#ef4444; }
+.level-5 { background:rgba(168,85,247,0.15); color:#a855f7; }
+h2 { font-size:28px; margin-bottom:8px; }
+.desc { color:#8696a4; font-size:15px; line-height:1.7; margin-bottom:24px; }
+.detail-list { list-style:none; padding:0; }
+.detail-list li { padding:10px 16px; margin-bottom:6px; border-radius:8px; background:#111119; border-left:3px solid #2b5278; font-size:14px; line-height:1.5; color:#e4e6eb; }
+.detail-list li::before { content:'\2192 '; color:#6ab2f2; }
+.section-title { font-size:16px; color:#8696a4; margin:24px 0 12px; text-transform:uppercase; letter-spacing:1px; }
+.related-topics { display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
+.related-topics a { display:inline-block; background:#111119; border:1px solid #1e1e2e; padding:6px 14px; border-radius:8px; font-size:13px; color:#6ab2f2; }
+.related-topics a:hover { background:#1e1e2e; text-decoration:none; }
+.nav-links { display:flex; justify-content:space-between; margin-top:30px; padding-top:20px; border-top:1px solid #1e1e2e; }
+.nav-links a { color:#6ab2f2; font-size:14px; }
+.nav-links .disabled { color:#333; }
+.topic-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:12px; margin-top:16px; }
+.topic-card { background:#111119; border-radius:12px; padding:18px; border-left:3px solid #2b5278; display:block; transition:background 0.15s; }
+.topic-card:hover { background:#1a1a2e; text-decoration:none; }
+.topic-card h3 { color:#e4e6eb; font-size:15px; margin-bottom:4px; }
+.topic-card .sub { color:#8696a4; font-size:13px; }
+.footer { text-align:center; padding:30px; color:#8696a4; font-size:12px; margin-top:30px; border-top:1px solid #1e1e2e; }
+.overview { margin-bottom:28px; }
+.overview p { color:#c4c6cb; font-size:15px; line-height:1.8; margin-bottom:14px; }
+.terms-grid { display:grid; gap:10px; margin-top:12px; }
+.term-card { background:#111119; border:1px solid #1e1e2e; border-radius:10px; padding:14px 18px; }
+.term-card strong { color:#6ab2f2; font-size:14px; }
+.term-card span { color:#c4c6cb; font-size:13px; display:block; margin-top:4px; line-height:1.5; }
+.tip-box { background:linear-gradient(135deg, rgba(106,178,242,0.06), rgba(106,178,242,0.02)); border:1px solid rgba(106,178,242,0.15); border-radius:10px; padding:16px 20px; margin-top:12px; }
+.tip-box li { color:#c4c6cb; font-size:14px; line-height:1.6; margin-bottom:8px; list-style:none; }
+.tip-box li::before { content:'💡 '; }
+.detail-card { background:#111119; border-radius:10px; padding:16px 18px; margin-bottom:8px; border-left:3px solid #2b5278; }
+.detail-card .dt { color:#e4e6eb; font-size:14px; font-weight:600; margin-bottom:4px; }
+.detail-card .dd { color:#9ca3af; font-size:13px; line-height:1.6; }
+.detail-card .dl { margin-top:6px; }
+.detail-card .dl a { font-size:12px; color:#6ab2f2; background:rgba(106,178,242,0.08); padding:3px 10px; border-radius:6px; display:inline-block; margin-right:6px; margin-top:4px; }
+.detail-card .dl a:hover { background:rgba(106,178,242,0.15); text-decoration:none; }
+</style>
+</head>
+<body>
+<div class="header">
+  <a href="../../index.html" class="back">&larr; Назад до курсу</a>
+  <h1>Базова теорія</h1>
+  <a href="../../../en/basic-theory/level-1/diffusion-models.html" class="lang-switch">🇬🇧 English</a>
+</div>
+<div class="container">
+  <div class="breadcrumb"><a href="../../index.html">Курс</a> / <a href="../index.html">Базова теорія</a> / <a href="index.html">Рівень 1</a> / Дифузійні моделі</div>
+  <span class="level-badge level-1">🌱 Рівень 1 — Новачок</span>
+  <h2>Дифузійні моделі</h2>
+  <p class="desc">Розуміння генерації зображень та відео за допомогою дифузійних підходів.</p>
+
+  <div class="overview">
+    <p>Дифузійні моделі — це домінуючий підхід для генерації зображень та відео з ШІ. Вони працюють через навчання оберненню процесу додавання шуму: маючи зображення, поступово зіпсоване до випадкового шуму, модель вчиться розшумлювати його крок за кроком. Під час генерації модель починає з чистого шуму та ітеративно уточнює його у зв'язне зображення, кероване текстовим промптом.</p>
+    <p>Цей підхід виявився надзвичайно потужним. Моделі як Stable Diffusion, DALL-E 3, Midjourney та Flux можуть генерувати фотореалістичні зображення, художні ілюстрації і навіть відео з текстових описів. Екосистема включає інструменти кастомізації як LoRA адаптери та ControlNet, що дозволяють тонко налаштовувати генерацію для конкретних стилів або структурних обмежень.</p>
+  </div>
+  <div class="section-title">Основні теми</div>
+  <div class="detail-cards">
+    <div class="detail-card"><div class="dt">Як працює дифузія</div><div class="dd">Прямий процес поступово додає шум до зображення, поки воно не стає випадковою статикою. Модель вчиться обертати це — починаючи з шуму та ітеративно розшумлюючи в зв'язне зображення.</div></div>
+    <div class="detail-card"><div class="dt">Текстове кондиціонування</div><div class="dd">CLIP або T5 текстові енкодери перетворюють ваш промпт у сигнал керування. Цей сигнал спрямовує процес розшумлення для створення зображень відповідно до вашого опису.</div><div class="dl"><a href="../level-2/prompt.html">Промпт</a></div></div>
+    <div class="detail-card"><div class="dt">Ключові моделі</div><div class="dd">Stable Diffusion 3 (відкритий), DALL-E 3 (OpenAI), Midjourney v6 (підписка), Flux (Black Forest Labs), Ideogram (рендеринг тексту). Кожен має свої переваги в стилі, якості та контролі.</div><div class="dl"><a href="big-players.html">Великі гравці</a></div></div>
+    <div class="detail-card"><div class="dt">Латентна дифузія</div><div class="dd">Робота у стиснутому латентному просторі (у 64 рази менше за сирі пікселі) робить генерацію швидкою та ефективною за пам'яттю. VAE encoder/decoder зв'язує піксельний та латентний простори.</div></div>
+    <div class="detail-card"><div class="dt">ControlNet</div><div class="dd">Додавання структурного керування через карти країв, глибини, оцінку пози або маски сегментації. Дозволяє контролювати композицію, поки дифузійна модель працює з деталями та стилем.</div></div>
+    <div class="detail-card"><div class="dt">LoRA адаптери</div><div class="dd">Легке файн-тюнінг (зазвичай 10-100МБ), що вчить модель новим стилям, персонажам або концепціям без повного перенавчання. Спільнота ділиться тисячами LoRA на CivitAI та HuggingFace.</div><div class="dl"><a href="../level-3/training-finetuning.html">Навчання та файн-тюнінг</a></div></div>
+    <div class="detail-card"><div class="dt">Генерація відео</div><div class="dd">Sora (OpenAI), Runway Gen-3, Kling (Kuaishou), Pika розширюють дифузію на часові послідовності. Відеогенерація додає виклики часової когерентності та консистентності руху.</div><div class="dl"><a href="multimodality.html">Мультимодальність</a></div></div>
+    <div class="detail-card"><div class="dt">Інпейнтинг та аутпейнтинг</div><div class="dd">Редагування конкретних областей згенерованих або реальних зображень. Інпейнтинг замінює замасковану область, аутпейнтинг розширює зображення за його межі.</div></div>
+    <div class="detail-card"><div class="dt">Дифузія vs GAN</div><div class="dd">GAN (генеративні змагальні мережі) швидші, але складніші в навчанні та менш різноманітні. Дифузійні моделі дають вищу якість та більш різноманітні результати за рахунок повільнішої генерації.</div></div>
+    <div class="detail-card"><div class="dt">Локальні інструменти</div><div class="dd">ComfyUI (вузловий, гнучкий) та Automatic1111 (веб UI, зручний) — популярні відкриті інтерфейси для локального запуску Stable Diffusion на власному GPU.</div><div class="dl"><a href="../level-4/hardware.html">Основи обладнання</a></div></div>
+  </div>
+
+  <div class="section-title">Ключові терміни</div>
+  <div class="terms-grid">
+    <div class="term-card"><strong>Дифузія</strong><span>Процес генерації зображень, що починається з випадкового шуму та ітеративно уточнює його у зв'язний результат.</span></div>
+    <div class="term-card"><strong>Латентний простір</strong><span>Стиснуте математичне представлення зображень, в якому моделі працюють для ефективності.</span></div>
+    <div class="term-card"><strong>LoRA</strong><span>Low-Rank Adaptation — легкий метод кастомізації моделей без повного перенавчання.</span></div>
+    <div class="term-card"><strong>ControlNet</strong><span>Розширення, що додає структурне керування (краї, пози, глибина) до дифузійної генерації.</span></div>
+  </div>
+
+    <div class="section-title">Пов'язані обговорення спільноти</div>
+    <div class="related-topics">
+      <a href="#">Feed</a>
+    </div>
+
+  <div class="nav-links">
+    <a href="llm-and-gpt.html">&larr; LLM та GPT</a>
+    <a href="multimodality.html">Мультимодальність &rarr;</a>
+  </div>
+</div>
+<div class="footer"><a href="../../index.html">&larr; Назад до курсу</a></div>
+</body>
+</html>

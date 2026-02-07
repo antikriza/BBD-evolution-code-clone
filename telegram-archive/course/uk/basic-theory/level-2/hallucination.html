@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Галюцинації - Базова теорія</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background:#0a0a0f; color:#e4e6eb; }
+a { color:#6ab2f2; text-decoration:none; }
+a:hover { text-decoration:underline; }
+.header { background:#111119; padding:16px 24px; border-bottom:1px solid #1e1e2e; display:flex; align-items:center; gap:16px; position:sticky; top:0; z-index:10; }
+.header h1 { font-size:18px; color:#6ab2f2; }
+.header .back { color:#8696a4; font-size:14px; }
+.header .lang-switch { margin-left:auto; font-size:13px; color:#8696a4; }
+.container { max-width:900px; margin:0 auto; padding:24px; }
+.breadcrumb { color:#8696a4; font-size:13px; margin-bottom:20px; }
+.breadcrumb a { color:#6ab2f2; }
+.level-badge { display:inline-block; padding:4px 12px; border-radius:20px; font-size:12px; font-weight:600; margin-bottom:16px; }
+.level-1 { background:rgba(74,222,128,0.15); color:#4ade80; }
+.level-2 { background:rgba(96,165,250,0.15); color:#60a5fa; }
+.level-3 { background:rgba(245,158,11,0.15); color:#f59e0b; }
+.level-4 { background:rgba(239,68,68,0.15); color:#ef4444; }
+.level-5 { background:rgba(168,85,247,0.15); color:#a855f7; }
+h2 { font-size:28px; margin-bottom:8px; }
+.desc { color:#8696a4; font-size:15px; line-height:1.7; margin-bottom:24px; }
+.detail-list { list-style:none; padding:0; }
+.detail-list li { padding:10px 16px; margin-bottom:6px; border-radius:8px; background:#111119; border-left:3px solid #2b5278; font-size:14px; line-height:1.5; color:#e4e6eb; }
+.detail-list li::before { content:'\2192 '; color:#6ab2f2; }
+.section-title { font-size:16px; color:#8696a4; margin:24px 0 12px; text-transform:uppercase; letter-spacing:1px; }
+.related-topics { display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
+.related-topics a { display:inline-block; background:#111119; border:1px solid #1e1e2e; padding:6px 14px; border-radius:8px; font-size:13px; color:#6ab2f2; }
+.related-topics a:hover { background:#1e1e2e; text-decoration:none; }
+.nav-links { display:flex; justify-content:space-between; margin-top:30px; padding-top:20px; border-top:1px solid #1e1e2e; }
+.nav-links a { color:#6ab2f2; font-size:14px; }
+.nav-links .disabled { color:#333; }
+.topic-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:12px; margin-top:16px; }
+.topic-card { background:#111119; border-radius:12px; padding:18px; border-left:3px solid #2b5278; display:block; transition:background 0.15s; }
+.topic-card:hover { background:#1a1a2e; text-decoration:none; }
+.topic-card h3 { color:#e4e6eb; font-size:15px; margin-bottom:4px; }
+.topic-card .sub { color:#8696a4; font-size:13px; }
+.footer { text-align:center; padding:30px; color:#8696a4; font-size:12px; margin-top:30px; border-top:1px solid #1e1e2e; }
+.overview { margin-bottom:28px; }
+.overview p { color:#c4c6cb; font-size:15px; line-height:1.8; margin-bottom:14px; }
+.terms-grid { display:grid; gap:10px; margin-top:12px; }
+.term-card { background:#111119; border:1px solid #1e1e2e; border-radius:10px; padding:14px 18px; }
+.term-card strong { color:#6ab2f2; font-size:14px; }
+.term-card span { color:#c4c6cb; font-size:13px; display:block; margin-top:4px; line-height:1.5; }
+.tip-box { background:linear-gradient(135deg, rgba(106,178,242,0.06), rgba(106,178,242,0.02)); border:1px solid rgba(106,178,242,0.15); border-radius:10px; padding:16px 20px; margin-top:12px; }
+.tip-box li { color:#c4c6cb; font-size:14px; line-height:1.6; margin-bottom:8px; list-style:none; }
+.tip-box li::before { content:'💡 '; }
+.detail-card { background:#111119; border-radius:10px; padding:16px 18px; margin-bottom:8px; border-left:3px solid #2b5278; }
+.detail-card .dt { color:#e4e6eb; font-size:14px; font-weight:600; margin-bottom:4px; }
+.detail-card .dd { color:#9ca3af; font-size:13px; line-height:1.6; }
+.detail-card .dl { margin-top:6px; }
+.detail-card .dl a { font-size:12px; color:#6ab2f2; background:rgba(106,178,242,0.08); padding:3px 10px; border-radius:6px; display:inline-block; margin-right:6px; margin-top:4px; }
+.detail-card .dl a:hover { background:rgba(106,178,242,0.15); text-decoration:none; }
+</style>
+</head>
+<body>
+<div class="header">
+  <a href="../../index.html" class="back">&larr; Назад до курсу</a>
+  <h1>Базова теорія</h1>
+  <a href="../../../en/basic-theory/level-2/hallucination.html" class="lang-switch">🇬🇧 English</a>
+</div>
+<div class="container">
+  <div class="breadcrumb"><a href="../../index.html">Курс</a> / <a href="../index.html">Базова теорія</a> / <a href="index.html">Рівень 2</a> / Галюцинації</div>
+  <span class="level-badge level-2">💡 Рівень 2 — Користувач</span>
+  <h2>Галюцинації</h2>
+  <p class="desc">Чому LLM генерують хибну інформацію та як її виявити й зменшити.</p>
+
+  <div class="overview">
+    <p>Галюцинації (також конфабуляції) виникають, коли моделі ШІ генерують правдоподібно звучну, але фактично неправильну інформацію. Це не баг — це невід'ємна властивість того, як працюють LLM. Оскільки вони генерують текст передбаченням найімовірніших наступних токенів, а не пошуком фактів, вони можуть видавати впевнено звучну нісенітницю.</p>
+    <p>Розуміння галюцинацій критично важливе для безпечного використання ШІ. Вони варіюються від незначних фактичних помилок до повністю вигаданих цитат, вигаданих API та неіснуючих функцій. Ключові стратегії зменшення включають заземлення відповідей на отриманих даних (RAG), використання викликів інструментів для перевірки фактів та завжди незалежну верифікацію критичної інформації.</p>
+  </div>
+  <div class="section-title">Основні теми</div>
+  <div class="detail-cards">
+    <div class="detail-card"><div class="dt">Що таке галюцинації</div><div class="dd">Впевнено звучні хибні твердження, згенеровані ШІ. Модель стверджує щось як факт, що частково або повністю вигадано — і це звучить так само переконливо як правильні відповіді.</div><div class="dl"><a href="../level-1/generative-ai.html">Генеративний ШІ</a></div></div>
+    <div class="detail-card"><div class="dt">Чому це відбувається</div><div class="dd">LLM передбачають імовірний текст, не фактичний — вони не мають внутрішньої бази фактів. Вони генерують те, що &quot;звучить правильно&quot; на основі навчальних патернів.</div><div class="dl"><a href="../level-1/llm-and-gpt.html">LLM та GPT</a></div></div>
+    <div class="detail-card"><div class="dt">Фактичні галюцинації</div><div class="dd">Неправильні дати, вигадана статистика, некоректні атрибуції. Модель впевнено стверджує &quot;Ейнштейн опублікував теорію відносності у 1903&quot; або вигадує правдоподібні, але неіснуючі факти.</div></div>
+    <div class="detail-card"><div class="dt">Вигадані посилання</div><div class="dd">Вигадані наукові статті, фейкові URL, неіснуючі API-ендпоінти або імена функцій. Особливо небезпечні, бо виглядають легітимно і важко помітити без верифікації.</div></div>
+    <div class="detail-card"><div class="dt">Логічні галюцинації</div><div class="dd">Правильно звучні ланцюги міркувань, що досягають хибних висновків. Кожен крок здається розумним, але загальна логіка хибна — особливо небезпечно, бо &quot;показує роботу.&quot;</div><div class="dl"><a href="../level-1/reasoning.html">Міркування</a></div></div>
+    <div class="detail-card"><div class="dt">Стратегії виявлення</div><div class="dd">Перехресна перевірка з авторитетними джерелами, запуск згенерованого коду, перевірка існування цитат, використання пошуку для верифікації фактів. Довіряй, але перевіряй.</div></div>
+    <div class="detail-card"><div class="dt">Заземлення RAG</div><div class="dd">Надання реальних отриманих документів зменшує галюцинації, даючи моделям фактичні дані для цитування. Замість генерації з пам'яті модель посилається на конкретний вихідний матеріал.</div><div class="dl"><a href="../level-4/rag.html">RAG</a></div></div>
+    <div class="detail-card"><div class="dt">Заземлення інструментами</div><div class="dd">Дозвіл моделям викликати API пошуку, бази даних або калькулятори для перевірки фактів. Зовнішні інструменти надають основу істини.</div><div class="dl"><a href="../level-4/tool-use.html">Використання інструментів</a></div></div>
+    <div class="detail-card"><div class="dt">Коли галюцинації небезпечні</div><div class="dd">Медична/юридична/фінансова порада, документація API, системи безпеки, академічні дослідження. У цих доменах впевнена хибна відповідь може завдати реальної шкоди.</div></div>
+    <div class="detail-card"><div class="dt">Коли вони прийнятні</div><div class="dd">Творче письмо, мозковий штурм, генерація заповнювального контенту, дослідження ідей. У творчих контекстах здатність моделі генерувати нові комбінації — це перевага.</div></div>
+  </div>
+
+  <div class="section-title">Ключові терміни</div>
+  <div class="terms-grid">
+    <div class="term-card"><strong>Галюцинація</strong><span>Коли модель ШІ генерує хибну інформацію, що звучить впевнено та правдоподібно.</span></div>
+    <div class="term-card"><strong>Конфабуляція</strong><span>Альтернативний термін для галюцинації, підкреслюючи що модель &quot;заповнює прогалини&quot;, а не бреше.</span></div>
+    <div class="term-card"><strong>Заземлення</strong><span>Надання реальних даних (через RAG або інструменти), щоб модель базувала відповіді на фактах.</span></div>
+    <div class="term-card"><strong>Калібрування</strong><span>Наскільки впевненість моделі відповідає її реальній точності — добре калібровані моделі знають, коли невпевнені.</span></div>
+  </div>
+
+    <div class="section-title">Пов'язані обговорення спільноти</div>
+    <div class="related-topics">
+      <a href="#">Feed</a>
+    </div>
+
+  <div class="nav-links">
+    <a href="context.html">&larr; Контекст</a>
+    <a href="vibecoding.html">Вайбкодинг &rarr;</a>
+  </div>
+</div>
+<div class="footer"><a href="../../index.html">&larr; Назад до курсу</a></div>
+</body>
+</html>

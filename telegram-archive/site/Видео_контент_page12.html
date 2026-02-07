@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Видео-контент - Эволюция Кода Archive</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background:#0e1621; color:#e4e6eb; }
+a { color:#6ab2f2; text-decoration:none; }
+a:hover { text-decoration:underline; }
+.header { background:#17212b; padding:16px 24px; border-bottom:1px solid #2b3a4a; display:flex; align-items:center; gap:16px; position:sticky; top:0; z-index:10; }
+.header h1 { font-size:18px; color:#6ab2f2; }
+.header .back { color:#8696a4; font-size:14px; }
+.container { max-width:900px; margin:0 auto; padding:20px 24px; }
+.topic-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:12px; margin-top:20px; }
+.topic-card { background:#17212b; border-radius:12px; padding:18px; border-left:3px solid #2b5278; transition:background 0.15s; display:block; }
+.topic-card:hover { background:#1e2c3a; text-decoration:none; }
+.topic-card h3 { color:#e4e6eb; font-size:15px; margin-bottom:6px; }
+.topic-card .count { color:#8696a4; font-size:13px; }
+.message { background:#17212b; border-radius:12px; padding:14px 18px; margin-bottom:10px; border-left:3px solid #2b5278; }
+.sender { color:#6ab2f2; font-weight:600; font-size:13px; margin-bottom:4px; }
+.msg-text { font-size:14px; line-height:1.6; word-wrap:break-word; }
+.msg-date { color:#8696a4; font-size:11px; margin-top:6px; text-align:right; }
+.stats-bar { display:flex; gap:24px; margin:16px 0; color:#8696a4; font-size:14px; }
+.stats-bar span { color:#6ab2f2; font-weight:600; }
+h2 { color:#6ab2f2; font-size:22px; margin-bottom:16px; padding-bottom:10px; border-bottom:1px solid #2b3a4a; }
+.msg-total { font-size:14px; color:#8696a4; font-weight:normal; }
+.pagination { display:flex; gap:8px; margin:20px 0; flex-wrap:wrap; }
+.pagination a { background:#17212b; padding:6px 12px; border-radius:6px; color:#6ab2f2; font-size:13px; }
+.pagination a.active { background:#2b5278; }
+.footer { text-align:center; padding:30px; color:#8696a4; font-size:12px; margin-top:30px; border-top:1px solid #2b3a4a; }
+</style>
+</head>
+<body>
+<div class="header">
+<a href="index.html" class="back">← Back to Topics</a>
+<h1>Видео-контент</h1>
+</div>
+<div class="container">
+<h2>Видео-контент <span class="msg-total">(1134 messages, page 12/12)</span></h2>
+<div class="pagination"><a href="Видео_контент.html" class="">1</a><a href="Видео_контент_page2.html" class="">2</a><a href="Видео_контент_page3.html" class="">3</a><a href="Видео_контент_page4.html" class="">4</a><a href="Видео_контент_page5.html" class="">5</a><a href="Видео_контент_page6.html" class="">6</a><a href="Видео_контент_page7.html" class="">7</a><a href="Видео_контент_page8.html" class="">8</a><a href="Видео_контент_page9.html" class="">9</a><a href="Видео_контент_page10.html" class="">10</a><a href="Видео_контент_page11.html" class="">11</a><a href="Видео_контент_page12.html" class=" active">12</a></div>
+<div class="message "><div class="msg-text">но не идеально <br>порой то как он выбирает окна контекста из группового чата просто жесть<br>03:43</div></div>
+<div class="message "><div class="msg-text">но иногда прям как магия))) все так классно проходит<br>03:44</div></div>
+<div class="message "><div class="msg-text">и кстати не забываем, что его успех во многом зависит от того, какая именно ллм в основе подключена<br>edited 03:45</div></div>
+<div class="message "><div class="msg-text">поэтому лучше задания ему разом в одном посте давать со всей необходимой инфой<br>он может не заметить важное чуть выше написанное<br>edited 03:51</div></div>
+<div class="message "><div class="msg-text">боже меня ллмки убивают))) куча возможностей подвалило, которых не было до этого. и так теперь постоянный движ<br>два часа спал<br>потому что всю ночь  с ним ковырялся (ну потому что взахлеп интересно, почти джарвис первый), а на прошлой неделе так же в суно несолько дней подряд с недостатком сна)))<br>и ща опять сижу)<br>edited 03:52</div></div>
+<div class="message has-sender"><div class="sender">Amir</div><div class="msg-text">други а кто-то знает как  codex/claude - завренуть через http_proxy - у меня с корп впн конфликтует жестко 🙂<br>08:34</div></div>
+<div class="message has-sender"><div class="sender">Andrew</div><div class="msg-text">Если ты имеешь ввиду под бумажным - ценные бумаги)) и акции - то конечно имеет смысл перелиться в золото т/к там ликвидность больше. Но не сейчас - т/к золото на хаях<br>edited 08:40</div></div>
+<div class="message has-sender"><div class="sender">Alexey AGames</div><div class="msg-text">Возможно глупый вопрос. Имеет ли смысл разворачивать RAG базу используя cursor? Как я понимаю он и так индексирует кодовую базу(и md документы) и выполняет работу rag базы. Или я тут не так понимаю работу cursor и rag базы?<br>09:07</div></div>
+<div class="message has-sender"><div class="sender">Vladislav Gamezo</div><div class="msg-text">С самого начала через кредиты было. Но было бы прям круто иметь возможность на подключение своего аккаунта, либо за кредиты ассистента, хотя при таком количестве агентов это может быть излишним :)<br>09:08</div></div>
+<div class="message has-sender"><div class="sender">WaveCut</div><div class="msg-text">Не имеет. Курсор сам индексирует код и использует семантический поиск по этому индексу.<br>AA<br>09:20</div></div>
+<div class="message "><div class="msg-text">Ценные бугаги <br>09:21</div></div>
+<div class="message "><div class="msg-text">Этот запрос надо вбивать на <a href="https://g.ai" target="_blank" rel="noopener">g.ai</a><br>09:23</div></div>
+<div class="message has-sender"><div class="sender">Amir</div><div class="msg-text">Там ответы хуже чем у Яндекс жпт<br>09:51</div></div>
+<div class="message has-sender"><div class="sender">WaveCut</div><div class="msg-text">да, у агента явно экономный режим…<br>09:57</div></div>
+<div class="message has-sender"><div class="sender">Pvl</div><div class="msg-text">Так я серебро переливаю которое еще на больших хаях :)<br>10:42</div></div>
+<div class="message has-sender"><div class="sender">Tony</div><div class="msg-text"><a href="https://www.perplexity.ai/join/p/paypal-subscription" target="_blank" rel="noopener">https://www.perplexity.ai/join/p/paypal-subscription</a><br>11:32</div></div>
+<div class="message has-sender"><div class="sender">Эволюция Кода</div><div class="msg-text">О! Спасибо<br>11:38</div></div>
+<div class="message has-sender"><div class="sender">Alexey Ivanov</div><div class="msg-text">Интересно а это можно допилить дополнительными инструкциями типа «как только нашел что-то интересное - прервись и расскажи другим»? <br><br>Ну и соответственно чтобы остальные иногда поглядывали в журнал.<br>13:10</div></div>
+<div class="message has-sender"><div class="sender">Illya Klymov 🇺🇦</div><div class="msg-text">фаза &quot;прервись и расскажи другим&quot; работает<br><br>А вот с поглядыванием в журнал пока нет у меня 🙂<br>13:11</div></div>
+<div class="message has-sender"><div class="sender">WaveCut</div><div class="msg-text"></div></div>
+<div class="message has-sender"><div class="sender">winged</div><div class="msg-text">А у тебя trial 30 дней? Т.к когда включаешь чат они дают 30 дней где есть агенты, а потом как будто доступ к агенту за платную подписку ( даже если агент от кодекса и ты через  openai подписку идешь)<br>13:29</div></div>
+<div class="message has-sender"><div class="sender">Эволюция Кода</div><div class="msg-text">у меня подписка на пайчарм говдовая и всё<br>W<br>13:30</div></div>
+<div class="message has-sender"><div class="sender">Vladislav Gamezo</div><div class="msg-text">Если брать IntellIj IDEA, не логиниться (то есть будет Community Edition), то вроде все работает<br>13:36</div></div>
+<div class="message has-sender"><div class="sender">Tips AI | IT &amp; AI</div><div class="msg-text">Я скептический отношусь к <a href="https://t.me/tips_ai/4552" target="_blank" rel="noopener">Clawdbot</a> (сейчас уже Moltbot из-за антропиков), но интересно другое.<br><br>Залез <a href="https://github.com/steipete" target="_blank" rel="noopener">GitHub</a> — там 168 репозиториев и акк с 2009 года.<br><br>Он собрал его из своих же инструментов:<br><br>• VibeTunnel: браузер как терминал<br>• Peekaboo: GUI автоматизация через MCP<br>• AXorcist: управление macOS интерфейсом<br>• wacli: WhatsApp из терминала<br>• imsg: iMessage из терминала<br>• Brabble: голосовой агент с wake-word<br>• macOS Automator MCP: автоматизация системы<br>• Claude Code MCP: мост между IDE и агентом<br><br>Ещё 40+ штук. CLI для Spotify. SDK для ElevenLabs.<br><br>Это годы недоработанных инструментов и побочных проектов на выходные, склеенных вместе.<br><br>Удачу не надо ждать. Она сама придет, но только за работой <br><br><br>@tips_ai<br>6.7K<br>13:36</div></div>
+<div class="message has-sender"><div class="sender">Vladislav Gamezo</div><div class="msg-text">там вверху есть леейбл (Unlock Ultimate), значит — не ультимейт )<br>13:38</div></div>
+<div class="message has-sender"><div class="sender">WaveCut</div><div class="msg-text">New Grok Models<br><br>grok-imagine-image<br>grok-imagine-video<br>13:48</div></div>
+<div class="message "><div class="msg-text"><a href="https://x.ai/news/grok-imagine-api" target="_blank" rel="noopener">https://x.ai/news/grok-imagine-api</a><br>13:50</div></div>
+<div class="message has-sender"><div class="sender">Эволюция Кода</div><div class="msg-text">а у грока были модели для генерации видео, или это дебют? чет не припомню<br>13:51</div></div>
+<div class="message has-sender"><div class="sender">WaveCut</div><div class="msg-text">были, но не в апи, а в приложении, бесплатно и давно<br>13:53</div></div>
+<div class="message "><div class="msg-text">цены —<br>имейдж (и эдит) - 2 цента за каритнку<br>видео — 5 центов секунда<br>K<br>13:55</div></div>
+<div class="message has-sender"><div class="sender">Эволюция Кода</div><div class="msg-text">джем падения цен от гугла и опении на фоне ТАКОГО демпинга)<br>13:58</div></div>
+<div class="message has-sender"><div class="sender">WaveCut</div><div class="msg-text">ридикулёз, опенсорсные OCR модельки микро размеров уделывают флагманов с большим отрывом<br><br><br>PaddleOCR-VL-1.5 — это усовершенствованная модель PaddleOCR-VL нового поколения, достигающая новой передовой точности 94,5 % на OmniDocBench v1.5. Для тщательной оценки устойчивости к реальным физическим искажениям, включая артефакты сканирования, перекос, деформацию, фотографирование с экрана и освещение, мы предлагаем тест Real5-OmniDocBench. Результаты экспериментов показывают, что эта усовершенствованная модель достигает SOTA-производительности на новом тщательно подобранном тесте. Кроме того, мы расширяем возможности модели, добавляя задачи распознавания печатей и обнаружения текста, при этом сохраняя высокую эффективность ультракомпактного VLM объемом 0,9 млрд.<br><a href="https://huggingface.co/PaddlePaddle/PaddleOCR-VL-1.5" target="_blank" rel="noopener">https://huggingface.co/PaddlePaddle/PaddleOCR-VL-1.5</a><br>edited 14:08</div></div>
+<div class="message has-sender"><div class="sender">Эволюция Кода</div><div class="msg-text">а с дипсиком ocr2 и не сравнили)<br>14:12</div></div>
+<div class="message has-sender"><div class="sender">Jane Savina</div><div class="msg-text">в моем продукте была большая надежда на deepseek ocr, но оказалось, что она все равно наши страницы с таблицами не разбирает без ошибок.<br>Не могу понять на чем они их тестируют, уже прям хочется им свой тест сет отправить, пусть прожуют, перед тем как рисовать бенчмарки и кричать про SOTA<br>14:13</div></div>
+<div class="pagination"><a href="Видео_контент.html" class="">1</a><a href="Видео_контент_page2.html" class="">2</a><a href="Видео_контент_page3.html" class="">3</a><a href="Видео_контент_page4.html" class="">4</a><a href="Видео_контент_page5.html" class="">5</a><a href="Видео_контент_page6.html" class="">6</a><a href="Видео_контент_page7.html" class="">7</a><a href="Видео_контент_page8.html" class="">8</a><a href="Видео_контент_page9.html" class="">9</a><a href="Видео_контент_page10.html" class="">10</a><a href="Видео_контент_page11.html" class="">11</a><a href="Видео_контент_page12.html" class=" active">12</a></div>
+<div class="footer"><a href="index.html">← Back to all topics</a></div>
+</div>
+</body>
+</html>

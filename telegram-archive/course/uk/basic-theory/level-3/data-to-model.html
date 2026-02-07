@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Від даних до моделі - Базова теорія</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background:#0a0a0f; color:#e4e6eb; }
+a { color:#6ab2f2; text-decoration:none; }
+a:hover { text-decoration:underline; }
+.header { background:#111119; padding:16px 24px; border-bottom:1px solid #1e1e2e; display:flex; align-items:center; gap:16px; position:sticky; top:0; z-index:10; }
+.header h1 { font-size:18px; color:#6ab2f2; }
+.header .back { color:#8696a4; font-size:14px; }
+.header .lang-switch { margin-left:auto; font-size:13px; color:#8696a4; }
+.container { max-width:900px; margin:0 auto; padding:24px; }
+.breadcrumb { color:#8696a4; font-size:13px; margin-bottom:20px; }
+.breadcrumb a { color:#6ab2f2; }
+.level-badge { display:inline-block; padding:4px 12px; border-radius:20px; font-size:12px; font-weight:600; margin-bottom:16px; }
+.level-1 { background:rgba(74,222,128,0.15); color:#4ade80; }
+.level-2 { background:rgba(96,165,250,0.15); color:#60a5fa; }
+.level-3 { background:rgba(245,158,11,0.15); color:#f59e0b; }
+.level-4 { background:rgba(239,68,68,0.15); color:#ef4444; }
+.level-5 { background:rgba(168,85,247,0.15); color:#a855f7; }
+h2 { font-size:28px; margin-bottom:8px; }
+.desc { color:#8696a4; font-size:15px; line-height:1.7; margin-bottom:24px; }
+.detail-list { list-style:none; padding:0; }
+.detail-list li { padding:10px 16px; margin-bottom:6px; border-radius:8px; background:#111119; border-left:3px solid #2b5278; font-size:14px; line-height:1.5; color:#e4e6eb; }
+.detail-list li::before { content:'\2192 '; color:#6ab2f2; }
+.section-title { font-size:16px; color:#8696a4; margin:24px 0 12px; text-transform:uppercase; letter-spacing:1px; }
+.related-topics { display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
+.related-topics a { display:inline-block; background:#111119; border:1px solid #1e1e2e; padding:6px 14px; border-radius:8px; font-size:13px; color:#6ab2f2; }
+.related-topics a:hover { background:#1e1e2e; text-decoration:none; }
+.nav-links { display:flex; justify-content:space-between; margin-top:30px; padding-top:20px; border-top:1px solid #1e1e2e; }
+.nav-links a { color:#6ab2f2; font-size:14px; }
+.nav-links .disabled { color:#333; }
+.topic-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:12px; margin-top:16px; }
+.topic-card { background:#111119; border-radius:12px; padding:18px; border-left:3px solid #2b5278; display:block; transition:background 0.15s; }
+.topic-card:hover { background:#1a1a2e; text-decoration:none; }
+.topic-card h3 { color:#e4e6eb; font-size:15px; margin-bottom:4px; }
+.topic-card .sub { color:#8696a4; font-size:13px; }
+.footer { text-align:center; padding:30px; color:#8696a4; font-size:12px; margin-top:30px; border-top:1px solid #1e1e2e; }
+.overview { margin-bottom:28px; }
+.overview p { color:#c4c6cb; font-size:15px; line-height:1.8; margin-bottom:14px; }
+.terms-grid { display:grid; gap:10px; margin-top:12px; }
+.term-card { background:#111119; border:1px solid #1e1e2e; border-radius:10px; padding:14px 18px; }
+.term-card strong { color:#6ab2f2; font-size:14px; }
+.term-card span { color:#c4c6cb; font-size:13px; display:block; margin-top:4px; line-height:1.5; }
+.tip-box { background:linear-gradient(135deg, rgba(106,178,242,0.06), rgba(106,178,242,0.02)); border:1px solid rgba(106,178,242,0.15); border-radius:10px; padding:16px 20px; margin-top:12px; }
+.tip-box li { color:#c4c6cb; font-size:14px; line-height:1.6; margin-bottom:8px; list-style:none; }
+.tip-box li::before { content:'💡 '; }
+.detail-card { background:#111119; border-radius:10px; padding:16px 18px; margin-bottom:8px; border-left:3px solid #2b5278; }
+.detail-card .dt { color:#e4e6eb; font-size:14px; font-weight:600; margin-bottom:4px; }
+.detail-card .dd { color:#9ca3af; font-size:13px; line-height:1.6; }
+.detail-card .dl { margin-top:6px; }
+.detail-card .dl a { font-size:12px; color:#6ab2f2; background:rgba(106,178,242,0.08); padding:3px 10px; border-radius:6px; display:inline-block; margin-right:6px; margin-top:4px; }
+.detail-card .dl a:hover { background:rgba(106,178,242,0.15); text-decoration:none; }
+</style>
+</head>
+<body>
+<div class="header">
+  <a href="../../index.html" class="back">&larr; Назад до курсу</a>
+  <h1>Базова теорія</h1>
+  <a href="../../../en/basic-theory/level-3/data-to-model.html" class="lang-switch">🇬🇧 English</a>
+</div>
+<div class="container">
+  <div class="breadcrumb"><a href="../../index.html">Курс</a> / <a href="../index.html">Базова теорія</a> / <a href="index.html">Рівень 3</a> / Від даних до моделі</div>
+  <span class="level-badge level-3">⚡ Рівень 3 — Професіонал</span>
+  <h2>Від даних до моделі</h2>
+  <p class="desc">Повний пайплайн від сирих даних до навченої моделі.</p>
+
+  <div class="overview">
+    <p>Шлях від сирих даних до працюючої моделі ШІ включає складний пайплайн збору, очищення, попередньої обробки, навчання та оцінки. Якість даних часто важливіша за архітектуру моделі — вислів спільноти ШІ &quot;сміття на вході — сміття на виході&quot; ніколи не був більш актуальним.</p>
+  </div>
+  <div class="section-title">Основні теми</div>
+  <ul class="detail-list">
+      <li>Збір даних у масштабі: веб-краулінг (Common Crawl), книги, репозиторії коду, наукові статті</li>
+      <li>Очищення даних: видалення дублікатів, низькоякісного контенту, персональних даних (PII)</li>
+      <li>Дедуплікація: видалення точних та близьких дублікатів для запобігання запам'ятовування</li>
+      <li>Фільтрація: видалення шкідливого, токсичного або захищеного авторським правом контенту</li>
+      <li>Попередня обробка: токенізація, нормалізація форматів, визначення мови</li>
+      <li>Формати датасетів: JSONL, Parquet, Arrow — ефективне зберігання для мільярдних датасетів</li>
+      <li>Якість vs кількість даних: менші якісні датасети можуть перевершити більші зашумлені</li>
+      <li>Синтетичні дані: використання ШІ для генерації навчальних даних</li>
+      <li>Анотація даних: людські розмітники створюють приклади для файн-тюнінгу</li>
+      <li>Відкриті датасети: The Pile, RedPajama, FineWeb — розуміння на чому навчені відкриті моделі</li>
+  </ul>
+
+  <div class="section-title">Ключові терміни</div>
+  <div class="terms-grid">
+    <div class="term-card"><strong>Common Crawl</strong><span>Масивний відкритий веб-архів, що використовується як основне джерело даних для навчання більшості LLM.</span></div>
+    <div class="term-card"><strong>Синтетичні дані</strong><span>Навчальні дані, згенеровані моделями ШІ замість збору з реальних джерел.</span></div>
+    <div class="term-card"><strong>Дедуплікація даних</strong><span>Видалення дублікатів або близьких дублікатів для покращення якості навчання.</span></div>
+  </div>
+
+
+  <div class="nav-links">
+    <a href="neural-networks.html">&larr; Основи нейромереж</a>
+    <a href="training-finetuning.html">Навчання та файн-тюнінг &rarr;</a>
+  </div>
+</div>
+<div class="footer"><a href="../../index.html">&larr; Назад до курсу</a></div>
+</body>
+</html>

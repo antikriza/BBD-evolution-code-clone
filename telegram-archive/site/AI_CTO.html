@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI CTO - Эволюция Кода Archive</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background:#0e1621; color:#e4e6eb; }
+a { color:#6ab2f2; text-decoration:none; }
+a:hover { text-decoration:underline; }
+.header { background:#17212b; padding:16px 24px; border-bottom:1px solid #2b3a4a; display:flex; align-items:center; gap:16px; position:sticky; top:0; z-index:10; }
+.header h1 { font-size:18px; color:#6ab2f2; }
+.header .back { color:#8696a4; font-size:14px; }
+.container { max-width:900px; margin:0 auto; padding:20px 24px; }
+.topic-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:12px; margin-top:20px; }
+.topic-card { background:#17212b; border-radius:12px; padding:18px; border-left:3px solid #2b5278; transition:background 0.15s; display:block; }
+.topic-card:hover { background:#1e2c3a; text-decoration:none; }
+.topic-card h3 { color:#e4e6eb; font-size:15px; margin-bottom:6px; }
+.topic-card .count { color:#8696a4; font-size:13px; }
+.message { background:#17212b; border-radius:12px; padding:14px 18px; margin-bottom:10px; border-left:3px solid #2b5278; }
+.sender { color:#6ab2f2; font-weight:600; font-size:13px; margin-bottom:4px; }
+.msg-text { font-size:14px; line-height:1.6; word-wrap:break-word; }
+.msg-date { color:#8696a4; font-size:11px; margin-top:6px; text-align:right; }
+.stats-bar { display:flex; gap:24px; margin:16px 0; color:#8696a4; font-size:14px; }
+.stats-bar span { color:#6ab2f2; font-weight:600; }
+h2 { color:#6ab2f2; font-size:22px; margin-bottom:16px; padding-bottom:10px; border-bottom:1px solid #2b3a4a; }
+.msg-total { font-size:14px; color:#8696a4; font-weight:normal; }
+.pagination { display:flex; gap:8px; margin:20px 0; flex-wrap:wrap; }
+.pagination a { background:#17212b; padding:6px 12px; border-radius:6px; color:#6ab2f2; font-size:13px; }
+.pagination a.active { background:#2b5278; }
+.footer { text-align:center; padding:30px; color:#8696a4; font-size:12px; margin-top:30px; border-top:1px solid #2b3a4a; }
+</style>
+</head>
+<body>
+<div class="header">
+<a href="index.html" class="back">← Back to Topics</a>
+<h1>AI CTO</h1>
+</div>
+<div class="container">
+<h2>AI CTO <span class="msg-total">(40 messages)</span></h2>
+
+<div class="message has-sender"><div class="sender">𝔸𝕟𝕕𝕣𝕖𝕨 🎧𝕦𝕒𝕣𝕕𝕖𝕩</div><div class="msg-text">Чтобы знать который час<br>00:35</div></div>
+<div class="message has-sender"><div class="sender">WaveCut</div><div class="msg-text">хз))<br>00:40</div></div>
+<div class="message has-sender"><div class="sender">𝔸𝕟𝕕𝕣𝕖𝕨 🎧𝕦𝕒𝕣𝕕𝕖𝕩</div><div class="msg-text">Ну это было минут 10 или несколько секунд ?)<br>00:50</div></div>
+<div class="message has-sender"><div class="sender">Evgeny Agantaev</div><div class="msg-text">тоже такое впечатление<br>00:59</div></div>
+<div class="message has-sender"><div class="sender">WaveCut</div><div class="msg-text">Минуту мб?)<br>01:25</div></div>
+<div class="message has-sender"><div class="sender">Vladislav Gamezo</div><div class="msg-text">5.1 кодекс лучше 5 кодекс хай?<br><br>Просто уточняю<br>edited 01:48</div></div>
+<div class="message has-sender"><div class="sender">𝔸𝕟𝕕𝕣𝕖𝕨 🎧𝕦𝕒𝕣𝕕𝕖𝕩</div><div class="msg-text">Ой она задрала<br>02:06</div></div>
+<div class="message "><div class="msg-text">Кодекс не пробовал<br>02:08</div></div>
+<div class="message "><div class="msg-text">Мне нужно было подумать над сложным ситуационным багом<br>02:09</div></div>
+<div class="message has-sender"><div class="sender">Vladislav Gamezo</div><div class="msg-text">Ну вот кстати, вроде с 5 заметил мимикрию моего стиля в чате и в кодексе. Даже решения по рефакторингу неплохие дает. <br><br>5.1 кодекс хай пока для меня не хуже как минимум, чем 5 кодекс хай. <br><br>Сегодня, кстати, был прикольный кейс, сказал ему отрефакторить пару классов, он удалил часть классов-процессоров ивентов, и добавил, что эти решения уже устарели по текущей архитектуре. Я только через минут 5-10 обсуждения согласился с ним. Прикольно получилось :) типо, «олдскул дев не принял решение ии, в итоге ии оказался прав» :)<br>edited 02:39</div></div>
+<div class="message has-sender"><div class="sender">Rodion Mostovoi</div><div class="msg-text">Наш хлеб - это возможность такую штуку развернуть в закрытом конторе компании + кучу репозиториев в единый контекст собрать + ещё и MCP на это все дать. <br>А подобные проекты даже хорошо, что появляются, для нас меньше усилий на объяснения что наш продукт делает)<br>07:53</div></div>
+<div class="message has-sender"><div class="sender">Oleksandr Oliinyk</div><div class="msg-text">5.1 Имеет такие же модели как и 5, т.е. если хотите сравнить GPT-5 Codex high, то нужно сравнивать с GPT-5.1 Codex high.<br>5.1 работает чуть быстрее и модель чуть умнее.<br>07:59</div></div>
+<div class="message "><div class="msg-text">В Claude Code  есть команда /output-style. У IndyDevDan подсмотрел вот такой output style <a href="https://github.com/disler/claude-code-hooks-mastery/blob/main/.claude%2Foutput-styles%2Fultra-concise.md" target="_blank" rel="noopener">https://github.com/disler/claude-code-hooks-mastery/blob/main/.claude%2Foutput-styles%2Fultra-concise.md</a>. Теперь кучу репортов и отчётов он только по запросу добавляет.<br>R<br>OO<br>09:50</div></div>
+<div class="message has-sender"><div class="sender">WaveCut</div><div class="msg-text"><a href="https://t.co/g4zOcdezPU?ssr=true" target="_blank" rel="noopener">https://t.co/g4zOcdezPU?ssr=true</a><br>10:14</div></div>
+<div class="message has-sender"><div class="sender">Oleksandr Oliinyk</div><div class="msg-text">Наконец то -<br><br><a href="https://www.claude.com/blog/structured-outputs-on-the-claude-developer-platform" target="_blank" rel="noopener">https://www.claude.com/blog/structured-outputs-on-the-claude-developer-platform</a><br>ОГ<br>10:31</div></div>
+<div class="message has-sender"><div class="sender">Aleh Leuchanka</div><div class="msg-text">интересно что кодекс 5.1 в самом CLI не появился<br>11:13</div></div>
+<div class="message "><div class="msg-text">или это только у меня?<br>11:13</div></div>
+<div class="message has-sender"><div class="sender">Valery Klimovich</div><div class="msg-text">25:43 на самом деле эта фишка есть в Atlas, она реализована через GPTs<br>11:37</div></div>
+<div class="message has-sender"><div class="sender">Oleksandr Oliinyk</div><div class="msg-text">Появился, апдэйт CLI сделайте. Нужна версия - 0.58.0<br>12:05</div></div>
+<div class="message has-sender"><div class="sender">WaveCut</div><div class="msg-text">Не вышло? На впн делаешь?<br>14:09</div></div>
+<div class="message "><div class="msg-text">Попробуй без оного<br>14:09</div></div>
+<div class="message has-sender"><div class="sender">Anatolii 🚀</div><div class="msg-text"><a href="https://progulka.yamshchikov.info/231736/episodes/18189931-" target="_blank" rel="noopener">https://progulka.yamshchikov.info/231736/episodes/18189931-</a><br>У ребят научный подход к разработке на агентах.<br>15:40</div></div>
+<div class="message has-sender"><div class="sender">𝔸𝕟𝕕𝕣𝕖𝕨 🎧𝕦𝕒𝕣𝕕𝕖𝕩</div><div class="msg-text">Всяко попробовал даже американский впн подтянул<br>15:41</div></div>
+<div class="message "><div class="msg-text">Тоже попробовал<br>15:41</div></div>
+<div class="message "><div class="msg-text">Сегодня тоже попробовал та же байда , чёт не состакалось<br>15:42</div></div>
+<div class="message has-sender"><div class="sender">Andrei</div><div class="msg-text">неплохо про апи побухтели...<br>15:47</div></div>
+<div class="message "><div class="msg-text">А попробовал кто-нибудь Comet для мобильного? Вчера прислали инвайт. Отличается от приложения Perplexity тем что при нажатии на источник теперь в том же приложение остаёшься, плюс там можно получить быстро доступ к ассистенту, встроенный ad-block<br>15:48</div></div>
+<div class="message has-sender"><div class="sender">⌁Einѕhtein⌁ (речь в текст)</div><div class="msg-text">gpt-5.1-codex максимально технарь. <br>gpt-5.1 отстегивает иногда шутеечки нормальные.<br>Типа когда просишь объяснить какой-то термин может ответить &quot;опять кто-то придумал непонятное слово, чтобы тебя запутать. Ладно слушай..&quot;<br>16:28</div></div>
+<div class="message has-sender"><div class="sender">Dzian DzenFi</div><div class="msg-text">у Вас стиль циник стоит?<br>16:52</div></div>
+<div class="message "><div class="msg-text">мне никогда не шутит)<br>16:53</div></div>
+<div class="message has-sender"><div class="sender">⌁Einѕhtein⌁ (речь в текст)</div><div class="msg-text">тут он не нужен)<br>16:53</div></div>
+<div class="message "><div class="msg-text">but...<br>16:54</div></div>
+<div class="message "><div class="msg-text">я и забыл..<br>WG<br>16:54</div></div>
+<div class="message "><div class="msg-text">я тут на днях рассказывал что gpt-5 стал шутки отстегивать внезапно. А через сутки до 5.1 обнова и стало понятно что OpenAI тестили имплементацию по тихому, подменой моделей.<br>КОсвенно это доказывается тем, что после обновы 5.1 при review иногда сыпит ошибки 400 с запросом на даунгрейд версию , при том что все конфиги обновлены под 5.1 . А потом вдруг все норм становится.<br>16:57</div></div>
+<div class="message has-sender"><div class="sender">Олег Гилев</div><div class="msg-text">Посмотрел 3 иттерации , kimi k2 стабильно делает результат) стало еще интереснее ее потрогать)<br>edited 17:17</div></div>
+<div class="message "><div class="msg-text">Может кидали уже, но вдруг<br>2к кредитов на манус<br>21:04</div></div>
+<div class="message has-sender"><div class="sender">WaveCut</div><div class="msg-text">Сработало<br>1<br>21:25</div></div>
+<div class="message "><div class="msg-text">Не то чтобы я ими буду пользоваться, но пусть лежат<br>21:25</div></div>
+<div class="message has-sender"><div class="sender">Andrei</div><div class="msg-text">может стоит и попробовать...<br> тоже не пользуюсь, вот повод нашелся 😂<br>21:28</div></div>
+<div class="message "><div class="msg-text">а они расскажут инвесторам как они популярны<br>21:28</div></div>
+
+<div class="footer"><a href="index.html">← Back to all topics</a></div>
+</div>
+</body>
+</html>

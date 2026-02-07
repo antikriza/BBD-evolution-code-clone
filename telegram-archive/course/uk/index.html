@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Курс з ШІ та програмування</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background:#0a0a0f; color:#e4e6eb; }
+a { color:#6ab2f2; text-decoration:none; }
+a:hover { text-decoration:underline; }
+.header { background:#111119; padding:16px 24px; border-bottom:1px solid #1e1e2e; display:flex; align-items:center; gap:16px; position:sticky; top:0; z-index:10; }
+.header h1 { font-size:18px; color:#6ab2f2; }
+.header .back { color:#8696a4; font-size:14px; }
+.header .lang-switch { margin-left:auto; font-size:13px; color:#8696a4; }
+.container { max-width:900px; margin:0 auto; padding:24px; }
+.breadcrumb { color:#8696a4; font-size:13px; margin-bottom:20px; }
+.breadcrumb a { color:#6ab2f2; }
+.level-badge { display:inline-block; padding:4px 12px; border-radius:20px; font-size:12px; font-weight:600; margin-bottom:16px; }
+.level-1 { background:rgba(74,222,128,0.15); color:#4ade80; }
+.level-2 { background:rgba(96,165,250,0.15); color:#60a5fa; }
+.level-3 { background:rgba(245,158,11,0.15); color:#f59e0b; }
+.level-4 { background:rgba(239,68,68,0.15); color:#ef4444; }
+.level-5 { background:rgba(168,85,247,0.15); color:#a855f7; }
+h2 { font-size:28px; margin-bottom:8px; }
+.desc { color:#8696a4; font-size:15px; line-height:1.7; margin-bottom:24px; }
+.detail-list { list-style:none; padding:0; }
+.detail-list li { padding:10px 16px; margin-bottom:6px; border-radius:8px; background:#111119; border-left:3px solid #2b5278; font-size:14px; line-height:1.5; color:#e4e6eb; }
+.detail-list li::before { content:'\2192 '; color:#6ab2f2; }
+.section-title { font-size:16px; color:#8696a4; margin:24px 0 12px; text-transform:uppercase; letter-spacing:1px; }
+.related-topics { display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
+.related-topics a { display:inline-block; background:#111119; border:1px solid #1e1e2e; padding:6px 14px; border-radius:8px; font-size:13px; color:#6ab2f2; }
+.related-topics a:hover { background:#1e1e2e; text-decoration:none; }
+.nav-links { display:flex; justify-content:space-between; margin-top:30px; padding-top:20px; border-top:1px solid #1e1e2e; }
+.nav-links a { color:#6ab2f2; font-size:14px; }
+.nav-links .disabled { color:#333; }
+.topic-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:12px; margin-top:16px; }
+.topic-card { background:#111119; border-radius:12px; padding:18px; border-left:3px solid #2b5278; display:block; transition:background 0.15s; }
+.topic-card:hover { background:#1a1a2e; text-decoration:none; }
+.topic-card h3 { color:#e4e6eb; font-size:15px; margin-bottom:4px; }
+.topic-card .sub { color:#8696a4; font-size:13px; }
+.footer { text-align:center; padding:30px; color:#8696a4; font-size:12px; margin-top:30px; border-top:1px solid #1e1e2e; }
+.overview { margin-bottom:28px; }
+.overview p { color:#c4c6cb; font-size:15px; line-height:1.8; margin-bottom:14px; }
+.terms-grid { display:grid; gap:10px; margin-top:12px; }
+.term-card { background:#111119; border:1px solid #1e1e2e; border-radius:10px; padding:14px 18px; }
+.term-card strong { color:#6ab2f2; font-size:14px; }
+.term-card span { color:#c4c6cb; font-size:13px; display:block; margin-top:4px; line-height:1.5; }
+.tip-box { background:linear-gradient(135deg, rgba(106,178,242,0.06), rgba(106,178,242,0.02)); border:1px solid rgba(106,178,242,0.15); border-radius:10px; padding:16px 20px; margin-top:12px; }
+.tip-box li { color:#c4c6cb; font-size:14px; line-height:1.6; margin-bottom:8px; list-style:none; }
+.tip-box li::before { content:'💡 '; }
+.detail-card { background:#111119; border-radius:10px; padding:16px 18px; margin-bottom:8px; border-left:3px solid #2b5278; }
+.detail-card .dt { color:#e4e6eb; font-size:14px; font-weight:600; margin-bottom:4px; }
+.detail-card .dd { color:#9ca3af; font-size:13px; line-height:1.6; }
+.detail-card .dl { margin-top:6px; }
+.detail-card .dl a { font-size:12px; color:#6ab2f2; background:rgba(106,178,242,0.08); padding:3px 10px; border-radius:6px; display:inline-block; margin-right:6px; margin-top:4px; }
+.detail-card .dl a:hover { background:rgba(106,178,242,0.15); text-decoration:none; }
+
+.hero { text-align:center; padding:50px 20px 30px; background:linear-gradient(135deg, #0e1621 0%, #1a1a2e 100%); }
+.hero h1 { font-size:36px; color:#fff; margin-bottom:8px; }
+.hero p { color:#8696a4; font-size:17px; max-width:700px; margin:0 auto; line-height:1.7; }
+.stats-row { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-top:16px; }
+.stat-card { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:12px 20px; text-align:center; min-width:120px; }
+.stat-card .num { font-size:24px; font-weight:700; color:#6ab2f2; }
+.stat-card .label { font-size:11px; color:#8696a4; margin-top:2px; }
+.tabs { display:flex; justify-content:center; gap:0; margin:30px auto 0; max-width:900px; }
+.tab { flex:1; text-align:center; padding:14px 20px; cursor:pointer; font-size:15px; font-weight:600; border-bottom:3px solid transparent; color:#8696a4; transition:all 0.2s; }
+.tab:hover { color:#e4e6eb; background:rgba(255,255,255,0.03); }
+.tab.active { border-bottom-color:#6ab2f2; color:#6ab2f2; }
+.tab .sub { display:block; font-size:11px; font-weight:400; margin-top:2px; }
+.tab.nov .sub { color:#4ade80; } .tab.nov.active { border-bottom-color:#4ade80; color:#4ade80; }
+.tab.adv .sub { color:#f59e0b; } .tab.adv.active { border-bottom-color:#f59e0b; color:#f59e0b; }
+.tab.exp .sub { color:#ef4444; } .tab.exp.active { border-bottom-color:#ef4444; color:#ef4444; }
+.level-section { display:none; } .level-section.active { display:block; }
+.lh { display:flex; align-items:center; gap:16px; margin-bottom:24px; padding:20px; border-radius:12px; }
+.lh.nov { background:linear-gradient(135deg, rgba(74,222,128,0.1), rgba(74,222,128,0.03)); border-left:4px solid #4ade80; }
+.lh.adv { background:linear-gradient(135deg, rgba(245,158,11,0.1), rgba(245,158,11,0.03)); border-left:4px solid #f59e0b; }
+.lh.exp { background:linear-gradient(135deg, rgba(239,68,68,0.1), rgba(239,68,68,0.03)); border-left:4px solid #ef4444; }
+.lh h2 { font-size:24px; } .lh p { color:#8696a4; font-size:14px; line-height:1.5; margin-top:4px; }
+.progress-bar { height:4px; background:#1e1e2e; border-radius:2px; margin-top:8px; overflow:hidden; }
+.pf { height:100%; border-radius:2px; }
+.pf.g { background:#4ade80; } .pf.y { background:#f59e0b; } .pf.r { background:#ef4444; }
+.mod-card { background:#111119; border:1px solid #1e1e2e; border-radius:12px; padding:18px; margin-bottom:12px; }
+.mod-card h3 { font-size:16px; color:#e4e6eb; margin-bottom:6px; }
+.mod-card .sub { color:#8696a4; font-size:13px; line-height:1.5; }
+.mod-card a { color:#6ab2f2; font-size:13px; }
+</style>
+</head>
+<body>
+<div class="hero">
+  <h1>Курс з ШІ та програмування</h1>
+  <p>Повна структура курсу — ШІ та програмування</p>
+  <div class="stats-row">
+    <div class="stat-card"><div class="num">68</div><div class="label">Усього уроків</div></div>
+    <div class="stat-card"><div class="num">15</div><div class="label">Модулів</div></div>
+    <div class="stat-card"><div class="num">5</div><div class="label">Рівні</div></div>
+  </div>
+</div>
+<div class="header" style="justify-content:flex-end;">
+  <a href="../en/index.html" class="lang-switch">🇬🇧 English</a>
+</div>
+<div class="tabs">
+  <div class="tab nov active" onclick="showLevel('nov')">НОВАЧОК<span class="sub">Початковий — 5 модулів, 30 уроків</span></div>
+  <div class="tab adv" onclick="showLevel('adv')">ПРОСУНУТИЙ<span class="sub">Середній — 5 модулів, 23 уроків</span></div>
+  <div class="tab exp" onclick="showLevel('exp')">ЕКСПЕРТ<span class="sub">Експертний — 5 модулів, 15 уроків</span></div>
+</div>
+<div class="content">
+<div id="nov" class="level-section active">
+  <div class="lh nov"><div><h2>НОВАЧОК</h2><p>Базові знання про ШІ, перші кроки з інструментами ШІ для програмування, основна термінологія та концепції. Охоплює Базову теорію рівнів 1-2, основи ШІ-програмування та вступ до моделей для розробки.</p><div class="progress-bar"><div class="pf g" style="width:85%"></div></div></div></div>
+  <div class="mod-card"><h3>1. Що таке генеративний ШІ?</h3><div class="sub">9 уроків: GenAI, LLM, дифузійні моделі, мультимодальність, міркування, фундаментальні моделі. <a href="basic-theory/level-1/index.html">Переглянути уроки &rarr;</a></div></div>
+  <div class="mod-card"><h3>2. Робота з ШІ: базові концепції</h3><div class="sub">5 уроків: промпти, токени, контекстні вікна, галюцинації та вайбкодинг. <a href="basic-theory/level-2/index.html">Переглянути уроки &rarr;</a></div></div>
+  <div class="mod-card"><h3>3. Середовище розробки з ШІ</h3><div class="sub">7 уроків: промпт-інженерія, розумні підказки коду, ШІ-чат в IDE, інструменти терміналу та браузера.</div></div>
+  <div class="mod-card"><h3>4. Порівняння ШІ-інструментів та IDE</h3><div class="sub">4 уроки: порівняння AI-first IDE, популярні інструменти, новинні ресурси.</div></div>
+  <div class="mod-card"><h3>5. Розуміння моделей</h3><div class="sub">5 уроків: бенчмарки, лідерборди, закриті/відкриті моделі та обладнання.</div></div>
+</div>
+<div id="adv" class="level-section">
+  <div class="lh adv"><div><h2>ПРОСУНУТИЙ</h2><p>Глибоке занурення в нейромережі, просунутий промптинг, MCP, RAG, агенти, розробка за специфікаціями. Охоплює Базову теорію рівнів 3-4 та просунуті теми ШІ-програмування.</p><div class="progress-bar"><div class="pf y" style="width:80%"></div></div></div></div>
+  <div class="mod-card"><h3>6. Нейромережі та навчання моделей</h3><div class="sub">5 уроків: основи нейромереж, пайплайни даних, навчання, оптимізація, архітектури. <a href="basic-theory/level-3/index.html">Переглянути уроки &rarr;</a></div></div>
+  <div class="mod-card"><h3>7. Просунутий промптинг та контекст-інженерія</h3><div class="sub">5 уроків: просунуті техніки промптингу, контекст-інженерія, індексація, розробка за спеками.</div></div>
+  <div class="mod-card"><h3>8. MCP, агенти та використання інструментів</h3><div class="sub">6 уроків: агенти, використання інструментів, ШІ-протоколи, архітектура MCP. <a href="basic-theory/level-4/index.html">Переглянути уроки &rarr;</a></div></div>
+  <div class="mod-card"><h3>9. RAG та прикладні фреймворки</h3><div class="sub">5 уроків: архітектура RAG, інструменти, бібліотеки та практичні фреймворки.</div></div>
+  <div class="mod-card"><h3>10. Код-ревю, автоматизація та безпека</h3><div class="sub">2 уроки: ШІ код-ревю та автоматизація з low-code платформами.</div></div>
+</div>
+<div id="exp" class="level-section">
+  <div class="lh exp"><div><h2>ЕКСПЕРТ</h2><p>Горизонти та майбутнє ШІ, продакшн агентні системи, мультиагентні архітектури, голосові агенти. Охоплює Базову теорію рівня 5, просунуте ШІ-програмування та воркшопи.</p><div class="progress-bar"><div class="pf r" style="width:75%"></div></div></div></div>
+  <div class="mod-card"><h3>11. Горизонти ШІ: майбутнє та філософія</h3><div class="sub">5 уроків: AGI, ASI, технологічна сингулярність, моделі світу, децентралізований ШІ. <a href="basic-theory/level-5/index.html">Переглянути уроки &rarr;</a></div></div>
+  <div class="mod-card"><h3>12. Безпека, вирівнювання та етика ШІ</h3><div class="sub">3 уроки: дослідження безпеки ШІ, техніки вирівнювання, пояснюваний ШІ.</div></div>
+  <div class="mod-card"><h3>13. Продакшн агентні системи</h3><div class="sub">4 уроки: LangChain/LangGraph, CrewAI/MetaGPT, Dify, пам'ять агентів.</div></div>
+  <div class="mod-card"><h3>14. Агентна розробка та просунуті IDE</h3><div class="sub">5 уроків: агентна кодогенерація, фонові агенти, воркшопи з IDE.</div></div>
+  <div class="mod-card"><h3>15. ШІ у продакшні та лідерство</h3><div class="sub">5 уроків: управління ШІ-агентами, безпека, голосове програмування, стратегії AI CTO.</div></div>
+</div>
+</div>
+<div class="footer">Структура курсу з ШІ та програмування</div>
+<script>
+function showLevel(l){document.querySelectorAll(".level-section").forEach(function(s){s.classList.remove("active")});document.querySelectorAll(".tab").forEach(function(t){t.classList.remove("active")});document.getElementById(l).classList.add("active");document.querySelector(".tab."+l).classList.add("active");}
+</script>
+</body>
+</html>

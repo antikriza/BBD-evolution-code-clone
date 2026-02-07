@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Стан мистецтва (SOTA) - Базова теорія</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background:#0a0a0f; color:#e4e6eb; }
+a { color:#6ab2f2; text-decoration:none; }
+a:hover { text-decoration:underline; }
+.header { background:#111119; padding:16px 24px; border-bottom:1px solid #1e1e2e; display:flex; align-items:center; gap:16px; position:sticky; top:0; z-index:10; }
+.header h1 { font-size:18px; color:#6ab2f2; }
+.header .back { color:#8696a4; font-size:14px; }
+.header .lang-switch { margin-left:auto; font-size:13px; color:#8696a4; }
+.container { max-width:900px; margin:0 auto; padding:24px; }
+.breadcrumb { color:#8696a4; font-size:13px; margin-bottom:20px; }
+.breadcrumb a { color:#6ab2f2; }
+.level-badge { display:inline-block; padding:4px 12px; border-radius:20px; font-size:12px; font-weight:600; margin-bottom:16px; }
+.level-1 { background:rgba(74,222,128,0.15); color:#4ade80; }
+.level-2 { background:rgba(96,165,250,0.15); color:#60a5fa; }
+.level-3 { background:rgba(245,158,11,0.15); color:#f59e0b; }
+.level-4 { background:rgba(239,68,68,0.15); color:#ef4444; }
+.level-5 { background:rgba(168,85,247,0.15); color:#a855f7; }
+h2 { font-size:28px; margin-bottom:8px; }
+.desc { color:#8696a4; font-size:15px; line-height:1.7; margin-bottom:24px; }
+.detail-list { list-style:none; padding:0; }
+.detail-list li { padding:10px 16px; margin-bottom:6px; border-radius:8px; background:#111119; border-left:3px solid #2b5278; font-size:14px; line-height:1.5; color:#e4e6eb; }
+.detail-list li::before { content:'\2192 '; color:#6ab2f2; }
+.section-title { font-size:16px; color:#8696a4; margin:24px 0 12px; text-transform:uppercase; letter-spacing:1px; }
+.related-topics { display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
+.related-topics a { display:inline-block; background:#111119; border:1px solid #1e1e2e; padding:6px 14px; border-radius:8px; font-size:13px; color:#6ab2f2; }
+.related-topics a:hover { background:#1e1e2e; text-decoration:none; }
+.nav-links { display:flex; justify-content:space-between; margin-top:30px; padding-top:20px; border-top:1px solid #1e1e2e; }
+.nav-links a { color:#6ab2f2; font-size:14px; }
+.nav-links .disabled { color:#333; }
+.topic-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:12px; margin-top:16px; }
+.topic-card { background:#111119; border-radius:12px; padding:18px; border-left:3px solid #2b5278; display:block; transition:background 0.15s; }
+.topic-card:hover { background:#1a1a2e; text-decoration:none; }
+.topic-card h3 { color:#e4e6eb; font-size:15px; margin-bottom:4px; }
+.topic-card .sub { color:#8696a4; font-size:13px; }
+.footer { text-align:center; padding:30px; color:#8696a4; font-size:12px; margin-top:30px; border-top:1px solid #1e1e2e; }
+.overview { margin-bottom:28px; }
+.overview p { color:#c4c6cb; font-size:15px; line-height:1.8; margin-bottom:14px; }
+.terms-grid { display:grid; gap:10px; margin-top:12px; }
+.term-card { background:#111119; border:1px solid #1e1e2e; border-radius:10px; padding:14px 18px; }
+.term-card strong { color:#6ab2f2; font-size:14px; }
+.term-card span { color:#c4c6cb; font-size:13px; display:block; margin-top:4px; line-height:1.5; }
+.tip-box { background:linear-gradient(135deg, rgba(106,178,242,0.06), rgba(106,178,242,0.02)); border:1px solid rgba(106,178,242,0.15); border-radius:10px; padding:16px 20px; margin-top:12px; }
+.tip-box li { color:#c4c6cb; font-size:14px; line-height:1.6; margin-bottom:8px; list-style:none; }
+.tip-box li::before { content:'💡 '; }
+.detail-card { background:#111119; border-radius:10px; padding:16px 18px; margin-bottom:8px; border-left:3px solid #2b5278; }
+.detail-card .dt { color:#e4e6eb; font-size:14px; font-weight:600; margin-bottom:4px; }
+.detail-card .dd { color:#9ca3af; font-size:13px; line-height:1.6; }
+.detail-card .dl { margin-top:6px; }
+.detail-card .dl a { font-size:12px; color:#6ab2f2; background:rgba(106,178,242,0.08); padding:3px 10px; border-radius:6px; display:inline-block; margin-right:6px; margin-top:4px; }
+.detail-card .dl a:hover { background:rgba(106,178,242,0.15); text-decoration:none; }
+</style>
+</head>
+<body>
+<div class="header">
+  <a href="../../index.html" class="back">&larr; Назад до курсу</a>
+  <h1>Базова теорія</h1>
+  <a href="../../../en/basic-theory/level-1/sota.html" class="lang-switch">🇬🇧 English</a>
+</div>
+<div class="container">
+  <div class="breadcrumb"><a href="../../index.html">Курс</a> / <a href="../index.html">Базова теорія</a> / <a href="index.html">Рівень 1</a> / Стан мистецтва (SOTA)</div>
+  <span class="level-badge level-1">🌱 Рівень 1 — Новачок</span>
+  <h2>Стан мистецтва (SOTA)</h2>
+  <p class="desc">Розуміння найкращих бенчмарків, рейтингів та як стежити за останніми досягненнями.</p>
+
+  <div class="overview">
+    <p>State of the Art (SOTA) стосується найвищого рівня продуктивності, досягнутого на конкретній задачі або бенчмарку в будь-який момент часу. У швидкорухомій галузі ШІ SOTA змінюється часто — іноді щотижня. Розуміння бенчмарків та лідербордів допомагає оцінювати заяви про моделі та обирати правильні інструменти.</p>
+    <p>Однак бенчмарки мають значні обмеження. Моделі можуть бути оптимізовані спеціально під бенчмарки (перенавчання), результати можуть не відображати реальне використання, а різні бенчмарки вимірюють різні речі. Навчитися критично оцінювати SOTA-заяви — це необхідний навик.</p>
+  </div>
+  <div class="section-title">Основні теми</div>
+  <div class="detail-cards">
+    <div class="detail-card"><div class="dt">Що означає SOTA</div><div class="dd">Найкращий опублікований результат на стандартній бенчмарковій задачі в даний момент. У ШІ SOTA змінюється часто — іноді щотижня — коли випускаються нові моделі та техніки.</div></div>
+    <div class="detail-card"><div class="dt">Текстові та знаннєві бенчмарки</div><div class="dd">MMLU (масивне мультизадачне знання), HellaSwag (здоровий глузд), ARC (наукові питання), TruthfulQA (фактична точність). Вимірюють розуміння та міркування моделей про мову.</div></div>
+    <div class="detail-card"><div class="dt">Кодові бенчмарки</div><div class="dd">HumanEval, MBPP (базове програмування), SWE-bench (реальні задачі інженерії ПЗ), LiveCodeBench (свіжі задачі). Тестують практичну здатність програмування.</div><div class="dl"><a href="../level-2/vibecoding.html">Вайбкодинг</a></div></div>
+    <div class="detail-card"><div class="dt">Математичні бенчмарки</div><div class="dd">MATH (олімпіадна математика), GSM8K (математика початкової школи), задачі олімпіадного рівня. Математичне міркування — одна з найскладніших здібностей LLM.</div><div class="dl"><a href="reasoning.html">Міркування</a></div></div>
+    <div class="detail-card"><div class="dt">Бенчмарки міркувань</div><div class="dd">ARC-AGI (абстрактне міркування), Big-Bench Hard (складні різноманітні задачі), GPQA (запитання аспірантського рівня). Підштовхують межі того, що моделі можуть зрозуміти.</div><div class="dl"><a href="reasoning.html">Міркування</a></div></div>
+    <div class="detail-card"><div class="dt">Лідерборди людських переваг</div><div class="dd">Chatbot Arena (LMSYS) — реальні користувачі голосують між анонімними результатами моделей. Вважається найнадійнішим рейтингом, бо відображає реальне задоволення користувачів.</div></div>
+    <div class="detail-card"><div class="dt">Open LLM Leaderboard</div><div class="dd">Автоматизований набір бенчмарків Hugging Face для моделей з відкритими вагами. Корисний для порівняння відкритих моделей, але оцінки можуть бути завищені оптимізацією під бенчмарки.</div><div class="dl"><a href="big-players.html">Великі гравці</a></div></div>
+    <div class="detail-card"><div class="dt">Оцінка заяв про моделі</div><div class="dd">Дивіться за заголовкові числа: перевіряйте методологію, порівнюйте через кілька бенчмарків, тестуйте на власних задачах. Маркетинг обирає найкращі оцінки.</div></div>
+    <div class="detail-card"><div class="dt">Контамінація бенчмарків</div><div class="dd">Коли тестові дані потрапляють у навчальні (випадково чи навмисно), оцінки штучно завищуються. Зростаюча проблема по мірі розширення навчальних датасетів.</div><div class="dl"><a href="../level-3/data-to-model.html">Від даних до моделі</a></div></div>
+    <div class="detail-card"><div class="dt">Де слідкувати за прогресом ШІ</div><div class="dd">AI Twitter/X для новин, Papers With Code для відстеження SOTA, Hugging Face для моделей, arXiv для статей, ШІ-розсилки (The Batch, Import AI) для кураторських резюме.</div></div>
+  </div>
+
+  <div class="section-title">Ключові терміни</div>
+  <div class="terms-grid">
+    <div class="term-card"><strong>SOTA</strong><span>State of the Art — найкраща продуктивність на бенчмарку в даний момент часу.</span></div>
+    <div class="term-card"><strong>Бенчмарк</strong><span>Стандартизований тест для вимірювання та порівняння продуктивності моделей.</span></div>
+    <div class="term-card"><strong>Лідерборд</strong><span>Рейтинг моделей за продуктивністю на одному або кількох бенчмарках.</span></div>
+    <div class="term-card"><strong>Контамінація</strong><span>Коли тестові дані бенчмарку з'являються у навчальних даних, роблячи оцінки ненадійними.</span></div>
+    <div class="term-card"><strong>Chatbot Arena</strong><span>Лідерборд людських переваг, де реальні користувачі сліпо порівнюють результати моделей.</span></div>
+  </div>
+
+  <div class="section-title">Практичні поради</div>
+  <div class="tip-box"><ul>
+    <li>Завжди перевіряйте Chatbot Arena для найнадійніших рейтингів моделей — він використовує реальні людські переваги</li>
+    <li>Не довіряйте одному бенчмарковому балу. Дивіться на продуктивність через множинні різноманітні бенчмарки</li>
+    <li>Найкраща модель на бенчмарках може не бути найкращою для вашого конкретного випадку — завжди тестуйте самі</li>
+  </ul></div>
+
+    <div class="section-title">Пов'язані обговорення спільноти</div>
+    <div class="related-topics">
+      <a href="#">Feed</a>
+      <a href="#">AI Digest</a>
+    </div>
+
+  <div class="nav-links">
+    <a href="data-classification.html">&larr; Класифікація за типом даних</a>
+    <span class="disabled">&rarr;</span>
+  </div>
+</div>
+<div class="footer"><a href="../../index.html">&larr; Назад до курсу</a></div>
+</body>
+</html>

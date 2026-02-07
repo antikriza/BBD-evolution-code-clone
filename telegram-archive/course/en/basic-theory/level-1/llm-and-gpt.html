@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LLM and GPT - Basic Theory</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background:#0a0a0f; color:#e4e6eb; }
+a { color:#6ab2f2; text-decoration:none; }
+a:hover { text-decoration:underline; }
+.header { background:#111119; padding:16px 24px; border-bottom:1px solid #1e1e2e; display:flex; align-items:center; gap:16px; position:sticky; top:0; z-index:10; }
+.header h1 { font-size:18px; color:#6ab2f2; }
+.header .back { color:#8696a4; font-size:14px; }
+.header .lang-switch { margin-left:auto; font-size:13px; color:#8696a4; }
+.container { max-width:900px; margin:0 auto; padding:24px; }
+.breadcrumb { color:#8696a4; font-size:13px; margin-bottom:20px; }
+.breadcrumb a { color:#6ab2f2; }
+.level-badge { display:inline-block; padding:4px 12px; border-radius:20px; font-size:12px; font-weight:600; margin-bottom:16px; }
+.level-1 { background:rgba(74,222,128,0.15); color:#4ade80; }
+.level-2 { background:rgba(96,165,250,0.15); color:#60a5fa; }
+.level-3 { background:rgba(245,158,11,0.15); color:#f59e0b; }
+.level-4 { background:rgba(239,68,68,0.15); color:#ef4444; }
+.level-5 { background:rgba(168,85,247,0.15); color:#a855f7; }
+h2 { font-size:28px; margin-bottom:8px; }
+.desc { color:#8696a4; font-size:15px; line-height:1.7; margin-bottom:24px; }
+.detail-list { list-style:none; padding:0; }
+.detail-list li { padding:10px 16px; margin-bottom:6px; border-radius:8px; background:#111119; border-left:3px solid #2b5278; font-size:14px; line-height:1.5; color:#e4e6eb; }
+.detail-list li::before { content:'\2192 '; color:#6ab2f2; }
+.section-title { font-size:16px; color:#8696a4; margin:24px 0 12px; text-transform:uppercase; letter-spacing:1px; }
+.related-topics { display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
+.related-topics a { display:inline-block; background:#111119; border:1px solid #1e1e2e; padding:6px 14px; border-radius:8px; font-size:13px; color:#6ab2f2; }
+.related-topics a:hover { background:#1e1e2e; text-decoration:none; }
+.nav-links { display:flex; justify-content:space-between; margin-top:30px; padding-top:20px; border-top:1px solid #1e1e2e; }
+.nav-links a { color:#6ab2f2; font-size:14px; }
+.nav-links .disabled { color:#333; }
+.topic-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:12px; margin-top:16px; }
+.topic-card { background:#111119; border-radius:12px; padding:18px; border-left:3px solid #2b5278; display:block; transition:background 0.15s; }
+.topic-card:hover { background:#1a1a2e; text-decoration:none; }
+.topic-card h3 { color:#e4e6eb; font-size:15px; margin-bottom:4px; }
+.topic-card .sub { color:#8696a4; font-size:13px; }
+.footer { text-align:center; padding:30px; color:#8696a4; font-size:12px; margin-top:30px; border-top:1px solid #1e1e2e; }
+.overview { margin-bottom:28px; }
+.overview p { color:#c4c6cb; font-size:15px; line-height:1.8; margin-bottom:14px; }
+.terms-grid { display:grid; gap:10px; margin-top:12px; }
+.term-card { background:#111119; border:1px solid #1e1e2e; border-radius:10px; padding:14px 18px; }
+.term-card strong { color:#6ab2f2; font-size:14px; }
+.term-card span { color:#c4c6cb; font-size:13px; display:block; margin-top:4px; line-height:1.5; }
+.tip-box { background:linear-gradient(135deg, rgba(106,178,242,0.06), rgba(106,178,242,0.02)); border:1px solid rgba(106,178,242,0.15); border-radius:10px; padding:16px 20px; margin-top:12px; }
+.tip-box li { color:#c4c6cb; font-size:14px; line-height:1.6; margin-bottom:8px; list-style:none; }
+.tip-box li::before { content:'💡 '; }
+.detail-card { background:#111119; border-radius:10px; padding:16px 18px; margin-bottom:8px; border-left:3px solid #2b5278; }
+.detail-card .dt { color:#e4e6eb; font-size:14px; font-weight:600; margin-bottom:4px; }
+.detail-card .dd { color:#9ca3af; font-size:13px; line-height:1.6; }
+.detail-card .dl { margin-top:6px; }
+.detail-card .dl a { font-size:12px; color:#6ab2f2; background:rgba(106,178,242,0.08); padding:3px 10px; border-radius:6px; display:inline-block; margin-right:6px; margin-top:4px; }
+.detail-card .dl a:hover { background:rgba(106,178,242,0.15); text-decoration:none; }
+</style>
+</head>
+<body>
+<div class="header">
+  <a href="../../index.html" class="back">&larr; Back to Course</a>
+  <h1>Basic Theory</h1>
+  <a href="../../../uk/basic-theory/level-1/llm-and-gpt.html" class="lang-switch">🇺🇦 Українська</a>
+</div>
+<div class="container">
+  <div class="breadcrumb"><a href="../../index.html">Course</a> / <a href="../index.html">Basic Theory</a> / <a href="index.html">Level 1</a> / LLM and GPT</div>
+  <span class="level-badge level-1">🌱 Level 1 — Beginner</span>
+  <h2>LLM and GPT</h2>
+  <p class="desc">Large Language Models and the GPT architecture that started the revolution.</p>
+
+  <div class="overview">
+    <p>Large Language Models (LLMs) are neural networks trained on massive text datasets that can understand and generate human language. The &quot;large&quot; refers to both the number of parameters (billions) and the scale of training data (trillions of tokens from the internet). LLMs are the backbone of modern AI assistants like ChatGPT, Claude, and Gemini.</p>
+    <p>GPT — Generative Pre-trained Transformer — is the specific architecture family from OpenAI that popularized LLMs. The key insight was that scaling up a simple next-token prediction objective on internet-scale data produces remarkably capable models. This pattern of &quot;pre-train at scale, then fine-tune for tasks&quot; has become the dominant paradigm across all AI labs.</p>
+  </div>
+  <div class="section-title">Key Topics Covered</div>
+  <div class="detail-cards">
+    <div class="detail-card"><div class="dt">What is an LLM</div><div class="dd">A neural network with billions of parameters trained on massive text data. It learns the statistical structure of language and can generate, analyze, translate, and reason about text.</div><div class="dl"><a href="../level-3/neural-networks.html">Neural Networks</a></div></div>
+    <div class="detail-card"><div class="dt">The Transformer Architecture</div><div class="dd">The 2017 &quot;Attention Is All You Need&quot; paper introduced self-attention — allowing each token to attend to every other token in the sequence. This replaced slower recurrent architectures and enabled parallelization.</div><div class="dl"><a href="../level-3/model-types.html">Model Types</a></div></div>
+    <div class="detail-card"><div class="dt">GPT: Generative Pre-trained Transformer</div><div class="dd">OpenAI's decoder-only architecture. &quot;Generative&quot; = generates text, &quot;Pre-trained&quot; = trained on broad data first, &quot;Transformer&quot; = the underlying architecture. This design became the template for all modern LLMs.</div><div class="dl"><a href="big-players.html">The Big Players</a></div></div>
+    <div class="detail-card"><div class="dt">Next-Token Prediction</div><div class="dd">LLMs generate text one token at a time, always predicting the most probable next token given all previous ones. This simple objective, at scale, produces remarkably capable models.</div><div class="dl"><a href="../level-2/token.html">Token</a></div></div>
+    <div class="detail-card"><div class="dt">Scaling Laws</div><div class="dd">Chinchilla and earlier research showed that model performance improves predictably with more compute, data, and parameters. This mathematical relationship drives the industry push toward larger models.</div><div class="dl"><a href="foundation-models.html">Foundation Models</a></div></div>
+    <div class="detail-card"><div class="dt">Emergent Abilities</div><div class="dd">At certain scales, models suddenly gain capabilities not present in smaller versions — in-context learning, chain-of-thought reasoning, code generation. These emerge from scale, not explicit programming.</div><div class="dl"><a href="reasoning.html">Reasoning</a></div></div>
+    <div class="detail-card"><div class="dt">Key Model Families</div><div class="dd">GPT-4/o1 (OpenAI), Claude 3.5/4 (Anthropic), Gemini (Google), Llama 3 (Meta), Qwen 2.5 (Alibaba), Mistral/Mixtral (Mistral AI). Each has different strengths and trade-offs.</div><div class="dl"><a href="big-players.html">The Big Players</a><a href="sota.html">SOTA</a></div></div>
+    <div class="detail-card"><div class="dt">Model Sizes</div><div class="dd">From 1B parameter &quot;small&quot; models (run on phones) to 1T+ parameter frontier models (require data centers). Common sizes: 7B, 13B, 34B, 70B, 405B. Larger usually = more capable but slower and more expensive.</div><div class="dl"><a href="../level-3/model-optimization.html">Model Optimization</a></div></div>
+    <div class="detail-card"><div class="dt">Training Pipeline</div><div class="dd">Pre-training (trillions of tokens, months of GPU time) → Supervised Fine-Tuning with human-curated examples → RLHF/DPO alignment to make models helpful and safe.</div><div class="dl"><a href="../level-3/training-finetuning.html">Training &amp; Fine-tuning</a></div></div>
+    <div class="detail-card"><div class="dt">Inference</div><div class="dd">How models actually run: forward pass through the network, KV cache for efficient generation, batching multiple requests, streaming tokens to the user as they are generated.</div><div class="dl"><a href="../level-4/hardware.html">Hardware Basics</a><a href="../level-4/api-providers.html">API Providers</a></div></div>
+  </div>
+
+  <div class="section-title">Key Terms</div>
+  <div class="terms-grid">
+    <div class="term-card"><strong>LLM</strong><span>Large Language Model — a neural network with billions of parameters trained to predict and generate text.</span></div>
+    <div class="term-card"><strong>Transformer</strong><span>Neural network architecture using self-attention, enabling parallel processing of sequences.</span></div>
+    <div class="term-card"><strong>Next-Token Prediction</strong><span>The core training objective: given previous tokens, predict the most likely next one.</span></div>
+    <div class="term-card"><strong>Scaling Laws</strong><span>Mathematical relationships showing model performance improves predictably with more compute, data, and parameters.</span></div>
+    <div class="term-card"><strong>Autoregressive</strong><span>Generating output one token at a time, where each new token depends on all previous ones.</span></div>
+  </div>
+
+    <div class="section-title">Related Community Discussions</div>
+    <div class="related-topics">
+      <a href="#">Models</a>
+      <a href="#">Feed</a>
+    </div>
+
+  <div class="nav-links">
+    <a href="big-players.html">&larr; The Big Players</a>
+    <a href="diffusion-models.html">Diffusion Models &rarr;</a>
+  </div>
+</div>
+<div class="footer"><a href="../../index.html">&larr; Back to Course</a></div>
+</body>
+</html>

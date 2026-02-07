@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>State of the Art (SOTA) - Basic Theory</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background:#0a0a0f; color:#e4e6eb; }
+a { color:#6ab2f2; text-decoration:none; }
+a:hover { text-decoration:underline; }
+.header { background:#111119; padding:16px 24px; border-bottom:1px solid #1e1e2e; display:flex; align-items:center; gap:16px; position:sticky; top:0; z-index:10; }
+.header h1 { font-size:18px; color:#6ab2f2; }
+.header .back { color:#8696a4; font-size:14px; }
+.header .lang-switch { margin-left:auto; font-size:13px; color:#8696a4; }
+.container { max-width:900px; margin:0 auto; padding:24px; }
+.breadcrumb { color:#8696a4; font-size:13px; margin-bottom:20px; }
+.breadcrumb a { color:#6ab2f2; }
+.level-badge { display:inline-block; padding:4px 12px; border-radius:20px; font-size:12px; font-weight:600; margin-bottom:16px; }
+.level-1 { background:rgba(74,222,128,0.15); color:#4ade80; }
+.level-2 { background:rgba(96,165,250,0.15); color:#60a5fa; }
+.level-3 { background:rgba(245,158,11,0.15); color:#f59e0b; }
+.level-4 { background:rgba(239,68,68,0.15); color:#ef4444; }
+.level-5 { background:rgba(168,85,247,0.15); color:#a855f7; }
+h2 { font-size:28px; margin-bottom:8px; }
+.desc { color:#8696a4; font-size:15px; line-height:1.7; margin-bottom:24px; }
+.detail-list { list-style:none; padding:0; }
+.detail-list li { padding:10px 16px; margin-bottom:6px; border-radius:8px; background:#111119; border-left:3px solid #2b5278; font-size:14px; line-height:1.5; color:#e4e6eb; }
+.detail-list li::before { content:'\2192 '; color:#6ab2f2; }
+.section-title { font-size:16px; color:#8696a4; margin:24px 0 12px; text-transform:uppercase; letter-spacing:1px; }
+.related-topics { display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
+.related-topics a { display:inline-block; background:#111119; border:1px solid #1e1e2e; padding:6px 14px; border-radius:8px; font-size:13px; color:#6ab2f2; }
+.related-topics a:hover { background:#1e1e2e; text-decoration:none; }
+.nav-links { display:flex; justify-content:space-between; margin-top:30px; padding-top:20px; border-top:1px solid #1e1e2e; }
+.nav-links a { color:#6ab2f2; font-size:14px; }
+.nav-links .disabled { color:#333; }
+.topic-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:12px; margin-top:16px; }
+.topic-card { background:#111119; border-radius:12px; padding:18px; border-left:3px solid #2b5278; display:block; transition:background 0.15s; }
+.topic-card:hover { background:#1a1a2e; text-decoration:none; }
+.topic-card h3 { color:#e4e6eb; font-size:15px; margin-bottom:4px; }
+.topic-card .sub { color:#8696a4; font-size:13px; }
+.footer { text-align:center; padding:30px; color:#8696a4; font-size:12px; margin-top:30px; border-top:1px solid #1e1e2e; }
+.overview { margin-bottom:28px; }
+.overview p { color:#c4c6cb; font-size:15px; line-height:1.8; margin-bottom:14px; }
+.terms-grid { display:grid; gap:10px; margin-top:12px; }
+.term-card { background:#111119; border:1px solid #1e1e2e; border-radius:10px; padding:14px 18px; }
+.term-card strong { color:#6ab2f2; font-size:14px; }
+.term-card span { color:#c4c6cb; font-size:13px; display:block; margin-top:4px; line-height:1.5; }
+.tip-box { background:linear-gradient(135deg, rgba(106,178,242,0.06), rgba(106,178,242,0.02)); border:1px solid rgba(106,178,242,0.15); border-radius:10px; padding:16px 20px; margin-top:12px; }
+.tip-box li { color:#c4c6cb; font-size:14px; line-height:1.6; margin-bottom:8px; list-style:none; }
+.tip-box li::before { content:'💡 '; }
+.detail-card { background:#111119; border-radius:10px; padding:16px 18px; margin-bottom:8px; border-left:3px solid #2b5278; }
+.detail-card .dt { color:#e4e6eb; font-size:14px; font-weight:600; margin-bottom:4px; }
+.detail-card .dd { color:#9ca3af; font-size:13px; line-height:1.6; }
+.detail-card .dl { margin-top:6px; }
+.detail-card .dl a { font-size:12px; color:#6ab2f2; background:rgba(106,178,242,0.08); padding:3px 10px; border-radius:6px; display:inline-block; margin-right:6px; margin-top:4px; }
+.detail-card .dl a:hover { background:rgba(106,178,242,0.15); text-decoration:none; }
+</style>
+</head>
+<body>
+<div class="header">
+  <a href="../../index.html" class="back">&larr; Back to Course</a>
+  <h1>Basic Theory</h1>
+  <a href="../../../uk/basic-theory/level-1/sota.html" class="lang-switch">🇺🇦 Українська</a>
+</div>
+<div class="container">
+  <div class="breadcrumb"><a href="../../index.html">Course</a> / <a href="../index.html">Basic Theory</a> / <a href="index.html">Level 1</a> / State of the Art (SOTA)</div>
+  <span class="level-badge level-1">🌱 Level 1 — Beginner</span>
+  <h2>State of the Art (SOTA)</h2>
+  <p class="desc">Understanding state-of-the-art benchmarks, rankings, and how to track the latest.</p>
+
+  <div class="overview">
+    <p>State of the Art (SOTA) refers to the highest level of performance achieved on a specific task or benchmark at any given time. In the fast-moving AI field, SOTA changes frequently — sometimes weekly. Understanding benchmarks and leaderboards helps you evaluate model claims and choose the right tools.</p>
+    <p>However, benchmarks have significant limitations. Models may be optimized specifically for benchmark performance (overfitting), results may not reflect real-world usage, and different benchmarks measure different things. Learning to critically evaluate SOTA claims is an essential skill.</p>
+  </div>
+  <div class="section-title">Key Topics Covered</div>
+  <div class="detail-cards">
+    <div class="detail-card"><div class="dt">What SOTA Means</div><div class="dd">The best published result on a standard benchmark task at a given time. In AI, SOTA changes frequently — sometimes weekly — as new models and techniques are released.</div></div>
+    <div class="detail-card"><div class="dt">Text &amp; Knowledge Benchmarks</div><div class="dd">MMLU (massive multitask knowledge), HellaSwag (commonsense reasoning), ARC (science questions), TruthfulQA (factual accuracy). These measure how well models understand and reason about language.</div></div>
+    <div class="detail-card"><div class="dt">Code Benchmarks</div><div class="dd">HumanEval, MBPP (basic programming), SWE-bench (real-world software engineering tasks), LiveCodeBench (fresh problems). Code benchmarks test practical programming capability.</div><div class="dl"><a href="../level-2/vibecoding.html">Vibecoding</a></div></div>
+    <div class="detail-card"><div class="dt">Math Benchmarks</div><div class="dd">MATH (competition math), GSM8K (grade school math), Olympiad-level problems. Mathematical reasoning is one of the hardest capabilities for LLMs and a key differentiator between models.</div><div class="dl"><a href="reasoning.html">Reasoning</a></div></div>
+    <div class="detail-card"><div class="dt">Reasoning Benchmarks</div><div class="dd">ARC-AGI (abstract reasoning), Big-Bench Hard (challenging diverse tasks), GPQA (graduate-level questions). These push the boundaries of what models can figure out.</div><div class="dl"><a href="reasoning.html">Reasoning</a></div></div>
+    <div class="detail-card"><div class="dt">Human Preference Leaderboards</div><div class="dd">Chatbot Arena (LMSYS) — real users vote between anonymous model outputs. Widely considered the most reliable ranking because it reflects actual user satisfaction, not just benchmark scores.</div></div>
+    <div class="detail-card"><div class="dt">Open LLM Leaderboard</div><div class="dd">Hugging Face's automated benchmark suite for open-weight models. Useful for comparing open-source options but scores can be gamed through benchmark-specific optimization.</div><div class="dl"><a href="big-players.html">The Big Players</a></div></div>
+    <div class="detail-card"><div class="dt">Evaluating Model Claims</div><div class="dd">Look beyond headline numbers: check benchmark methodology, compare across multiple benchmarks, test on your own tasks. Marketing cherry-picks the best scores.</div></div>
+    <div class="detail-card"><div class="dt">Benchmark Contamination</div><div class="dd">When benchmark test data leaks into training data (accidentally or deliberately), scores become artificially inflated. This is a growing problem as training datasets expand.</div><div class="dl"><a href="../level-3/data-to-model.html">Data to Model</a></div></div>
+    <div class="detail-card"><div class="dt">Where to Follow AI Progress</div><div class="dd">AI Twitter/X for breaking news, Papers With Code for SOTA tracking, Hugging Face for models, arXiv for papers, AI newsletters (The Batch, Import AI) for curated summaries.</div></div>
+  </div>
+
+  <div class="section-title">Key Terms</div>
+  <div class="terms-grid">
+    <div class="term-card"><strong>SOTA</strong><span>State of the Art — the best performance achieved on a benchmark at a given time.</span></div>
+    <div class="term-card"><strong>Benchmark</strong><span>A standardized test used to measure and compare model performance on specific tasks.</span></div>
+    <div class="term-card"><strong>Leaderboard</strong><span>A ranking of models by performance on one or more benchmarks.</span></div>
+    <div class="term-card"><strong>Contamination</strong><span>When benchmark test data appears in training data, making scores unreliable.</span></div>
+    <div class="term-card"><strong>Chatbot Arena</strong><span>Human preference leaderboard where real users blindly compare model outputs.</span></div>
+  </div>
+
+  <div class="section-title">Practical Tips</div>
+  <div class="tip-box"><ul>
+    <li>Always check Chatbot Arena for the most reliable model rankings — it uses real human preferences</li>
+    <li>Don't trust a single benchmark score. Look at performance across multiple diverse benchmarks</li>
+    <li>The best model on benchmarks may not be the best for your specific use case — always test yourself</li>
+  </ul></div>
+
+    <div class="section-title">Related Community Discussions</div>
+    <div class="related-topics">
+      <a href="#">Feed</a>
+      <a href="#">AI Digest</a>
+    </div>
+
+  <div class="nav-links">
+    <a href="data-classification.html">&larr; Data Type Classification</a>
+    <span class="disabled">&rarr;</span>
+  </div>
+</div>
+<div class="footer"><a href="../../index.html">&larr; Back to Course</a></div>
+</body>
+</html>

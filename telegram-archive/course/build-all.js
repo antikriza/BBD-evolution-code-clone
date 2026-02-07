@@ -1,0 +1,1769 @@
+#!/usr/bin/env node
+/**
+ * Generates the full course structure in English and Ukrainian.
+ * All branding removed. Clean, standalone course pages.
+ *
+ * Run: node build-all.js
+ *
+ * Output:
+ *   course/index.html       - Language selector
+ *   course/en/index.html    - English course (Novice/Advanced/Expert)
+ *   course/en/basic-theory/ - English Basic Theory (48 pages)
+ *   course/uk/index.html    - Ukrainian course
+ *   course/uk/basic-theory/ - Ukrainian Basic Theory (48 pages)
+ */
+
+const fs = require('fs');
+const path = require('path');
+
+// ============================================================
+// UI TRANSLATIONS
+// ============================================================
+const ui = {
+  en: {
+    lang: 'en',
+    langName: 'English',
+    siteTitle: 'AI & Programming Course',
+    courseSubtitle: 'Complete Course Structure — AI & Programming',
+    courseSource: 'Compiled from community content and knowledge base materials',
+    totalLessons: 'Total Lessons',
+    modules: 'Modules',
+    kbCourses: 'KB Courses',
+    tgTopics: 'TG Topics',
+    novice: 'NOVICE',
+    noviceSub: 'Beginner',
+    advanced: 'ADVANCED',
+    advancedSub: 'Intermediate',
+    expert: 'EXPERT',
+    expertSub: 'Expert',
+    modulesWord: 'modules',
+    lessonsWord: 'lessons',
+    noviceDesc: 'Foundational AI knowledge, first steps with AI coding tools, basic terminology and concepts. Covers Basic Theory Levels 1-2, AI Programming basics, and Models for Coding introduction.',
+    advancedDesc: 'Deep-dive into neural networks, advanced prompting, MCP, RAG, agents, spec-driven development. Covers Basic Theory Levels 3-4 and advanced AI Programming topics.',
+    expertDesc: 'AI horizons and future, production agent systems, multi-agent architectures, voice agents. Covers Basic Theory Level 5, advanced AI Programming, and workshop content.',
+    contentMapped: 'content mapped',
+    contentSources: 'Content Sources',
+    basicTheory: 'Basic Theory',
+    basicTheoryDesc: '5 levels, 42 topics',
+    aiProg: 'AI Programming',
+    aiProgDesc: '20 topics',
+    modelsDesc: '6 topics',
+    tgDesc: 'Telegram Community',
+    tgDescLong: 'discussions and workshops',
+    available: 'Available',
+    availableDesc: 'Full content from both sources',
+    kbTg: 'KB + Community',
+    kbTgDesc: 'Combined content from knowledge base and community',
+    fromKb: 'From KB',
+    fromKbDesc: 'Lesson structure from knowledge base',
+    kbLesson: 'KB Lesson',
+    workshop: 'Workshop recording',
+    discussion: 'Community discussion',
+    full: 'Full',
+    lesson: 'lesson',
+    lessons: 'lessons',
+    backToCourse: 'Back to Course',
+    backToTopics: 'Back to Topics',
+    course: 'Course',
+    basicTheoryTitle: 'Basic Theory',
+    level: 'Level',
+    levels: 'Levels',
+    topics: 'Topics',
+    keyTopics: 'Key Topics Covered',
+    relatedDiscussions: 'Related Community Discussions',
+    tgArchive: 'Community Archive',
+    beginner: 'Beginner',
+    user: 'User',
+    professional: 'Professional',
+    master: 'Master',
+    horizons: 'Horizons',
+    btOverviewDesc: '5 progressive levels covering everything from what generative AI is to AGI, alignment, and the future of intelligence.',
+    selectLang: 'Select Language',
+    footer: 'AI & Programming Course Structure',
+    switchLang: 'Українська версія',
+    switchLangHref: '../uk/index.html',
+    otherLang: '🇺🇦 Українська',
+  },
+  uk: {
+    lang: 'uk',
+    langName: 'Українська',
+    siteTitle: 'Курс з ШІ та програмування',
+    courseSubtitle: 'Повна структура курсу — ШІ та програмування',
+    courseSource: 'Зібрано з матеріалів спільноти та бази знань',
+    totalLessons: 'Усього уроків',
+    modules: 'Модулів',
+    kbCourses: 'Курси БЗ',
+    tgTopics: 'Теми TG',
+    novice: 'НОВАЧОК',
+    noviceSub: 'Початковий',
+    advanced: 'ПРОСУНУТИЙ',
+    advancedSub: 'Середній',
+    expert: 'ЕКСПЕРТ',
+    expertSub: 'Експертний',
+    modulesWord: 'модулів',
+    lessonsWord: 'уроків',
+    noviceDesc: 'Базові знання про ШІ, перші кроки з інструментами ШІ для програмування, основна термінологія та концепції. Охоплює Базову теорію рівнів 1-2, основи ШІ-програмування та вступ до моделей для розробки.',
+    advancedDesc: 'Глибоке занурення в нейромережі, просунутий промптинг, MCP, RAG, агенти, розробка за специфікаціями. Охоплює Базову теорію рівнів 3-4 та просунуті теми ШІ-програмування.',
+    expertDesc: 'Горизонти та майбутнє ШІ, продакшн агентні системи, мультиагентні архітектури, голосові агенти. Охоплює Базову теорію рівня 5, просунуте ШІ-програмування та воркшопи.',
+    contentMapped: 'контенту зібрано',
+    contentSources: 'Джерела контенту',
+    basicTheory: 'Базова теорія',
+    basicTheoryDesc: '5 рівнів, 42 теми',
+    aiProg: 'ШІ-програмування',
+    aiProgDesc: '20 тем',
+    modelsDesc: '6 тем',
+    tgDesc: 'Telegram-спільнота',
+    tgDescLong: 'обговорення та воркшопи',
+    available: 'Доступно',
+    availableDesc: 'Повний контент з обох джерел',
+    kbTg: 'БЗ + Спільнота',
+    kbTgDesc: 'Комбінований контент із бази знань та спільноти',
+    fromKb: 'З БЗ',
+    fromKbDesc: 'Структура уроку з бази знань',
+    kbLesson: 'Урок БЗ',
+    workshop: 'Запис воркшопу',
+    discussion: 'Обговорення спільноти',
+    full: 'Повний',
+    lesson: 'урок',
+    lessons: 'уроків',
+    backToCourse: 'Назад до курсу',
+    backToTopics: 'Назад до тем',
+    course: 'Курс',
+    basicTheoryTitle: 'Базова теорія',
+    level: 'Рівень',
+    levels: 'Рівні',
+    topics: 'Теми',
+    keyTopics: 'Основні теми',
+    relatedDiscussions: 'Пов\'язані обговорення спільноти',
+    tgArchive: 'Архів спільноти',
+    beginner: 'Новачок',
+    user: 'Користувач',
+    professional: 'Професіонал',
+    master: 'Майстер',
+    horizons: 'Горизонти',
+    btOverviewDesc: '5 прогресивних рівнів, що охоплюють все від основ генеративного ШІ до AGI, вирівнювання та майбутнього інтелекту.',
+    selectLang: 'Оберіть мову',
+    footer: 'Структура курсу з ШІ та програмування',
+    switchLang: 'English version',
+    switchLangHref: '../en/index.html',
+    otherLang: '🇬🇧 English',
+  }
+};
+
+// ============================================================
+// BASIC THEORY COURSE DATA (both languages)
+// ============================================================
+const levels = [
+  {
+    num: 1, emoji: '🌱',
+    title: { en: 'Beginner', uk: 'Новачок' },
+    desc: {
+      en: 'Foundational concepts of generative AI, major players, model types, and core terminology.',
+      uk: 'Базові концепції генеративного ШІ, основні гравці, типи моделей та ключова термінологія.'
+    },
+    topics: [
+      {
+        slug: 'generative-ai',
+        title: { en: 'Generative AI', uk: 'Генеративний ШІ' },
+        desc: {
+          en: 'Introduction to generative artificial intelligence - what it is, how it works, and why it matters.',
+          uk: 'Вступ до генеративного штучного інтелекту — що це, як працює та чому це важливо.'
+        },
+        overview: {
+          en: [
+            'Generative AI is a class of artificial intelligence systems that can create new content — text, images, audio, video, and code — rather than simply analyzing or classifying existing data. Unlike traditional machine learning models that predict labels or numbers, generative models learn the underlying patterns and distribution of their training data, then produce entirely new outputs that follow those same patterns.',
+            'The field exploded into mainstream awareness with the release of ChatGPT in November 2022, but the foundations were laid years earlier with the Transformer architecture (2017), GPT-1 (2018), and the steady scaling of models that revealed emergent abilities at larger sizes. Today, generative AI powers everything from coding assistants to image generators, and understanding how it works is the essential starting point for anyone working with modern AI tools.',
+            'Generative AI operates across multiple modalities. Large Language Models (LLMs) like GPT-4 and Claude generate text. Diffusion models like Stable Diffusion and DALL-E create images. Models like Sora generate video, while Whisper and similar systems handle audio. Increasingly, multimodal models combine several of these capabilities in a single system.'
+          ],
+          uk: [
+            'Генеративний ШІ — це клас систем штучного інтелекту, що можуть створювати новий контент — текст, зображення, аудіо, відео та код — а не просто аналізувати чи класифікувати існуючі дані. На відміну від традиційних моделей машинного навчання, що передбачають мітки чи числа, генеративні моделі вивчають базові патерни та розподіл навчальних даних, а потім створюють абсолютно нові результати за тими ж патернами.',
+            'Ця галузь вибухнула у масову свідомість з випуском ChatGPT у листопаді 2022 року, але фундамент був закладений роками раніше з архітектурою Transformer (2017), GPT-1 (2018) та поступовим масштабуванням моделей, що виявило емерджентні здібності при більших розмірах. Сьогодні генеративний ШІ живить все — від асистентів кодування до генераторів зображень, і розуміння його роботи є основною стартовою точкою для будь-кого, хто працює з сучасними ШІ-інструментами.',
+            'Генеративний ШІ працює через множинні модальності. Великі мовні моделі (LLM) як GPT-4 та Claude генерують текст. Дифузійні моделі як Stable Diffusion та DALL-E створюють зображення. Моделі типу Sora генерують відео, а Whisper та подібні системи працюють з аудіо. Все частіше мультимодальні моделі поєднують кілька цих можливостей в одній системі.'
+          ]
+        },
+        details: {
+          en: [
+            { text: 'Generative vs Traditional AI/ML', desc: 'Traditional AI classifies or predicts from data. Generative AI creates new content — text, images, code — by learning patterns from training data and producing novel outputs.', links: [{ title: 'Data Type Classification', href: '../level-1/data-classification.html' }] },
+            { text: 'Key Generative Modalities', desc: 'Text (LLMs like GPT, Claude), images (diffusion models like DALL-E, Midjourney), audio (Whisper, TTS), video (Sora, Runway), and code (Codex, StarCoder). Each modality uses different architectures.', links: [{ title: 'Diffusion Models', href: 'diffusion-models.html' }, { title: 'Multimodality', href: 'multimodality.html' }] },
+            { text: 'History of Generative AI', desc: 'GPT-1 (2018, 117M params) → GPT-2 (2019, 1.5B) → GPT-3 (2020, 175B) → ChatGPT (Nov 2022, public launch) → GPT-4 (2023, multimodal). Each step brought qualitative leaps in capability.', links: [{ title: 'LLM and GPT', href: 'llm-and-gpt.html' }] },
+            { text: 'Generative vs Discriminative Models', desc: 'Discriminative models learn decision boundaries (cat vs dog). Generative models learn the full data distribution and can sample new examples from it. LLMs are generative — they model the probability of text.', links: [] },
+            { text: 'The Transformer Architecture', desc: 'The 2017 "Attention Is All You Need" paper introduced self-attention, enabling parallel processing of sequences. Virtually all modern generative AI — text, image, video — builds on this architecture.', links: [{ title: 'Neural Networks', href: '../level-3/neural-networks.html' }, { title: 'Model Types', href: '../level-3/model-types.html' }] },
+            { text: 'Pre-training at Scale', desc: 'Models are trained on trillions of tokens from the internet — books, websites, code repos, scientific papers. This phase costs millions of dollars and produces a "foundation model" with general capabilities.', links: [{ title: 'Foundation Models', href: 'foundation-models.html' }, { title: 'Data to Model', href: '../level-3/data-to-model.html' }] },
+            { text: 'Emergent Abilities', desc: 'At certain scales, models suddenly gain capabilities not present in smaller versions: in-context learning, chain-of-thought reasoning, code generation. These emerge from scale, not explicit programming.', links: [{ title: 'Reasoning', href: 'reasoning.html' }] },
+            { text: 'Real-World Applications', desc: 'Software development (AI pair programming, code review), content creation (writing, design), healthcare (drug discovery), education (tutoring), finance (analysis), legal (document review).', links: [] },
+            { text: 'Open vs Closed Ecosystem', desc: 'Closed models (GPT-4, Claude) offer superior performance via API. Open-weight models (Llama, Qwen, Mistral) can be run locally, fine-tuned, and inspected. Both ecosystems are thriving.', links: [{ title: 'The Big Players', href: 'big-players.html' }, { title: 'API Providers', href: '../level-4/api-providers.html' }] },
+            { text: 'Current Limitations', desc: 'Hallucinations (confident but wrong outputs), reasoning gaps (failing on novel logic), context constraints (limited working memory), lack of real-time knowledge, and inability to truly "understand."', links: [{ title: 'Hallucinations', href: '../level-2/hallucination.html' }, { title: 'Context', href: '../level-2/context.html' }] }
+          ],
+          uk: [
+            { text: 'Генеративний vs Традиційний ШІ/ML', desc: 'Традиційний ШІ класифікує або передбачає з даних. Генеративний ШІ створює новий контент — текст, зображення, код — вивчаючи патерни з навчальних даних і створюючи нові результати.', links: [{ title: 'Класифікація за типом даних', href: '../level-1/data-classification.html' }] },
+            { text: 'Основні генеративні модальності', desc: 'Текст (LLM як GPT, Claude), зображення (дифузійні моделі як DALL-E, Midjourney), аудіо (Whisper, TTS), відео (Sora, Runway) та код (Codex, StarCoder). Кожна модальність використовує різні архітектури.', links: [{ title: 'Дифузійні моделі', href: 'diffusion-models.html' }, { title: 'Мультимодальність', href: 'multimodality.html' }] },
+            { text: 'Історія генеративного ШІ', desc: 'GPT-1 (2018, 117M параметрів) → GPT-2 (2019, 1.5B) → GPT-3 (2020, 175B) → ChatGPT (листопад 2022, публічний запуск) → GPT-4 (2023, мультимодальний). Кожен крок приносив якісні стрибки у можливостях.', links: [{ title: 'LLM та GPT', href: 'llm-and-gpt.html' }] },
+            { text: 'Генеративні vs Дискримінативні моделі', desc: 'Дискримінативні моделі вивчають межі рішень (кіт vs собака). Генеративні моделі вивчають повний розподіл даних і можуть створювати нові приклади з нього. LLM є генеративними — вони моделюють імовірність тексту.', links: [] },
+            { text: 'Архітектура Transformer', desc: 'Стаття 2017 року "Attention Is All You Need" ввела самоувагу, що дозволяє паралельну обробку послідовностей. Практично весь сучасний генеративний ШІ — текст, зображення, відео — побудований на цій архітектурі.', links: [{ title: 'Основи нейромереж', href: '../level-3/neural-networks.html' }, { title: 'Типи моделей', href: '../level-3/model-types.html' }] },
+            { text: 'Попереднє навчання у масштабі', desc: 'Моделі навчаються на трильйонах токенів з інтернету — книги, веб-сайти, репозиторії коду, наукові статті. Ця фаза коштує мільйони доларів і створює "фундаментальну модель" із загальними можливостями.', links: [{ title: 'Фундаментальні моделі', href: 'foundation-models.html' }, { title: 'Від даних до моделі', href: '../level-3/data-to-model.html' }] },
+            { text: 'Емерджентні здібності', desc: 'При певних масштабах моделі раптово отримують можливості, відсутні у менших версіях: навчання в контексті, міркування ланцюгом думок, генерація коду. Вони виникають від масштабу, а не від явного програмування.', links: [{ title: 'Міркування', href: 'reasoning.html' }] },
+            { text: 'Реальні застосування', desc: 'Розробка ПЗ (парне програмування з ШІ, код-ревю), створення контенту (написання, дизайн), охорона здоров\'я (розробка ліків), освіта (репетиторство), фінанси (аналіз), юриспруденція (перевірка документів).', links: [] },
+            { text: 'Відкрита vs Закрита екосистема', desc: 'Закриті моделі (GPT-4, Claude) пропонують найкращу продуктивність через API. Моделі з відкритими вагами (Llama, Qwen, Mistral) можна запускати локально, файн-тюнити та досліджувати.', links: [{ title: 'Великі гравці', href: 'big-players.html' }, { title: 'API-провайдери', href: '../level-4/api-providers.html' }] },
+            { text: 'Поточні обмеження', desc: 'Галюцинації (впевнені але хибні виходи), прогалини міркувань (збої на новій логіці), обмеження контексту (обмежена робоча пам\'ять), відсутність знань у реальному часі та нездатність справді "розуміти."', links: [{ title: 'Галюцинації', href: '../level-2/hallucination.html' }, { title: 'Контекст', href: '../level-2/context.html' }] }
+          ]
+        },
+        sections: [
+          {
+            title: { en: 'How Generative AI Works', uk: 'Як працює генеративний ШІ' },
+            items: {
+              en: [
+                'Models learn statistical patterns from billions of text/image examples during pre-training',
+                'Text generation works by predicting the next token (word piece) in a sequence, one at a time',
+                'Image generation (diffusion) works by learning to remove noise from random static, guided by text descriptions',
+                'Temperature and sampling parameters control creativity vs determinism in outputs',
+                'Models have no true understanding — they are sophisticated pattern matchers operating on statistical regularities',
+                'Fine-tuning and RLHF align raw model capabilities with human preferences and safety'
+              ],
+              uk: [
+                'Моделі вивчають статистичні патерни з мільярдів текстових/графічних прикладів під час попереднього навчання',
+                'Генерація тексту працює через передбачення наступного токена (частини слова) в послідовності, по одному за раз',
+                'Генерація зображень (дифузія) працює через навчання видалення шуму з випадкових перешкод, керованих текстовими описами',
+                'Температура та параметри семплінгу контролюють креативність vs детермінізм у результатах',
+                'Моделі не мають справжнього розуміння — це складні зіставники патернів, що працюють на статистичних закономірностях',
+                'Файн-тюнінг та RLHF вирівнюють сирі можливості моделей з людськими перевагами та безпекою'
+              ]
+            }
+          },
+          {
+            title: { en: 'Impact by Industry', uk: 'Вплив за галузями' },
+            items: {
+              en: [
+                'Software development: AI pair programming, code generation, automated testing, debugging',
+                'Content & media: automated writing, image/video creation, personalized content',
+                'Healthcare: drug discovery, medical imaging analysis, clinical documentation',
+                'Education: personalized tutoring, automated grading, content creation',
+                'Finance: fraud detection, report generation, risk analysis',
+                'Legal: document review, contract analysis, research assistance'
+              ],
+              uk: [
+                'Розробка ПЗ: парне програмування з ШІ, генерація коду, автоматизоване тестування, дебагінг',
+                'Контент та медіа: автоматизоване написання текстів, створення зображень/відео, персоналізований контент',
+                'Охорона здоров\'я: розробка ліків, аналіз медичних зображень, клінічна документація',
+                'Освіта: персоналізоване репетиторство, автоматизоване оцінювання, створення контенту',
+                'Фінанси: виявлення шахрайства, генерація звітів, аналіз ризиків',
+                'Юриспруденція: перевірка документів, аналіз контрактів, допомога в дослідженнях'
+              ]
+            }
+          }
+        ],
+        keyTerms: {
+          en: [
+            { term: 'Generative AI', def: 'AI systems that create new content (text, images, code) rather than just analyzing existing data.' },
+            { term: 'Foundation Model', def: 'A large model pre-trained on broad data that serves as a base for many downstream tasks.' },
+            { term: 'Transformer', def: 'The neural network architecture (2017) that powers virtually all modern generative AI.' },
+            { term: 'Pre-training', def: 'The initial phase of training a model on massive datasets before task-specific adaptation.' },
+            { term: 'Emergent Abilities', def: 'Capabilities that appear suddenly in models only when they reach a certain scale.' }
+          ],
+          uk: [
+            { term: 'Генеративний ШІ', def: 'Системи ШІ, що створюють новий контент (текст, зображення, код), а не просто аналізують існуючі дані.' },
+            { term: 'Фундаментальна модель', def: 'Велика модель, попередньо навчена на широких даних, що слугує основою для багатьох задач.' },
+            { term: 'Transformer', def: 'Архітектура нейромережі (2017), що живить практично весь сучасний генеративний ШІ.' },
+            { term: 'Попереднє навчання', def: 'Початкова фаза навчання моделі на масивних наборах даних перед задачно-специфічною адаптацією.' },
+            { term: 'Емерджентні здібності', def: 'Можливості, що раптово з\'являються у моделей лише при досягненні певного масштабу.' }
+          ]
+        },
+        tips: {
+          en: [
+            'Start by experimenting with ChatGPT or Claude to build intuition before diving into technical details',
+            'Remember that generative AI is probabilistic — the same prompt can produce different outputs each time',
+            'Understanding the difference between generative and discriminative AI helps you choose the right tool for each task'
+          ],
+          uk: [
+            'Почніть з експериментів з ChatGPT або Claude для побудови інтуїції перед зануренням у технічні деталі',
+            'Пам\'ятайте, що генеративний ШІ є імовірнісним — той самий промпт може давати різні результати кожного разу',
+            'Розуміння різниці між генеративним та дискримінативним ШІ допомагає обрати правильний інструмент для кожної задачі'
+          ]
+        },
+        related: ['Feed', 'AI Digest']
+      },
+      {
+        slug: 'big-players',
+        title: { en: 'The Big Players', uk: 'Великі гравці' },
+        desc: {
+          en: 'Overview of major companies and organizations driving the AI revolution.',
+          uk: 'Огляд основних компаній та організацій, що рухають революцію ШІ.'
+        },
+        overview: {
+          en: [
+            'The generative AI landscape is shaped by a handful of major organizations competing to build the most capable models. Understanding who these players are, their philosophies, and their key products is essential for navigating the rapidly evolving AI ecosystem.',
+            'The competitive dynamics are complex: some companies like OpenAI and Anthropic focus on closed-source frontier models, while Meta and Mistral champion open-weight approaches. Google DeepMind leverages massive infrastructure, while Chinese labs like DeepSeek have shown that impressive results can be achieved with novel architectures and training approaches.'
+          ],
+          uk: [
+            'Ландшафт генеративного ШІ формується кількома великими організаціями, що змагаються за створення найздатніших моделей. Розуміння хто ці гравці, їх філософій та ключових продуктів є необхідним для орієнтації у швидко змінюваній екосистемі ШІ.',
+            'Конкурентна динаміка складна: деякі компанії як OpenAI та Anthropic фокусуються на закритих фронтирних моделях, тоді як Meta та Mistral відстоюють підхід відкритих ваг. Google DeepMind використовує масивну інфраструктуру, а китайські лабораторії як DeepSeek показали, що вражаючих результатів можна досягти з новаторськими архітектурами та підходами до навчання.'
+          ]
+        },
+        details: {
+          en: [
+            { text: 'OpenAI', desc: 'GPT-4, ChatGPT, DALL-E 3, Sora, o1/o3 reasoning models. Pioneer of the current AI wave. First to demonstrate scaling laws and bring LLMs to the mainstream.', links: [{ title: 'LLM and GPT', href: 'llm-and-gpt.html' }, { title: 'Reasoning', href: 'reasoning.html' }] },
+            { text: 'Anthropic', desc: 'Claude family (Opus, Sonnet, Haiku). Constitutional AI safety approach. Founded by ex-OpenAI researchers focused on AI safety. Known for long context windows (200K tokens).', links: [{ title: 'Context', href: '../level-2/context.html' }, { title: 'AI Safety', href: '../level-5/ai-safety.html' }] },
+            { text: 'Google DeepMind', desc: 'Gemini (Ultra/Pro/Flash/Nano), AlphaFold protein folding breakthrough, massive compute infrastructure. Natively multimodal models with largest context windows (1M+ tokens).', links: [{ title: 'Multimodality', href: 'multimodality.html' }, { title: 'Foundation Models', href: 'foundation-models.html' }] },
+            { text: 'Meta AI', desc: 'Llama open-source model family (Llama 3, 3.1, 3.2). FAIR fundamental research. Champion of open-weight AI — anyone can download, run, and fine-tune their models.', links: [{ title: 'Training & Fine-tuning', href: '../level-3/training-finetuning.html' }] },
+            { text: 'Mistral AI', desc: 'European AI lab (Paris). Mistral, Mixtral MoE models. Open-weight approach. Proved that smaller European labs can compete with US giants using efficient architectures.', links: [{ title: 'Model Types', href: '../level-3/model-types.html' }] },
+            { text: 'xAI (Grok)', desc: 'Elon Musk\'s AI lab. Grok models with real-time X (Twitter) data access. Focus on reducing censorship and maximizing helpfulness.', links: [] },
+            { text: 'Chinese Labs', desc: 'DeepSeek (R1 reasoning model, rivaling o1), Alibaba (Qwen open-weight family), Baidu (ERNIE), ByteDance (Doubao). Rapidly closing the gap with Western labs.', links: [{ title: 'Reasoning', href: 'reasoning.html' }, { title: 'SOTA', href: 'sota.html' }] },
+            { text: 'Specialized Labs', desc: 'Stability AI (Stable Diffusion image gen), Cohere (enterprise NLP), AI21 (Jamba hybrid model), Runway (video generation). Domain-specific leaders.', links: [{ title: 'Diffusion Models', href: 'diffusion-models.html' }] },
+            { text: 'Research Institutions', desc: 'Allen AI (OLMo fully open), EleutherAI (open research community), LAION (open datasets). Pushing for transparent, reproducible AI research.', links: [{ title: 'Data to Model', href: '../level-3/data-to-model.html' }] }
+          ],
+          uk: [
+            { text: 'OpenAI', desc: 'GPT-4, ChatGPT, DALL-E 3, Sora, моделі міркування o1/o3. Піонер поточної хвилі ШІ. Першими продемонстрували закони масштабування та вивели LLM у мейнстрім.', links: [{ title: 'LLM та GPT', href: 'llm-and-gpt.html' }, { title: 'Міркування', href: 'reasoning.html' }] },
+            { text: 'Anthropic', desc: 'Сімейство Claude (Opus, Sonnet, Haiku). Підхід безпеки Constitutional AI. Заснований колишніми дослідниками OpenAI. Відомий довгими контекстними вікнами (200K токенів).', links: [{ title: 'Контекст', href: '../level-2/context.html' }, { title: 'Безпека ШІ', href: '../level-5/ai-safety.html' }] },
+            { text: 'Google DeepMind', desc: 'Gemini (Ultra/Pro/Flash/Nano), прорив AlphaFold у фолдінгу білків, масивна обчислювальна інфраструктура. Нативно мультимодальні моделі з найбільшими контекстними вікнами (1M+ токенів).', links: [{ title: 'Мультимодальність', href: 'multimodality.html' }, { title: 'Фундаментальні моделі', href: 'foundation-models.html' }] },
+            { text: 'Meta AI', desc: 'Відкрите сімейство моделей Llama (Llama 3, 3.1, 3.2). Фундаментальні дослідження FAIR. Чемпіон відкритого ШІ — будь-хто може завантажити, запустити та файн-тюнити їх моделі.', links: [{ title: 'Навчання та файн-тюнінг', href: '../level-3/training-finetuning.html' }] },
+            { text: 'Mistral AI', desc: 'Європейська ШІ-лабораторія (Париж). Моделі Mistral, Mixtral MoE. Підхід відкритих ваг. Довели, що менші європейські лабораторії можуть конкурувати з американськими гігантами.', links: [{ title: 'Типи моделей', href: '../level-3/model-types.html' }] },
+            { text: 'xAI (Grok)', desc: 'ШІ-лабораторія Ілона Маска. Моделі Grok з доступом до реальних даних X (Twitter). Фокус на зменшенні цензури та максимізації корисності.', links: [] },
+            { text: 'Китайські лабораторії', desc: 'DeepSeek (R1 модель міркувань, конкурує з o1), Alibaba (відкрите сімейство Qwen), Baidu (ERNIE), ByteDance (Doubao). Стрімко скорочують розрив із західними лабораторіями.', links: [{ title: 'Міркування', href: 'reasoning.html' }, { title: 'SOTA', href: 'sota.html' }] },
+            { text: 'Спеціалізовані лабораторії', desc: 'Stability AI (генерація зображень Stable Diffusion), Cohere (корпоративний NLP), AI21 (гібридна модель Jamba), Runway (генерація відео). Лідери у своїх доменах.', links: [{ title: 'Дифузійні моделі', href: 'diffusion-models.html' }] },
+            { text: 'Дослідницькі інституції', desc: 'Allen AI (повністю відкритий OLMo), EleutherAI (відкрита дослідницька спільнота), LAION (відкриті датасети). Просувають прозорі, відтворювані дослідження ШІ.', links: [{ title: 'Від даних до моделі', href: '../level-3/data-to-model.html' }] }
+          ]
+        },
+        keyTerms: {
+          en: [
+            { term: 'Frontier Model', def: 'The most capable AI models at the cutting edge of performance, typically from major labs.' },
+            { term: 'Open-Weight', def: 'Models where the trained weights are publicly released, allowing anyone to run them locally.' },
+            { term: 'Closed-Source', def: 'Models accessible only via API, with weights and training details kept proprietary.' },
+            { term: 'MoE (Mixture of Experts)', def: 'Architecture where only a subset of model parameters activate per input, enabling larger models at lower compute cost.' }
+          ],
+          uk: [
+            { term: 'Фронтирна модель', def: 'Найздатніші моделі ШІ на передньому краї продуктивності, зазвичай від великих лабораторій.' },
+            { term: 'Відкриті ваги', def: 'Моделі, де навчені ваги публічно доступні, що дозволяє будь-кому запускати їх локально.' },
+            { term: 'Закритий код', def: 'Моделі, доступні лише через API, з вагами та деталями навчання як пропрієтарна інформація.' },
+            { term: 'MoE (Mixture of Experts)', def: 'Архітектура, де лише підмножина параметрів моделі активується на кожний вхід, дозволяючи більші моделі при меншій вартості обчислень.' }
+          ]
+        },
+        tips: {
+          en: [
+            'Follow AI news aggregators to stay current — the competitive landscape changes monthly',
+            'Don\'t lock into one provider. Try models from different labs to understand their strengths',
+            'Open-weight models (Llama, Qwen, Mistral) are great for learning since you can inspect and run them locally'
+          ],
+          uk: [
+            'Слідкуйте за агрегаторами новин ШІ — конкурентний ландшафт змінюється щомісяця',
+            'Не прив\'язуйтесь до одного провайдера. Спробуйте моделі від різних лабораторій, щоб зрозуміти їх сильні сторони',
+            'Моделі з відкритими вагами (Llama, Qwen, Mistral) чудово підходять для навчання, бо їх можна досліджувати та запускати локально'
+          ]
+        },
+        related: ['Models', 'Feed']
+      },
+      {
+        slug: 'llm-and-gpt',
+        title: { en: 'LLM and GPT', uk: 'LLM та GPT' },
+        desc: {
+          en: 'Large Language Models and the GPT architecture that started the revolution.',
+          uk: 'Великі мовні моделі та архітектура GPT, що розпочала революцію.'
+        },
+        overview: {
+          en: [
+            'Large Language Models (LLMs) are neural networks trained on massive text datasets that can understand and generate human language. The "large" refers to both the number of parameters (billions) and the scale of training data (trillions of tokens from the internet). LLMs are the backbone of modern AI assistants like ChatGPT, Claude, and Gemini.',
+            'GPT — Generative Pre-trained Transformer — is the specific architecture family from OpenAI that popularized LLMs. The key insight was that scaling up a simple next-token prediction objective on internet-scale data produces remarkably capable models. This pattern of "pre-train at scale, then fine-tune for tasks" has become the dominant paradigm across all AI labs.'
+          ],
+          uk: [
+            'Великі мовні моделі (LLM) — це нейромережі, навчені на масивних текстових наборах даних, що можуть розуміти та генерувати людську мову. "Великі" стосується як кількості параметрів (мільярди), так і масштабу навчальних даних (трильйони токенів з інтернету). LLM є основою сучасних ШІ-асистентів як ChatGPT, Claude та Gemini.',
+            'GPT — Generative Pre-trained Transformer — це конкретне сімейство архітектур від OpenAI, що популяризувало LLM. Ключова ідея полягала в тому, що масштабування простої задачі передбачення наступного токена на інтернет-масштабних даних створює надзвичайно здатні моделі. Цей патерн "попереднє навчання в масштабі, потім файн-тюнінг для задач" став домінуючою парадигмою в усіх ШІ-лабораторіях.'
+          ]
+        },
+        details: {
+          en: [
+            { text: 'What is an LLM', desc: 'A neural network with billions of parameters trained on massive text data. It learns the statistical structure of language and can generate, analyze, translate, and reason about text.', links: [{ title: 'Neural Networks', href: '../level-3/neural-networks.html' }] },
+            { text: 'The Transformer Architecture', desc: 'The 2017 "Attention Is All You Need" paper introduced self-attention — allowing each token to attend to every other token in the sequence. This replaced slower recurrent architectures and enabled parallelization.', links: [{ title: 'Model Types', href: '../level-3/model-types.html' }] },
+            { text: 'GPT: Generative Pre-trained Transformer', desc: 'OpenAI\'s decoder-only architecture. "Generative" = generates text, "Pre-trained" = trained on broad data first, "Transformer" = the underlying architecture. This design became the template for all modern LLMs.', links: [{ title: 'The Big Players', href: 'big-players.html' }] },
+            { text: 'Next-Token Prediction', desc: 'LLMs generate text one token at a time, always predicting the most probable next token given all previous ones. This simple objective, at scale, produces remarkably capable models.', links: [{ title: 'Token', href: '../level-2/token.html' }] },
+            { text: 'Scaling Laws', desc: 'Chinchilla and earlier research showed that model performance improves predictably with more compute, data, and parameters. This mathematical relationship drives the industry push toward larger models.', links: [{ title: 'Foundation Models', href: 'foundation-models.html' }] },
+            { text: 'Emergent Abilities', desc: 'At certain scales, models suddenly gain capabilities not present in smaller versions — in-context learning, chain-of-thought reasoning, code generation. These emerge from scale, not explicit programming.', links: [{ title: 'Reasoning', href: 'reasoning.html' }] },
+            { text: 'Key Model Families', desc: 'GPT-4/o1 (OpenAI), Claude 3.5/4 (Anthropic), Gemini (Google), Llama 3 (Meta), Qwen 2.5 (Alibaba), Mistral/Mixtral (Mistral AI). Each has different strengths and trade-offs.', links: [{ title: 'The Big Players', href: 'big-players.html' }, { title: 'SOTA', href: 'sota.html' }] },
+            { text: 'Model Sizes', desc: 'From 1B parameter "small" models (run on phones) to 1T+ parameter frontier models (require data centers). Common sizes: 7B, 13B, 34B, 70B, 405B. Larger usually = more capable but slower and more expensive.', links: [{ title: 'Model Optimization', href: '../level-3/model-optimization.html' }] },
+            { text: 'Training Pipeline', desc: 'Pre-training (trillions of tokens, months of GPU time) → Supervised Fine-Tuning with human-curated examples → RLHF/DPO alignment to make models helpful and safe.', links: [{ title: 'Training & Fine-tuning', href: '../level-3/training-finetuning.html' }] },
+            { text: 'Inference', desc: 'How models actually run: forward pass through the network, KV cache for efficient generation, batching multiple requests, streaming tokens to the user as they are generated.', links: [{ title: 'Hardware Basics', href: '../level-4/hardware.html' }, { title: 'API Providers', href: '../level-4/api-providers.html' }] }
+          ],
+          uk: [
+            { text: 'Що таке LLM', desc: 'Нейромережа з мільярдами параметрів, навчена на масивних текстових даних. Вона вивчає статистичну структуру мови і може генерувати, аналізувати, перекладати та міркувати про текст.', links: [{ title: 'Основи нейромереж', href: '../level-3/neural-networks.html' }] },
+            { text: 'Архітектура Transformer', desc: 'Стаття 2017 "Attention Is All You Need" ввела самоувагу — дозволяючи кожному токену звертати увагу на кожен інший в послідовності. Це замінило повільніші рекурентні архітектури та дало паралелізацію.', links: [{ title: 'Типи моделей', href: '../level-3/model-types.html' }] },
+            { text: 'GPT: Generative Pre-trained Transformer', desc: 'Декодер-only архітектура OpenAI. "Generative" = генерує текст, "Pre-trained" = спочатку навчена на широких даних, "Transformer" = базова архітектура. Цей дизайн став шаблоном для всіх сучасних LLM.', links: [{ title: 'Великі гравці', href: 'big-players.html' }] },
+            { text: 'Передбачення наступного токена', desc: 'LLM генерують текст по одному токену, завжди передбачаючи найімовірніший наступний токен з урахуванням усіх попередніх. Ця проста задача, у масштабі, створює надзвичайно здатні моделі.', links: [{ title: 'Токен', href: '../level-2/token.html' }] },
+            { text: 'Закони масштабування', desc: 'Дослідження Chinchilla показали, що продуктивність моделей покращується передбачувано з більшими обчисленнями, даними та параметрами. Цей математичний зв\'язок рухає індустрію до більших моделей.', links: [{ title: 'Фундаментальні моделі', href: 'foundation-models.html' }] },
+            { text: 'Емерджентні здібності', desc: 'При певних масштабах моделі раптово отримують можливості, відсутні у менших версіях — навчання в контексті, міркування ланцюгом думок, генерація коду.', links: [{ title: 'Міркування', href: 'reasoning.html' }] },
+            { text: 'Ключові сімейства моделей', desc: 'GPT-4/o1 (OpenAI), Claude 3.5/4 (Anthropic), Gemini (Google), Llama 3 (Meta), Qwen 2.5 (Alibaba), Mistral/Mixtral (Mistral AI). Кожне має свої переваги та компроміси.', links: [{ title: 'Великі гравці', href: 'big-players.html' }, { title: 'SOTA', href: 'sota.html' }] },
+            { text: 'Розміри моделей', desc: 'Від 1B параметрів "малих" моделей (запускаються на телефонах) до 1T+ фронтирних (вимагають дата-центрів). Поширені розміри: 7B, 13B, 34B, 70B, 405B. Більше зазвичай = здатніше, але повільніше.', links: [{ title: 'Оптимізація моделей', href: '../level-3/model-optimization.html' }] },
+            { text: 'Пайплайн навчання', desc: 'Попереднє навчання (трильйони токенів, місяці GPU часу) → Кероване файн-тюнінг з кураторськими прикладами → RLHF/DPO вирівнювання для корисності та безпеки.', links: [{ title: 'Навчання та файн-тюнінг', href: '../level-3/training-finetuning.html' }] },
+            { text: 'Інференс', desc: 'Як моделі працюють: прямий прохід через мережу, KV кеш для ефективної генерації, батчинг запитів, стримінг токенів користувачу по мірі генерації.', links: [{ title: 'Основи обладнання', href: '../level-4/hardware.html' }, { title: 'API-провайдери', href: '../level-4/api-providers.html' }] }
+          ]
+        },
+        keyTerms: {
+          en: [
+            { term: 'LLM', def: 'Large Language Model — a neural network with billions of parameters trained to predict and generate text.' },
+            { term: 'Transformer', def: 'Neural network architecture using self-attention, enabling parallel processing of sequences.' },
+            { term: 'Next-Token Prediction', def: 'The core training objective: given previous tokens, predict the most likely next one.' },
+            { term: 'Scaling Laws', def: 'Mathematical relationships showing model performance improves predictably with more compute, data, and parameters.' },
+            { term: 'Autoregressive', def: 'Generating output one token at a time, where each new token depends on all previous ones.' }
+          ],
+          uk: [
+            { term: 'LLM', def: 'Велика мовна модель — нейромережа з мільярдами параметрів, навчена передбачувати та генерувати текст.' },
+            { term: 'Transformer', def: 'Архітектура нейромережі з самоувагою, що дозволяє паралельну обробку послідовностей.' },
+            { term: 'Передбачення наступного токена', def: 'Основна задача навчання: маючи попередні токени, передбачити найімовірніший наступний.' },
+            { term: 'Закони масштабування', def: 'Математичні зв\'язки, що показують передбачуване покращення продуктивності моделі з більшими обчисленнями, даними та параметрами.' },
+            { term: 'Авторегресивний', def: 'Генерація по одному токену за раз, де кожен новий токен залежить від усіх попередніх.' }
+          ]
+        },
+        related: ['Models', 'Feed']
+      },
+      {
+        slug: 'diffusion-models',
+        title: { en: 'Diffusion Models', uk: 'Дифузійні моделі' },
+        desc: {
+          en: 'Understanding image and video generation with diffusion-based approaches.',
+          uk: 'Розуміння генерації зображень та відео за допомогою дифузійних підходів.'
+        },
+        overview: {
+          en: [
+            'Diffusion models are the dominant approach for AI image and video generation. They work by learning to reverse a noise-adding process: given an image gradually corrupted into random noise, the model learns to denoise it step by step. At generation time, the model starts with pure noise and iteratively refines it into a coherent image guided by a text prompt.',
+            'This approach has proven remarkably powerful. Models like Stable Diffusion, DALL-E 3, Midjourney, and Flux can generate photorealistic images, artistic illustrations, and even video from text descriptions. The ecosystem includes customization tools like LoRA adapters and ControlNet that allow fine-tuning generation for specific styles or structural constraints.'
+          ],
+          uk: [
+            'Дифузійні моделі — це домінуючий підхід для генерації зображень та відео з ШІ. Вони працюють через навчання оберненню процесу додавання шуму: маючи зображення, поступово зіпсоване до випадкового шуму, модель вчиться розшумлювати його крок за кроком. Під час генерації модель починає з чистого шуму та ітеративно уточнює його у зв\'язне зображення, кероване текстовим промптом.',
+            'Цей підхід виявився надзвичайно потужним. Моделі як Stable Diffusion, DALL-E 3, Midjourney та Flux можуть генерувати фотореалістичні зображення, художні ілюстрації і навіть відео з текстових описів. Екосистема включає інструменти кастомізації як LoRA адаптери та ControlNet, що дозволяють тонко налаштовувати генерацію для конкретних стилів або структурних обмежень.'
+          ]
+        },
+        details: {
+          en: [
+            { text: 'How Diffusion Works', desc: 'Forward process gradually adds noise to an image until it becomes random static. The model learns to reverse this — starting from noise and iteratively denoising into a coherent image.', links: [] },
+            { text: 'Text Conditioning', desc: 'CLIP or T5 text encoders translate your text prompt into a guidance signal. This signal steers the denoising process to produce images matching your description.', links: [{ title: 'Prompt', href: '../level-2/prompt.html' }] },
+            { text: 'Key Models', desc: 'Stable Diffusion 3 (open), DALL-E 3 (OpenAI), Midjourney v6 (subscription), Flux (Black Forest Labs), Ideogram (text rendering). Each has different strengths in style, quality, and control.', links: [{ title: 'The Big Players', href: 'big-players.html' }] },
+            { text: 'Latent Diffusion', desc: 'Working in compressed latent space (64x smaller than raw pixels) makes generation fast and memory-efficient. A VAE encoder/decoder bridges between pixel and latent spaces.', links: [] },
+            { text: 'ControlNet', desc: 'Add structural guidance via edge maps, depth maps, pose estimation, or segmentation masks. Lets you control the composition while the diffusion model handles details and style.', links: [] },
+            { text: 'LoRA Adapters', desc: 'Lightweight fine-tuning (typically 10-100MB) that teaches the model new styles, characters, or concepts without full retraining. Community shares thousands of LoRAs on CivitAI and HuggingFace.', links: [{ title: 'Training & Fine-tuning', href: '../level-3/training-finetuning.html' }] },
+            { text: 'Video Generation', desc: 'Sora (OpenAI), Runway Gen-3, Kling (Kuaishou), Pika extend diffusion to temporal sequences. Video gen adds motion consistency and temporal coherence challenges.', links: [{ title: 'Multimodality', href: 'multimodality.html' }] },
+            { text: 'Inpainting & Outpainting', desc: 'Edit specific regions of generated or real images. Inpainting replaces a masked area, outpainting extends the image beyond its borders. Both use the same diffusion process.', links: [] },
+            { text: 'Diffusion vs GANs', desc: 'GANs (Generative Adversarial Networks) are faster but harder to train and less diverse. Diffusion models produce higher quality and more varied outputs at the cost of slower generation.', links: [] },
+            { text: 'Local Tools', desc: 'ComfyUI (node-based, flexible) and Automatic1111 (web UI, user-friendly) are popular open-source interfaces for running Stable Diffusion locally on your own GPU.', links: [{ title: 'Hardware Basics', href: '../level-4/hardware.html' }] }
+          ],
+          uk: [
+            { text: 'Як працює дифузія', desc: 'Прямий процес поступово додає шум до зображення, поки воно не стає випадковою статикою. Модель вчиться обертати це — починаючи з шуму та ітеративно розшумлюючи в зв\'язне зображення.', links: [] },
+            { text: 'Текстове кондиціонування', desc: 'CLIP або T5 текстові енкодери перетворюють ваш промпт у сигнал керування. Цей сигнал спрямовує процес розшумлення для створення зображень відповідно до вашого опису.', links: [{ title: 'Промпт', href: '../level-2/prompt.html' }] },
+            { text: 'Ключові моделі', desc: 'Stable Diffusion 3 (відкритий), DALL-E 3 (OpenAI), Midjourney v6 (підписка), Flux (Black Forest Labs), Ideogram (рендеринг тексту). Кожен має свої переваги в стилі, якості та контролі.', links: [{ title: 'Великі гравці', href: 'big-players.html' }] },
+            { text: 'Латентна дифузія', desc: 'Робота у стиснутому латентному просторі (у 64 рази менше за сирі пікселі) робить генерацію швидкою та ефективною за пам\'яттю. VAE encoder/decoder зв\'язує піксельний та латентний простори.', links: [] },
+            { text: 'ControlNet', desc: 'Додавання структурного керування через карти країв, глибини, оцінку пози або маски сегментації. Дозволяє контролювати композицію, поки дифузійна модель працює з деталями та стилем.', links: [] },
+            { text: 'LoRA адаптери', desc: 'Легке файн-тюнінг (зазвичай 10-100МБ), що вчить модель новим стилям, персонажам або концепціям без повного перенавчання. Спільнота ділиться тисячами LoRA на CivitAI та HuggingFace.', links: [{ title: 'Навчання та файн-тюнінг', href: '../level-3/training-finetuning.html' }] },
+            { text: 'Генерація відео', desc: 'Sora (OpenAI), Runway Gen-3, Kling (Kuaishou), Pika розширюють дифузію на часові послідовності. Відеогенерація додає виклики часової когерентності та консистентності руху.', links: [{ title: 'Мультимодальність', href: 'multimodality.html' }] },
+            { text: 'Інпейнтинг та аутпейнтинг', desc: 'Редагування конкретних областей згенерованих або реальних зображень. Інпейнтинг замінює замасковану область, аутпейнтинг розширює зображення за його межі.', links: [] },
+            { text: 'Дифузія vs GAN', desc: 'GAN (генеративні змагальні мережі) швидші, але складніші в навчанні та менш різноманітні. Дифузійні моделі дають вищу якість та більш різноманітні результати за рахунок повільнішої генерації.', links: [] },
+            { text: 'Локальні інструменти', desc: 'ComfyUI (вузловий, гнучкий) та Automatic1111 (веб UI, зручний) — популярні відкриті інтерфейси для локального запуску Stable Diffusion на власному GPU.', links: [{ title: 'Основи обладнання', href: '../level-4/hardware.html' }] }
+          ]
+        },
+        keyTerms: {
+          en: [
+            { term: 'Diffusion', def: 'Image generation process that starts from random noise and iteratively refines it into a coherent output.' },
+            { term: 'Latent Space', def: 'Compressed mathematical representation of images that models work in for efficiency.' },
+            { term: 'LoRA', def: 'Low-Rank Adaptation — a lightweight method to customize models without full retraining.' },
+            { term: 'ControlNet', def: 'Extension that adds structural guidance (edges, poses, depth) to diffusion generation.' }
+          ],
+          uk: [
+            { term: 'Дифузія', def: 'Процес генерації зображень, що починається з випадкового шуму та ітеративно уточнює його у зв\'язний результат.' },
+            { term: 'Латентний простір', def: 'Стиснуте математичне представлення зображень, в якому моделі працюють для ефективності.' },
+            { term: 'LoRA', def: 'Low-Rank Adaptation — легкий метод кастомізації моделей без повного перенавчання.' },
+            { term: 'ControlNet', def: 'Розширення, що додає структурне керування (краї, пози, глибина) до дифузійної генерації.' }
+          ]
+        },
+        related: ['Feed']
+      },
+      {
+        slug: 'multimodality',
+        title: { en: 'Multimodality', uk: 'Мультимодальність' },
+        desc: {
+          en: 'AI models that work with multiple data types simultaneously.',
+          uk: 'Моделі ШІ, що працюють з кількома типами даних одночасно.'
+        },
+        overview: {
+          en: [
+            'Multimodal AI refers to models that can process and generate multiple types of data — text, images, audio, video — within a single system. Rather than separate models for each data type, modern multimodal models understand the relationships between modalities, enabling powerful capabilities like describing images, answering questions about documents, or generating images from text.',
+            'The trend toward multimodality is accelerating. GPT-4V, Claude Vision, and Gemini can all analyze images alongside text. Gemini processes audio and video natively. This convergence means that a single model can increasingly handle tasks that previously required specialized pipelines.'
+          ],
+          uk: [
+            'Мультимодальний ШІ стосується моделей, що можуть обробляти та генерувати кілька типів даних — текст, зображення, аудіо, відео — в одній системі. Замість окремих моделей для кожного типу даних, сучасні мультимодальні моделі розуміють зв\'язки між модальностями, забезпечуючи потужні можливості як опис зображень, відповіді на запитання про документи або генерація зображень з тексту.',
+            'Тренд до мультимодальності прискорюється. GPT-4V, Claude Vision та Gemini можуть аналізувати зображення разом з текстом. Gemini обробляє аудіо та відео нативно. Ця конвергенція означає, що одна модель може все більше обробляти задачі, що раніше вимагали спеціалізованих пайплайнів.'
+          ]
+        },
+        details: {
+          en: [
+            { text: 'What is Multimodality', desc: 'A single model processing and generating multiple data types — text, images, audio, video — within one unified system. Moving beyond text-only AI.', links: [{ title: 'Data Type Classification', href: 'data-classification.html' }] },
+            { text: 'Vision-Language Models', desc: 'GPT-4V, Claude Vision (Sonnet/Opus), Gemini Pro Vision. These models "see" images and reason about them using natural language — describing scenes, reading text, analyzing charts.', links: [{ title: 'The Big Players', href: 'big-players.html' }] },
+            { text: 'Image Understanding', desc: 'Scene description, OCR (reading text from images), chart/diagram analysis, visual question answering. Models can analyze screenshots, photos, documents, and diagrams.', links: [] },
+            { text: 'Audio Understanding & Generation', desc: 'Whisper (OpenAI) transcribes speech to text. TTS (text-to-speech) models synthesize natural voice. Voice cloning reproduces a specific person\'s voice from samples.', links: [] },
+            { text: 'Document Understanding', desc: 'Parsing complex layouts — PDFs, invoices, handwritten text, multi-column documents. Combines OCR with language understanding for intelligent data extraction.', links: [] },
+            { text: 'Cross-Modal Generation', desc: 'Text-to-image (DALL-E, Midjourney), image-to-text (captioning), text-to-audio (TTS), audio-to-text (transcription). Converting between data types seamlessly.', links: [{ title: 'Diffusion Models', href: 'diffusion-models.html' }] },
+            { text: 'Video Understanding', desc: 'Temporal analysis, action recognition, video QA — understanding what happens across frames over time. More complex than single-image analysis.', links: [] },
+            { text: 'Native vs Adapter Multimodality', desc: 'Some models (Gemini) are natively multimodal from pre-training. Others bolt vision adapters onto existing text models. Native tends to be more capable and efficient.', links: [{ title: 'Foundation Models', href: 'foundation-models.html' }] },
+            { text: 'Gemini Approach', desc: 'Google\'s Gemini was pre-trained natively on text + images + audio + video simultaneously. This gives deeper cross-modal understanding compared to adapter-based approaches.', links: [{ title: 'The Big Players', href: 'big-players.html' }] },
+            { text: 'Real-World Applications', desc: 'Accessibility tools (image descriptions for blind users), content moderation (detecting harmful images), medical imaging, autonomous driving, document processing pipelines.', links: [] }
+          ],
+          uk: [
+            { text: 'Що таке мультимодальність', desc: 'Одна модель обробляє та генерує кілька типів даних — текст, зображення, аудіо, відео — в одній уніфікованій системі. Вихід за межі лише текстового ШІ.', links: [{ title: 'Класифікація за типом даних', href: 'data-classification.html' }] },
+            { text: 'Візуально-мовні моделі', desc: 'GPT-4V, Claude Vision (Sonnet/Opus), Gemini Pro Vision. Ці моделі "бачать" зображення та міркують про них природною мовою — описуючи сцени, читаючи текст, аналізуючи графіки.', links: [{ title: 'Великі гравці', href: 'big-players.html' }] },
+            { text: 'Розуміння зображень', desc: 'Опис сцен, OCR (читання тексту з зображень), аналіз графіків/діаграм, візуальне QA. Моделі можуть аналізувати скріншоти, фотографії, документи та діаграми.', links: [] },
+            { text: 'Розуміння та генерація аудіо', desc: 'Whisper (OpenAI) транскрибує мову в текст. TTS моделі синтезують природний голос. Клонування голосу відтворює голос конкретної людини із зразків.', links: [] },
+            { text: 'Розуміння документів', desc: 'Парсинг складних макетів — PDF, рахунків, рукописного тексту, багатоколонних документів. Поєднує OCR з мовним розумінням для інтелектуальної екстракції даних.', links: [] },
+            { text: 'Кросмодальна генерація', desc: 'Текст-у-зображення (DALL-E, Midjourney), зображення-в-текст (підписи), текст-в-аудіо (TTS), аудіо-в-текст (транскрипція). Безшовна конвертація між типами даних.', links: [{ title: 'Дифузійні моделі', href: 'diffusion-models.html' }] },
+            { text: 'Розуміння відео', desc: 'Часовий аналіз, розпізнавання дій, відео QA — розуміння що відбувається через кадри протягом часу. Складніше за аналіз одного зображення.', links: [] },
+            { text: 'Нативна vs Адаптерна мультимодальність', desc: 'Деякі моделі (Gemini) нативно мультимодальні з попереднього навчання. Інші прикручують адаптери зору до текстових моделей. Нативні зазвичай більш здатні та ефективні.', links: [{ title: 'Фундаментальні моделі', href: 'foundation-models.html' }] },
+            { text: 'Підхід Gemini', desc: 'Gemini від Google попередньо навчений нативно на тексті + зображеннях + аудіо + відео одночасно. Це дає глибше кросмодальне розуміння порівняно з адаптерними підходами.', links: [{ title: 'Великі гравці', href: 'big-players.html' }] },
+            { text: 'Реальні застосування', desc: 'Інструменти доступності (опис зображень для незрячих), модерація контенту (виявлення шкідливих зображень), медична візуалізація, автономне водіння, пайплайни обробки документів.', links: [] }
+          ]
+        },
+        keyTerms: {
+          en: [
+            { term: 'Modality', def: 'A type of data input/output: text, image, audio, video, or code.' },
+            { term: 'Vision-Language Model', def: 'Model that can understand and reason about images alongside text.' },
+            { term: 'OCR', def: 'Optical Character Recognition — extracting text from images of documents or screens.' },
+            { term: 'Cross-Modal', def: 'Converting between data types, e.g., generating an image from text description.' }
+          ],
+          uk: [
+            { term: 'Модальність', def: 'Тип вхідних/вихідних даних: текст, зображення, аудіо, відео або код.' },
+            { term: 'Візуально-мовна модель', def: 'Модель, що може розуміти та міркувати про зображення разом з текстом.' },
+            { term: 'OCR', def: 'Оптичне розпізнавання символів — витягування тексту із зображень документів або екранів.' },
+            { term: 'Кросмодальний', def: 'Конвертація між типами даних, напр., генерація зображення з текстового опису.' }
+          ]
+        },
+        related: ['Models', 'Feed']
+      },
+      {
+        slug: 'reasoning',
+        title: { en: 'Reasoning', uk: 'Міркування' },
+        desc: {
+          en: 'AI reasoning capabilities - chain of thought, thinking models, and logical inference.',
+          uk: 'Здатності ШІ до міркувань — ланцюг думок, моделі з мисленням, логічний висновок.'
+        },
+        overview: {
+          en: [
+            'Reasoning is one of the most important and rapidly evolving capabilities of modern AI. While early LLMs could generate fluent text, they often struggled with multi-step logic, math, and complex problem-solving. The introduction of chain-of-thought prompting and dedicated reasoning models has dramatically improved these capabilities.',
+            'Models like OpenAI o1/o3, DeepSeek-R1, and QwQ use "thinking tokens" — they reason step-by-step internally before producing a final answer. This mirrors the human distinction between fast intuitive thinking (System 1) and slow deliberate reasoning (System 2). Understanding these capabilities and their limits is crucial for knowing when to trust AI outputs.'
+          ],
+          uk: [
+            'Міркування — одна з найважливіших та найшвидше еволюціонуючих можливостей сучасного ШІ. Хоча ранні LLM могли генерувати плавний текст, вони часто мали проблеми з багатокроковою логікою, математикою та складним вирішенням задач. Впровадження промптингу ланцюгом думок та спеціалізованих моделей міркувань драматично покращило ці можливості.',
+            'Моделі як OpenAI o1/o3, DeepSeek-R1 та QwQ використовують "токени мислення" — вони міркують крок за кроком всередині перед видачею фінальної відповіді. Це відзеркалює людське розрізнення між швидким інтуїтивним мисленням (Система 1) та повільним обдуманим міркуванням (Система 2). Розуміння цих можливостей та їх обмежень критично важливе для знання, коли довіряти результатам ШІ.'
+          ]
+        },
+        details: {
+          en: [
+            { text: 'Chain-of-Thought (CoT) Prompting', desc: 'Asking models to "think step by step" dramatically improves accuracy on complex problems. Instead of jumping to answers, the model shows its work — breaking problems into manageable steps.', links: [{ title: 'Prompting Techniques', href: '../level-4/prompting-techniques.html' }, { title: 'Prompt', href: '../level-2/prompt.html' }] },
+            { text: 'Reasoning Models', desc: 'OpenAI o1/o3, DeepSeek-R1, QwQ (Alibaba) are specifically trained for multi-step reasoning. They use extra inference-time compute to "think longer" before answering.', links: [{ title: 'The Big Players', href: 'big-players.html' }] },
+            { text: 'Thinking Tokens', desc: 'Internal reasoning traces generated before the final answer. These tokens are the model\'s "scratch pad" — working through logic, checking steps, considering alternatives.', links: [{ title: 'Token', href: '../level-2/token.html' }] },
+            { text: 'Extended Thinking', desc: 'Allocating more compute at inference time for harder problems. The model can "think longer" on complex questions, trading speed for accuracy. Test-time compute scaling.', links: [] },
+            { text: 'Math Reasoning', desc: 'Solving competition-level math (AIME, AMC), formal proofs, symbolic manipulation. Reasoning models have made dramatic progress here — approaching human expert level.', links: [{ title: 'SOTA', href: 'sota.html' }] },
+            { text: 'Code Reasoning', desc: 'Debugging complex codebases, analyzing architecture, implementing sophisticated algorithms. Code reasoning is one of the most practically valuable AI capabilities.', links: [{ title: 'Vibecoding', href: '../level-2/vibecoding.html' }] },
+            { text: 'Logical Inference', desc: 'Syllogisms, deduction, constraint satisfaction, planning. Models can follow logical rules but still struggle with certain types of novel reasoning and common-sense physics.', links: [] },
+            { text: 'System 1 vs System 2 Thinking', desc: 'Kahneman\'s framework applied to AI: System 1 = fast intuitive responses (standard LLM), System 2 = slow deliberate reasoning (reasoning models with thinking tokens).', links: [] },
+            { text: 'Current Limitations', desc: 'Reasoning models still fail on truly novel problems, can produce convincing but wrong chains of reasoning, and may overthink simple questions. Verification remains essential.', links: [{ title: 'Hallucinations', href: '../level-2/hallucination.html' }] },
+            { text: 'Reasoning Benchmarks', desc: 'MATH (competition math), GSM8K (grade school), ARC-AGI (general reasoning), SWE-bench (real software engineering), Codeforces (competitive programming).', links: [{ title: 'SOTA', href: 'sota.html' }] }
+          ],
+          uk: [
+            { text: 'Промптинг ланцюгом думок (CoT)', desc: 'Прохання моделям "думати крок за кроком" драматично покращує точність на складних задачах. Замість стрибка до відповіді, модель показує свою роботу — розбиваючи задачі на керовані кроки.', links: [{ title: 'Техніки промптингу', href: '../level-4/prompting-techniques.html' }, { title: 'Промпт', href: '../level-2/prompt.html' }] },
+            { text: 'Моделі міркувань', desc: 'OpenAI o1/o3, DeepSeek-R1, QwQ (Alibaba) спеціально навчені для багатокрокових міркувань. Вони використовують додаткові обчислення під час інференсу щоб "думати довше" перед відповіддю.', links: [{ title: 'Великі гравці', href: 'big-players.html' }] },
+            { text: 'Токени мислення', desc: 'Внутрішні сліди міркувань, згенеровані перед фінальною відповіддю. Ці токени — "чернетка" моделі — пропрацьовування логіки, перевірка кроків, розгляд альтернатив.', links: [{ title: 'Токен', href: '../level-2/token.html' }] },
+            { text: 'Розширене мислення', desc: 'Виділення більше обчислень під час інференсу для складніших задач. Модель може "думати довше" над складними запитаннями, обмінюючи швидкість на точність.', links: [] },
+            { text: 'Математичне міркування', desc: 'Розв\'язання математичних задач олімпіадного рівня (AIME, AMC), формальні доведення, символічні маніпуляції. Моделі міркувань зробили драматичний прогрес — наближаючись до рівня людських експертів.', links: [{ title: 'SOTA', href: 'sota.html' }] },
+            { text: 'Кодове міркування', desc: 'Дебагінг складних кодових баз, аналіз архітектури, реалізація складних алгоритмів. Кодове міркування — одна з найпрактичніших можливостей ШІ.', links: [{ title: 'Вайбкодинг', href: '../level-2/vibecoding.html' }] },
+            { text: 'Логічний висновок', desc: 'Силогізми, дедукція, задоволення обмежень, планування. Моделі можуть слідувати логічним правилам, але все ще мають проблеми з новими типами міркувань.', links: [] },
+            { text: 'Мислення Системи 1 vs Системи 2', desc: 'Фреймворк Канемана для ШІ: Система 1 = швидкі інтуїтивні відповіді (стандартний LLM), Система 2 = повільне обдумане міркування (моделі з токенами мислення).', links: [] },
+            { text: 'Поточні обмеження', desc: 'Моделі міркувань все ще збоять на справді нових задачах, можуть видавати переконливі але хибні ланцюги міркувань, та можуть передумувати прості питання. Верифікація залишається необхідною.', links: [{ title: 'Галюцинації', href: '../level-2/hallucination.html' }] },
+            { text: 'Бенчмарки міркувань', desc: 'MATH (олімпіадна математика), GSM8K (шкільна), ARC-AGI (загальне міркування), SWE-bench (реальна інженерія ПЗ), Codeforces (змагальне програмування).', links: [{ title: 'SOTA', href: 'sota.html' }] }
+          ]
+        },
+        keyTerms: {
+          en: [
+            { term: 'Chain-of-Thought', def: 'Technique where models explain their reasoning step-by-step before giving an answer.' },
+            { term: 'Thinking Tokens', def: 'Internal reasoning traces generated by reasoning models before the final output.' },
+            { term: 'System 1/System 2', def: 'Kahneman\'s framework: fast intuitive vs slow deliberate thinking, applied to AI.' },
+            { term: 'Test-Time Compute', def: 'Allocating more processing at inference time to improve reasoning on harder problems.' }
+          ],
+          uk: [
+            { term: 'Ланцюг думок', def: 'Техніка, де моделі пояснюють своє міркування крок за кроком перед відповіддю.' },
+            { term: 'Токени мислення', def: 'Внутрішні сліди міркувань, згенеровані моделями перед фінальним результатом.' },
+            { term: 'Система 1/Система 2', def: 'Фреймворк Канемана: швидке інтуїтивне vs повільне обдумане мислення, застосоване до ШІ.' },
+            { term: 'Обчислення під час тесту', def: 'Виділення більше обробки під час інференсу для покращення міркувань на складніших задачах.' }
+          ]
+        },
+        related: ['Models', 'Feed']
+      },
+      {
+        slug: 'foundation-models',
+        title: { en: 'Foundation Models', uk: 'Фундаментальні моделі' },
+        desc: {
+          en: 'The concept of foundation models - large pre-trained models adapted for many tasks.',
+          uk: 'Концепція фундаментальних моделей — великих попередньо навчених моделей для різних задач.'
+        },
+        overview: {
+          en: [
+            'Foundation models are large AI models pre-trained on broad, diverse datasets that can be adapted to a wide range of downstream tasks. The term was coined by Stanford\'s HAI center to describe a paradigm shift: instead of training a new model for each task, you train one massive model and then adapt it through fine-tuning, prompting, or few-shot learning.',
+            'GPT-4, Claude, Gemini, and Llama are all foundation models. Their power comes from scale — both in parameters and training data — which gives them general capabilities that can be directed toward specific applications without starting from scratch each time.'
+          ],
+          uk: [
+            'Фундаментальні моделі — це великі моделі ШІ, попередньо навчені на широких, різноманітних наборах даних, що можуть бути адаптовані для широкого спектру задач. Термін був запропонований центром HAI Стенфорду для опису парадигмального зсуву: замість навчання нової моделі для кожної задачі, ви навчаєте одну масивну модель і потім адаптуєте її через файн-тюнінг, промптинг або навчання з кількох прикладів.',
+            'GPT-4, Claude, Gemini та Llama — усі є фундаментальними моделями. Їх сила походить від масштабу — як у параметрах, так і в навчальних даних — що дає їм загальні можливості, які можуть бути спрямовані на конкретні застосування без початку з нуля кожного разу.'
+          ]
+        },
+        details: {
+          en: [
+            { text: 'What Makes a Model "Foundational"', desc: 'Broad pre-training on diverse data enables adaptation to virtually any downstream task — translation, coding, analysis, creative writing — without training a new model each time.', links: [{ title: 'Generative AI', href: 'generative-ai.html' }] },
+            { text: 'Pre-training at Scale', desc: 'Foundation models are trained on trillions of tokens from books, web pages, code repositories, and scientific papers. This massive exposure creates general-purpose knowledge and language understanding.', links: [{ title: 'Data to Model', href: '../level-3/data-to-model.html' }] },
+            { text: 'Transfer Learning', desc: 'Knowledge gained during pre-training transfers to specific tasks. A model trained on general text can be adapted for medical diagnosis, legal analysis, or code generation without starting from scratch.', links: [] },
+            { text: 'Generalist vs Specialist Trade-offs', desc: 'Foundation models are generalists — good at many things but not the best at any one. Task-specific fine-tuning creates specialists that excel in narrow domains at the cost of versatility.', links: [{ title: 'Training & Fine-tuning', href: '../level-3/training-finetuning.html' }] },
+            { text: 'The Model Ecosystem', desc: 'Base models → fine-tunes → distilled versions → API services. Each step in the chain trades generality for specificity, or size for speed, creating a rich ecosystem of model variants.', links: [{ title: 'Model Optimization', href: '../level-3/model-optimization.html' }] },
+            { text: 'Open Foundation Models', desc: 'Llama 3, Qwen 2.5, Mistral, OLMo — anyone can download, run locally, fine-tune, and inspect these models. Open weights enable research, customization, and privacy-sensitive deployments.', links: [{ title: 'The Big Players', href: 'big-players.html' }] },
+            { text: 'Closed Foundation Models', desc: 'GPT-4, Claude, Gemini — accessed only via API. These typically offer the highest performance but with less transparency and control. You pay per token and trust the provider.', links: [{ title: 'API Providers', href: '../level-4/api-providers.html' }] },
+            { text: 'Fine-tuning for Domains', desc: 'Adapting a foundation model for specific domains (medical, legal, coding) using curated datasets. This preserves general capabilities while dramatically improving domain-specific performance.', links: [{ title: 'Training & Fine-tuning', href: '../level-3/training-finetuning.html' }] },
+            { text: 'Few-Shot Learning', desc: 'Providing examples in the prompt to guide the model without any retraining. Foundation models can learn new tasks on-the-fly from just 2-5 examples — a capability that emerges at scale.', links: [{ title: 'Prompt', href: '../level-2/prompt.html' }] },
+            { text: 'Cost of Training', desc: 'Frontier foundation models cost $100M+ to pre-train from scratch. But fine-tuning costs $100-$10K, and prompting is nearly free — the ecosystem makes foundation model capabilities accessible at every budget level.', links: [{ title: 'SOTA', href: 'sota.html' }] }
+          ],
+          uk: [
+            { text: 'Що робить модель "фундаментальною"', desc: 'Широке попереднє навчання на різноманітних даних дозволяє адаптацію до практично будь-якої задачі — перекладу, кодування, аналізу, творчого написання — без навчання нової моделі кожного разу.', links: [{ title: 'Генеративний ШІ', href: 'generative-ai.html' }] },
+            { text: 'Попереднє навчання у масштабі', desc: 'Фундаментальні моделі навчаються на трильйонах токенів з книг, веб-сторінок, репозиторіїв коду та наукових статей. Це масивне занурення створює загальні знання та розуміння мови.', links: [{ title: 'Від даних до моделі', href: '../level-3/data-to-model.html' }] },
+            { text: 'Трансферне навчання', desc: 'Знання, отримані під час попереднього навчання, переносяться на конкретні задачі. Модель, навчена на загальному тексті, може бути адаптована для медичної діагностики, юридичного аналізу чи генерації коду.', links: [] },
+            { text: 'Генераліст vs Спеціаліст', desc: 'Фундаментальні моделі — генералісти: добрі у багатьох речах, але не найкращі в жодній конкретній. Задачно-специфічний файн-тюнінг створює спеціалістів за рахунок універсальності.', links: [{ title: 'Навчання та файн-тюнінг', href: '../level-3/training-finetuning.html' }] },
+            { text: 'Екосистема моделей', desc: 'Базові моделі → файн-тюни → дистильовані версії → API-сервіси. Кожен крок у ланцюгу обмінює загальність на специфічність або розмір на швидкість.', links: [{ title: 'Оптимізація моделей', href: '../level-3/model-optimization.html' }] },
+            { text: 'Відкриті фундаментальні моделі', desc: 'Llama 3, Qwen 2.5, Mistral, OLMo — будь-хто може завантажити, запустити локально, файн-тюнити та досліджувати ці моделі. Відкриті ваги забезпечують дослідження та кастомізацію.', links: [{ title: 'Великі гравці', href: 'big-players.html' }] },
+            { text: 'Закриті фундаментальні моделі', desc: 'GPT-4, Claude, Gemini — доступ лише через API. Зазвичай пропонують найвищу продуктивність, але з меншою прозорістю та контролем. Ви платите за токен.', links: [{ title: 'API-провайдери', href: '../level-4/api-providers.html' }] },
+            { text: 'Файн-тюнінг для доменів', desc: 'Адаптація фундаментальної моделі для конкретних доменів (медицина, юриспруденція, кодування) за допомогою кураторських датасетів. Зберігає загальні можливості, покращуючи доменну продуктивність.', links: [{ title: 'Навчання та файн-тюнінг', href: '../level-3/training-finetuning.html' }] },
+            { text: 'Навчання з кількох прикладів', desc: 'Надання прикладів у промпті для керування моделлю без перенавчання. Фундаментальні моделі можуть вивчити нові задачі на льоту з лише 2-5 прикладів.', links: [{ title: 'Промпт', href: '../level-2/prompt.html' }] },
+            { text: 'Вартість навчання', desc: 'Фронтирні моделі коштують $100M+ для попереднього навчання. Але файн-тюнінг коштує $100-$10K, а промптинг майже безкоштовний — екосистема робить можливості доступними на кожному бюджеті.', links: [{ title: 'SOTA', href: 'sota.html' }] }
+          ]
+        },
+        keyTerms: {
+          en: [
+            { term: 'Foundation Model', def: 'Large model pre-trained on broad data, adapted to many tasks via fine-tuning or prompting.' },
+            { term: 'Transfer Learning', def: 'Applying knowledge gained from one task/dataset to a different but related task.' },
+            { term: 'Few-Shot Learning', def: 'Providing a few examples in the prompt to guide model behavior without retraining.' },
+            { term: 'Fine-Tuning', def: 'Further training a pre-trained model on task-specific data to improve its performance on that task.' }
+          ],
+          uk: [
+            { term: 'Фундаментальна модель', def: 'Велика модель, попередньо навчена на широких даних, адаптована для багатьох задач через файн-тюнінг або промптинг.' },
+            { term: 'Трансферне навчання', def: 'Застосування знань, отриманих з однієї задачі/набору даних до іншої, але пов\'язаної задачі.' },
+            { term: 'Навчання з кількох прикладів', def: 'Надання кількох прикладів у промпті для керування поведінкою моделі без перенавчання.' },
+            { term: 'Файн-тюнінг', def: 'Подальше навчання попередньо навченої моделі на задачно-специфічних даних.' }
+          ]
+        },
+        related: ['Models']
+      },
+      {
+        slug: 'data-classification',
+        title: { en: 'Data Type Classification', uk: 'Класифікація за типом даних' },
+        desc: {
+          en: 'Categorizing AI models by what data types they handle as input and output.',
+          uk: 'Категоризація моделей ШІ за типами даних, які вони обробляють.'
+        },
+        overview: {
+          en: [
+            'AI models can be categorized by the types of data they process as inputs and produce as outputs. Understanding this classification helps you choose the right model for each task. A text-to-text model (LLM) handles different tasks than an image-to-text model (captioning) or a text-to-image model (diffusion).',
+            'Modern models increasingly blur these boundaries — multimodal foundation models can handle multiple data types in a single conversation. But understanding the underlying classification helps you design effective AI pipelines and choose appropriate APIs.'
+          ],
+          uk: [
+            'Моделі ШІ можна категоризувати за типами даних, які вони обробляють як входи та видають як виходи. Розуміння цієї класифікації допомагає обрати правильну модель для кожної задачі. Текст-в-текст модель (LLM) обробляє інші задачі ніж зображення-в-текст модель (підписи) або текст-в-зображення модель (дифузія).',
+            'Сучасні моделі все більше розмивають ці межі — мультимодальні фундаментальні моделі можуть обробляти кілька типів даних в одній розмові. Але розуміння базової класифікації допомагає проєктувати ефективні ШІ-пайплайни та обирати відповідні API.'
+          ]
+        },
+        details: {
+          en: [
+            { text: 'Text → Text (LLMs)', desc: 'Chat, writing, analysis, translation, summarization. Models: GPT-4, Claude, Gemini, Llama. The most mature and widely used category of generative AI.', links: [{ title: 'LLM and GPT', href: 'llm-and-gpt.html' }] },
+            { text: 'Text → Image (Diffusion)', desc: 'Generate images from text descriptions. Models: DALL-E 3, Midjourney, Stable Diffusion, Flux. Quality has improved from abstract art to photorealistic outputs in just 2 years.', links: [{ title: 'Diffusion Models', href: 'diffusion-models.html' }] },
+            { text: 'Image → Text (Vision)', desc: 'Captioning, OCR, visual question-answering. Models: GPT-4V, Claude Vision, Gemini Pro Vision. Enables AI to "see" and reason about images, screenshots, documents.', links: [{ title: 'Multimodality', href: 'multimodality.html' }] },
+            { text: 'Text → Audio (TTS)', desc: 'Voice synthesis from text. Models: ElevenLabs, OpenAI TTS, Bark. Modern TTS produces near-human quality speech with emotion, accents, and multiple languages.', links: [] },
+            { text: 'Audio → Text (Speech Recognition)', desc: 'Transcription and speech-to-text. Models: Whisper, AssemblyAI, Deepgram. Enables voice interfaces, meeting transcription, and accessibility features.', links: [] },
+            { text: 'Text → Video', desc: 'Generate video clips from text descriptions. Models: Sora, Runway Gen-3, Kling, Pika. The newest frontier — quality is improving rapidly but still limited to short clips.', links: [] },
+            { text: 'Text → Code', desc: 'Code generation and completion from natural language. Models: GPT-4, Claude, Codex, StarCoder. Powers tools like GitHub Copilot, Cursor, and Claude Code.', links: [{ title: 'Vibecoding', href: '../level-2/vibecoding.html' }] },
+            { text: 'Code → Text', desc: 'Code explanation, documentation generation, and review. All major LLMs excel at reading and explaining code, making it one of the highest-value AI applications.', links: [] },
+            { text: 'Image → Image', desc: 'Image editing, style transfer, super-resolution, inpainting. Models: ControlNet, Instruct-Pix2Pix. Transform existing images rather than generating from scratch.', links: [{ title: 'Diffusion Models', href: 'diffusion-models.html' }] },
+            { text: 'Audio → Audio', desc: 'Voice conversion, music remixing, noise removal, audio enhancement. Specialized models that transform audio inputs without going through text as an intermediate.', links: [] }
+          ],
+          uk: [
+            { text: 'Текст → Текст (LLM)', desc: 'Чат, написання, аналіз, переклад, резюмування. Моделі: GPT-4, Claude, Gemini, Llama. Найбільш зріла та широко використовувана категорія генеративного ШІ.', links: [{ title: 'LLM та GPT', href: 'llm-and-gpt.html' }] },
+            { text: 'Текст → Зображення (Дифузія)', desc: 'Генерація зображень з текстових описів. Моделі: DALL-E 3, Midjourney, Stable Diffusion, Flux. Якість зросла від абстрактного мистецтва до фотореалістичних результатів за 2 роки.', links: [{ title: 'Дифузійні моделі', href: 'diffusion-models.html' }] },
+            { text: 'Зображення → Текст (Зір)', desc: 'Підписи, OCR, візуальні запитання-відповіді. Моделі: GPT-4V, Claude Vision, Gemini Pro Vision. Дозволяє ШІ "бачити" та міркувати про зображення, скріншоти, документи.', links: [{ title: 'Мультимодальність', href: 'multimodality.html' }] },
+            { text: 'Текст → Аудіо (TTS)', desc: 'Синтез голосу з тексту. Моделі: ElevenLabs, OpenAI TTS, Bark. Сучасний TTS створює мову майже людської якості з емоціями, акцентами та різними мовами.', links: [] },
+            { text: 'Аудіо → Текст (Розпізнавання мови)', desc: 'Транскрипція та перетворення мови в текст. Моделі: Whisper, AssemblyAI, Deepgram. Забезпечує голосові інтерфейси, транскрипцію зустрічей та доступність.', links: [] },
+            { text: 'Текст → Відео', desc: 'Генерація відеокліпів з текстових описів. Моделі: Sora, Runway Gen-3, Kling, Pika. Найновіший фронтір — якість швидко покращується, але поки обмежена короткими кліпами.', links: [] },
+            { text: 'Текст → Код', desc: 'Генерація та доповнення коду з природної мови. Моделі: GPT-4, Claude, Codex, StarCoder. Живить інструменти як GitHub Copilot, Cursor та Claude Code.', links: [{ title: 'Вайбкодинг', href: '../level-2/vibecoding.html' }] },
+            { text: 'Код → Текст', desc: 'Пояснення коду, генерація документації та ревю. Усі основні LLM відмінно читають та пояснюють код, роблячи це одним з найцінніших застосувань ШІ.', links: [] },
+            { text: 'Зображення → Зображення', desc: 'Редагування, перенос стилю, суперроздільність, інпейнтинг. Моделі: ControlNet, Instruct-Pix2Pix. Трансформація існуючих зображень замість генерації з нуля.', links: [{ title: 'Дифузійні моделі', href: 'diffusion-models.html' }] },
+            { text: 'Аудіо → Аудіо', desc: 'Конвертація голосу, ремікс музики, видалення шуму, покращення аудіо. Спеціалізовані моделі, що трансформують аудіо входи без проміжного текстового етапу.', links: [] }
+          ]
+        },
+        keyTerms: {
+          en: [
+            { term: 'Modality', def: 'The type of data a model works with: text, image, audio, video, or code.' },
+            { term: 'Pipeline', def: 'A chain of models processing data, e.g., audio→text→text→audio for a voice chatbot.' },
+            { term: 'Embedding', def: 'A numerical representation of data (text, image) in a vector space, enabling semantic search.' }
+          ],
+          uk: [
+            { term: 'Модальність', def: 'Тип даних, з яким працює модель: текст, зображення, аудіо, відео або код.' },
+            { term: 'Пайплайн', def: 'Ланцюг моделей, що обробляють дані, напр., аудіо→текст→текст→аудіо для голосового чатбота.' },
+            { term: 'Ембедінг', def: 'Числове представлення даних (тексту, зображення) у векторному просторі для семантичного пошуку.' }
+          ]
+        },
+        related: ['Models']
+      },
+      {
+        slug: 'sota',
+        title: { en: 'State of the Art (SOTA)', uk: 'Стан мистецтва (SOTA)' },
+        desc: {
+          en: 'Understanding state-of-the-art benchmarks, rankings, and how to track the latest.',
+          uk: 'Розуміння найкращих бенчмарків, рейтингів та як стежити за останніми досягненнями.'
+        },
+        overview: {
+          en: [
+            'State of the Art (SOTA) refers to the highest level of performance achieved on a specific task or benchmark at any given time. In the fast-moving AI field, SOTA changes frequently — sometimes weekly. Understanding benchmarks and leaderboards helps you evaluate model claims and choose the right tools.',
+            'However, benchmarks have significant limitations. Models may be optimized specifically for benchmark performance (overfitting), results may not reflect real-world usage, and different benchmarks measure different things. Learning to critically evaluate SOTA claims is an essential skill.'
+          ],
+          uk: [
+            'State of the Art (SOTA) стосується найвищого рівня продуктивності, досягнутого на конкретній задачі або бенчмарку в будь-який момент часу. У швидкорухомій галузі ШІ SOTA змінюється часто — іноді щотижня. Розуміння бенчмарків та лідербордів допомагає оцінювати заяви про моделі та обирати правильні інструменти.',
+            'Однак бенчмарки мають значні обмеження. Моделі можуть бути оптимізовані спеціально під бенчмарки (перенавчання), результати можуть не відображати реальне використання, а різні бенчмарки вимірюють різні речі. Навчитися критично оцінювати SOTA-заяви — це необхідний навик.'
+          ]
+        },
+        details: {
+          en: [
+            { text: 'What SOTA Means', desc: 'The best published result on a standard benchmark task at a given time. In AI, SOTA changes frequently — sometimes weekly — as new models and techniques are released.', links: [] },
+            { text: 'Text & Knowledge Benchmarks', desc: 'MMLU (massive multitask knowledge), HellaSwag (commonsense reasoning), ARC (science questions), TruthfulQA (factual accuracy). These measure how well models understand and reason about language.', links: [] },
+            { text: 'Code Benchmarks', desc: 'HumanEval, MBPP (basic programming), SWE-bench (real-world software engineering tasks), LiveCodeBench (fresh problems). Code benchmarks test practical programming capability.', links: [{ title: 'Vibecoding', href: '../level-2/vibecoding.html' }] },
+            { text: 'Math Benchmarks', desc: 'MATH (competition math), GSM8K (grade school math), Olympiad-level problems. Mathematical reasoning is one of the hardest capabilities for LLMs and a key differentiator between models.', links: [{ title: 'Reasoning', href: 'reasoning.html' }] },
+            { text: 'Reasoning Benchmarks', desc: 'ARC-AGI (abstract reasoning), Big-Bench Hard (challenging diverse tasks), GPQA (graduate-level questions). These push the boundaries of what models can figure out.', links: [{ title: 'Reasoning', href: 'reasoning.html' }] },
+            { text: 'Human Preference Leaderboards', desc: 'Chatbot Arena (LMSYS) — real users vote between anonymous model outputs. Widely considered the most reliable ranking because it reflects actual user satisfaction, not just benchmark scores.', links: [] },
+            { text: 'Open LLM Leaderboard', desc: 'Hugging Face\'s automated benchmark suite for open-weight models. Useful for comparing open-source options but scores can be gamed through benchmark-specific optimization.', links: [{ title: 'The Big Players', href: 'big-players.html' }] },
+            { text: 'Evaluating Model Claims', desc: 'Look beyond headline numbers: check benchmark methodology, compare across multiple benchmarks, test on your own tasks. Marketing cherry-picks the best scores.', links: [] },
+            { text: 'Benchmark Contamination', desc: 'When benchmark test data leaks into training data (accidentally or deliberately), scores become artificially inflated. This is a growing problem as training datasets expand.', links: [{ title: 'Data to Model', href: '../level-3/data-to-model.html' }] },
+            { text: 'Where to Follow AI Progress', desc: 'AI Twitter/X for breaking news, Papers With Code for SOTA tracking, Hugging Face for models, arXiv for papers, AI newsletters (The Batch, Import AI) for curated summaries.', links: [] }
+          ],
+          uk: [
+            { text: 'Що означає SOTA', desc: 'Найкращий опублікований результат на стандартній бенчмарковій задачі в даний момент. У ШІ SOTA змінюється часто — іноді щотижня — коли випускаються нові моделі та техніки.', links: [] },
+            { text: 'Текстові та знаннєві бенчмарки', desc: 'MMLU (масивне мультизадачне знання), HellaSwag (здоровий глузд), ARC (наукові питання), TruthfulQA (фактична точність). Вимірюють розуміння та міркування моделей про мову.', links: [] },
+            { text: 'Кодові бенчмарки', desc: 'HumanEval, MBPP (базове програмування), SWE-bench (реальні задачі інженерії ПЗ), LiveCodeBench (свіжі задачі). Тестують практичну здатність програмування.', links: [{ title: 'Вайбкодинг', href: '../level-2/vibecoding.html' }] },
+            { text: 'Математичні бенчмарки', desc: 'MATH (олімпіадна математика), GSM8K (математика початкової школи), задачі олімпіадного рівня. Математичне міркування — одна з найскладніших здібностей LLM.', links: [{ title: 'Міркування', href: 'reasoning.html' }] },
+            { text: 'Бенчмарки міркувань', desc: 'ARC-AGI (абстрактне міркування), Big-Bench Hard (складні різноманітні задачі), GPQA (запитання аспірантського рівня). Підштовхують межі того, що моделі можуть зрозуміти.', links: [{ title: 'Міркування', href: 'reasoning.html' }] },
+            { text: 'Лідерборди людських переваг', desc: 'Chatbot Arena (LMSYS) — реальні користувачі голосують між анонімними результатами моделей. Вважається найнадійнішим рейтингом, бо відображає реальне задоволення користувачів.', links: [] },
+            { text: 'Open LLM Leaderboard', desc: 'Автоматизований набір бенчмарків Hugging Face для моделей з відкритими вагами. Корисний для порівняння відкритих моделей, але оцінки можуть бути завищені оптимізацією під бенчмарки.', links: [{ title: 'Великі гравці', href: 'big-players.html' }] },
+            { text: 'Оцінка заяв про моделі', desc: 'Дивіться за заголовкові числа: перевіряйте методологію, порівнюйте через кілька бенчмарків, тестуйте на власних задачах. Маркетинг обирає найкращі оцінки.', links: [] },
+            { text: 'Контамінація бенчмарків', desc: 'Коли тестові дані потрапляють у навчальні (випадково чи навмисно), оцінки штучно завищуються. Зростаюча проблема по мірі розширення навчальних датасетів.', links: [{ title: 'Від даних до моделі', href: '../level-3/data-to-model.html' }] },
+            { text: 'Де слідкувати за прогресом ШІ', desc: 'AI Twitter/X для новин, Papers With Code для відстеження SOTA, Hugging Face для моделей, arXiv для статей, ШІ-розсилки (The Batch, Import AI) для кураторських резюме.', links: [] }
+          ]
+        },
+        keyTerms: {
+          en: [
+            { term: 'SOTA', def: 'State of the Art — the best performance achieved on a benchmark at a given time.' },
+            { term: 'Benchmark', def: 'A standardized test used to measure and compare model performance on specific tasks.' },
+            { term: 'Leaderboard', def: 'A ranking of models by performance on one or more benchmarks.' },
+            { term: 'Contamination', def: 'When benchmark test data appears in training data, making scores unreliable.' },
+            { term: 'Chatbot Arena', def: 'Human preference leaderboard where real users blindly compare model outputs.' }
+          ],
+          uk: [
+            { term: 'SOTA', def: 'State of the Art — найкраща продуктивність на бенчмарку в даний момент часу.' },
+            { term: 'Бенчмарк', def: 'Стандартизований тест для вимірювання та порівняння продуктивності моделей.' },
+            { term: 'Лідерборд', def: 'Рейтинг моделей за продуктивністю на одному або кількох бенчмарках.' },
+            { term: 'Контамінація', def: 'Коли тестові дані бенчмарку з\'являються у навчальних даних, роблячи оцінки ненадійними.' },
+            { term: 'Chatbot Arena', def: 'Лідерборд людських переваг, де реальні користувачі сліпо порівнюють результати моделей.' }
+          ]
+        },
+        tips: {
+          en: [
+            'Always check Chatbot Arena for the most reliable model rankings — it uses real human preferences',
+            'Don\'t trust a single benchmark score. Look at performance across multiple diverse benchmarks',
+            'The best model on benchmarks may not be the best for your specific use case — always test yourself'
+          ],
+          uk: [
+            'Завжди перевіряйте Chatbot Arena для найнадійніших рейтингів моделей — він використовує реальні людські переваги',
+            'Не довіряйте одному бенчмарковому балу. Дивіться на продуктивність через множинні різноманітні бенчмарки',
+            'Найкраща модель на бенчмарках може не бути найкращою для вашого конкретного випадку — завжди тестуйте самі'
+          ]
+        },
+        related: ['Feed', 'AI Digest']
+      }
+    ]
+  },
+  {
+    num: 2, emoji: '💡',
+    title: { en: 'User', uk: 'Користувач' },
+    desc: {
+      en: 'Core concepts for effectively using AI models: prompts, tokens, context, and common pitfalls.',
+      uk: 'Основні концепції ефективного використання моделей ШІ: промпти, токени, контекст та типові помилки.'
+    },
+    topics: [
+      {
+        slug: 'prompt',
+        title: { en: 'Prompt', uk: 'Промпт' },
+        desc: { en: 'Understanding prompts - the primary interface between humans and AI models.', uk: 'Розуміння промптів — основного інтерфейсу між людьми та моделями ШІ.' },
+        overview: {
+          en: [
+            'A prompt is the text input you send to an AI model — it is the primary interface for communicating your intent. The quality of your prompt directly determines the quality of the output. Learning to write effective prompts is the single most impactful skill for anyone working with AI.',
+            'Prompts have structure: a system prompt sets the model\'s behavior and role, user messages provide specific requests, and the conversation history gives context. Understanding this structure and writing clear, specific instructions with relevant context is the foundation of "prompt engineering."'
+          ],
+          uk: [
+            'Промпт — це текстовий вхід, який ви надсилаєте моделі ШІ — це основний інтерфейс для передачі вашого наміру. Якість вашого промпту безпосередньо визначає якість результату. Навчитися писати ефективні промпти — це найбільш впливовий навик для будь-кого, хто працює з ШІ.',
+            'Промпти мають структуру: системний промпт встановлює поведінку та роль моделі, повідомлення користувача надають конкретні запити, а історія розмови дає контекст. Розуміння цієї структури та написання чітких, конкретних інструкцій з релевантним контекстом є основою "промпт-інженерії."'
+          ]
+        },
+        details: {
+          en: [
+            { text: 'What Is a Prompt', desc: 'Your text instructions to an AI model — the primary interface for communicating intent. The quality of your prompt directly determines the quality of the output.', links: [{ title: 'Generative AI', href: '../level-1/generative-ai.html' }] },
+            { text: 'System Prompts', desc: 'Hidden instructions that set model personality, rules, and behavior boundaries. They persist across the entire conversation and define the model\'s "character."', links: [] },
+            { text: 'User Prompts', desc: 'Specific requests and questions within a conversation. Each user message is a prompt that builds on the conversation history and system prompt context.', links: [{ title: 'Context', href: 'context.html' }] },
+            { text: 'Prompt Structure', desc: 'Effective prompts have structure: instruction (what to do) + context (background info) + examples (desired format) + constraints (rules/limits) + output format (JSON, markdown, etc.).', links: [{ title: 'Prompting Techniques', href: '../level-4/prompting-techniques.html' }] },
+            { text: 'Writing Clear Prompts', desc: 'Be specific ("summarize in 3 bullet points" not "summarize"), provide relevant context, state format expectations explicitly. Clarity beats cleverness every time.', links: [] },
+            { text: 'Role Prompting', desc: '"You are an expert in..." activates domain-specific knowledge and communication style. Role prompts help models adopt appropriate tone, vocabulary, and depth for the task.', links: [] },
+            { text: 'Few-Shot Prompting', desc: 'Providing 2-5 examples of desired input/output pairs in the prompt. Shows the model exactly what format, style, and quality you expect without any fine-tuning.', links: [{ title: 'Foundation Models', href: '../level-1/foundation-models.html' }] },
+            { text: 'Common Prompt Templates', desc: 'Analysis (break down X), summarization (summarize for Y audience), code generation (write a function that...), creative writing (write in the style of...). Templates save time and improve consistency.', links: [] },
+            { text: 'Iterative Refinement', desc: 'Improving prompts based on output quality feedback. Start simple, identify what\'s wrong, add constraints or examples to fix it. Prompt engineering is iterative, not one-shot.', links: [] },
+            { text: 'Anti-Patterns & Risks', desc: 'Vague instructions ("make it better"), contradictory constraints, overly long prompts that dilute focus, and prompt injection risks where malicious text overrides your instructions.', links: [{ title: 'Hallucinations', href: 'hallucination.html' }] }
+          ],
+          uk: [
+            { text: 'Що таке промпт', desc: 'Ваші текстові інструкції моделі ШІ — основний інтерфейс для передачі наміру. Якість промпту безпосередньо визначає якість результату.', links: [{ title: 'Генеративний ШІ', href: '../level-1/generative-ai.html' }] },
+            { text: 'Системні промпти', desc: 'Приховані інструкції, що встановлюють особистість, правила та межі поведінки моделі. Вони зберігаються протягом усієї розмови і визначають "характер" моделі.', links: [] },
+            { text: 'Користувацькі промпти', desc: 'Конкретні запити та запитання в рамках розмови. Кожне повідомлення користувача — це промпт, що будується на історії розмови та контексті системного промпту.', links: [{ title: 'Контекст', href: 'context.html' }] },
+            { text: 'Структура промпту', desc: 'Ефективні промпти мають структуру: інструкція (що робити) + контекст (фонова інформація) + приклади (бажаний формат) + обмеження (правила/ліміти) + формат виходу (JSON, markdown тощо).', links: [{ title: 'Техніки промптингу', href: '../level-4/prompting-techniques.html' }] },
+            { text: 'Написання чітких промптів', desc: 'Будьте конкретними ("резюмуй у 3 пунктах" а не "резюмуй"), надавайте релевантний контекст, явно вказуйте очікування формату. Чіткість перемагає хитрість кожного разу.', links: [] },
+            { text: 'Рольовий промптинг', desc: '"Ви є експертом у..." активує доменно-специфічні знання та стиль комунікації. Рольові промпти допомагають моделям прийняти відповідний тон та глибину.', links: [] },
+            { text: 'Промптинг з кількома прикладами', desc: 'Надання 2-5 прикладів бажаних пар вхід/вихід у промпті. Показує моделі точно який формат, стиль та якість ви очікуєте без файн-тюнінгу.', links: [{ title: 'Фундаментальні моделі', href: '../level-1/foundation-models.html' }] },
+            { text: 'Поширені шаблони промптів', desc: 'Аналіз (розбери X), резюмування (резюмуй для Y аудиторії), генерація коду (напиши функцію що...), творче написання (напиши у стилі...). Шаблони економлять час та покращують стабільність.', links: [] },
+            { text: 'Ітеративне вдосконалення', desc: 'Покращення промптів на основі зворотного зв\'язку про якість. Починайте просто, визначте що не так, додайте обмеження чи приклади. Промпт-інженерія ітеративна, не одноразова.', links: [] },
+            { text: 'Антипатерни та ризики', desc: 'Розмиті інструкції ("зроби краще"), суперечливі обмеження, занадто довгі промпти що розпорошують фокус, та ризики промпт-ін\'єкцій де зловмисний текст перевизначає ваші інструкції.', links: [{ title: 'Галюцинації', href: 'hallucination.html' }] }
+          ]
+        },
+        keyTerms: {
+          en: [
+            { term: 'System Prompt', def: 'Hidden instructions that set model behavior, personality, and rules for the conversation.' },
+            { term: 'Few-Shot', def: 'Providing examples in the prompt to show the model what output format/style you want.' },
+            { term: 'Prompt Engineering', def: 'The practice of crafting effective prompts to get desired results from AI models.' },
+            { term: 'Prompt Injection', def: 'An attack where malicious instructions are embedded to override the system prompt.' }
+          ],
+          uk: [
+            { term: 'Системний промпт', def: 'Приховані інструкції, що встановлюють поведінку, особистість та правила моделі для розмови.' },
+            { term: 'Few-Shot', def: 'Надання прикладів у промпті для показу моделі бажаного формату/стилю виходу.' },
+            { term: 'Промпт-інженерія', def: 'Практика створення ефективних промптів для отримання бажаних результатів від моделей ШІ.' },
+            { term: 'Промпт-ін\'єкція', def: 'Атака, де зловмисні інструкції вбудовуються для перевизначення системного промпту.' }
+          ]
+        },
+        tips: {
+          en: [
+            'Start with a clear role and task description, then add constraints and examples',
+            'When output isn\'t right, refine the prompt incrementally rather than rewriting from scratch',
+            'Specifying the output format explicitly (JSON, markdown, bullet points) dramatically improves results'
+          ],
+          uk: [
+            'Починайте з чіткого опису ролі та задачі, потім додавайте обмеження та приклади',
+            'Коли вихід неправильний, вдосконалюйте промпт інкрементально, а не переписуйте з нуля',
+            'Явне вказування формату виходу (JSON, markdown, маркери) драматично покращує результати'
+          ]
+        },
+        related: ['Feed', 'Agents & Tools']
+      },
+      {
+        slug: 'token',
+        title: { en: 'Token', uk: 'Токен' },
+        desc: { en: 'How models process text through tokenization - the fundamental unit of LLM computation.', uk: 'Як моделі обробляють текст через токенізацію — базову одиницю обчислень LLM.' },
+        overview: {
+          en: [
+            'Tokens are the fundamental units that LLMs work with. They are not characters, not words, but subword pieces — typically 3-4 characters of English text. The word "tokenization" becomes roughly ["token", "ization"]. Understanding tokens is critical because they determine costs, context window limits, and model behavior.',
+            'Every interaction with an AI model involves counting tokens: your input is measured in tokens, the model\'s output is counted in tokens, and you pay per token. The context window — how much text the model can "see" at once — is measured in tokens. A typical page of English text is about 500 tokens.'
+          ],
+          uk: [
+            'Токени — це фундаментальні одиниці, з якими працюють LLM. Вони не символи, не слова, а підслівні частини — зазвичай 3-4 символи англійського тексту. Слово "tokenization" стає приблизно ["token", "ization"]. Розуміння токенів критично важливе, бо вони визначають витрати, ліміти контекстного вікна та поведінку моделі.',
+            'Кожна взаємодія з моделлю ШІ включає підрахунок токенів: ваш вхід вимірюється в токенах, вихід моделі підраховується в токенах, і ви платите за токен. Контекстне вікно — скільки тексту модель може "бачити" одночасно — вимірюється в токенах. Типова сторінка англійського тексту — це приблизно 500 токенів.'
+          ]
+        },
+        details: {
+          en: [
+            { text: 'What Is a Token', desc: 'Subword units — not characters or words. "Hello world" is 2 tokens. "Tokenization" becomes ["token", "ization"]. Typically 3-4 characters of English text per token.', links: [] },
+            { text: 'Tokenization Algorithms', desc: 'BPE (Byte Pair Encoding) iteratively merges frequent character pairs. SentencePiece handles any language. tiktoken is OpenAI\'s fast tokenizer. Each model family uses its own tokenizer.', links: [] },
+            { text: 'Context Window Sizes', desc: '4K tokens (early GPT-3.5) → 128K (GPT-4) → 200K (Claude) → 1M+ (Gemini). Context windows have grown 250x in just 2 years, dramatically expanding what models can process.', links: [{ title: 'Context', href: 'context.html' }] },
+            { text: 'Token Pricing', desc: 'Typical costs: $1-30 per million tokens depending on model tier. Claude Haiku ~$0.25/M input, GPT-4o ~$2.50/M input, Claude Opus ~$15/M input. Understanding pricing enables cost optimization.', links: [{ title: 'API Providers', href: '../level-4/api-providers.html' }] },
+            { text: 'Language Differences', desc: 'Ukrainian, Chinese, Arabic, and other non-Latin scripts use 2-3x more tokens than English for equivalent content. This directly impacts costs and effective context window size.', links: [] },
+            { text: 'Special Tokens', desc: 'Control tokens like <|im_start|>, <|im_end|>, [PAD], [SEP] are used internally by models to mark message boundaries, roles, and sequence structure. You rarely see them but they consume context.', links: [] },
+            { text: 'Token Counting Tools', desc: 'tiktoken (OpenAI), Anthropic tokenizer, Hugging Face tokenizers — use these to predict costs and check if your prompt fits within the context window before sending.', links: [] },
+            { text: 'Cost Optimization', desc: 'Shorter prompts = cheaper, but too short = worse quality. The art is finding the minimum effective prompt length. Removing unnecessary context and boilerplate saves money at scale.', links: [{ title: 'Prompt', href: 'prompt.html' }] },
+            { text: 'Prompt Caching', desc: 'Many APIs cache common prompt prefixes to reduce costs on repeated calls. Anthropic and OpenAI both offer caching that can reduce input costs by 90% for repeated system prompts.', links: [{ title: 'API Providers', href: '../level-4/api-providers.html' }] },
+            { text: 'Input vs Output Token Pricing', desc: 'Output tokens are typically 2-5x more expensive than input tokens. Generating text costs more than reading it. This incentivizes concise outputs and affects application design decisions.', links: [] }
+          ],
+          uk: [
+            { text: 'Що таке токен', desc: 'Підслівні одиниці — не символи чи слова. "Hello world" це 2 токени. "Tokenization" стає ["token", "ization"]. Зазвичай 3-4 символи англійського тексту на токен.', links: [] },
+            { text: 'Алгоритми токенізації', desc: 'BPE (Byte Pair Encoding) ітеративно зливає часті пари символів. SentencePiece працює з будь-якою мовою. tiktoken — швидкий токенізатор OpenAI. Кожна сім\'я моделей має свій токенізатор.', links: [] },
+            { text: 'Розміри контекстних вікон', desc: '4K токенів (ранній GPT-3.5) → 128K (GPT-4) → 200K (Claude) → 1M+ (Gemini). Контекстні вікна зросли у 250 разів за 2 роки, різко розширюючи можливості обробки.', links: [{ title: 'Контекст', href: 'context.html' }] },
+            { text: 'Ціноутворення токенів', desc: 'Типові витрати: $1-30 за мільйон токенів залежно від рівня моделі. Claude Haiku ~$0.25/M вхід, GPT-4o ~$2.50/M вхід, Claude Opus ~$15/M вхід. Розуміння цін дозволяє оптимізацію.', links: [{ title: 'API-провайдери', href: '../level-4/api-providers.html' }] },
+            { text: 'Мовні відмінності', desc: 'Українські, китайські, арабські та інші нелатинські скрипти використовують у 2-3 рази більше токенів за еквівалентний контент. Це прямо впливає на витрати та ефективний розмір контексту.', links: [] },
+            { text: 'Спеціальні токени', desc: 'Контрольні токени як <|im_start|>, <|im_end|>, [PAD], [SEP] використовуються внутрішньо для розмітки меж повідомлень, ролей та структури. Ви їх рідко бачите, але вони споживають контекст.', links: [] },
+            { text: 'Інструменти підрахунку токенів', desc: 'tiktoken (OpenAI), Anthropic tokenizer, Hugging Face tokenizers — використовуйте їх для прогнозу витрат та перевірки чи промпт вміщується у контекстне вікно.', links: [] },
+            { text: 'Оптимізація витрат', desc: 'Коротші промпти = дешевше, але занадто коротко = гірша якість. Мистецтво — знайти мінімальну ефективну довжину промпту. Видалення непотрібного контексту економить гроші.', links: [{ title: 'Промпт', href: 'prompt.html' }] },
+            { text: 'Кешування промптів', desc: 'Багато API кешують спільні префікси промптів. Anthropic та OpenAI пропонують кешування, що може зменшити витрати на вхід на 90% для повторюваних системних промптів.', links: [{ title: 'API-провайдери', href: '../level-4/api-providers.html' }] },
+            { text: 'Ціни вхідних vs вихідних токенів', desc: 'Вихідні токени зазвичай у 2-5 разів дорожчі за вхідні. Генерація тексту коштує більше ніж читання. Це стимулює стислі виходи та впливає на проєктування додатків.', links: [] }
+          ]
+        },
+        keyTerms: {
+          en: [
+            { term: 'Token', def: 'The basic unit of text that LLMs process — a subword piece typically 3-4 characters long.' },
+            { term: 'BPE', def: 'Byte Pair Encoding — a tokenization algorithm that iteratively merges the most frequent character pairs.' },
+            { term: 'Context Window', def: 'The maximum number of tokens a model can process in a single request (input + output combined).' },
+            { term: 'Prompt Caching', def: 'API feature that caches common prompt prefixes to reduce cost on repeated similar requests.' }
+          ],
+          uk: [
+            { term: 'Токен', def: 'Базова одиниця тексту, яку обробляють LLM — підслівний фрагмент зазвичай 3-4 символи.' },
+            { term: 'BPE', def: 'Byte Pair Encoding — алгоритм токенізації, що ітеративно зливає найчастіші пари символів.' },
+            { term: 'Контекстне вікно', def: 'Максимальна кількість токенів, яку модель може обробити в одному запиті (вхід + вихід разом).' },
+            { term: 'Кешування промптів', def: 'Функція API, що кешує спільні префікси промптів для зменшення витрат на повторні запити.' }
+          ]
+        },
+        related: ['Agents & Tools']
+      },
+      {
+        slug: 'context',
+        title: { en: 'Context', uk: 'Контекст' },
+        desc: { en: 'Context windows, how models use context, and managing context effectively.', uk: 'Контекстні вікна, як моделі використовують контекст та ефективне управління контекстом.' },
+        overview: {
+          en: [
+            'The context window is the total amount of text (measured in tokens) that a model can process in a single request — including both your input and the model\'s output. Think of it as the model\'s "working memory." Anything outside the context window simply doesn\'t exist for the model.',
+            'Context windows have grown dramatically: from 4K tokens in early GPT-3.5 to 200K (Claude) and 1M+ (Gemini). But bigger isn\'t always better — models often struggle to effectively use information in the middle of very long contexts. Understanding these dynamics is key to building effective AI applications.'
+          ],
+          uk: [
+            'Контекстне вікно — це загальний обсяг тексту (виміряний у токенах), який модель може обробити в одному запиті — включаючи як ваш вхід, так і вихід моделі. Думайте про це як про "робочу пам\'ять" моделі. Все, що поза контекстним вікном, просто не існує для моделі.',
+            'Контекстні вікна драматично зросли: від 4K токенів у ранньому GPT-3.5 до 200K (Claude) та 1M+ (Gemini). Але більше — не завжди краще — моделі часто мають проблеми з ефективним використанням інформації у середині дуже довгих контекстів. Розуміння цієї динаміки є ключем до побудови ефективних ШІ-додатків.'
+          ]
+        },
+        details: {
+          en: [
+            { text: 'What Is a Context Window', desc: 'The total tokens (input + output) a model processes in one request — its working memory. Everything outside the context window simply doesn\'t exist for the model.', links: [{ title: 'Token', href: 'token.html' }] },
+            { text: 'Context Window Sizes', desc: 'GPT-4 (128K), Claude (200K), Gemini (1M+), open models (8K-128K). Bigger context means more information available, but cost and latency increase with context size.', links: [{ title: 'The Big Players', href: '../level-1/big-players.html' }] },
+            { text: 'How Attention Works', desc: 'Each token "attends" to every other token — computational cost grows quadratically (O(n^2)). This is why very long contexts are expensive and why efficient attention methods matter.', links: [{ title: 'Neural Networks', href: '../level-3/neural-networks.html' }] },
+            { text: 'Lost-in-the-Middle Problem', desc: 'Models attend better to the beginning and end of context than the middle. Important information placed in the middle of a long context may be overlooked or given less weight.', links: [] },
+            { text: 'Context Management Strategies', desc: 'Summarization (compress older messages), chunking (process documents in pieces), prioritization (put most relevant info first/last). Essential skills for building production AI apps.', links: [] },
+            { text: 'RAG (Retrieval-Augmented Generation)', desc: 'Pull relevant documents into context on demand rather than stuffing everything in. A search retrieves the most relevant chunks, which are then added to the prompt before generation.', links: [{ title: 'RAG', href: '../level-4/rag.html' }] },
+            { text: 'Conversation Memory', desc: 'Chatbots simulate long-term memory by managing context: summarizing old messages, maintaining key facts, and selectively including relevant history in each new request.', links: [] },
+            { text: 'Context Engineering', desc: 'Deliberate structuring of what goes into the context window — what to include, what to summarize, what to omit. Arguably more important than prompt engineering for complex applications.', links: [{ title: 'Prompt', href: 'prompt.html' }] },
+            { text: 'Sliding Window Processing', desc: 'For documents longer than the context window, process in overlapping chunks that "slide" through the content. Each chunk shares some overlap with the previous for continuity.', links: [] },
+            { text: 'Multi-Turn Conversation Costs', desc: 'Each message in a conversation consumes context. As conversations grow, old messages get truncated or summarized. Understanding this helps you design chatbots that remain coherent over time.', links: [{ title: 'Token', href: 'token.html' }] }
+          ],
+          uk: [
+            { text: 'Що таке контекстне вікно', desc: 'Загальні токени (вхід + вихід), що модель обробляє в одному запиті — її робоча пам\'ять. Все поза контекстним вікном просто не існує для моделі.', links: [{ title: 'Токен', href: 'token.html' }] },
+            { text: 'Розміри контекстних вікон', desc: 'GPT-4 (128K), Claude (200K), Gemini (1M+), відкриті моделі (8K-128K). Більший контекст — більше доступної інформації, але зростають витрати та латентність.', links: [{ title: 'Великі гравці', href: '../level-1/big-players.html' }] },
+            { text: 'Як працює увага', desc: 'Кожен токен "звертає увагу" на кожен інший — обчислювальна вартість зростає квадратично (O(n^2)). Тому дуже довгі контексти дорогі і ефективні методи уваги важливі.', links: [{ title: 'Основи нейромереж', href: '../level-3/neural-networks.html' }] },
+            { text: 'Проблема загубленості у середині', desc: 'Моделі краще звертають увагу на початок та кінець контексту ніж на середину. Важлива інформація у середині довгого контексту може бути пропущена або отримати менше ваги.', links: [] },
+            { text: 'Стратегії управління контекстом', desc: 'Резюмування (стиснення старих повідомлень), чанкінг (обробка документів частинами), пріоритизація (найважливіше на початок/кінець). Необхідні навички для продакшн ШІ-додатків.', links: [] },
+            { text: 'RAG (Генерація з пошуковим доповненням)', desc: 'Витягування релевантних документів у контекст за запитом замість заповнення всього. Пошук знаходить найрелевантніші чанки, що додаються у промпт перед генерацією.', links: [{ title: 'RAG', href: '../level-4/rag.html' }] },
+            { text: 'Пам\'ять розмови', desc: 'Чатботи імітують довгострокову пам\'ять через управління контекстом: резюмування старих повідомлень, збереження ключових фактів та вибіркове включення релевантної історії.', links: [] },
+            { text: 'Контекст-інженерія', desc: 'Навмисне структурування того, що потрапляє в контекстне вікно — що включити, що резюмувати, що пропустити. Можливо, важливіше за промпт-інженерію для складних додатків.', links: [{ title: 'Промпт', href: 'prompt.html' }] },
+            { text: 'Обробка ковзним вікном', desc: 'Для документів довших за контекстне вікно — обробка частинами, що "ковзають" через контент з перетинами для збереження безперервності.', links: [] },
+            { text: 'Витрати багатокрокових розмов', desc: 'Кожне повідомлення в розмові споживає контекст. По мірі зростання розмови старі повідомлення обрізаються чи резюмуються. Розуміння цього допомагає проєктувати когерентних чатботів.', links: [{ title: 'Токен', href: 'token.html' }] }
+          ]
+        },
+        keyTerms: {
+          en: [
+            { term: 'Context Window', def: 'Maximum tokens a model processes at once — its working memory for a single request.' },
+            { term: 'Lost-in-the-Middle', def: 'Models attend better to start and end of context, often missing information in the middle.' },
+            { term: 'RAG', def: 'Retrieval-Augmented Generation — dynamically retrieving relevant documents to add to the context.' },
+            { term: 'Context Engineering', def: 'The practice of deliberately structuring and managing what information enters the model\'s context.' }
+          ],
+          uk: [
+            { term: 'Контекстне вікно', def: 'Максимум токенів, що модель обробляє за раз — її робоча пам\'ять для одного запиту.' },
+            { term: 'Загубленість у середині', def: 'Моделі краще звертають увагу на початок та кінець контексту, часто пропускаючи середину.' },
+            { term: 'RAG', def: 'Генерація з пошуковим доповненням — динамічне витягування релевантних документів для додавання в контекст.' },
+            { term: 'Контекст-інженерія', def: 'Практика навмисного структурування та управління інформацією, що потрапляє в контекст моделі.' }
+          ]
+        },
+        related: ['Agents & Tools', 'Feed']
+      },
+      {
+        slug: 'hallucination',
+        title: { en: 'Hallucinations', uk: 'Галюцинації' },
+        desc: { en: 'Why LLMs generate false information and how to detect and mitigate it.', uk: 'Чому LLM генерують хибну інформацію та як її виявити й зменшити.' },
+        overview: {
+          en: [
+            'Hallucinations (also called confabulations) occur when AI models generate plausible-sounding but factually incorrect information. This is not a bug — it is an inherent property of how LLMs work. Since they generate text by predicting likely next tokens rather than looking up facts, they can produce confident-sounding nonsense.',
+            'Understanding hallucinations is critical for using AI safely. They range from minor factual errors to completely fabricated citations, invented APIs, and non-existent functions. The key mitigation strategies include grounding responses in retrieved data (RAG), using tool calls for fact-checking, and always verifying critical information independently.'
+          ],
+          uk: [
+            'Галюцинації (також конфабуляції) виникають, коли моделі ШІ генерують правдоподібно звучну, але фактично неправильну інформацію. Це не баг — це невід\'ємна властивість того, як працюють LLM. Оскільки вони генерують текст передбаченням найімовірніших наступних токенів, а не пошуком фактів, вони можуть видавати впевнено звучну нісенітницю.',
+            'Розуміння галюцинацій критично важливе для безпечного використання ШІ. Вони варіюються від незначних фактичних помилок до повністю вигаданих цитат, вигаданих API та неіснуючих функцій. Ключові стратегії зменшення включають заземлення відповідей на отриманих даних (RAG), використання викликів інструментів для перевірки фактів та завжди незалежну верифікацію критичної інформації.'
+          ]
+        },
+        details: {
+          en: [
+            { text: 'What Are Hallucinations', desc: 'Confident-sounding false statements generated by AI. The model states something as fact that is partially or completely fabricated — and it sounds just as convincing as its correct outputs.', links: [{ title: 'Generative AI', href: '../level-1/generative-ai.html' }] },
+            { text: 'Why They Happen', desc: 'LLMs predict likely text, not factual text — they have no internal fact database. They generate what "sounds right" based on training patterns, which sometimes produces plausible-sounding nonsense.', links: [{ title: 'LLM and GPT', href: '../level-1/llm-and-gpt.html' }] },
+            { text: 'Factual Hallucinations', desc: 'Wrong dates, made-up statistics, incorrect attributions. The model confidently states "Einstein published relativity in 1903" or invents plausible-sounding but non-existent facts.', links: [] },
+            { text: 'Fabricated References', desc: 'Invented academic papers, fake URLs, non-existent API endpoints or function names. Particularly dangerous because they look legitimate and are hard to spot without verification.', links: [] },
+            { text: 'Logical Hallucinations', desc: 'Correct-sounding reasoning chains that reach wrong conclusions. Each step seems reasonable but the overall logic is flawed — especially dangerous because it "shows its work."', links: [{ title: 'Reasoning', href: '../level-1/reasoning.html' }] },
+            { text: 'Detection Strategies', desc: 'Cross-reference with authoritative sources, run generated code to verify it works, check citations actually exist, use search tools to verify facts. Trust but verify.', links: [] },
+            { text: 'RAG Grounding', desc: 'Providing retrieved real documents reduces hallucination by giving models actual data to cite. Instead of generating from memory, the model references specific source material.', links: [{ title: 'RAG', href: '../level-4/rag.html' }] },
+            { text: 'Tool Use Grounding', desc: 'Letting models call search APIs, databases, or calculators to verify facts before answering. External tools provide ground truth that the model can reference instead of guessing.', links: [{ title: 'Tool Use', href: '../level-4/tool-use.html' }] },
+            { text: 'When Hallucinations Are Dangerous', desc: 'Medical/legal/financial advice, API documentation, safety-critical systems, academic research. In these domains, a confident wrong answer can cause real harm.', links: [] },
+            { text: 'When They\'re Acceptable', desc: 'Creative writing, brainstorming, generating placeholder content, exploring ideas. In creative contexts, the model\'s ability to generate novel combinations is a feature, not a bug.', links: [] }
+          ],
+          uk: [
+            { text: 'Що таке галюцинації', desc: 'Впевнено звучні хибні твердження, згенеровані ШІ. Модель стверджує щось як факт, що частково або повністю вигадано — і це звучить так само переконливо як правильні відповіді.', links: [{ title: 'Генеративний ШІ', href: '../level-1/generative-ai.html' }] },
+            { text: 'Чому це відбувається', desc: 'LLM передбачають імовірний текст, не фактичний — вони не мають внутрішньої бази фактів. Вони генерують те, що "звучить правильно" на основі навчальних патернів.', links: [{ title: 'LLM та GPT', href: '../level-1/llm-and-gpt.html' }] },
+            { text: 'Фактичні галюцинації', desc: 'Неправильні дати, вигадана статистика, некоректні атрибуції. Модель впевнено стверджує "Ейнштейн опублікував теорію відносності у 1903" або вигадує правдоподібні, але неіснуючі факти.', links: [] },
+            { text: 'Вигадані посилання', desc: 'Вигадані наукові статті, фейкові URL, неіснуючі API-ендпоінти або імена функцій. Особливо небезпечні, бо виглядають легітимно і важко помітити без верифікації.', links: [] },
+            { text: 'Логічні галюцинації', desc: 'Правильно звучні ланцюги міркувань, що досягають хибних висновків. Кожен крок здається розумним, але загальна логіка хибна — особливо небезпечно, бо "показує роботу."', links: [{ title: 'Міркування', href: '../level-1/reasoning.html' }] },
+            { text: 'Стратегії виявлення', desc: 'Перехресна перевірка з авторитетними джерелами, запуск згенерованого коду, перевірка існування цитат, використання пошуку для верифікації фактів. Довіряй, але перевіряй.', links: [] },
+            { text: 'Заземлення RAG', desc: 'Надання реальних отриманих документів зменшує галюцинації, даючи моделям фактичні дані для цитування. Замість генерації з пам\'яті модель посилається на конкретний вихідний матеріал.', links: [{ title: 'RAG', href: '../level-4/rag.html' }] },
+            { text: 'Заземлення інструментами', desc: 'Дозвіл моделям викликати API пошуку, бази даних або калькулятори для перевірки фактів. Зовнішні інструменти надають основу істини.', links: [{ title: 'Використання інструментів', href: '../level-4/tool-use.html' }] },
+            { text: 'Коли галюцинації небезпечні', desc: 'Медична/юридична/фінансова порада, документація API, системи безпеки, академічні дослідження. У цих доменах впевнена хибна відповідь може завдати реальної шкоди.', links: [] },
+            { text: 'Коли вони прийнятні', desc: 'Творче письмо, мозковий штурм, генерація заповнювального контенту, дослідження ідей. У творчих контекстах здатність моделі генерувати нові комбінації — це перевага.', links: [] }
+          ]
+        },
+        keyTerms: {
+          en: [
+            { term: 'Hallucination', def: 'When an AI model generates false information that sounds confident and plausible.' },
+            { term: 'Confabulation', def: 'Alternative term for hallucination, emphasizing the model is "filling in gaps" rather than lying.' },
+            { term: 'Grounding', def: 'Providing real data (via RAG or tools) so the model bases answers on facts, not just training patterns.' },
+            { term: 'Calibration', def: 'How well a model\'s confidence matches its actual accuracy — well-calibrated models know when they\'re uncertain.' }
+          ],
+          uk: [
+            { term: 'Галюцинація', def: 'Коли модель ШІ генерує хибну інформацію, що звучить впевнено та правдоподібно.' },
+            { term: 'Конфабуляція', def: 'Альтернативний термін для галюцинації, підкреслюючи що модель "заповнює прогалини", а не бреше.' },
+            { term: 'Заземлення', def: 'Надання реальних даних (через RAG або інструменти), щоб модель базувала відповіді на фактах.' },
+            { term: 'Калібрування', def: 'Наскільки впевненість моделі відповідає її реальній точності — добре калібровані моделі знають, коли невпевнені.' }
+          ]
+        },
+        related: ['Feed']
+      },
+      {
+        slug: 'vibecoding',
+        title: { en: 'Vibecoding', uk: 'Вайбкодинг' },
+        desc: { en: 'The new paradigm of coding by intent - describing what you want and letting AI write the code.', uk: 'Нова парадигма програмування за наміром — описуєш що хочеш, а ШІ пише код.' },
+        overview: {
+          en: [
+            'Vibecoding is a term coined by Andrej Karpathy in early 2025 to describe a new programming paradigm: instead of manually writing every line of code, you describe what you want in natural language and let AI generate the implementation. You guide the process through conversation, accepting or rejecting generated code based on whether the result "feels right."',
+            'This approach works surprisingly well for prototypes, scripts, and web apps. Tools like Cursor, Claude Code, GitHub Copilot, and Windsurf enable vibecoding workflows. However, it has clear limitations for complex systems — understanding what the code does remains important for debugging, security, and maintenance.'
+          ],
+          uk: [
+            'Вайбкодинг — це термін, запропонований Андреєм Карпаті на початку 2025 року для опису нової парадигми програмування: замість ручного написання кожного рядка коду, ви описуєте що хочете природною мовою і дозволяєте ШІ генерувати реалізацію. Ви керуєте процесом через розмову, приймаючи або відхиляючи згенерований код на основі того, чи результат "відчувається правильним."',
+            'Цей підхід працює напрочуд добре для прототипів, скриптів та веб-додатків. Інструменти як Cursor, Claude Code, GitHub Copilot та Windsurf забезпечують воркфлоу вайбкодингу. Однак він має чіткі обмеження для складних систем — розуміння що код робить залишається важливим для дебагінгу, безпеки та підтримки.'
+          ]
+        },
+        details: {
+          en: [
+            { text: 'What Is Vibecoding', desc: 'Describing what you want in natural language and letting AI write the code. You guide the process through conversation, accepting or rejecting output based on whether it "feels right."', links: [{ title: 'Generative AI', href: '../level-1/generative-ai.html' }] },
+            { text: 'Origin of the Term', desc: 'Andrej Karpathy coined "vibecoding" in February 2025 to describe programming by intent rather than syntax. The term went viral and now defines a new programming paradigm.', links: [] },
+            { text: 'The Coding Spectrum', desc: 'Manual coding → assisted (Copilot autocomplete) → vibecoding (describe intent, AI implements) → fully autonomous agents (AI plans and executes entire features). We\'re moving right.', links: [{ title: 'Agents', href: '../level-4/agents.html' }] },
+            { text: 'Key Vibecoding Tools', desc: 'Cursor (AI-first IDE), Claude Code (CLI agent), GitHub Copilot (inline suggestions), Windsurf (AI IDE), Bolt/v0 (web app generators). Each tool suits different workflows.', links: [{ title: 'Tools & Libraries', href: '../level-4/base-tools.html' }] },
+            { text: 'When It Works Well', desc: 'Prototypes, scripts, standard web apps (CRUD, dashboards, forms), well-defined tasks with clear requirements. Vibecoding excels when patterns are common and well-represented in training data.', links: [] },
+            { text: 'When It Fails', desc: 'Complex architectures, novel algorithms, security-critical code, performance optimization, and anything requiring deep domain expertise. Understanding limitations prevents dangerous overreliance.', links: [{ title: 'Hallucinations', href: 'hallucination.html' }] },
+            { text: 'Best Practices', desc: 'Clear requirements upfront, iterative refinement (don\'t accept first output), always review generated code for correctness and security. The developer\'s role shifts from writing to directing and reviewing.', links: [{ title: 'Prompt', href: 'prompt.html' }] },
+            { text: 'Spec-Driven Vibecoding', desc: 'Writing detailed specifications and requirements first, then letting AI implement them. A good spec + AI is more effective than a vague request + AI. The spec IS the new code.', links: [] },
+            { text: 'Testing Is Essential', desc: 'Vibecoded projects need comprehensive tests since you may not fully understand every line of generated code. Tests serve as your verification layer — they\'re your safety net.', links: [] },
+            { text: 'The Future of Coding', desc: 'Programming evolves from writing syntax to directing intent, reviewing output, and designing systems. Understanding architecture and requirements becomes more important than memorizing APIs.', links: [{ title: 'Foundation Models', href: '../level-1/foundation-models.html' }] }
+          ],
+          uk: [
+            { text: 'Що таке вайбкодинг', desc: 'Опис того, що ви хочете, природною мовою, де ШІ пише код. Ви керуєте процесом через розмову, приймаючи або відхиляючи результат залежно від того, чи він "відчувається правильним."', links: [{ title: 'Генеративний ШІ', href: '../level-1/generative-ai.html' }] },
+            { text: 'Походження терміну', desc: 'Андрей Карпаті запропонував "вайбкодинг" у лютому 2025 для опису програмування за наміром, а не синтаксисом. Термін став вірусним і тепер визначає нову парадигму програмування.', links: [] },
+            { text: 'Спектр кодування', desc: 'Ручне кодування → асистоване (Copilot) → вайбкодинг (опис наміру, ШІ реалізує) → повністю автономні агенти (ШІ планує та виконує цілі фічі). Ми рухаємось вправо.', links: [{ title: 'Агенти', href: '../level-4/agents.html' }] },
+            { text: 'Ключові інструменти вайбкодингу', desc: 'Cursor (AI-first IDE), Claude Code (CLI агент), GitHub Copilot (інлайн підказки), Windsurf (ШІ IDE), Bolt/v0 (генератори веб-додатків). Кожен інструмент підходить для різних воркфлоу.', links: [{ title: 'Інструменти та бібліотеки', href: '../level-4/base-tools.html' }] },
+            { text: 'Коли працює добре', desc: 'Прототипи, скрипти, стандартні веб-додатки (CRUD, дашборди, форми), чітко визначені задачі. Вайбкодинг відмінний, коли патерни поширені та добре представлені у навчальних даних.', links: [] },
+            { text: 'Коли збоїть', desc: 'Складні архітектури, нові алгоритми, критичний для безпеки код, оптимізація продуктивності та все, що вимагає глибокої доменної експертизи. Розуміння обмежень запобігає небезпечній надмірній залежності.', links: [{ title: 'Галюцинації', href: 'hallucination.html' }] },
+            { text: 'Найкращі практики', desc: 'Чіткі вимоги наперед, ітеративне вдосконалення (не приймайте перший результат), завжди переглядайте згенерований код. Роль розробника зміщується від написання до керування та ревю.', links: [{ title: 'Промпт', href: 'prompt.html' }] },
+            { text: 'Спек-керований вайбкодинг', desc: 'Спочатку написання детальних специфікацій та вимог, потім ШІ реалізує. Хороша специфікація + ШІ ефективніше ніж розмитий запит + ШІ. Специфікація — це новий код.', links: [] },
+            { text: 'Тестування необхідне', desc: 'Проєкти з вайбкодингом потребують комплексних тестів, бо ви можете не розуміти кожен рядок згенерованого коду. Тести — ваш рівень верифікації та страхувальна сітка.', links: [] },
+            { text: 'Майбутнє кодування', desc: 'Програмування еволюціонує від написання синтаксису до направлення наміру, ревю результатів та проєктування систем. Розуміння архітектури та вимог стає важливішим за запам\'ятовування API.', links: [{ title: 'Фундаментальні моделі', href: '../level-1/foundation-models.html' }] }
+          ]
+        },
+        keyTerms: {
+          en: [
+            { term: 'Vibecoding', def: 'Programming by describing what you want in natural language and letting AI write the code.' },
+            { term: 'AI-First IDE', def: 'Development environment built around AI code generation (Cursor, Windsurf) rather than traditional text editing.' },
+            { term: 'Spec-Driven Development', def: 'Writing detailed requirements/specs first, then using AI to generate the implementation.' },
+            { term: 'Agentic Coding', def: 'AI coding assistants that can autonomously plan, write, test, and debug code with minimal guidance.' }
+          ],
+          uk: [
+            { term: 'Вайбкодинг', def: 'Програмування через опис бажаного природною мовою, де ШІ пише код.' },
+            { term: 'AI-First IDE', def: 'Середовище розробки, побудоване навколо ШІ-генерації коду (Cursor, Windsurf).' },
+            { term: 'Спек-керована розробка', def: 'Написання детальних вимог/специфікацій спочатку, потім використання ШІ для генерації реалізації.' },
+            { term: 'Агентне кодування', def: 'ШІ-асистенти, що можуть автономно планувати, писати, тестувати та дебажити код.' }
+          ]
+        },
+        related: ['Feed', 'Video Content']
+      }
+    ]
+  },
+  {
+    num: 3, emoji: '⚡',
+    title: { en: 'Professional', uk: 'Професіонал' },
+    desc: {
+      en: 'Deep technical understanding of neural networks, model training, optimization, and architecture.',
+      uk: 'Глибоке технічне розуміння нейромереж, навчання моделей, оптимізації та архітектури.'
+    },
+    topics: [
+      { slug: 'neural-networks', title: { en: 'Neural Network Fundamentals', uk: 'Основи нейромереж' }, desc: { en: 'Architecture of neural networks - layers, activation functions, and how learning happens.', uk: 'Архітектура нейромереж — шари, функції активації та як відбувається навчання.' },
+        overview: { en: ['Neural networks are the mathematical foundation underlying all modern AI. They are loosely inspired by biological neurons but in practice are systems of matrix multiplications and nonlinear functions organized into layers. Understanding how they work — forward propagation, loss computation, and backpropagation — is essential for anyone wanting to go beyond surface-level AI usage.'], uk: ['Нейронні мережі — це математична основа, що лежить під усім сучасним ШІ. Вони натхненні біологічними нейронами, але на практиці є системами матричних множень та нелінійних функцій, організованих у шари. Розуміння їх роботи — прямого поширення, обчислення втрат та зворотного поширення — є необхідним для тих, хто хоче вийти за межі поверхневого використання ШІ.'] },
+        details: { en: ['Neurons: weighted sum of inputs + activation function = output', 'Layers: input → hidden layers → output. Deep = many hidden layers', 'Activation functions: ReLU, GELU, Sigmoid, Softmax — introduce nonlinearity', 'Forward propagation: data flows through layers to produce a prediction', 'Loss functions: measuring how wrong the prediction is (cross-entropy, MSE)', 'Backpropagation: computing gradients of loss with respect to each weight', 'Gradient descent: adjusting weights to minimize loss over many iterations', 'Convolutional networks (CNNs): specialized for images — filters detect patterns', 'Recurrent networks (RNNs, LSTMs): designed for sequences, now largely replaced by Transformers', 'Transformer architecture: self-attention mechanism enabling parallel sequence processing'], uk: ['Нейрони: зважена сума входів + функція активації = вихід', 'Шари: вхід → приховані шари → вихід. Глибокий = багато прихованих шарів', 'Функції активації: ReLU, GELU, Sigmoid, Softmax — вводять нелінійність', 'Пряме поширення: дані проходять через шари для отримання передбачення', 'Функції втрат: вимірювання наскільки передбачення хибне (cross-entropy, MSE)', 'Зворотне поширення: обчислення градієнтів втрат відносно кожної ваги', 'Градієнтний спуск: корекція ваг для мінімізації втрат через багато ітерацій', 'Конволюційні мережі (CNN): спеціалізовані для зображень — фільтри виявляють патерни', 'Рекурентні мережі (RNN, LSTM): створені для послідовностей, зараз замінені Transformer', 'Архітектура Transformer: механізм самоуваги для паралельної обробки послідовностей'] },
+        keyTerms: { en: [{ term: 'Backpropagation', def: 'Algorithm for computing how each weight contributes to the error, enabling learning.' }, { term: 'Gradient Descent', def: 'Optimization algorithm that adjusts weights in the direction that reduces error.' }, { term: 'Self-Attention', def: 'Mechanism where each element in a sequence can attend to every other element.' }], uk: [{ term: 'Зворотне поширення', def: 'Алгоритм обчислення як кожна вага впливає на помилку, забезпечуючи навчання.' }, { term: 'Градієнтний спуск', def: 'Алгоритм оптимізації, що корегує ваги у напрямку зменшення помилки.' }, { term: 'Самоувага', def: 'Механізм, де кожен елемент послідовності може звертати увагу на кожен інший.' }] },
+        related: [] },
+      { slug: 'data-to-model', title: { en: 'Data to Model', uk: 'Від даних до моделі' }, desc: { en: 'The complete pipeline from raw data to a trained model.', uk: 'Повний пайплайн від сирих даних до навченої моделі.' },
+        overview: { en: ['The journey from raw data to a working AI model involves a complex pipeline of collection, cleaning, preprocessing, training, and evaluation. Data quality is often more important than model architecture — the AI community saying "garbage in, garbage out" has never been more relevant. Understanding this pipeline helps you appreciate why some models are better than others and how to create effective fine-tuned models.'], uk: ['Шлях від сирих даних до працюючої моделі ШІ включає складний пайплайн збору, очищення, попередньої обробки, навчання та оцінки. Якість даних часто важливіша за архітектуру моделі — вислів спільноти ШІ "сміття на вході — сміття на виході" ніколи не був більш актуальним.'] },
+        details: { en: ['Data collection at scale: web crawling (Common Crawl), books, code repositories, scientific papers', 'Data cleaning: removing duplicates, low-quality content, personally identifiable information (PII)', 'Deduplication: exact and near-duplicate removal to prevent memorization and data leakage', 'Filtering: removing harmful, toxic, or copyrighted content from training data', 'Preprocessing: tokenization, format normalization, language identification', 'Dataset formats: JSONL, Parquet, Arrow — efficient storage for billion-scale datasets', 'Data quality vs quantity: smaller high-quality datasets can outperform larger noisy ones', 'Synthetic data: using AI to generate training data for specific capabilities or scarce domains', 'Data annotation: human labelers creating supervised examples for fine-tuning', 'Open datasets: The Pile, RedPajama, FineWeb — understanding what trains open models'], uk: ['Збір даних у масштабі: веб-краулінг (Common Crawl), книги, репозиторії коду, наукові статті', 'Очищення даних: видалення дублікатів, низькоякісного контенту, персональних даних (PII)', 'Дедуплікація: видалення точних та близьких дублікатів для запобігання запам\'ятовування', 'Фільтрація: видалення шкідливого, токсичного або захищеного авторським правом контенту', 'Попередня обробка: токенізація, нормалізація форматів, визначення мови', 'Формати датасетів: JSONL, Parquet, Arrow — ефективне зберігання для мільярдних датасетів', 'Якість vs кількість даних: менші якісні датасети можуть перевершити більші зашумлені', 'Синтетичні дані: використання ШІ для генерації навчальних даних', 'Анотація даних: людські розмітники створюють приклади для файн-тюнінгу', 'Відкриті датасети: The Pile, RedPajama, FineWeb — розуміння на чому навчені відкриті моделі'] },
+        keyTerms: { en: [{ term: 'Common Crawl', def: 'Massive open web archive used as primary data source for training most LLMs.' }, { term: 'Synthetic Data', def: 'Training data generated by AI models rather than collected from real sources.' }, { term: 'Data Deduplication', def: 'Removing duplicate or near-duplicate examples to improve training quality.' }], uk: [{ term: 'Common Crawl', def: 'Масивний відкритий веб-архів, що використовується як основне джерело даних для навчання більшості LLM.' }, { term: 'Синтетичні дані', def: 'Навчальні дані, згенеровані моделями ШІ замість збору з реальних джерел.' }, { term: 'Дедуплікація даних', def: 'Видалення дублікатів або близьких дублікатів для покращення якості навчання.' }] },
+        related: [] },
+      { slug: 'training-finetuning', title: { en: 'Training & Fine-tuning', uk: 'Навчання та файн-тюнінг' }, desc: { en: 'How models are trained from scratch and adapted for specific tasks.', uk: 'Як моделі навчаються з нуля та адаптуються для конкретних задач.' },
+        overview: { en: ['Model training happens in stages. Pre-training teaches the model general language understanding by predicting next tokens on internet-scale data — this costs millions of dollars and requires thousands of GPUs. Fine-tuning then adapts this general model for specific tasks using much smaller, curated datasets. Finally, alignment training (RLHF or DPO) teaches the model to be helpful, honest, and safe.'], uk: ['Навчання моделі відбувається етапами. Попереднє навчання вчить модель загальному розумінню мови через передбачення наступних токенів на інтернет-масштабних даних — це коштує мільйони доларів та вимагає тисячі GPU. Файн-тюнінг потім адаптує цю загальну модель для конкретних задач на значно менших кураторських датасетах. Нарешті, навчання вирівнювання (RLHF або DPO) вчить модель бути корисною, чесною та безпечною.'] },
+        details: { en: ['Pre-training: massive compute (thousands of GPUs for months) on trillions of tokens', 'Supervised Fine-Tuning (SFT): training on curated instruction-response pairs', 'RLHF: Reinforcement Learning from Human Feedback — using human preferences to improve outputs', 'DPO: Direct Preference Optimization — simpler alternative to RLHF without reward model', 'LoRA: Low-Rank Adaptation — fine-tuning only a small number of additional parameters (1-5%)', 'QLoRA: quantized LoRA — enabling fine-tuning on consumer GPUs by quantizing the base model', 'Full fine-tuning vs PEFT: when do you need to update all parameters vs just adapters?', 'When to fine-tune vs prompt engineer: fine-tuning for consistent style/format, prompting for flexible tasks', 'Cost comparison: pre-training ($10M+) vs fine-tuning ($100-10K) vs prompting (free/cheap)', 'Evaluation: measuring fine-tuned model quality with held-out test sets and human evaluation'], uk: ['Попереднє навчання: масивні обчислення (тисячі GPU протягом місяців) на трильйонах токенів', 'Кероване файн-тюнінг (SFT): навчання на кураторських парах інструкція-відповідь', 'RLHF: навчання з підкріпленням за зворотним зв\'язком від людей', 'DPO: пряма оптимізація переваг — простіша альтернатива RLHF без моделі нагороди', 'LoRA: Low-Rank Adaptation — файн-тюнінг лише малої кількості додаткових параметрів (1-5%)', 'QLoRA: квантизований LoRA — файн-тюнінг на споживчих GPU через квантизацію базової моделі', 'Повний файн-тюнінг vs PEFT: коли потрібно оновити всі параметри vs лише адаптери?', 'Коли файн-тюнити vs промпт-інженерити: файн-тюнінг для стабільного стилю/формату', 'Порівняння витрат: попереднє навчання ($10M+) vs файн-тюнінг ($100-10K) vs промптинг', 'Оцінка: вимірювання якості файн-тюнінгу тестовими наборами та людською оцінкою'] },
+        keyTerms: { en: [{ term: 'RLHF', def: 'Reinforcement Learning from Human Feedback — training models to align with human preferences using reward signals.' }, { term: 'LoRA', def: 'Low-Rank Adaptation — efficient fine-tuning method that trains only small additional matrices.' }, { term: 'SFT', def: 'Supervised Fine-Tuning — training on curated instruction-response pairs to teach model behavior.' }], uk: [{ term: 'RLHF', def: 'Навчання з підкріпленням за зворотним зв\'язком від людей — навчання моделей відповідно до людських переваг.' }, { term: 'LoRA', def: 'Low-Rank Adaptation — ефективний метод файн-тюнінгу з навчанням лише малих додаткових матриць.' }, { term: 'SFT', def: 'Кероване файн-тюнінг — навчання на кураторських парах інструкція-відповідь.' }] },
+        related: ['Video Content'] },
+      { slug: 'model-optimization', title: { en: 'Model Optimization', uk: 'Оптимізація моделей' }, desc: { en: 'Making models faster, smaller, and cheaper to run.', uk: 'Як зробити моделі швидшими, меншими та дешевшими у запуску.' },
+        overview: { en: ['Running large AI models requires expensive hardware. Model optimization techniques reduce computational requirements while maintaining quality. Quantization (reducing numerical precision), pruning (removing unnecessary connections), and distillation (training smaller models from larger ones) make it possible to run models on consumer hardware that would otherwise require data center GPUs.'], uk: ['Запуск великих моделей ШІ вимагає дорогого обладнання. Техніки оптимізації моделей зменшують обчислювальні вимоги при збереженні якості. Квантизація (зменшення числової точності), прунінг (видалення непотрібних з\'єднань) та дистиляція (навчання менших моделей з більших) дозволяють запускати моделі на споживчому обладнанні.'] },
+        details: { en: ['Quantization: reducing precision from FP32 → FP16 → INT8 → INT4 to shrink model size', 'GPTQ, AWQ: GPU-optimized quantization methods for fast inference', 'GGUF: llama.cpp format enabling CPU+GPU inference on consumer machines', 'Pruning: removing weights close to zero that contribute little to output quality', 'Knowledge distillation: training a small "student" model from a large "teacher" model', 'Flash Attention: memory-efficient attention computation that reduces GPU memory usage', 'Speculative decoding: using a fast small model to draft tokens, verified by the large model', 'KV cache optimization: efficiently storing attention key/value pairs across generation steps', 'Model merging: combining weights from multiple fine-tuned models (TIES, DARE, SLERP)', 'Practical impact: 70B model quantized to Q4 fits in 48GB VRAM, runs on 2x consumer GPUs'], uk: ['Квантизація: зменшення точності від FP32 → FP16 → INT8 → INT4 для зменшення розміру', 'GPTQ, AWQ: оптимізовані для GPU методи квантизації для швидкого інференсу', 'GGUF: формат llama.cpp для інференсу CPU+GPU на споживчих машинах', 'Прунінг: видалення ваг близьких до нуля, що мало впливають на якість', 'Дистиляція знань: навчання малого "учня" з великого "вчителя"', 'Flash Attention: пам\'ять-ефективне обчислення уваги, що зменшує використання GPU пам\'яті', 'Спекулятивне декодування: використання швидкої малої моделі для чернетки токенів', 'Оптимізація KV кешу: ефективне зберігання пар ключ/значення уваги через кроки генерації', 'Злиття моделей: комбінування ваг з кількох файн-тюнених моделей (TIES, DARE, SLERP)', 'Практичний вплив: 70B модель квантизована до Q4 вміщується в 48GB VRAM'] },
+        keyTerms: { en: [{ term: 'Quantization', def: 'Reducing numerical precision of model weights to decrease size and speed up inference.' }, { term: 'Distillation', def: 'Training a smaller model to mimic a larger model\'s behavior and capabilities.' }, { term: 'Flash Attention', def: 'Memory-efficient implementation of attention that reduces GPU memory requirements.' }], uk: [{ term: 'Квантизація', def: 'Зменшення числової точності ваг моделі для зменшення розміру та прискорення інференсу.' }, { term: 'Дистиляція', def: 'Навчання меншої моделі імітувати поведінку та можливості більшої моделі.' }, { term: 'Flash Attention', def: 'Пам\'ять-ефективна реалізація уваги, що зменшує вимоги до GPU пам\'яті.' }] },
+        related: ['Video Content'] },
+      { slug: 'model-types', title: { en: 'Model Types & Structures', uk: 'Типи та структури моделей' }, desc: { en: 'Different model architectures and their trade-offs.', uk: 'Різні архітектури моделей та їх компроміси.' },
+        overview: { en: ['Not all neural networks are structured the same way. Different architectures have different strengths. Decoder-only transformers (GPT, Llama) excel at text generation. Encoder-decoder models (T5) are great for translation and summarization. MoE (Mixture of Experts) architectures enable much larger models by only activating a subset of parameters per input, and newer state-space models (Mamba) offer alternatives to the quadratic cost of attention.'], uk: ['Не всі нейромережі мають однакову структуру. Різні архітектури мають різні переваги. Декодер-only трансформери (GPT, Llama) відмінні у генерації тексту. Моделі енкодер-декодер (T5) чудові для перекладу. MoE архітектури дозволяють значно більші моделі, активуючи лише підмножину параметрів, а нові моделі простору станів (Mamba) пропонують альтернативи квадратичній вартості уваги.'] },
+        details: { en: ['Transformer variants: encoder-only (BERT), decoder-only (GPT/Llama), encoder-decoder (T5/BART)', 'Decoder-only dominance: GPT, Claude, Gemini, Llama all use decoder-only architecture', 'Mixture of Experts (MoE): routing each token to only 2 of 8+ expert sub-networks', 'MoE examples: Mixtral 8x7B (46B total params, 12B active), GPT-4 (rumored MoE)', 'Dense vs sparse models: dense activates all parameters, sparse (MoE) only a fraction', 'Multi-head attention: parallel attention heads capture different types of relationships', 'State-space models (Mamba, S4): O(n) sequence processing vs O(n^2) for attention', 'Hybrid architectures: combining attention with state-space layers for different benefits', 'Model depth vs width: more layers vs wider layers — trade-offs for different tasks', 'Architecture search and scaling: how labs decide on model dimensions'], uk: ['Варіанти Transformer: encoder-only (BERT), decoder-only (GPT/Llama), encoder-decoder (T5/BART)', 'Домінування decoder-only: GPT, Claude, Gemini, Llama використовують decoder-only архітектуру', 'Mixture of Experts (MoE): маршрутизація кожного токена лише до 2 з 8+ експертних підмереж', 'Приклади MoE: Mixtral 8x7B (46B загальних параметрів, 12B активних), GPT-4 (ймовірно MoE)', 'Щільні vs розріджені моделі: щільні активують усі параметри, розріджені (MoE) лише частку', 'Багатоголова увага: паралельні голови уваги захоплюють різні типи зв\'язків', 'Моделі простору станів (Mamba, S4): O(n) обробка послідовностей vs O(n^2) для уваги', 'Гібридні архітектури: комбінування уваги з шарами простору станів', 'Глибина vs ширина моделі: більше шарів vs ширші шари — компроміси', 'Пошук архітектури та масштабування: як лабораторії вирішують розміри моделей'] },
+        keyTerms: { en: [{ term: 'MoE', def: 'Mixture of Experts — architecture that routes inputs to specialized sub-networks, activating only a fraction of total parameters.' }, { term: 'Decoder-Only', def: 'Transformer variant that generates text autoregressively — the dominant architecture for modern LLMs.' }, { term: 'State-Space Model', def: 'Alternative to attention that processes sequences in linear time rather than quadratic.' }], uk: [{ term: 'MoE', def: 'Mixture of Experts — архітектура, що маршрутизує входи до спеціалізованих підмереж, активуючи лише частку параметрів.' }, { term: 'Decoder-Only', def: 'Варіант Transformer для авторегресивної генерації тексту — домінуюча архітектура сучасних LLM.' }, { term: 'Модель простору станів', def: 'Альтернатива увазі, що обробляє послідовності за лінійний час замість квадратичного.' }] },
+        related: ['Models'] }
+    ]
+  },
+  {
+    num: 4, emoji: '🚀',
+    title: { en: 'Master', uk: 'Майстер' },
+    desc: {
+      en: 'Advanced techniques: prompting strategies, agents, RAG, tool use, and practical AI development.',
+      uk: 'Просунуті техніки: стратегії промптингу, агенти, RAG, використання інструментів та практична розробка ШІ.'
+    },
+    topics: [
+      { slug: 'prompting-techniques', title: { en: 'Prompting Techniques', uk: 'Техніки промптингу' }, desc: { en: 'Advanced prompting strategies for getting the best results from AI models.', uk: 'Просунуті стратегії промптингу для отримання найкращих результатів від моделей ШІ.' }, details: { en: ['Zero-shot, one-shot, and few-shot prompting', 'Chain-of-Thought (CoT) and step-by-step reasoning', 'Tree-of-Thought and multi-path reasoning', 'ReAct: Reasoning + Acting pattern', 'Role prompting and persona engineering', 'Constitutional prompting and guardrails'], uk: ['Zero-shot, one-shot та few-shot промптинг', 'Ланцюг думок (CoT) та покрокові міркування', 'Дерево думок та багатошляхове міркування', 'ReAct: патерн Міркування + Дія', 'Рольовий промптинг та інженерія персон', 'Конституційний промптинг та захисні бар\'єри'] }, related: ['Feed', 'Agents & Tools'] },
+      { slug: 'base-tools', title: { en: 'Tools & Libraries', uk: 'Інструменти та бібліотеки' }, desc: { en: 'Key frameworks and libraries for building AI-powered applications.', uk: 'Ключові фреймворки та бібліотеки для створення ШІ-додатків.' }, details: { en: ['LangChain: chains, agents, memory', 'LlamaIndex: data connectors and retrieval', 'Haystack: search and RAG pipelines', 'Semantic Kernel: Microsoft AI orchestration', 'OpenAI SDK, Anthropic SDK, Google AI SDK', 'Hugging Face Transformers ecosystem'], uk: ['LangChain: ланцюги, агенти, пам\'ять', 'LlamaIndex: конектори даних та пошук', 'Haystack: пошук та RAG-пайплайни', 'Semantic Kernel: оркестрація ШІ від Microsoft', 'OpenAI SDK, Anthropic SDK, Google AI SDK', 'Екосистема Hugging Face Transformers'] }, related: ['Agents & Tools', 'Video Content'] },
+      { slug: 'agents', title: { en: 'Agents', uk: 'Агенти' }, desc: { en: 'AI agents that can plan, reason, and take actions autonomously.', uk: 'Агенти ШІ, що можуть планувати, міркувати та діяти автономно.' }, details: { en: ['What is an AI agent: perception, planning, action loop', 'Agent architectures: ReAct, Plan-and-Execute, Tree-of-Agents', 'CrewAI, AutoGen, MetaGPT multi-agent frameworks', 'Memory systems: short-term, long-term, episodic', 'Tool use and function calling in agents', 'Agent evaluation and safety'], uk: ['Що таке агент ШІ: цикл сприйняття, планування, дії', 'Архітектури агентів: ReAct, Plan-and-Execute, Tree-of-Agents', 'Мультиагентні фреймворки: CrewAI, AutoGen, MetaGPT', 'Системи пам\'яті: короткочасна, довгострокова, епізодична', 'Використання інструментів та виклик функцій в агентах', 'Оцінка та безпека агентів'] }, related: ['Agents & Tools', 'Video Content'] },
+      { slug: 'tool-use', title: { en: 'Tool Use', uk: 'Використання інструментів' }, desc: { en: 'Extending AI capabilities through function calling and external tool integration.', uk: 'Розширення можливостей ШІ через виклик функцій та інтеграцію зовнішніх інструментів.' }, details: { en: ['Function calling APIs: OpenAI, Anthropic, Google', 'Tool definition schemas and parameter types', 'Parallel tool calls and multi-step tool use', 'Building custom tools for your domain', 'Error handling and tool call validation', 'Computer use and browser automation'], uk: ['API виклику функцій: OpenAI, Anthropic, Google', 'Схеми визначення інструментів та типи параметрів', 'Паралельні виклики та багатокрокове використання інструментів', 'Створення власних інструментів для вашої галузі', 'Обробка помилок та валідація викликів', 'Керування комп\'ютером та автоматизація браузера'] }, related: ['Agents & Tools'] },
+      { slug: 'rag', title: { en: 'RAG (Retrieval-Augmented Generation)', uk: 'RAG (Генерація з пошуковим доповненням)' }, desc: { en: 'Grounding AI responses in your own data using retrieval techniques.', uk: 'Заземлення відповідей ШІ на ваших власних даних за допомогою пошукових технік.' }, details: { en: ['RAG architecture: retrieve, augment, generate', 'Embeddings and vector databases', 'Chunking strategies for documents and code', 'Hybrid search: semantic + keyword', 'Reranking and relevance scoring', 'Advanced RAG: CRAG, Self-RAG, Graph RAG'], uk: ['Архітектура RAG: пошук, доповнення, генерація', 'Ембедінги та векторні бази даних', 'Стратегії чанкінгу для документів та коду', 'Гібридний пошук: семантичний + ключові слова', 'Перерейтинг та оцінка релевантності', 'Просунутий RAG: CRAG, Self-RAG, Graph RAG'] }, related: ['Video Content', 'Feed'] },
+      { slug: 'frameworks', title: { en: 'Applied Frameworks', uk: 'Прикладні фреймворки' }, desc: { en: 'Practical frameworks for building production AI applications.', uk: 'Практичні фреймворки для створення продакшн ШІ-додатків.' }, details: { en: ['Dify: visual AI workflow builder', 'n8n: workflow automation with AI nodes', 'Flowise: LangChain visual builder', 'Vercel AI SDK for web applications', 'FastAPI + LLM integration patterns', 'Low-code/no-code AI platforms'], uk: ['Dify: візуальний конструктор ШІ-воркфлоу', 'n8n: автоматизація воркфлоу з ШІ-вузлами', 'Flowise: візуальний конструктор LangChain', 'Vercel AI SDK для веб-додатків', 'Паттерни інтеграції FastAPI + LLM', 'Low-code/no-code ШІ-платформи'] }, related: ['Video Content', 'Agents & Tools'] },
+      { slug: 'model-formats', title: { en: 'Model Formats', uk: 'Формати моделей' }, desc: { en: 'Understanding different model distribution and execution formats.', uk: 'Розуміння різних форматів розповсюдження та виконання моделей.' }, details: { en: ['GGUF: llama.cpp format for CPU/GPU inference', 'GPTQ, AWQ: GPU-optimized quantized formats', 'SafeTensors: safe model serialization', 'ONNX: cross-platform model format', 'ExLlamaV2, Marlin kernel formats', 'Choosing the right format for your hardware'], uk: ['GGUF: формат llama.cpp для інференсу на CPU/GPU', 'GPTQ, AWQ: оптимізовані для GPU квантизовані формати', 'SafeTensors: безпечна серіалізація моделей', 'ONNX: кросплатформний формат моделей', 'Формати ExLlamaV2, Marlin kernel', 'Вибір правильного формату для вашого обладнання'] }, related: ['Models'] },
+      { slug: 'ai-protocols', title: { en: 'AI Protocols', uk: 'ШІ-протоколи' }, desc: { en: 'Communication protocols connecting AI models to tools and services.', uk: 'Комунікаційні протоколи, що з\'єднують моделі ШІ з інструментами та сервісами.' }, details: { en: ['MCP (Model Context Protocol): architecture and servers', 'A2A (Agent-to-Agent): inter-agent communication', 'OpenAI function calling protocol', 'Tool use standards across providers', 'Server-Sent Events for streaming', 'WebSocket-based AI communication'], uk: ['MCP (Model Context Protocol): архітектура та сервери', 'A2A (Agent-to-Agent): міжагентна комунікація', 'Протокол виклику функцій OpenAI', 'Стандарти використання інструментів між провайдерами', 'Server-Sent Events для стримінгу', 'ШІ-комунікація на базі WebSocket'] }, related: ['Agents & Tools', 'Video Content'] },
+      { slug: 'hardware', title: { en: 'Hardware Basics', uk: 'Основи обладнання' }, desc: { en: 'Hardware requirements for running AI models locally.', uk: 'Вимоги до обладнання для локального запуску моделей ШІ.' }, details: { en: ['GPU vs CPU for AI inference', 'VRAM requirements by model size', 'NVIDIA GPUs: consumer vs data center', 'Apple Silicon for local LLMs', 'Cloud GPU providers and pricing', 'Optimal hardware configurations by budget'], uk: ['GPU проти CPU для інференсу ШІ', 'Вимоги до VRAM за розміром моделі', 'GPU NVIDIA: споживчі проти серверних', 'Apple Silicon для локальних LLM', 'Хмарні провайдери GPU та ціни', 'Оптимальні конфігурації обладнання за бюджетом'] }, related: ['Models'] },
+      { slug: 'api-providers', title: { en: 'API Providers', uk: 'API-провайдери' }, desc: { en: 'Cloud API providers for accessing AI models without local hardware.', uk: 'Хмарні API-провайдери для доступу до моделей ШІ без локального обладнання.' }, details: { en: ['OpenAI API: models, pricing, features', 'Anthropic API: Claude models and capabilities', 'Google AI: Gemini API and Vertex AI', 'OpenRouter: unified multi-provider access', 'Together AI, Fireworks, Groq: inference providers', 'Cost optimization strategies'], uk: ['OpenAI API: моделі, ціни, можливості', 'Anthropic API: моделі Claude та їх можливості', 'Google AI: Gemini API та Vertex AI', 'OpenRouter: єдиний мультипровайдерний доступ', 'Together AI, Fireworks, Groq: провайдери інференсу', 'Стратегії оптимізації витрат'] }, related: ['Agents & Tools'] }
+    ]
+  },
+  {
+    num: 5, emoji: '🌌',
+    title: { en: 'Horizons', uk: 'Горизонти' },
+    desc: {
+      en: 'Future of AI: AGI, safety, alignment, and philosophical questions about artificial intelligence.',
+      uk: 'Майбутнє ШІ: AGI, безпека, вирівнювання та філософські питання про штучний інтелект.'
+    },
+    topics: [
+      { slug: 'agi', title: { en: 'AGI (Artificial General Intelligence)', uk: 'AGI (Загальний штучний інтелект)' }, desc: { en: 'The quest for human-level AI that can perform any intellectual task.', uk: 'Прагнення до ШІ людського рівня, що може виконати будь-яке інтелектуальне завдання.' }, details: { en: ['Definitions of AGI and the debate around them', 'Current progress toward AGI capabilities', 'Timeline predictions from industry leaders', 'AGI benchmarks and evaluation criteria', 'Economic and social implications of AGI'], uk: ['Визначення AGI та дискусія навколо них', 'Поточний прогрес у напрямку можливостей AGI', 'Прогнози термінів від лідерів індустрії', 'Бенчмарки та критерії оцінки AGI', 'Економічні та соціальні наслідки AGI'] }, related: ['Feed'] },
+      { slug: 'asi', title: { en: 'ASI (Artificial Superintelligence)', uk: 'ASI (Штучний суперінтелект)' }, desc: { en: 'Beyond human-level AI and its implications.', uk: 'ШІ, що перевищує людський рівень, та його наслідки.' }, details: { en: ['What is superintelligence', 'Paths to superintelligence', 'Speed, quality, and collective superintelligence', 'The control problem', 'Existential risk considerations'], uk: ['Що таке суперінтелект', 'Шляхи до суперінтелекту', 'Швидкісний, якісний та колективний суперінтелект', 'Проблема контролю', 'Міркування про екзистенційний ризик'] }, related: [] },
+      { slug: 'singularity', title: { en: 'Technological Singularity', uk: 'Технологічна сингулярність' }, desc: { en: 'The hypothetical point where AI improvement becomes self-sustaining.', uk: 'Гіпотетична точка, де вдосконалення ШІ стає самопідтримуючим.' }, details: { en: ['Vinge and Kurzweil singularity predictions', 'Recursive self-improvement scenarios', 'Intelligence explosion dynamics', 'Pre and post singularity scenarios', 'Criticism and skepticism of singularity theory'], uk: ['Прогнози сингулярності Вінджа та Курцвейла', 'Сценарії рекурсивного самовдосконалення', 'Динаміка вибуху інтелекту', 'Сценарії до та після сингулярності', 'Критика та скептицизм щодо теорії сингулярності'] }, related: [] },
+      { slug: 'intelligence-explosion', title: { en: 'Intelligence Explosion', uk: 'Вибух інтелекту' }, desc: { en: 'The rapid, recursive improvement of AI capabilities.', uk: 'Швидке, рекурсивне покращення можливостей ШІ.' }, details: { en: ['I.J. Good intelligence explosion concept', 'Self-improving AI systems', 'Feedback loops in AI development', 'Bottlenecks that might prevent explosion', 'Current AI helping build better AI'], uk: ['Концепція вибуху інтелекту І.Дж. Гуда', 'Самовдосконалювані системи ШІ', 'Петлі зворотного зв\'язку в розробці ШІ', 'Вузькі місця, що можуть запобігти вибуху', 'Сучасний ШІ допомагає будувати кращий ШІ'] }, related: [] },
+      { slug: 'transhumanism', title: { en: 'Transhumanism', uk: 'Трансгуманізм' }, desc: { en: 'Human enhancement through technology and AI.', uk: 'Покращення людини за допомогою технологій та ШІ.' }, details: { en: ['Brain-computer interfaces (Neuralink)', 'Cognitive enhancement possibilities', 'Human-AI symbiosis scenarios', 'Ethical considerations of human augmentation', 'Longevity research and AI role'], uk: ['Інтерфейси мозок-комп\'ютер (Neuralink)', 'Можливості когнітивного покращення', 'Сценарії симбіозу людини та ШІ', 'Етичні міркування щодо аугментації людини', 'Дослідження довголіття та роль ШІ'] }, related: [] },
+      { slug: 'spatial-intelligence', title: { en: 'Spatial Intelligence', uk: 'Просторовий інтелект' }, desc: { en: 'AI understanding of 3D space, physics, and physical world.', uk: 'Розуміння ШІ 3D-простору, фізики та фізичного світу.' }, details: { en: ['Spatial understanding in AI models', 'World models and physics simulation', 'Robotics and embodied AI', '3D generation and reconstruction', 'Autonomous navigation and spatial reasoning'], uk: ['Просторове розуміння в моделях ШІ', 'Моделі світу та симуляція фізики', 'Робототехніка та втілений ШІ', '3D-генерація та реконструкція', 'Автономна навігація та просторові міркування'] }, related: [] },
+      { slug: 'world-model', title: { en: 'General World Model', uk: 'Загальна модель світу' }, desc: { en: 'AI systems that build internal representations of how the world works.', uk: 'Системи ШІ, що будують внутрішні уявлення про те, як працює світ.' }, details: { en: ['What is a world model in AI', 'LeCun JEPA and world model proposals', 'Video prediction as world modeling', 'Implicit vs explicit world models in LLMs', 'Simulation and planning with world models'], uk: ['Що таке модель світу в ШІ', 'JEPA Лекуна та пропозиції моделей світу', 'Передбачення відео як моделювання світу', 'Імпліцитні та експліцитні моделі світу в LLM', 'Симуляція та планування з моделями світу'] }, related: [] },
+      { slug: 'accelerationists', title: { en: 'Techno-Optimists', uk: 'Техно-оптимісти' }, desc: { en: 'The e/acc movement and arguments for accelerating AI development.', uk: 'Рух e/acc та аргументи на користь прискорення розвитку ШІ.' }, details: { en: ['Effective Accelerationism (e/acc) movement', 'Techno-optimist manifesto', 'Arguments for rapid AI development', 'Open-source AI advocacy', 'Balancing progress and safety'], uk: ['Рух ефективного акселераціонізму (e/acc)', 'Маніфест техно-оптимістів', 'Аргументи за швидкий розвиток ШІ', 'Адвокація відкритого ШІ', 'Баланс прогресу та безпеки'] }, related: [] },
+      { slug: 'doomers', title: { en: 'Techno-Pessimists', uk: 'Техно-песимісти' }, desc: { en: 'Concerns about existential risk from advanced AI.', uk: 'Занепокоєння щодо екзистенційного ризику від просунутого ШІ.' }, details: { en: ['AI doom arguments and scenarios', 'MIRI position on AI risk', 'Pause AI movement', 'Regulatory approaches globally', 'The debate: safety vs progress'], uk: ['Аргументи та сценарії загибелі від ШІ', 'Позиція MIRI щодо ризиків ШІ', 'Рух Pause AI', 'Регуляторні підходи у світі', 'Дебати: безпека проти прогресу'] }, related: [] },
+      { slug: 'ai-safety', title: { en: 'AI Safety', uk: 'Безпека ШІ' }, desc: { en: 'Research and practices for building safe AI systems.', uk: 'Дослідження та практики побудови безпечних систем ШІ.' }, details: { en: ['What is AI safety and why it matters', 'Risks: misuse, misalignment, accidents', 'Safety evaluation and red-teaming', 'Containment and monitoring strategies', 'Major AI safety organizations'], uk: ['Що таке безпека ШІ і чому це важливо', 'Ризики: зловживання, невирівнювання, аварії', 'Оцінка безпеки та ред-тімінг', 'Стратегії стримування та моніторингу', 'Основні організації з безпеки ШІ'] }, related: [] },
+      { slug: 'alignment', title: { en: 'AI Alignment', uk: 'Вирівнювання ШІ' }, desc: { en: 'Ensuring AI systems act in accordance with human values.', uk: 'Забезпечення дій систем ШІ відповідно до людських цінностей.' }, details: { en: ['The alignment problem defined', 'RLHF, DPO, and current alignment techniques', 'Scalable oversight and debate', 'Interpretability and mechanistic understanding', 'Superalignment: aligning superhuman AI'], uk: ['Визначення проблеми вирівнювання', 'RLHF, DPO та сучасні техніки вирівнювання', 'Масштабований нагляд та дебати', 'Інтерпретованість та механістичне розуміння', 'Супервирівнювання: вирівнювання надлюдського ШІ'] }, related: [] },
+      { slug: 'explainable-ai', title: { en: 'Explainable & Constitutional AI', uk: 'Пояснюваний та конституційний ШІ' }, desc: { en: 'Making AI decisions transparent and principled.', uk: 'Прозорість та принциповість рішень ШІ.' }, details: { en: ['Explainable AI (XAI) methods and importance', 'Feature attribution and attention visualization', 'Constitutional AI approach', 'LIME, SHAP, and interpretability tools', 'Regulatory requirements for explainability'], uk: ['Методи та важливість пояснюваного ШІ (XAI)', 'Атрибуція ознак та візуалізація уваги', 'Підхід конституційного ШІ', 'LIME, SHAP та інструменти інтерпретованості', 'Регуляторні вимоги до пояснюваності'] }, related: [] },
+      { slug: 'decentralized-ai', title: { en: 'Decentralized AI', uk: 'Децентралізований ШІ' }, desc: { en: 'Distributed and blockchain-based approaches to AI.', uk: 'Розподілені та блокчейн-підходи до ШІ.' }, details: { en: ['Why decentralize AI: censorship resistance, access', 'Federated learning: training without sharing data', 'On-chain AI and crypto-AI projects', 'Distributed inference networks', 'Challenges of decentralized AI'], uk: ['Навіщо децентралізувати ШІ: стійкість до цензури, доступ', 'Федеративне навчання: навчання без обміну даними', 'ШІ на блокчейні та крипто-ШІ проєкти', 'Розподілені мережі інференсу', 'Виклики децентралізованого ШІ'] }, related: [] }
+    ]
+  }
+];
+
+// ============================================================
+// SHARED CSS (same for both languages)
+// ============================================================
+const sharedCSS = `
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background:#0a0a0f; color:#e4e6eb; }
+a { color:#6ab2f2; text-decoration:none; }
+a:hover { text-decoration:underline; }
+.header { background:#111119; padding:16px 24px; border-bottom:1px solid #1e1e2e; display:flex; align-items:center; gap:16px; position:sticky; top:0; z-index:10; }
+.header h1 { font-size:18px; color:#6ab2f2; }
+.header .back { color:#8696a4; font-size:14px; }
+.header .lang-switch { margin-left:auto; font-size:13px; color:#8696a4; }
+.container { max-width:900px; margin:0 auto; padding:24px; }
+.breadcrumb { color:#8696a4; font-size:13px; margin-bottom:20px; }
+.breadcrumb a { color:#6ab2f2; }
+.level-badge { display:inline-block; padding:4px 12px; border-radius:20px; font-size:12px; font-weight:600; margin-bottom:16px; }
+.level-1 { background:rgba(74,222,128,0.15); color:#4ade80; }
+.level-2 { background:rgba(96,165,250,0.15); color:#60a5fa; }
+.level-3 { background:rgba(245,158,11,0.15); color:#f59e0b; }
+.level-4 { background:rgba(239,68,68,0.15); color:#ef4444; }
+.level-5 { background:rgba(168,85,247,0.15); color:#a855f7; }
+h2 { font-size:28px; margin-bottom:8px; }
+.desc { color:#8696a4; font-size:15px; line-height:1.7; margin-bottom:24px; }
+.detail-list { list-style:none; padding:0; }
+.detail-list li { padding:10px 16px; margin-bottom:6px; border-radius:8px; background:#111119; border-left:3px solid #2b5278; font-size:14px; line-height:1.5; color:#e4e6eb; }
+.detail-list li::before { content:'\\2192 '; color:#6ab2f2; }
+.section-title { font-size:16px; color:#8696a4; margin:24px 0 12px; text-transform:uppercase; letter-spacing:1px; }
+.related-topics { display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
+.related-topics a { display:inline-block; background:#111119; border:1px solid #1e1e2e; padding:6px 14px; border-radius:8px; font-size:13px; color:#6ab2f2; }
+.related-topics a:hover { background:#1e1e2e; text-decoration:none; }
+.nav-links { display:flex; justify-content:space-between; margin-top:30px; padding-top:20px; border-top:1px solid #1e1e2e; }
+.nav-links a { color:#6ab2f2; font-size:14px; }
+.nav-links .disabled { color:#333; }
+.topic-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:12px; margin-top:16px; }
+.topic-card { background:#111119; border-radius:12px; padding:18px; border-left:3px solid #2b5278; display:block; transition:background 0.15s; }
+.topic-card:hover { background:#1a1a2e; text-decoration:none; }
+.topic-card h3 { color:#e4e6eb; font-size:15px; margin-bottom:4px; }
+.topic-card .sub { color:#8696a4; font-size:13px; }
+.footer { text-align:center; padding:30px; color:#8696a4; font-size:12px; margin-top:30px; border-top:1px solid #1e1e2e; }
+.overview { margin-bottom:28px; }
+.overview p { color:#c4c6cb; font-size:15px; line-height:1.8; margin-bottom:14px; }
+.terms-grid { display:grid; gap:10px; margin-top:12px; }
+.term-card { background:#111119; border:1px solid #1e1e2e; border-radius:10px; padding:14px 18px; }
+.term-card strong { color:#6ab2f2; font-size:14px; }
+.term-card span { color:#c4c6cb; font-size:13px; display:block; margin-top:4px; line-height:1.5; }
+.tip-box { background:linear-gradient(135deg, rgba(106,178,242,0.06), rgba(106,178,242,0.02)); border:1px solid rgba(106,178,242,0.15); border-radius:10px; padding:16px 20px; margin-top:12px; }
+.tip-box li { color:#c4c6cb; font-size:14px; line-height:1.6; margin-bottom:8px; list-style:none; }
+.tip-box li::before { content:'💡 '; }
+.detail-card { background:#111119; border-radius:10px; padding:16px 18px; margin-bottom:8px; border-left:3px solid #2b5278; }
+.detail-card .dt { color:#e4e6eb; font-size:14px; font-weight:600; margin-bottom:4px; }
+.detail-card .dd { color:#9ca3af; font-size:13px; line-height:1.6; }
+.detail-card .dl { margin-top:6px; }
+.detail-card .dl a { font-size:12px; color:#6ab2f2; background:rgba(106,178,242,0.08); padding:3px 10px; border-radius:6px; display:inline-block; margin-right:6px; margin-top:4px; }
+.detail-card .dl a:hover { background:rgba(106,178,242,0.15); text-decoration:none; }
+`;
+
+function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+// ============================================================
+// GENERATE BASIC THEORY PAGES
+// ============================================================
+function generateBasicTheory(lang) {
+  var t = ui[lang];
+  var outDir = path.join(__dirname, lang, 'basic-theory');
+
+  levels.forEach(function(level) {
+    var levelDir = path.join(outDir, 'level-' + level.num);
+    fs.mkdirSync(levelDir, { recursive: true });
+
+    var topics = level.topics;
+    // Topic pages
+    topics.forEach(function(topic, idx) {
+      var prev = idx > 0 ? topics[idx-1] : null;
+      var next = idx < topics.length-1 ? topics[idx+1] : null;
+      var details = topic.details[lang].map(function(d) {
+        if (typeof d === 'string') return '      <li>' + esc(d) + '</li>';
+        // Rich detail: { text, desc, links: [{title, href}] }
+        var html = '    <div class="detail-card"><div class="dt">' + esc(d.text) + '</div>';
+        if (d.desc) html += '<div class="dd">' + esc(d.desc) + '</div>';
+        if (d.links && d.links.length > 0) {
+          html += '<div class="dl">';
+          d.links.forEach(function(lk) { html += '<a href="' + lk.href + '">' + esc(lk.title) + '</a>'; });
+          html += '</div>';
+        }
+        html += '</div>';
+        return html;
+      }).join('\n');
+
+      // Overview paragraphs
+      var overviewHtml = '';
+      if (topic.overview && topic.overview[lang]) {
+        overviewHtml = '  <div class="overview">\n' + topic.overview[lang].map(function(p) { return '    <p>' + esc(p) + '</p>'; }).join('\n') + '\n  </div>\n';
+      }
+
+      // Extra sections
+      var sectionsHtml = '';
+      if (topic.sections) {
+        topic.sections.forEach(function(sec) {
+          if (sec.items && sec.items[lang]) {
+            sectionsHtml += '\n  <div class="section-title">' + esc(sec.title[lang]) + '</div>\n  <ul class="detail-list">\n';
+            sec.items[lang].forEach(function(it) { sectionsHtml += '      <li>' + esc(it) + '</li>\n'; });
+            sectionsHtml += '  </ul>\n';
+          }
+        });
+      }
+
+      // Key terms
+      var termsHtml = '';
+      if (topic.keyTerms && topic.keyTerms[lang] && topic.keyTerms[lang].length > 0) {
+        var termsTitle = lang === 'en' ? 'Key Terms' : 'Ключові терміни';
+        termsHtml = '\n  <div class="section-title">' + termsTitle + '</div>\n  <div class="terms-grid">\n';
+        topic.keyTerms[lang].forEach(function(kt) {
+          termsHtml += '    <div class="term-card"><strong>' + esc(kt.term) + '</strong><span>' + esc(kt.def) + '</span></div>\n';
+        });
+        termsHtml += '  </div>\n';
+      }
+
+      // Practical tips
+      var tipsHtml = '';
+      if (topic.tips && topic.tips[lang] && topic.tips[lang].length > 0) {
+        var tipsTitle = lang === 'en' ? 'Practical Tips' : 'Практичні поради';
+        tipsHtml = '\n  <div class="section-title">' + tipsTitle + '</div>\n  <div class="tip-box"><ul>\n';
+        topic.tips[lang].forEach(function(tip) { tipsHtml += '    <li>' + esc(tip) + '</li>\n'; });
+        tipsHtml += '  </ul></div>\n';
+      }
+
+      var relHtml = '';
+      if (topic.related.length > 0) {
+        relHtml = '\n    <div class="section-title">' + esc(t.relatedDiscussions) + '</div>\n    <div class="related-topics">\n';
+        topic.related.forEach(function(r) { relHtml += '      <a href="#">' + esc(r) + '</a>\n'; });
+        relHtml += '    </div>';
+      }
+      var prevLink = prev ? '<a href="' + prev.slug + '.html">&larr; ' + esc(prev.title[lang]) + '</a>' : '<span class="disabled">&larr;</span>';
+      var nextLink = next ? '<a href="' + next.slug + '.html">' + esc(next.title[lang]) + ' &rarr;</a>' : '<span class="disabled">&rarr;</span>';
+
+      var levelNames = { en: ['','Beginner','User','Professional','Master','Horizons'], uk: ['','Новачок','Користувач','Професіонал','Майстер','Горизонти'] };
+
+      var html = '<!DOCTYPE html>\n<html lang="' + lang + '">\n<head>\n<meta charset="UTF-8">\n'
+        + '<meta name="viewport" content="width=device-width, initial-scale=1.0">\n'
+        + '<title>' + esc(topic.title[lang]) + ' - ' + esc(t.basicTheoryTitle) + '</title>\n'
+        + '<style>' + sharedCSS + '</style>\n</head>\n<body>\n'
+        + '<div class="header">\n  <a href="../../index.html" class="back">&larr; ' + esc(t.backToCourse) + '</a>\n  <h1>' + esc(t.basicTheoryTitle) + '</h1>\n  <a href="../../../' + (lang==='en'?'uk':'en') + '/basic-theory/level-' + level.num + '/' + topic.slug + '.html" class="lang-switch">' + esc(t.otherLang) + '</a>\n</div>\n'
+        + '<div class="container">\n'
+        + '  <div class="breadcrumb"><a href="../../index.html">' + esc(t.course) + '</a> / <a href="../index.html">' + esc(t.basicTheoryTitle) + '</a> / <a href="index.html">' + t.level + ' ' + level.num + '</a> / ' + esc(topic.title[lang]) + '</div>\n'
+        + '  <span class="level-badge level-' + level.num + '">' + level.emoji + ' ' + t.level + ' ' + level.num + ' — ' + esc(levelNames[lang][level.num]) + '</span>\n'
+        + '  <h2>' + esc(topic.title[lang]) + '</h2>\n'
+        + '  <p class="desc">' + esc(topic.desc[lang]) + '</p>\n\n'
+        + overviewHtml
+        + '  <div class="section-title">' + esc(t.keyTopics) + '</div>\n'
+        + (topic.details[lang][0] && typeof topic.details[lang][0] === 'object'
+          ? '  <div class="detail-cards">\n' + details + '\n  </div>\n'
+          : '  <ul class="detail-list">\n' + details + '\n  </ul>\n')
+        + sectionsHtml
+        + termsHtml
+        + tipsHtml
+        + relHtml + '\n\n'
+        + '  <div class="nav-links">\n    ' + prevLink + '\n    ' + nextLink + '\n  </div>\n'
+        + '</div>\n'
+        + '<div class="footer"><a href="../../index.html">&larr; ' + esc(t.backToCourse) + '</a></div>\n'
+        + '</body>\n</html>';
+
+      fs.writeFileSync(path.join(levelDir, topic.slug + '.html'), html);
+    });
+
+    // Level index
+    var cards = topics.map(function(tp) {
+      return '    <a href="' + tp.slug + '.html" class="topic-card"><h3>' + esc(tp.title[lang]) + '</h3><div class="sub">' + esc(tp.desc[lang].substring(0,80)) + '...</div></a>';
+    }).join('\n');
+
+    var levelIdx = '<!DOCTYPE html>\n<html lang="' + lang + '">\n<head>\n<meta charset="UTF-8">\n'
+      + '<meta name="viewport" content="width=device-width, initial-scale=1.0">\n'
+      + '<title>' + t.level + ' ' + level.num + ': ' + esc(level.title[lang]) + '</title>\n'
+      + '<style>' + sharedCSS + '</style>\n</head>\n<body>\n'
+      + '<div class="header">\n  <a href="../index.html" class="back">&larr; ' + esc(t.basicTheoryTitle) + '</a>\n  <h1>' + level.emoji + ' ' + t.level + ' ' + level.num + '</h1>\n  <a href="../../' + (lang==='en'?'uk':'en') + '/basic-theory/level-' + level.num + '/index.html" class="lang-switch">' + esc(t.otherLang) + '</a>\n</div>\n'
+      + '<div class="container">\n'
+      + '  <div class="breadcrumb"><a href="../../index.html">' + esc(t.course) + '</a> / <a href="../index.html">' + esc(t.basicTheoryTitle) + '</a> / ' + t.level + ' ' + level.num + '</div>\n'
+      + '  <span class="level-badge level-' + level.num + '">' + level.emoji + ' ' + esc(level.title[lang]) + '</span>\n'
+      + '  <h2>' + t.level + ' ' + level.num + ': ' + esc(level.title[lang]) + '</h2>\n'
+      + '  <p class="desc">' + esc(level.desc[lang]) + '</p>\n'
+      + '  <div class="section-title">' + topics.length + ' ' + t.topics + '</div>\n'
+      + '  <div class="topic-grid">\n' + cards + '\n  </div>\n'
+      + '</div>\n'
+      + '<div class="footer"><a href="../../index.html">&larr; ' + esc(t.backToCourse) + '</a></div>\n'
+      + '</body>\n</html>';
+
+    fs.writeFileSync(path.join(outDir, 'level-' + level.num, 'index.html'), levelIdx);
+  });
+
+  // Main BT index
+  var lvlCards = levels.map(function(lv) {
+    return '  <a href="level-' + lv.num + '/index.html" class="topic-card"><h3>' + lv.emoji + ' ' + t.level + ' ' + lv.num + ': ' + esc(lv.title[lang]) + '</h3><div class="sub">' + lv.topics.length + ' ' + t.topics + ' — ' + esc(lv.desc[lang].substring(0,60)) + '...</div></a>';
+  }).join('\n');
+
+  var btIdx = '<!DOCTYPE html>\n<html lang="' + lang + '">\n<head>\n<meta charset="UTF-8">\n'
+    + '<meta name="viewport" content="width=device-width, initial-scale=1.0">\n'
+    + '<title>' + esc(t.basicTheoryTitle) + '</title>\n'
+    + '<style>' + sharedCSS + '</style>\n</head>\n<body>\n'
+    + '<div class="header">\n  <a href="../index.html" class="back">&larr; ' + esc(t.backToCourse) + '</a>\n  <h1>' + esc(t.basicTheoryTitle) + '</h1>\n  <a href="../../' + (lang==='en'?'uk':'en') + '/basic-theory/index.html" class="lang-switch">' + esc(t.otherLang) + '</a>\n</div>\n'
+    + '<div class="container">\n'
+    + '  <div class="breadcrumb"><a href="../index.html">' + esc(t.course) + '</a> / ' + esc(t.basicTheoryTitle) + '</div>\n'
+    + '  <h2>' + esc(t.basicTheoryTitle) + '</h2>\n'
+    + '  <p class="desc">' + esc(t.btOverviewDesc) + '</p>\n'
+    + '  <div class="section-title">5 ' + t.levels + '</div>\n'
+    + '  <div class="topic-grid">\n' + lvlCards + '\n  </div>\n'
+    + '</div>\n'
+    + '<div class="footer"><a href="../index.html">&larr; ' + esc(t.backToCourse) + '</a></div>\n'
+    + '</body>\n</html>';
+
+  fs.writeFileSync(path.join(outDir, 'index.html'), btIdx);
+}
+
+// ============================================================
+// GENERATE LANGUAGE SELECTOR (root index.html)
+// ============================================================
+function generateLangSelector() {
+  var html = '<!DOCTYPE html>\n<html>\n<head>\n<meta charset="UTF-8">\n'
+    + '<meta name="viewport" content="width=device-width, initial-scale=1.0">\n'
+    + '<title>AI & Programming Course</title>\n'
+    + '<style>' + sharedCSS + '\n'
+    + '.lang-hero { text-align:center; padding:80px 20px 60px; }\n'
+    + '.lang-hero h1 { font-size:36px; color:#fff; margin-bottom:12px; }\n'
+    + '.lang-hero p { color:#8696a4; font-size:17px; margin-bottom:40px; }\n'
+    + '.lang-cards { display:flex; gap:20px; justify-content:center; flex-wrap:wrap; }\n'
+    + '.lang-card { background:#111119; border:1px solid #1e1e2e; border-radius:16px; padding:40px 50px; text-align:center; font-size:20px; font-weight:600; color:#e4e6eb; transition:all 0.2s; display:block; }\n'
+    + '.lang-card:hover { background:#1a1a2e; border-color:#2b5278; text-decoration:none; transform:translateY(-2px); }\n'
+    + '.lang-card .flag { font-size:48px; display:block; margin-bottom:12px; }\n'
+    + '</style>\n</head>\n<body>\n'
+    + '<div class="lang-hero">\n'
+    + '  <h1>AI & Programming Course</h1>\n'
+    + '  <p>Select your language / Оберіть мову</p>\n'
+    + '  <div class="lang-cards">\n'
+    + '    <a href="en/index.html" class="lang-card"><span class="flag">🇬🇧</span>English</a>\n'
+    + '    <a href="uk/index.html" class="lang-card"><span class="flag">🇺🇦</span>Українська</a>\n'
+    + '  </div>\n'
+    + '</div>\n'
+    + '</body>\n</html>';
+
+  fs.writeFileSync(path.join(__dirname, 'index.html'), html);
+}
+
+// ============================================================
+// GENERATE MAIN COURSE INDEX (per language)
+// ============================================================
+function generateCourseIndex(lang) {
+  var t = ui[lang];
+  // Build a simplified version of the course index that links to basic-theory
+  // and shows module overview (without the full lesson listing to keep it clean)
+  var html = '<!DOCTYPE html>\n<html lang="' + lang + '">\n<head>\n<meta charset="UTF-8">\n'
+    + '<meta name="viewport" content="width=device-width, initial-scale=1.0">\n'
+    + '<title>' + esc(t.siteTitle) + '</title>\n'
+    + '<style>' + sharedCSS + '\n'
+    + '.hero { text-align:center; padding:50px 20px 30px; background:linear-gradient(135deg, #0e1621 0%, #1a1a2e 100%); }\n'
+    + '.hero h1 { font-size:36px; color:#fff; margin-bottom:8px; }\n'
+    + '.hero p { color:#8696a4; font-size:17px; max-width:700px; margin:0 auto; line-height:1.7; }\n'
+    + '.stats-row { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-top:16px; }\n'
+    + '.stat-card { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:12px 20px; text-align:center; min-width:120px; }\n'
+    + '.stat-card .num { font-size:24px; font-weight:700; color:#6ab2f2; }\n'
+    + '.stat-card .label { font-size:11px; color:#8696a4; margin-top:2px; }\n'
+    + '.tabs { display:flex; justify-content:center; gap:0; margin:30px auto 0; max-width:900px; }\n'
+    + '.tab { flex:1; text-align:center; padding:14px 20px; cursor:pointer; font-size:15px; font-weight:600; border-bottom:3px solid transparent; color:#8696a4; transition:all 0.2s; }\n'
+    + '.tab:hover { color:#e4e6eb; background:rgba(255,255,255,0.03); }\n'
+    + '.tab.active { border-bottom-color:#6ab2f2; color:#6ab2f2; }\n'
+    + '.tab .sub { display:block; font-size:11px; font-weight:400; margin-top:2px; }\n'
+    + '.tab.nov .sub { color:#4ade80; } .tab.nov.active { border-bottom-color:#4ade80; color:#4ade80; }\n'
+    + '.tab.adv .sub { color:#f59e0b; } .tab.adv.active { border-bottom-color:#f59e0b; color:#f59e0b; }\n'
+    + '.tab.exp .sub { color:#ef4444; } .tab.exp.active { border-bottom-color:#ef4444; color:#ef4444; }\n'
+    + '.level-section { display:none; } .level-section.active { display:block; }\n'
+    + '.lh { display:flex; align-items:center; gap:16px; margin-bottom:24px; padding:20px; border-radius:12px; }\n'
+    + '.lh.nov { background:linear-gradient(135deg, rgba(74,222,128,0.1), rgba(74,222,128,0.03)); border-left:4px solid #4ade80; }\n'
+    + '.lh.adv { background:linear-gradient(135deg, rgba(245,158,11,0.1), rgba(245,158,11,0.03)); border-left:4px solid #f59e0b; }\n'
+    + '.lh.exp { background:linear-gradient(135deg, rgba(239,68,68,0.1), rgba(239,68,68,0.03)); border-left:4px solid #ef4444; }\n'
+    + '.lh h2 { font-size:24px; } .lh p { color:#8696a4; font-size:14px; line-height:1.5; margin-top:4px; }\n'
+    + '.progress-bar { height:4px; background:#1e1e2e; border-radius:2px; margin-top:8px; overflow:hidden; }\n'
+    + '.pf { height:100%; border-radius:2px; }\n'
+    + '.pf.g { background:#4ade80; } .pf.y { background:#f59e0b; } .pf.r { background:#ef4444; }\n'
+    + '.mod-card { background:#111119; border:1px solid #1e1e2e; border-radius:12px; padding:18px; margin-bottom:12px; }\n'
+    + '.mod-card h3 { font-size:16px; color:#e4e6eb; margin-bottom:6px; }\n'
+    + '.mod-card .sub { color:#8696a4; font-size:13px; line-height:1.5; }\n'
+    + '.mod-card a { color:#6ab2f2; font-size:13px; }\n'
+    + '</style>\n</head>\n<body>\n'
+    + '<div class="hero">\n'
+    + '  <h1>' + esc(t.siteTitle) + '</h1>\n'
+    + '  <p>' + esc(t.courseSubtitle) + '</p>\n'
+    + '  <div class="stats-row">\n'
+    + '    <div class="stat-card"><div class="num">68</div><div class="label">' + esc(t.totalLessons) + '</div></div>\n'
+    + '    <div class="stat-card"><div class="num">15</div><div class="label">' + esc(t.modules) + '</div></div>\n'
+    + '    <div class="stat-card"><div class="num">5</div><div class="label">' + esc(t.levels) + '</div></div>\n'
+    + '  </div>\n'
+    + '</div>\n'
+    + '<div class="header" style="justify-content:flex-end;">\n'
+    + '  <a href="../' + (lang==='en'?'uk':'en') + '/index.html" class="lang-switch">' + esc(t.otherLang) + '</a>\n'
+    + '</div>\n'
+    + '<div class="tabs">\n'
+    + '  <div class="tab nov active" onclick="showLevel(\'nov\')">' + esc(t.novice) + '<span class="sub">' + esc(t.noviceSub) + ' — 5 ' + t.modulesWord + ', 30 ' + t.lessonsWord + '</span></div>\n'
+    + '  <div class="tab adv" onclick="showLevel(\'adv\')">' + esc(t.advanced) + '<span class="sub">' + esc(t.advancedSub) + ' — 5 ' + t.modulesWord + ', 23 ' + t.lessonsWord + '</span></div>\n'
+    + '  <div class="tab exp" onclick="showLevel(\'exp\')">' + esc(t.expert) + '<span class="sub">' + esc(t.expertSub) + ' — 5 ' + t.modulesWord + ', 15 ' + t.lessonsWord + '</span></div>\n'
+    + '</div>\n'
+    + '<div class="content">\n';
+
+  // Novice modules
+  var novMods = lang === 'en' ? [
+    { n: '1. What is Generative AI?', d: '9 lessons covering GenAI, LLMs, diffusion models, multimodality, reasoning, foundation models.', link: 'basic-theory/level-1/index.html' },
+    { n: '2. Working with AI: Core Concepts', d: '5 lessons on prompts, tokens, context windows, hallucinations, and vibecoding.', link: 'basic-theory/level-2/index.html' },
+    { n: '3. AI Development Environment', d: '7 lessons on prompt engineering, smart code suggestions, AI chat in IDE, terminal and browser tools.' },
+    { n: '4. AI Tools & IDE Comparison', d: '4 lessons comparing AI-first IDEs, popular tools, and news resources.' },
+    { n: '5. Understanding Models', d: '5 lessons on benchmarks, leaderboards, closed/open-source models, and hardware.' }
+  ] : [
+    { n: '1. Що таке генеративний ШІ?', d: '9 уроків: GenAI, LLM, дифузійні моделі, мультимодальність, міркування, фундаментальні моделі.', link: 'basic-theory/level-1/index.html' },
+    { n: '2. Робота з ШІ: базові концепції', d: '5 уроків: промпти, токени, контекстні вікна, галюцинації та вайбкодинг.', link: 'basic-theory/level-2/index.html' },
+    { n: '3. Середовище розробки з ШІ', d: '7 уроків: промпт-інженерія, розумні підказки коду, ШІ-чат в IDE, інструменти терміналу та браузера.' },
+    { n: '4. Порівняння ШІ-інструментів та IDE', d: '4 уроки: порівняння AI-first IDE, популярні інструменти, новинні ресурси.' },
+    { n: '5. Розуміння моделей', d: '5 уроків: бенчмарки, лідерборди, закриті/відкриті моделі та обладнання.' }
+  ];
+
+  var advMods = lang === 'en' ? [
+    { n: '6. Neural Networks & Model Training', d: '5 lessons on neural network fundamentals, data pipelines, training, optimization, architectures.', link: 'basic-theory/level-3/index.html' },
+    { n: '7. Advanced Prompting & Context Engineering', d: '5 lessons on advanced prompting techniques, context engineering, indexation, spec-driven dev.' },
+    { n: '8. MCP, Agents & Tool Use', d: '6 lessons covering agents, tool use, AI protocols, MCP architecture, and workshops.', link: 'basic-theory/level-4/index.html' },
+    { n: '9. RAG & Applied Frameworks', d: '5 lessons on RAG architecture, tools, libraries, and practical frameworks.' },
+    { n: '10. Code Review, Automation & Security', d: '2 lessons on AI code review and automation with low-code platforms.' }
+  ] : [
+    { n: '6. Нейромережі та навчання моделей', d: '5 уроків: основи нейромереж, пайплайни даних, навчання, оптимізація, архітектури.', link: 'basic-theory/level-3/index.html' },
+    { n: '7. Просунутий промптинг та контекст-інженерія', d: '5 уроків: просунуті техніки промптингу, контекст-інженерія, індексація, розробка за спеками.' },
+    { n: '8. MCP, агенти та використання інструментів', d: '6 уроків: агенти, використання інструментів, ШІ-протоколи, архітектура MCP.', link: 'basic-theory/level-4/index.html' },
+    { n: '9. RAG та прикладні фреймворки', d: '5 уроків: архітектура RAG, інструменти, бібліотеки та практичні фреймворки.' },
+    { n: '10. Код-ревю, автоматизація та безпека', d: '2 уроки: ШІ код-ревю та автоматизація з low-code платформами.' }
+  ];
+
+  var expMods = lang === 'en' ? [
+    { n: '11. AI Horizons: Future & Philosophy', d: '5 lessons on AGI, ASI, technological singularity, world models, decentralized AI.', link: 'basic-theory/level-5/index.html' },
+    { n: '12. AI Safety, Alignment & Ethics', d: '3 lessons on AI safety research, alignment techniques, explainable AI.' },
+    { n: '13. Production Agent Systems', d: '4 lessons: LangChain/LangGraph, CrewAI/MetaGPT, Dify, agent memory.' },
+    { n: '14. Agentic Development & Advanced IDEs', d: '5 lessons on agentic code generation, background agents, advanced IDE workshops.' },
+    { n: '15. AI in Production & Leadership', d: '5 lessons on managing AI agents, security, voice programming, AI CTO strategies.' }
+  ] : [
+    { n: '11. Горизонти ШІ: майбутнє та філософія', d: '5 уроків: AGI, ASI, технологічна сингулярність, моделі світу, децентралізований ШІ.', link: 'basic-theory/level-5/index.html' },
+    { n: '12. Безпека, вирівнювання та етика ШІ', d: '3 уроки: дослідження безпеки ШІ, техніки вирівнювання, пояснюваний ШІ.' },
+    { n: '13. Продакшн агентні системи', d: '4 уроки: LangChain/LangGraph, CrewAI/MetaGPT, Dify, пам\'ять агентів.' },
+    { n: '14. Агентна розробка та просунуті IDE', d: '5 уроків: агентна кодогенерація, фонові агенти, воркшопи з IDE.' },
+    { n: '15. ШІ у продакшні та лідерство', d: '5 уроків: управління ШІ-агентами, безпека, голосове програмування, стратегії AI CTO.' }
+  ];
+
+  function renderMods(mods) {
+    return mods.map(function(m) {
+      var linkHtml = m.link ? ' <a href="' + m.link + '">' + (lang==='en'?'Browse lessons':'Переглянути уроки') + ' &rarr;</a>' : '';
+      return '  <div class="mod-card"><h3>' + esc(m.n) + '</h3><div class="sub">' + esc(m.d) + linkHtml + '</div></div>';
+    }).join('\n');
+  }
+
+  html += '<div id="nov" class="level-section active">\n'
+    + '  <div class="lh nov"><div><h2>' + esc(t.novice) + '</h2><p>' + esc(t.noviceDesc) + '</p><div class="progress-bar"><div class="pf g" style="width:85%"></div></div></div></div>\n'
+    + renderMods(novMods) + '\n</div>\n';
+
+  html += '<div id="adv" class="level-section">\n'
+    + '  <div class="lh adv"><div><h2>' + esc(t.advanced) + '</h2><p>' + esc(t.advancedDesc) + '</p><div class="progress-bar"><div class="pf y" style="width:80%"></div></div></div></div>\n'
+    + renderMods(advMods) + '\n</div>\n';
+
+  html += '<div id="exp" class="level-section">\n'
+    + '  <div class="lh exp"><div><h2>' + esc(t.expert) + '</h2><p>' + esc(t.expertDesc) + '</p><div class="progress-bar"><div class="pf r" style="width:75%"></div></div></div></div>\n'
+    + renderMods(expMods) + '\n</div>\n';
+
+  html += '</div>\n'
+    + '<div class="footer">' + esc(t.footer) + '</div>\n'
+    + '<script>\nfunction showLevel(l){document.querySelectorAll(".level-section").forEach(function(s){s.classList.remove("active")});document.querySelectorAll(".tab").forEach(function(t){t.classList.remove("active")});document.getElementById(l).classList.add("active");document.querySelector(".tab."+l).classList.add("active");}\n</script>\n'
+    + '</body>\n</html>';
+
+  fs.mkdirSync(path.join(__dirname, lang), { recursive: true });
+  fs.writeFileSync(path.join(__dirname, lang, 'index.html'), html);
+}
+
+// ============================================================
+// TELEGRAM MINI APP GENERATOR
+// ============================================================
+function generateMiniApp() {
+  // 1. Prepare data — transform link hrefs from relative paths to hash routes
+  var miniData = {
+    ui: {
+      en: {
+        lang: 'en', langName: 'English', siteTitle: ui.en.siteTitle,
+        basicTheoryTitle: ui.en.basicTheoryTitle, level: ui.en.level,
+        levels: ui.en.levels, topics: ui.en.topics, keyTopics: ui.en.keyTopics,
+        backToCourse: ui.en.backToCourse, course: ui.en.course,
+        beginner: ui.en.beginner, user: ui.en.user, professional: ui.en.professional,
+        master: ui.en.master, horizons: ui.en.horizons, btOverviewDesc: ui.en.btOverviewDesc,
+        selectLang: ui.en.selectLang, otherLang: ui.en.otherLang,
+        relatedDiscussions: ui.en.relatedDiscussions,
+        nextTopic: 'Next', prevTopic: 'Previous',
+        keyTerms: 'Key Terms', practicalTips: 'Practical Tips', topicCount: 'topics'
+      },
+      uk: {
+        lang: 'uk', langName: 'Українська', siteTitle: ui.uk.siteTitle,
+        basicTheoryTitle: ui.uk.basicTheoryTitle, level: ui.uk.level,
+        levels: ui.uk.levels, topics: ui.uk.topics, keyTopics: ui.uk.keyTopics,
+        backToCourse: ui.uk.backToCourse, course: ui.uk.course,
+        beginner: ui.uk.beginner, user: ui.uk.user, professional: ui.uk.professional,
+        master: ui.uk.master, horizons: ui.uk.horizons, btOverviewDesc: ui.uk.btOverviewDesc,
+        selectLang: ui.uk.selectLang, otherLang: ui.uk.otherLang,
+        relatedDiscussions: ui.uk.relatedDiscussions,
+        nextTopic: 'Далі', prevTopic: 'Назад',
+        keyTerms: 'Ключові терміни', practicalTips: 'Практичні поради', topicCount: 'тем'
+      }
+    },
+    levels: []
+  };
+
+  levels.forEach(function(level) {
+    var lvl = {
+      num: level.num, emoji: level.emoji, title: level.title, desc: level.desc,
+      topics: []
+    };
+    level.topics.forEach(function(topic) {
+      var t = {
+        slug: topic.slug, title: topic.title, desc: topic.desc,
+        overview: topic.overview || null, details: {}, sections: topic.sections || null,
+        keyTerms: topic.keyTerms || null, tips: topic.tips || null, related: topic.related
+      };
+      ['en', 'uk'].forEach(function(lang) {
+        t.details[lang] = topic.details[lang].map(function(d) {
+          if (typeof d === 'string') return d;
+          var obj = { text: d.text, desc: d.desc || '' };
+          if (d.links && d.links.length > 0) {
+            obj.links = [];
+            d.links.forEach(function(lk) {
+              var href = lk.href;
+              var m = href.match(/(?:\.\.\/)?level-(\d+)\/([^.]+)\.html/);
+              if (m) {
+                obj.links.push({ title: lk.title, href: '#/level/' + m[1] + '/' + m[2] });
+              } else {
+                var sm = href.match(/^([^/.]+)\.html$/);
+                if (sm) {
+                  obj.links.push({ title: lk.title, href: '#/level/' + level.num + '/' + sm[1] });
+                }
+              }
+            });
+          }
+          return obj;
+        });
+      });
+      lvl.topics.push(t);
+    });
+    miniData.levels.push(lvl);
+  });
+
+  var dataJson = JSON.stringify(miniData);
+
+  // 2. Build the complete HTML file as a template string
+  // Note: All content is pre-generated from our own course data (not user input),
+  // so the innerHTML usage in the SPA is safe — all values are escaped via esc().
+  var html = [
+    '<!DOCTYPE html>',
+    '<html>',
+    '<head>',
+    '<meta charset="UTF-8">',
+    '<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">',
+    '<title>AI &amp; Programming Course</title>',
+    '<script src="https://telegram.org/js/telegram-web-app.js"><\/script>',
+    '<style>',
+    // --- CSS START ---
+    ':root { --bg:#0a0a0f; --card:#111119; --text:#e4e6eb; --text2:#8696a4; --text3:#c4c6cb; --accent:#6ab2f2; --border:#1e1e2e; --hover:#1a1a2e; --card-border:#2b5278; }',
+    'body.tg { --bg:var(--tg-theme-bg-color,#0a0a0f); --card:var(--tg-theme-secondary-bg-color,#111119); --text:var(--tg-theme-text-color,#e4e6eb); --text2:var(--tg-theme-hint-color,#8696a4); --accent:var(--tg-theme-link-color,#6ab2f2); --border:var(--tg-theme-section-separator-color,#1e1e2e); }',
+    '*{margin:0;padding:0;box-sizing:border-box}',
+    'body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);overflow-y:auto;-webkit-overflow-scrolling:touch}',
+    'a{color:var(--accent);text-decoration:none}',
+    '#app{max-width:480px;margin:0 auto;padding:16px;padding-bottom:calc(16px + env(safe-area-inset-bottom,0px));min-height:100vh}',
+    '.view{animation:fadeIn .2s ease-out}',
+    '@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}',
+    '.hdr{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding:8px 0}',
+    '.hdr h1{font-size:20px;color:var(--text);flex:1}',
+    '.hdr .back-btn{color:var(--text2);font-size:14px;cursor:pointer;padding:8px 0}',
+    '.lang-btn{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:6px 12px;font-size:13px;color:var(--text2);cursor:pointer;white-space:nowrap}',
+    '.lang-hero{text-align:center;padding:80px 0 40px}',
+    '.lang-hero h1{font-size:28px;color:var(--text);margin-bottom:8px}',
+    '.lang-hero p{color:var(--text2);font-size:15px;margin-bottom:32px}',
+    '.lang-cards{display:flex;gap:16px;justify-content:center}',
+    '.lang-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px 40px;text-align:center;font-size:18px;font-weight:600;color:var(--text);cursor:pointer;transition:all .15s}',
+    '.lang-card:active{background:var(--hover);border-color:var(--card-border)}',
+    '.lang-card .flag{font-size:40px;display:block;margin-bottom:10px}',
+    '.level-card{background:var(--card);border-radius:14px;padding:18px;margin-bottom:10px;cursor:pointer;transition:background .15s;border-left:4px solid var(--card-border)}',
+    '.level-card:active{background:var(--hover)}',
+    '.level-card .lc-head{display:flex;align-items:center;gap:10px;margin-bottom:6px}',
+    '.level-card .lc-emoji{font-size:24px}',
+    '.level-card .lc-title{font-size:16px;font-weight:600;color:var(--text)}',
+    '.level-card .lc-count{margin-left:auto;font-size:12px;color:var(--text2);background:var(--bg);padding:3px 10px;border-radius:12px}',
+    '.level-card .lc-desc{font-size:13px;color:var(--text2);line-height:1.5}',
+    '.level-card.l1{border-color:#4ade80}.level-card.l2{border-color:#60a5fa}.level-card.l3{border-color:#f59e0b}.level-card.l4{border-color:#ef4444}.level-card.l5{border-color:#a855f7}',
+    '.topic-card{background:var(--card);border-radius:12px;padding:16px;margin-bottom:8px;cursor:pointer;transition:background .15s;border-left:3px solid var(--card-border)}',
+    '.topic-card:active{background:var(--hover)}',
+    '.topic-card h3{font-size:15px;color:var(--text);margin-bottom:3px}',
+    '.topic-card .tc-desc{font-size:13px;color:var(--text2);line-height:1.4}',
+    '.badge{display:inline-block;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;margin-bottom:14px}',
+    '.b1{background:rgba(74,222,128,.15);color:#4ade80}.b2{background:rgba(96,165,250,.15);color:#60a5fa}.b3{background:rgba(245,158,11,.15);color:#f59e0b}.b4{background:rgba(239,68,68,.15);color:#ef4444}.b5{background:rgba(168,85,247,.15);color:#a855f7}',
+    'h2{font-size:24px;margin-bottom:6px;color:var(--text)}',
+    '.desc{color:var(--text2);font-size:14px;line-height:1.6;margin-bottom:20px}',
+    '.overview p{color:var(--text3);font-size:14px;line-height:1.7;margin-bottom:12px}',
+    '.stitle{font-size:13px;color:var(--text2);margin:20px 0 10px;text-transform:uppercase;letter-spacing:1px;font-weight:600}',
+    '.dl-item{padding:10px 14px;margin-bottom:6px;border-radius:8px;background:var(--card);border-left:3px solid var(--card-border);font-size:13px;line-height:1.5;color:var(--text)}',
+    '.dl-item::before{content:"\\2192 ";color:var(--accent)}',
+    '.dc{background:var(--card);border-radius:10px;padding:14px 16px;margin-bottom:8px;border-left:3px solid var(--card-border)}',
+    '.dc .dt{color:var(--text);font-size:14px;font-weight:600;margin-bottom:3px}',
+    '.dc .dd{color:var(--text2);font-size:13px;line-height:1.5}',
+    '.dc .dl{margin-top:6px;display:flex;flex-wrap:wrap;gap:4px}',
+    '.dc .dl a{font-size:12px;color:var(--accent);background:rgba(106,178,242,.08);padding:3px 10px;border-radius:6px}',
+    '.term{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 16px;margin-bottom:8px}',
+    '.term strong{color:var(--accent);font-size:13px}',
+    '.term span{color:var(--text3);font-size:12px;display:block;margin-top:3px;line-height:1.4}',
+    '.tip-box{background:linear-gradient(135deg,rgba(106,178,242,.06),rgba(106,178,242,.02));border:1px solid rgba(106,178,242,.15);border-radius:10px;padding:14px 16px;margin-top:10px}',
+    '.tip-box li{color:var(--text3);font-size:13px;line-height:1.5;margin-bottom:6px;list-style:none}',
+    '.tip-box li::before{content:"\\1F4A1 "}',
+    '.rel-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}',
+    '.rel-tag{background:var(--card);border:1px solid var(--border);padding:5px 12px;border-radius:8px;font-size:12px;color:var(--accent)}',
+    '.nav-row{display:flex;justify-content:space-between;margin-top:24px;padding-top:16px;border-top:1px solid var(--border)}',
+    '.nav-row a{color:var(--accent);font-size:13px;cursor:pointer}',
+    '.nav-row .dis{color:#333}',
+    // --- CSS END ---
+    '</style>',
+    '</head>',
+    '<body>',
+    '<div id="app"></div>',
+    '<script>',
+    'var COURSE_DATA=' + dataJson + ';',
+    // --- JS START ---
+    // All rendered content comes from our own pre-built course data.
+    // The esc() function escapes all dynamic values to prevent any issues.
+    '(function(){',
+    'var D=COURSE_DATA,U,lang,tg=window.Telegram&&window.Telegram.WebApp,isTg=!!tg;',
+    'if(isTg){document.body.classList.add("tg");tg.ready();tg.expand();try{tg.setHeaderColor("secondary_bg_color")}catch(e){}try{tg.setBackgroundColor("bg_color")}catch(e){}try{tg.disableVerticalSwipes()}catch(e){}}',
+    'var $=document.getElementById("app");',
+    'function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}',
+    'function setLang(l){lang=l;U=D.ui[l];localStorage.setItem("twa-lang",l);}',
+    'function nav(h){if(isTg)try{tg.HapticFeedback.impactOccurred("light")}catch(e){}location.hash=h;}',
+    'function updateBack(){if(!isTg)return;var h=location.hash.slice(1)||"/";if(h==="/"||h==="/course"||!lang){try{tg.BackButton.hide()}catch(e){}}else{try{tg.BackButton.show()}catch(e){}}}',
+    'function route(){var h=location.hash.slice(1)||"/";if(!lang){var s=localStorage.getItem("twa-lang");if(s&&D.ui[s])setLang(s);else{renderLang();updateBack();return;}}var p=h.split("/").filter(Boolean);if(p[0]==="level"&&p.length===3)renderTopic(+p[1],p[2]);else if(p[0]==="level"&&p.length===2)renderLevel(+p[1]);else renderCourse();updateBack();}',
+    // renderLang
+    'function renderLang(){var h="<div class=\\"view\\"><div class=\\"lang-hero\\"><h1>AI Course</h1><p>Select language / Оберіть мову</p><div class=\\"lang-cards\\"><div class=\\"lang-card\\" id=\\"le\\"><span class=\\"flag\\">\\ud83c\\uddec\\ud83c\\udde7</span>English</div><div class=\\"lang-card\\" id=\\"lu\\"><span class=\\"flag\\">\\ud83c\\uddfa\\ud83c\\udde6</span>Українська</div></div></div></div>";$.textContent="";$.insertAdjacentHTML("afterbegin",h);document.getElementById("le").onclick=function(){setLang("en");nav("#/course");};document.getElementById("lu").onclick=function(){setLang("uk");nav("#/course");};window.scrollTo(0,0);}',
+    // renderCourse
+    'function renderCourse(){var h="<div class=\\"view\\"><div class=\\"hdr\\"><h1>"+esc(U.siteTitle)+"</h1><div class=\\"lang-btn\\" id=\\"lb\\">"+esc(U.otherLang)+"</div></div>";h+="<p class=\\"desc\\">"+esc(U.btOverviewDesc)+"</p>";D.levels.forEach(function(lv){h+="<div class=\\"level-card l"+lv.num+"\\" data-n=\\""+lv.num+"\\"><div class=\\"lc-head\\"><span class=\\"lc-emoji\\">"+lv.emoji+"</span><span class=\\"lc-title\\">"+esc(lv.title[lang])+"</span><span class=\\"lc-count\\">"+lv.topics.length+" "+U.topicCount+"</span></div><div class=\\"lc-desc\\">"+esc(lv.desc[lang])+"</div></div>";});h+="</div>";$.textContent="";$.insertAdjacentHTML("afterbegin",h);document.getElementById("lb").onclick=function(){setLang(lang==="en"?"uk":"en");renderCourse();};$.querySelectorAll(".level-card").forEach(function(c){c.onclick=function(){nav("#/level/"+c.dataset.n);};});window.scrollTo(0,0);}',
+    // renderLevel
+    'function renderLevel(num){var lv=D.levels.find(function(l){return l.num===num;});if(!lv){renderCourse();return;}var nm={en:["","Beginner","User","Professional","Master","Horizons"],uk:["","Новачок","Користувач","Професіонал","Майстер","Горизонти"]};var h="<div class=\\"view\\">";if(!isTg)h+="<div class=\\"hdr\\"><span class=\\"back-btn\\" id=\\"bb\\">&larr; "+esc(U.backToCourse)+"</span></div>";h+="<span class=\\"badge b"+num+"\\">"+lv.emoji+" "+U.level+" "+num+" — "+(nm[lang][num]||"")+"</span>";h+="<h2>"+esc(lv.title[lang])+"</h2><p class=\\"desc\\">"+esc(lv.desc[lang])+"</p>";lv.topics.forEach(function(t){h+="<div class=\\"topic-card\\" data-s=\\""+t.slug+"\\"><h3>"+esc(t.title[lang])+"</h3><div class=\\"tc-desc\\">"+esc(t.desc[lang])+"</div></div>";});h+="</div>";$.textContent="";$.insertAdjacentHTML("afterbegin",h);if(!isTg){var bb=document.getElementById("bb");if(bb)bb.onclick=function(){nav("#/course");};}$.querySelectorAll(".topic-card").forEach(function(c){c.onclick=function(){nav("#/level/"+num+"/"+c.dataset.s);};});window.scrollTo(0,0);}',
+    // renderTopic
+    'function renderTopic(num,slug){var lv=D.levels.find(function(l){return l.num===num;});if(!lv){renderCourse();return;}var idx=-1,t=null;lv.topics.forEach(function(tp,i){if(tp.slug===slug){t=tp;idx=i;}});if(!t){renderLevel(num);return;}var nm={en:["","Beginner","User","Professional","Master","Horizons"],uk:["","Новачок","Користувач","Професіонал","Майстер","Горизонти"]};var h="<div class=\\"view\\">";if(!isTg)h+="<div class=\\"hdr\\"><span class=\\"back-btn\\" id=\\"bb\\">&larr; "+esc(U.level)+" "+num+"</span></div>";h+="<span class=\\"badge b"+num+"\\">"+lv.emoji+" "+U.level+" "+num+" — "+(nm[lang][num]||"")+"</span>";h+="<h2>"+esc(t.title[lang])+"</h2><p class=\\"desc\\">"+esc(t.desc[lang])+"</p>";',
+    // overview
+    'if(t.overview&&t.overview[lang]){h+="<div class=\\"overview\\">";t.overview[lang].forEach(function(p){h+="<p>"+esc(p)+"</p>";});h+="</div>";}',
+    // details
+    'var det=t.details[lang];if(det&&det.length){h+="<div class=\\"stitle\\">"+esc(U.keyTopics)+"</div>";if(typeof det[0]==="string"){det.forEach(function(d){h+="<div class=\\"dl-item\\">"+esc(d)+"</div>";});}else{det.forEach(function(d){h+="<div class=\\"dc\\"><div class=\\"dt\\">"+esc(d.text)+"</div>";if(d.desc)h+="<div class=\\"dd\\">"+esc(d.desc)+"</div>";if(d.links&&d.links.length){h+="<div class=\\"dl\\">";d.links.forEach(function(lk){h+="<a href=\\""+esc(lk.href)+"\\">"+esc(lk.title)+"</a>";});h+="</div>";}h+="</div>";});}}',
+    // sections
+    'if(t.sections){t.sections.forEach(function(s){h+="<div class=\\"stitle\\">"+esc(s.title[lang])+"</div>";s.items[lang].forEach(function(it){h+="<div class=\\"dl-item\\">"+esc(it)+"</div>";});});}',
+    // keyTerms
+    'if(t.keyTerms&&t.keyTerms[lang]&&t.keyTerms[lang].length){h+="<div class=\\"stitle\\">"+esc(U.keyTerms)+"</div>";t.keyTerms[lang].forEach(function(kt){h+="<div class=\\"term\\"><strong>"+esc(kt.term)+"</strong><span>"+esc(kt.def)+"</span></div>";});}',
+    // tips
+    'if(t.tips&&t.tips[lang]&&t.tips[lang].length){h+="<div class=\\"stitle\\">"+esc(U.practicalTips)+"</div><div class=\\"tip-box\\"><ul>";t.tips[lang].forEach(function(tip){h+="<li>"+esc(tip)+"</li>";});h+="</ul></div>";}',
+    // related
+    'if(t.related&&t.related.length){h+="<div class=\\"stitle\\">"+esc(U.relatedDiscussions)+"</div><div class=\\"rel-tags\\">";t.related.forEach(function(r){h+="<span class=\\"rel-tag\\">"+esc(r)+"</span>";});h+="</div>";}',
+    // nav
+    'h+="<div class=\\"nav-row\\">";if(idx>0){var prev=lv.topics[idx-1];h+="<a data-h=\\"#/level/"+num+"/"+prev.slug+"\\">&larr; "+esc(prev.title[lang])+"</a>";}else h+="<span class=\\"dis\\">&larr;</span>";if(idx<lv.topics.length-1){var next=lv.topics[idx+1];h+="<a data-h=\\"#/level/"+num+"/"+next.slug+"\\">"+esc(next.title[lang])+" &rarr;</a>";}else h+="<span class=\\"dis\\">&rarr;</span>";h+="</div></div>";',
+    '$.textContent="";$.insertAdjacentHTML("afterbegin",h);if(!isTg){var bb=document.getElementById("bb");if(bb)bb.onclick=function(){nav("#/level/"+num);};}$.querySelectorAll(".nav-row a[data-h]").forEach(function(a){a.onclick=function(e){e.preventDefault();nav(a.dataset.h);};});$.querySelectorAll(".dc .dl a").forEach(function(a){a.onclick=function(e){e.preventDefault();nav(a.getAttribute("href"));};});window.scrollTo(0,0);}',
+    // Init
+    'window.addEventListener("hashchange",route);',
+    'if(isTg){try{tg.BackButton.onClick(function(){if(isTg)try{tg.HapticFeedback.impactOccurred("light")}catch(e){}window.history.back();})}catch(e){}}',
+    'route();',
+    '})();',
+    // --- JS END ---
+    '<\/script>',
+    '</body>',
+    '</html>'
+  ].join('\n');
+
+  // Write output
+  var outDir = path.join(__dirname, 'twa');
+  fs.mkdirSync(outDir, { recursive: true });
+  fs.writeFileSync(path.join(outDir, 'index.html'), html);
+}
+
+// ============================================================
+// RUN
+// ============================================================
+console.log('Generating English version...');
+generateBasicTheory('en');
+generateCourseIndex('en');
+
+console.log('Generating Ukrainian version...');
+generateBasicTheory('uk');
+generateCourseIndex('uk');
+
+console.log('Generating language selector...');
+generateLangSelector();
+
+console.log('Generating Telegram Mini App...');
+generateMiniApp();
+
+// Count files
+var count = 0;
+function countFiles(dir) {
+  fs.readdirSync(dir).forEach(function(f) {
+    var fp = path.join(dir, f);
+    if (fs.statSync(fp).isDirectory()) countFiles(fp);
+    else if (f.endsWith('.html')) count++;
+  });
+}
+countFiles(path.join(__dirname, 'en'));
+countFiles(path.join(__dirname, 'uk'));
+count++; // root index.html
+
+console.log('\nDone! Generated ' + count + ' HTML pages total');
+console.log('  en/ - English (48 basic-theory + 1 course index)');
+console.log('  uk/ - Ukrainian (48 basic-theory + 1 course index)');
+console.log('  index.html - Language selector');

@@ -1,0 +1,62 @@
+[2026-02-07 08:29:04] EDIT: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/telegram-archive/course/index.html
+Description: Rebuilt course structure with full learn.evocoders.ai content integrated. 15 modules, 68 lessons across Novice/Advanced/Expert tiers. All KB lesson titles now linked to learn.evocoders.ai URLs. Sources color-coded by origin (Basic Theory, AI Programming, Models for Coding, Telegram).
+Old content: 14 modules, ~43 lessons, many marked 'NOT YET PARSED'
+New content: 15 modules, 68 lessons with proper KB links and source attribution
+---
+[2026-02-07 08:52:32] CREATE: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/telegram-archive/course/build-basic-theory.js
+Description: Node.js script to generate 48 local HTML pages for the Basic Theory course (5 levels, 42 topics)
+New content: Generates level index pages and topic detail pages with key topics, related TG links, and original KB links
+---
+[2026-02-07 08:52:32] CREATE: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/telegram-archive/course/basic-theory/ (48 files)
+Description: Generated 48 HTML pages: 1 main index + 5 level indexes + 42 topic pages for the full Basic Theory course
+New content: Local HTML pages with topic overviews, key concepts, related TG archive links, and links to original KB
+---
+[2026-02-07 08:52:32] EDIT: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/telegram-archive/course/index.html
+Description: Replaced 34 learn.evocoders.ai/basic-theory URLs with local basic-theory/level-N/slug.html paths
+Old content: href="https://learn.evocoders.ai/basic-theory/level-1/generative-ai/" target="_blank"
+New content: href="basic-theory/level-1/generative-ai.html"
+---
+[2026-02-07 10:38:41] CREATE: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/telegram-archive/course/build-all.js
+Description: Multi-language course generator script (EN + UK). All branding removed.
+---
+[2026-02-07 10:38:41] CREATE: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/telegram-archive/course/en/ (49 files)
+Description: English version - 1 course index + 48 basic-theory pages. No evocoders/ITBoroda references.
+---
+[2026-02-07 10:38:41] CREATE: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/telegram-archive/course/uk/ (49 files)
+Description: Ukrainian version - 1 course index + 48 basic-theory pages. Fully translated to Ukrainian.
+---
+[2026-02-07 10:38:41] EDIT: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/telegram-archive/course/index.html
+Description: Replaced with language selector page (EN/UK). All branding removed.
+Old content: Full course page with Эволюция Кода branding
+New content: Clean language selector with 🇬🇧 English / 🇺🇦 Українська cards
+---
+[2026-02-07 12:15:00] EDIT: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/telegram-archive/course/build-all.js
+Description: Expanded course content from sparse bullet points to rich educational pages. Added new CSS for overview, key terms, and tips sections. Updated template to render overview paragraphs, named content sections, key terms with definitions, and practical tips. Expanded all Level 1-3 topics (23 topics) with multi-paragraph overviews, 10+ detail items, key term definitions, and practical tips in both EN and UK.
+Old content: 5-7 bullet points per topic, no overviews or key terms
+New content: 2-3 paragraph overviews, 10+ detailed items, named sections, key terms grid, practical tips for each expanded topic
+---
+[2026-02-07 12:15:00] EDIT: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/telegram-archive/course/en/ (48 files regenerated)
+Description: Regenerated all English basic-theory pages with expanded content. Level 1-3 topics now have multi-paragraph overviews, additional content sections, key terms with definitions, and practical tips.
+---
+[2026-02-07 12:15:00] EDIT: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/telegram-archive/course/uk/ (48 files regenerated)
+Description: Regenerated all Ukrainian basic-theory pages with expanded content. Same enrichments as EN version, fully translated to Ukrainian.
+---
+[2026-02-07 13:45:00] EDIT: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/telegram-archive/course/build-all.js
+Description: Converted remaining 8 topics to rich detail card format with {text, desc, links} objects. Level 1: foundation-models, data-classification, sota. Level 2: prompt, token, context, hallucination, vibecoding. Each detail item now has a title, short description, and cross-links to related topic pages using relative paths.
+Old content: Plain string arrays for details (e.g. 'What makes a model "foundational": broad pre-training...')
+New content: Rich objects with text/desc/links (e.g. { text: 'What Makes a Model "Foundational"', desc: 'Broad pre-training on diverse data...', links: [{ title: 'Generative AI', href: 'generative-ai.html' }] })
+---
+[2026-02-07 13:45:00] EDIT: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/telegram-archive/course/en/ (48 files regenerated)
+Description: Regenerated all English basic-theory pages. All Level 1 and Level 2 topics now use rich detail cards with descriptions and cross-links.
+---
+[2026-02-07 13:45:00] EDIT: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/telegram-archive/course/uk/ (48 files regenerated)
+Description: Regenerated all Ukrainian basic-theory pages. Same rich detail card format as EN, fully translated.
+---
+[2026-02-07 14:00:00] EDIT: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/telegram-archive/course/build-all.js
+Description: Added generateMiniApp() function (~200 lines) to create a Telegram Mini App. Single self-contained HTML SPA with embedded course data as JSON, hash-based routing (#/course, #/level/:num, #/level/:num/:slug), Telegram WebApp SDK integration (BackButton, HapticFeedback, theme colors, disableVerticalSwipes), CSS custom properties with TG theme overrides, language persistence via localStorage. All relative link hrefs transformed to hash routes at generation time. Added generateMiniApp() call in RUN section.
+Old content: No generateMiniApp function
+New content: generateMiniApp() function + call in RUN section
+---
+[2026-02-07 14:00:00] CREATE: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/telegram-archive/course/twa/index.html (217KB)
+Description: Generated Telegram Mini App - single HTML file containing all course content for 42 topics across 5 levels in EN and UK. 4 views: language selector, course overview, level detail, topic detail. Bilingual with instant language switching. Works in Telegram and regular browser. Ready for GitHub Pages hosting.
+---

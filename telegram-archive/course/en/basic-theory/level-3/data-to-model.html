@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data to Model - Basic Theory</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background:#0a0a0f; color:#e4e6eb; }
+a { color:#6ab2f2; text-decoration:none; }
+a:hover { text-decoration:underline; }
+.header { background:#111119; padding:16px 24px; border-bottom:1px solid #1e1e2e; display:flex; align-items:center; gap:16px; position:sticky; top:0; z-index:10; }
+.header h1 { font-size:18px; color:#6ab2f2; }
+.header .back { color:#8696a4; font-size:14px; }
+.header .lang-switch { margin-left:auto; font-size:13px; color:#8696a4; }
+.container { max-width:900px; margin:0 auto; padding:24px; }
+.breadcrumb { color:#8696a4; font-size:13px; margin-bottom:20px; }
+.breadcrumb a { color:#6ab2f2; }
+.level-badge { display:inline-block; padding:4px 12px; border-radius:20px; font-size:12px; font-weight:600; margin-bottom:16px; }
+.level-1 { background:rgba(74,222,128,0.15); color:#4ade80; }
+.level-2 { background:rgba(96,165,250,0.15); color:#60a5fa; }
+.level-3 { background:rgba(245,158,11,0.15); color:#f59e0b; }
+.level-4 { background:rgba(239,68,68,0.15); color:#ef4444; }
+.level-5 { background:rgba(168,85,247,0.15); color:#a855f7; }
+h2 { font-size:28px; margin-bottom:8px; }
+.desc { color:#8696a4; font-size:15px; line-height:1.7; margin-bottom:24px; }
+.detail-list { list-style:none; padding:0; }
+.detail-list li { padding:10px 16px; margin-bottom:6px; border-radius:8px; background:#111119; border-left:3px solid #2b5278; font-size:14px; line-height:1.5; color:#e4e6eb; }
+.detail-list li::before { content:'\2192 '; color:#6ab2f2; }
+.section-title { font-size:16px; color:#8696a4; margin:24px 0 12px; text-transform:uppercase; letter-spacing:1px; }
+.related-topics { display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
+.related-topics a { display:inline-block; background:#111119; border:1px solid #1e1e2e; padding:6px 14px; border-radius:8px; font-size:13px; color:#6ab2f2; }
+.related-topics a:hover { background:#1e1e2e; text-decoration:none; }
+.nav-links { display:flex; justify-content:space-between; margin-top:30px; padding-top:20px; border-top:1px solid #1e1e2e; }
+.nav-links a { color:#6ab2f2; font-size:14px; }
+.nav-links .disabled { color:#333; }
+.topic-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:12px; margin-top:16px; }
+.topic-card { background:#111119; border-radius:12px; padding:18px; border-left:3px solid #2b5278; display:block; transition:background 0.15s; }
+.topic-card:hover { background:#1a1a2e; text-decoration:none; }
+.topic-card h3 { color:#e4e6eb; font-size:15px; margin-bottom:4px; }
+.topic-card .sub { color:#8696a4; font-size:13px; }
+.footer { text-align:center; padding:30px; color:#8696a4; font-size:12px; margin-top:30px; border-top:1px solid #1e1e2e; }
+.overview { margin-bottom:28px; }
+.overview p { color:#c4c6cb; font-size:15px; line-height:1.8; margin-bottom:14px; }
+.terms-grid { display:grid; gap:10px; margin-top:12px; }
+.term-card { background:#111119; border:1px solid #1e1e2e; border-radius:10px; padding:14px 18px; }
+.term-card strong { color:#6ab2f2; font-size:14px; }
+.term-card span { color:#c4c6cb; font-size:13px; display:block; margin-top:4px; line-height:1.5; }
+.tip-box { background:linear-gradient(135deg, rgba(106,178,242,0.06), rgba(106,178,242,0.02)); border:1px solid rgba(106,178,242,0.15); border-radius:10px; padding:16px 20px; margin-top:12px; }
+.tip-box li { color:#c4c6cb; font-size:14px; line-height:1.6; margin-bottom:8px; list-style:none; }
+.tip-box li::before { content:'💡 '; }
+.detail-card { background:#111119; border-radius:10px; padding:16px 18px; margin-bottom:8px; border-left:3px solid #2b5278; }
+.detail-card .dt { color:#e4e6eb; font-size:14px; font-weight:600; margin-bottom:4px; }
+.detail-card .dd { color:#9ca3af; font-size:13px; line-height:1.6; }
+.detail-card .dl { margin-top:6px; }
+.detail-card .dl a { font-size:12px; color:#6ab2f2; background:rgba(106,178,242,0.08); padding:3px 10px; border-radius:6px; display:inline-block; margin-right:6px; margin-top:4px; }
+.detail-card .dl a:hover { background:rgba(106,178,242,0.15); text-decoration:none; }
+</style>
+</head>
+<body>
+<div class="header">
+  <a href="../../index.html" class="back">&larr; Back to Course</a>
+  <h1>Basic Theory</h1>
+  <a href="../../../uk/basic-theory/level-3/data-to-model.html" class="lang-switch">🇺🇦 Українська</a>
+</div>
+<div class="container">
+  <div class="breadcrumb"><a href="../../index.html">Course</a> / <a href="../index.html">Basic Theory</a> / <a href="index.html">Level 3</a> / Data to Model</div>
+  <span class="level-badge level-3">⚡ Level 3 — Professional</span>
+  <h2>Data to Model</h2>
+  <p class="desc">The complete pipeline from raw data to a trained model.</p>
+
+  <div class="overview">
+    <p>The journey from raw data to a working AI model involves a complex pipeline of collection, cleaning, preprocessing, training, and evaluation. Data quality is often more important than model architecture — the AI community saying &quot;garbage in, garbage out&quot; has never been more relevant. Understanding this pipeline helps you appreciate why some models are better than others and how to create effective fine-tuned models.</p>
+  </div>
+  <div class="section-title">Key Topics Covered</div>
+  <ul class="detail-list">
+      <li>Data collection at scale: web crawling (Common Crawl), books, code repositories, scientific papers</li>
+      <li>Data cleaning: removing duplicates, low-quality content, personally identifiable information (PII)</li>
+      <li>Deduplication: exact and near-duplicate removal to prevent memorization and data leakage</li>
+      <li>Filtering: removing harmful, toxic, or copyrighted content from training data</li>
+      <li>Preprocessing: tokenization, format normalization, language identification</li>
+      <li>Dataset formats: JSONL, Parquet, Arrow — efficient storage for billion-scale datasets</li>
+      <li>Data quality vs quantity: smaller high-quality datasets can outperform larger noisy ones</li>
+      <li>Synthetic data: using AI to generate training data for specific capabilities or scarce domains</li>
+      <li>Data annotation: human labelers creating supervised examples for fine-tuning</li>
+      <li>Open datasets: The Pile, RedPajama, FineWeb — understanding what trains open models</li>
+  </ul>
+
+  <div class="section-title">Key Terms</div>
+  <div class="terms-grid">
+    <div class="term-card"><strong>Common Crawl</strong><span>Massive open web archive used as primary data source for training most LLMs.</span></div>
+    <div class="term-card"><strong>Synthetic Data</strong><span>Training data generated by AI models rather than collected from real sources.</span></div>
+    <div class="term-card"><strong>Data Deduplication</strong><span>Removing duplicate or near-duplicate examples to improve training quality.</span></div>
+  </div>
+
+
+  <div class="nav-links">
+    <a href="neural-networks.html">&larr; Neural Network Fundamentals</a>
+    <a href="training-finetuning.html">Training &amp; Fine-tuning &rarr;</a>
+  </div>
+</div>
+<div class="footer"><a href="../../index.html">&larr; Back to Course</a></div>
+</body>
+</html>

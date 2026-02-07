@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Random Coffee - Эволюция Кода Archive</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background:#0e1621; color:#e4e6eb; }
+a { color:#6ab2f2; text-decoration:none; }
+a:hover { text-decoration:underline; }
+.header { background:#17212b; padding:16px 24px; border-bottom:1px solid #2b3a4a; display:flex; align-items:center; gap:16px; position:sticky; top:0; z-index:10; }
+.header h1 { font-size:18px; color:#6ab2f2; }
+.header .back { color:#8696a4; font-size:14px; }
+.container { max-width:900px; margin:0 auto; padding:20px 24px; }
+.topic-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:12px; margin-top:20px; }
+.topic-card { background:#17212b; border-radius:12px; padding:18px; border-left:3px solid #2b5278; transition:background 0.15s; display:block; }
+.topic-card:hover { background:#1e2c3a; text-decoration:none; }
+.topic-card h3 { color:#e4e6eb; font-size:15px; margin-bottom:6px; }
+.topic-card .count { color:#8696a4; font-size:13px; }
+.message { background:#17212b; border-radius:12px; padding:14px 18px; margin-bottom:10px; border-left:3px solid #2b5278; }
+.sender { color:#6ab2f2; font-weight:600; font-size:13px; margin-bottom:4px; }
+.msg-text { font-size:14px; line-height:1.6; word-wrap:break-word; }
+.msg-date { color:#8696a4; font-size:11px; margin-top:6px; text-align:right; }
+.stats-bar { display:flex; gap:24px; margin:16px 0; color:#8696a4; font-size:14px; }
+.stats-bar span { color:#6ab2f2; font-weight:600; }
+h2 { color:#6ab2f2; font-size:22px; margin-bottom:16px; padding-bottom:10px; border-bottom:1px solid #2b3a4a; }
+.msg-total { font-size:14px; color:#8696a4; font-weight:normal; }
+.pagination { display:flex; gap:8px; margin:20px 0; flex-wrap:wrap; }
+.pagination a { background:#17212b; padding:6px 12px; border-radius:6px; color:#6ab2f2; font-size:13px; }
+.pagination a.active { background:#2b5278; }
+.footer { text-align:center; padding:30px; color:#8696a4; font-size:12px; margin-top:30px; border-top:1px solid #2b3a4a; }
+</style>
+</head>
+<body>
+<div class="header">
+<a href="index.html" class="back">← Back to Topics</a>
+<h1>Random Coffee</h1>
+</div>
+<div class="container">
+<h2>Random Coffee <span class="msg-total">(1109 messages, page 3/12)</span></h2>
+<div class="pagination"><a href="Random_Coffee.html" class="">1</a><a href="Random_Coffee_page2.html" class="">2</a><a href="Random_Coffee_page3.html" class=" active">3</a><a href="Random_Coffee_page4.html" class="">4</a><a href="Random_Coffee_page5.html" class="">5</a><a href="Random_Coffee_page6.html" class="">6</a><a href="Random_Coffee_page7.html" class="">7</a><a href="Random_Coffee_page8.html" class="">8</a><a href="Random_Coffee_page9.html" class="">9</a><a href="Random_Coffee_page10.html" class="">10</a><a href="Random_Coffee_page11.html" class="">11</a><a href="Random_Coffee_page12.html" class="">12</a></div>
+<div class="message has-sender"><div class="sender">Эволюция Кода</div><div class="msg-text">это я знаю<br>17:11</div></div>
+<div class="message "><div class="msg-text">не работает<br>17:11</div></div>
+<div class="message has-sender"><div class="sender">WaveCut</div><div class="msg-text">UX норма закрывать вкладки когда на него жмешь<br>17:11</div></div>
+<div class="message has-sender"><div class="sender">Эволюция Кода</div><div class="msg-text">ого. а я и не знал)<br>17:12</div></div>
+<div class="message "><div class="msg-text">ток ссылки им открывал<br>17:12</div></div>
+<div class="message has-sender"><div class="sender">Oleksandr Oliinyk</div><div class="msg-text">Открываю в Сафари - <a href="https://aistudio.google.com" target="_blank" rel="noopener">https://aistudio.google.com</a> и он мне всё это делает.<br>Если нужно что то по глубже - есть ведь GPT-5 Pro.<br>В крайнем случаи перплексити или манус по вкусу.<br>17:12</div></div>
+<div class="message has-sender"><div class="sender">WaveCut</div><div class="msg-text"></div></div>
+<div class="message has-sender"><div class="sender">Эволюция Кода</div><div class="msg-text">ну а я это делаю без открывания лишних ссылок и копирования в чат контекста. открыл страницу - засамаризировал. открыл несколько - сравнил товары в чате<br>17:14</div></div>
+<div class="message "><div class="msg-text">Но да, сложно спорить с теми, кто сафари удобным считает имхо))<br>OO<br>edited 17:14</div></div>
+<div class="message has-sender"><div class="sender">Oleksandr Oliinyk</div><div class="msg-text">Не понял? Кинул файл GPT-5, объяснил что делать, пусть делает.<br>17:14</div></div>
+<div class="message has-sender"><div class="sender">Эволюция Кода</div><div class="msg-text">и как ГПТ заполнит форму? через десктоп-приложение?)<br>17:15</div></div>
+<div class="message has-sender"><div class="sender">Oleksandr Oliinyk</div><div class="msg-text">А как ее браузер заполнит?<br>Эксель ГПТ прекрасно понимает.<br>17:16</div></div>
+<div class="message has-sender"><div class="sender">Эволюция Кода</div><div class="msg-text">Пойдет и впишет туда данные, прям сам. А гпт нет<br>17:16</div></div>
+<div class="message has-sender"><div class="sender">Kirill</div><div class="msg-text">Или ещё пример: поиск по почте и телеграму, во всех сотнях чатов, за все 10 лет. Понятно, что небыстро, так для того агенты и нужны, пусть сидит два часа в фоне и ищет. Но не, с интерфейсом телеграма взаимодействовать они не могут так, чтобы поскроллить его на год вверх<br>edited 17:17</div></div>
+<div class="message has-sender"><div class="sender">Oleksandr Oliinyk</div><div class="msg-text">Ух… прогресс. А что вписывать кто ему расскажет и как?<br>17:18</div></div>
+<div class="message has-sender"><div class="sender">Эволюция Кода</div><div class="msg-text">Сам поймет. Ну или голосом надиктую<br>17:18</div></div>
+<div class="message has-sender"><div class="sender">Kirill</div><div class="msg-text">Кодекс через апи с этой задачей божественно справляется. Схему апи он сам понял. Если бы чат-приложение не было бесполезным огрызком без интсрументов, оно может так тоже бы смогло<br>edited 17:19</div></div>
+<div class="message has-sender"><div class="sender">Oleksandr Oliinyk</div><div class="msg-text">ОК… для работников почты зайдет…<br>Что то ещё, что мне не нужно оно умеет?<br>1<br>17:19</div></div>
+<div class="message has-sender"><div class="sender">Stanislav</div><div class="msg-text">Я ставлю себе разные «хром» плагины которых почти всегда нет в сафари<br>Люблю когда браузер в мгновение можно сделать минималистичным, убрать все лишнее, табы и так далее<br>Цвета для разных профилей, это удобно, быстрее ориентируешься когда нужно держать много вкладок<br>Я не люблю кидать ссылки в чат джпт или еще что-то, мне легче нажать CMD + E и за пару секунд получить нужную информацию <br>Закрепленные вкладки это удобно, не 16х16 пикселей как в сафари, а полноценная удобная вкладка/плитка как в арке к примеру <br>Нормальный дев тулз в конце концов, который позволяет копировать ответ от сервера не нажимая ПКМ как в сафари, а просто CMD + C<br>17:19</div></div>
+<div class="message "><div class="msg-text">Это такой, наверное лично мой список <br>Поэтому мне Арк нравился своей минималистичностью, которой в других браузерах нет<br>17:21</div></div>
+<div class="message has-sender"><div class="sender">Oleksandr Oliinyk</div><div class="msg-text">Понятно. Apple всех заразили эмодзи, раскрасками и иконками.<br>Ладно, я понял, все это мне не нужно, а значит Сафари самое то.<br>Думал мало ли - браузеры уже мысли научились читать.<br>edited 17:21</div></div>
+<div class="message has-sender"><div class="sender">Stanislav</div><div class="msg-text">Жаль добряка (арка) <br>edited 17:21</div></div>
+<div class="message "><div class="msg-text">Ну эмодзи мне не важны ) мне хочется минимализма и что бы я пользовался браузером, а не он мной<br>17:22</div></div>
+<div class="message "><div class="msg-text">Как обычно происходит с продуктами эпл<br>17:22</div></div>
+<div class="message has-sender"><div class="sender">Kirill</div><div class="msg-text">Во всех этих арках и прочем я другое не понимаю. А как вы без синхронизации вкладок с айфоном живёте? Только с десктопа чтоли в интернете сидите? Это для меня абсолютно мастхев функциональность, браузер без неё бесполезен.<br>OO<br>17:23</div></div>
+<div class="message has-sender"><div class="sender">Stanislav</div><div class="msg-text">Ну вот это кстати возможно килер фича для некоторых <br><br>Я не чувствую в этом необходимости, но возможно это пока не распробовал<br>17:24</div></div>
+<div class="message has-sender"><div class="sender">Эволюция Кода</div><div class="msg-text">Ответ простой - не сиди в телефоне 😁<br>17:24</div></div>
+<div class="message has-sender"><div class="sender">Stanislav</div><div class="msg-text">У меня телефон для личного больше, ноут рабочая станция <br>То что у меня в сафари на телефоне на компе редко нужно )<br>17:24</div></div>
+<div class="message has-sender"><div class="sender">Эволюция Кода</div><div class="msg-text">Я сто лет как не живу с синком браузера на десктопе и телефоне и гуд. Всё по приложениям, ну а логины если и нужны, то в 90% случаем все через гуглоакк, в который можно и в двух браузерах залогиниться<br>edited 17:24</div></div>
+<div class="message has-sender"><div class="sender">WaveCut</div><div class="msg-text">nordpass, bardzo polecam<br>17:26</div></div>
+<div class="message "><div class="msg-text">пассворд менеджер плюс аус кей менеджер<br>17:26</div></div>
+<div class="message has-sender"><div class="sender">Kirill</div><div class="msg-text">Пароли то хрен с ними. Но я постоянно что-то начинаю читать в дороге на телефоне и хочу продолжить на компе, когда вернусь домой. И наоборот<br>17:29</div></div>
+<div class="message has-sender"><div class="sender">Эволюция Кода</div><div class="msg-text"></div></div>
+<div class="message "><div class="msg-text">я пердоле, МОЗИЛКА!<br>16:42</div></div>
+<div class="message "><div class="msg-text">а не<br>16:42</div></div>
+<div class="message "><div class="msg-text">хром 😶<br>16:42</div></div>
+<div class="message has-sender"><div class="sender">Vladislav Gamezo</div><div class="msg-text">но опция на скачку вроде доступна с винды, бо на маке мне сейчас ничего виндового не показывает<br>16:42</div></div>
+<div class="message has-sender"><div class="sender">Эволюция Кода</div><div class="msg-text">видимо да<br>16:42</div></div>
+<div class="message has-sender"><div class="sender">Vladislav Gamezo</div><div class="msg-text">ляя, прикинь какая сейчас ситуация. <br>Челы сидели пилили свой браузер, даже версия 0.0.Х. Это я не могу бетой назвать, уж простите. Альфа с натяжкой. <br><br>И вот выходит Атлас от опении. И челы такие, ну ладно, смотрите что есть, для себя делали, еще особо не готово на рынок выходить. Вот вам 5000 мест<br>16:45</div></div>
+<div class="message "><div class="msg-text">ну они же могли выкинуть доступы и через месяц с выходом 0.1 версии.<br>16:46</div></div>
+<div class="message "><div class="msg-text">Интересно в общем )<br>16:46</div></div>
+<div class="message has-sender"><div class="sender">Эволюция Кода</div><div class="msg-text">ну они сейчас поднимут пару миллионов и всё, жизнь у парней удалась<br>K<br>edited 16:47</div></div>
+<div class="message "><div class="msg-text">я рад буду за них<br>16:47</div></div>
+<div class="message "><div class="msg-text">мб свой браузер начать пилить...)<br>16:48</div></div>
+<div class="message has-sender"><div class="sender">Vladislav Gamezo</div><div class="msg-text">слышал, можно взять хромиум, перекрасить и кнопочку &quot;Magic&quot; добавить<br><br>А, ну и табы вертикальные слева влепить<br>16:49</div></div>
+<div class="message has-sender"><div class="sender">WaveCut</div><div class="msg-text">Video-As-Prompt Основная идея: Исходя из эталонного видео с желаемой семантикой в качестве видео-подсказки, Video-As-Prompt анимирует эталонное изображение с той же семантикой, что и эталонное видео.<br><br>Video-As-Prompt предлагает два варианта, каждый из которых имеет свои преимущества и недостатки:<br><br>CogVideoX-I2V-5B Преимущества: меньшее количество параметров базовой модели позволяет нам обучать больше шагов при ограниченных ресурсах, что обеспечивает высокую стабильность в большинстве семантических условий. Ограничения: из-за ограниченных возможностей базовой модели она слабее в генерации, ориентированной на человека, и в концепциях, недостаточно представленных в предварительном обучении (например, ladudu, Squid Game, Minecraft).<br><br>Wan2.1-I2V-14B Сильные стороны: высокая производительность при действиях человека и новых концепциях благодаря более мощной базовой модели. Ограничения: больший размер модели сократил количество возможных этапов обучения с учетом наших ресурсов, что снизило стабильность в некоторых семантических условиях.<br><br><a href="https://huggingface.co/ByteDance/Video-As-Prompt-Wan2.1-14B" target="_blank" rel="noopener">https://huggingface.co/ByteDance/Video-As-Prompt-Wan2.1-14B</a><br><a href="https://huggingface.co/ByteDance/Video-As-Prompt-CogVideoX-5B" target="_blank" rel="noopener">https://huggingface.co/ByteDance/Video-As-Prompt-CogVideoX-5B</a><br>16:50</div></div>
+<div class="message has-sender"><div class="sender">Stanislav</div><div class="msg-text">Даже у них можно спрятать боковые табы как в Арке было, в Дию все еще не завезли 😗<br>16:52</div></div>
+<div class="message has-sender"><div class="sender">Kirill</div><div class="msg-text">А можно взять не хромиум, а мозилу реально, тогда это будет ещё и УНИКАЛЬНЫЙ продукт<br>16:53</div></div>
+<div class="message has-sender"><div class="sender">Эволюция Кода</div><div class="msg-text">его видимо тяжко поддерживать (движок)<br>edited 16:54</div></div>
+<div class="message has-sender"><div class="sender">Oleksandr Oliinyk</div><div class="msg-text">А можно рассказать - что все так кипятком *** по поводу всех этих Браузеров?<br>Меня вот и Сафари устраивает. Просто реально не знаю что синим делать: с любым другим.<br>16:58</div></div>
+<div class="message has-sender"><div class="sender">Эволюция Кода</div><div class="msg-text">в БЗ есть статья на тему того что из ИИ есть в браузерах. Там же ссылки на два созвона и один обзор Дии - можно посмотреть и составить мнение 👍<br>16:59</div></div>
+<div class="message has-sender"><div class="sender">Arseny Kravchenko</div><div class="msg-text">когда оно заработает за пределами демки, про это можно будет говорить, а пока все в основном восхищаются идеей<br>17:00</div></div>
+<div class="message has-sender"><div class="sender">Эволюция Кода</div><div class="msg-text">Strawberry такой же прожорливый как и Диа<br>17:00</div></div>
+<div class="message has-sender"><div class="sender">Stanislav</div><div class="msg-text">Я не знаю как можно пользоваться сафари, он только для новостей годиться )<br>17:00</div></div>
+<div class="message "><div class="msg-text">Если хочеться хоть чучуть удобства/кастомизации сафари же сразу отпадает<br>17:00</div></div>
+<div class="message has-sender"><div class="sender">Эволюция Кода</div><div class="msg-text">ну здрасьте. это спор с родни &quot;зачем чат в IDE&quot;. Ну удобнее в разы это, ну контекст специфичней. Этого в целом уже достаточно, что бы пользоваться, а не просто восхищаться<br>edited 17:01</div></div>
+<div class="message has-sender"><div class="sender">Oleksandr Oliinyk</div><div class="msg-text">А что вы кастомизируете? Зачем? Ну тёмный я, жил без многообразия последние 40 лет и вот спросил, не шучу.<br>Я и для новостей браузер не использую - так, сайт открыть какой то и всё<br>edited 17:02</div></div>
+<div class="message has-sender"><div class="sender">Arseny Kravchenko</div><div class="msg-text">согласен, незачем<br>3<br>3<br>17:02</div></div>
+<div class="message has-sender"><div class="sender">Эволюция Кода</div><div class="msg-text">Шах и мат)<br>17:02</div></div>
+<div class="message has-sender"><div class="sender">Arseny Kravchenko</div><div class="msg-text">вы еще агентов в терминал предложите добавить, oh wait<br>17:03</div></div>
+<div class="message has-sender"><div class="sender">Oleksandr Oliinyk</div><div class="msg-text">Та даже фигуры не расставляли.<br>17:03</div></div>
+<div class="message has-sender"><div class="sender">Kirill</div><div class="msg-text">Я бы наверное много сценаривев придумал, если бы агентный режим нормально работал в браузерах. Но он увы нерабочий, вообще<br>17:05</div></div>
+<div class="message has-sender"><div class="sender">Arseny Kravchenko</div><div class="msg-text">this<br>17:06</div></div>
+<div class="message has-sender"><div class="sender">Kirill</div><div class="msg-text">Прямо сейчас кодекс -- это лучший браузерный агент, чем агент в любом из ии-браузеров<br>17:06</div></div>
+<div class="message has-sender"><div class="sender">Oleksandr Oliinyk</div><div class="msg-text">Та я тоже могу много чего ПРИДУМАТЬ. А что из этого реально нужно?<br>17:07</div></div>
+<div class="message has-sender"><div class="sender">Kirill</div><div class="msg-text">(А это я ещё browser mcp не подключал)<br>17:07</div></div>
+<div class="message has-sender"><div class="sender">Эволюция Кода</div><div class="msg-text">самари статей и видео не отходя от кассы (браузера) очень жизнь упрощает<br>edited 17:08</div></div>
+<div class="message "><div class="msg-text">агенты пока стремно юзать как по мне<br>17:08</div></div>
+<div class="message has-sender"><div class="sender">WaveCut</div><div class="msg-text">списывай только чтобы точь в точь!<br>17:09</div></div>
+<div class="message "><div class="msg-text">осталось смарт режим к плиткам вкрутить<br>17:09</div></div>
+<div class="message has-sender"><div class="sender">Эволюция Кода</div><div class="msg-text">папок не завезли ток(<br>17:09</div></div>
+<div class="message "><div class="msg-text">ctrl+P уже жал?<br>17:10</div></div>
+<div class="message has-sender"><div class="sender">WaveCut</div><div class="msg-text">если инвайт есть зови<br>16:21</div></div>
+<div class="message has-sender"><div class="sender">Vladislav Gamezo</div><div class="msg-text">там вроде нету инвайтов и можно пробовать скачать пока места есть<br>16:22</div></div>
+<div class="message has-sender"><div class="sender">WaveCut</div><div class="msg-text">точняк<br>16:22</div></div>
+<div class="message has-sender"><div class="sender">Эволюция Кода</div><div class="msg-text"></div></div>
+<div class="message "><div class="msg-text">огонь<br>16:22</div></div>
+<div class="message "><div class="msg-text">наконец нормальный мерж Дии и Арка<br>16:22</div></div>
+<div class="message has-sender"><div class="sender">Vladislav Gamezo</div><div class="msg-text">ну ждем-с обзора / сравнения<br>16:22</div></div>
+<div class="message has-sender"><div class="sender">Эволюция Кода</div><div class="msg-text">сравню все три новых (опера неон, аьлас и стравбери)<br>16:23</div></div>
+<div class="message "><div class="msg-text">но по ходу я переезжаю из дии<br>16:23</div></div>
+<div class="message "><div class="msg-text">втроенный адблокер, как в дии. Скилы тоже есть<br>16:24</div></div>
+<div class="message "><div class="msg-text">честные подписки<br>16:27</div></div>
+<div class="message has-sender"><div class="sender">Kirill</div><div class="msg-text">Ахахах, молодцы, это для меня, качаю<br>7<br>16:28</div></div>
+<div class="message has-sender"><div class="sender">Эволюция Кода</div><div class="msg-text">блин, они реально крутые)<br>edited 16:29</div></div>
+<div class="message has-sender"><div class="sender">Vladislav Gamezo</div><div class="msg-text">еще бы знать, что такое кредиты и как быстро они используются<br>16:29</div></div>
+<div class="message has-sender"><div class="sender">Эволюция Кода</div><div class="msg-text">за общение в чате и за агентов видимо, надо тестить<br>16:30</div></div>
+<div class="message has-sender"><div class="sender">Vladislav Gamezo</div><div class="msg-text">Опять вопросы как к Джуни будут )<br>16:31</div></div>
+<div class="message has-sender"><div class="sender">Эволюция Кода</div><div class="msg-text">у них ест ькуча интеграций с апками<br>16:31</div></div>
+<div class="message "><div class="msg-text">блин, главное, что бы не слили потом всё)))<br>16:31</div></div>
+<div class="message "><div class="msg-text">нотификашки нормальные<br>16:31</div></div>
+<div class="message has-sender"><div class="sender">Kirill</div><div class="msg-text">Да сделали бы уже просто byok опцию и не было бы ни у кого никаких вопросов. Правда непонятно, как тогда зарабатывать<br>16:31</div></div>
+<div class="message has-sender"><div class="sender">Эволюция Кода</div><div class="msg-text">7 кредитов за два ответа в чате сьело<br>16:32</div></div>
+<div class="message has-sender"><div class="sender">Andrei Chenchik</div><div class="msg-text">а скиньте dmg файлик плиз strawberry? :D а то у меня чет с рабочей сети не качает<br>edited 16:32</div></div>
+<div class="message has-sender"><div class="sender">Vladislav Gamezo</div><div class="msg-text">комиссия<br>16:32</div></div>
+<div class="message "><div class="msg-text">мы с тобой походу под одной сидим )<br>edited 16:32</div></div>
+<div class="message has-sender"><div class="sender">Andrei Chenchik</div><div class="msg-text">такая вот печалька)<br>16:34</div></div>
+<div class="message has-sender"><div class="sender">Эволюция Кода</div><div class="msg-text">гружу но там пол гига а у меня 4г<br>16:35</div></div>
+<div class="message "><div class="msg-text">How do credits work?<br><br>Regular browsing doesn't use any credits. Credits will be used when chatting with your companions, or when your companions are browsing. Credits fill up on a monthly basis. The free version of Strawberry includes 2,000 credits per month.<br>16:35</div></div>
+<div class="message "><div class="msg-text">по cmd+h не убирается – отписка<br>16:36</div></div>
+<div class="pagination"><a href="Random_Coffee.html" class="">1</a><a href="Random_Coffee_page2.html" class="">2</a><a href="Random_Coffee_page3.html" class=" active">3</a><a href="Random_Coffee_page4.html" class="">4</a><a href="Random_Coffee_page5.html" class="">5</a><a href="Random_Coffee_page6.html" class="">6</a><a href="Random_Coffee_page7.html" class="">7</a><a href="Random_Coffee_page8.html" class="">8</a><a href="Random_Coffee_page9.html" class="">9</a><a href="Random_Coffee_page10.html" class="">10</a><a href="Random_Coffee_page11.html" class="">11</a><a href="Random_Coffee_page12.html" class="">12</a></div>
+<div class="footer"><a href="index.html">← Back to all topics</a></div>
+</div>
+</body>
+</html>

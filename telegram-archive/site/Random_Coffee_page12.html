@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Random Coffee - Эволюция Кода Archive</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background:#0e1621; color:#e4e6eb; }
+a { color:#6ab2f2; text-decoration:none; }
+a:hover { text-decoration:underline; }
+.header { background:#17212b; padding:16px 24px; border-bottom:1px solid #2b3a4a; display:flex; align-items:center; gap:16px; position:sticky; top:0; z-index:10; }
+.header h1 { font-size:18px; color:#6ab2f2; }
+.header .back { color:#8696a4; font-size:14px; }
+.container { max-width:900px; margin:0 auto; padding:20px 24px; }
+.topic-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:12px; margin-top:20px; }
+.topic-card { background:#17212b; border-radius:12px; padding:18px; border-left:3px solid #2b5278; transition:background 0.15s; display:block; }
+.topic-card:hover { background:#1e2c3a; text-decoration:none; }
+.topic-card h3 { color:#e4e6eb; font-size:15px; margin-bottom:6px; }
+.topic-card .count { color:#8696a4; font-size:13px; }
+.message { background:#17212b; border-radius:12px; padding:14px 18px; margin-bottom:10px; border-left:3px solid #2b5278; }
+.sender { color:#6ab2f2; font-weight:600; font-size:13px; margin-bottom:4px; }
+.msg-text { font-size:14px; line-height:1.6; word-wrap:break-word; }
+.msg-date { color:#8696a4; font-size:11px; margin-top:6px; text-align:right; }
+.stats-bar { display:flex; gap:24px; margin:16px 0; color:#8696a4; font-size:14px; }
+.stats-bar span { color:#6ab2f2; font-weight:600; }
+h2 { color:#6ab2f2; font-size:22px; margin-bottom:16px; padding-bottom:10px; border-bottom:1px solid #2b3a4a; }
+.msg-total { font-size:14px; color:#8696a4; font-weight:normal; }
+.pagination { display:flex; gap:8px; margin:20px 0; flex-wrap:wrap; }
+.pagination a { background:#17212b; padding:6px 12px; border-radius:6px; color:#6ab2f2; font-size:13px; }
+.pagination a.active { background:#2b5278; }
+.footer { text-align:center; padding:30px; color:#8696a4; font-size:12px; margin-top:30px; border-top:1px solid #2b3a4a; }
+</style>
+</head>
+<body>
+<div class="header">
+<a href="index.html" class="back">← Back to Topics</a>
+<h1>Random Coffee</h1>
+</div>
+<div class="container">
+<h2>Random Coffee <span class="msg-total">(1109 messages, page 12/12)</span></h2>
+<div class="pagination"><a href="Random_Coffee.html" class="">1</a><a href="Random_Coffee_page2.html" class="">2</a><a href="Random_Coffee_page3.html" class="">3</a><a href="Random_Coffee_page4.html" class="">4</a><a href="Random_Coffee_page5.html" class="">5</a><a href="Random_Coffee_page6.html" class="">6</a><a href="Random_Coffee_page7.html" class="">7</a><a href="Random_Coffee_page8.html" class="">8</a><a href="Random_Coffee_page9.html" class="">9</a><a href="Random_Coffee_page10.html" class="">10</a><a href="Random_Coffee_page11.html" class="">11</a><a href="Random_Coffee_page12.html" class=" active">12</a></div>
+<div class="message "><div class="msg-text">Не работают часто даже в юзер промпте прямо в чате. Ну максимум на следующий ответ сработает, а потом он забьёт .<br>Только один вариант - settings.json / hooks<br>06:27</div></div>
+<div class="message has-sender"><div class="sender">Andrei Chenchik</div><div class="msg-text"><a href="https://fixupx.com/btibor91/status/1978928519750041997" target="_blank" rel="noopener">https://fixupx.com/btibor91/status/1978928519750041997</a><br>08:24</div></div>
+<div class="message has-sender"><div class="sender">Oleksandr Oliinyk</div><div class="msg-text">Построили новую электростанцию где то?<br>09:00</div></div>
+<div class="message "><div class="msg-text">Так это и был естественный отбор. А теперь мы вмешиваемся в этот отбор не естественным образом и все запутали….🙃<br>09:02</div></div>
+<div class="message "><div class="msg-text">Ну потому что ещё и экономика поменялась кардинально, теперь тот кто послабже физически/ментально способен приносить пользы больше чем сильный мужик работающий в поле/служащий в армии<br>09:10</div></div>
+<div class="message "><div class="msg-text">Ну и + вся история алкоголизма говорит о том, что проблемы скорее всего всё-таки были, что людям приходилось их водкой заливать<br>09:11</div></div>
+<div class="message has-sender"><div class="sender">Oleksandr Oliinyk</div><div class="msg-text">Но принцип - побеждает сильнейший - ни как не изменился. Разве что теперь - побеждает хитрецший, но так и во времена Римлян было.<br>09:11</div></div>
+<div class="message "><div class="msg-text">О.. нет. Водка это не про проблемы, это про дешевый способ получить удовольствие.<br>09:12</div></div>
+<div class="message has-sender"><div class="sender">Sergey Parfenyuk</div><div class="msg-text">йоу <a href="https://claude-vs-codex-dashboard.vercel.app/" target="_blank" rel="noopener">https://claude-vs-codex-dashboard.vercel.app/</a><br>09:14</div></div>
+<div class="pagination"><a href="Random_Coffee.html" class="">1</a><a href="Random_Coffee_page2.html" class="">2</a><a href="Random_Coffee_page3.html" class="">3</a><a href="Random_Coffee_page4.html" class="">4</a><a href="Random_Coffee_page5.html" class="">5</a><a href="Random_Coffee_page6.html" class="">6</a><a href="Random_Coffee_page7.html" class="">7</a><a href="Random_Coffee_page8.html" class="">8</a><a href="Random_Coffee_page9.html" class="">9</a><a href="Random_Coffee_page10.html" class="">10</a><a href="Random_Coffee_page11.html" class="">11</a><a href="Random_Coffee_page12.html" class=" active">12</a></div>
+<div class="footer"><a href="index.html">← Back to all topics</a></div>
+</div>
+</body>
+</html>

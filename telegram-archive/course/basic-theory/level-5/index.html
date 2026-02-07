@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Level 5: Horizons - Basic Theory - Эволюция Кода</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background:#0a0a0f; color:#e4e6eb; }
+a { color:#6ab2f2; text-decoration:none; }
+a:hover { text-decoration:underline; }
+.header { background:#111119; padding:16px 24px; border-bottom:1px solid #1e1e2e; display:flex; align-items:center; gap:16px; position:sticky; top:0; z-index:10; }
+.header h1 { font-size:18px; color:#6ab2f2; }
+.header .back { color:#8696a4; font-size:14px; }
+.container { max-width:900px; margin:0 auto; padding:24px; }
+.breadcrumb { color:#8696a4; font-size:13px; margin-bottom:20px; }
+.breadcrumb a { color:#6ab2f2; }
+.level-badge { display:inline-block; padding:4px 12px; border-radius:20px; font-size:12px; font-weight:600; margin-bottom:16px; }
+.level-1 { background:rgba(74,222,128,0.15); color:#4ade80; }
+.level-2 { background:rgba(96,165,250,0.15); color:#60a5fa; }
+.level-3 { background:rgba(245,158,11,0.15); color:#f59e0b; }
+.level-4 { background:rgba(239,68,68,0.15); color:#ef4444; }
+.level-5 { background:rgba(168,85,247,0.15); color:#a855f7; }
+h2 { font-size:28px; margin-bottom:8px; }
+h2 .ru { color:#8696a4; font-size:20px; font-weight:400; }
+.desc { color:#8696a4; font-size:15px; line-height:1.7; margin-bottom:24px; }
+.detail-list { list-style:none; padding:0; }
+.detail-list li { padding:10px 16px; margin-bottom:6px; border-radius:8px; background:#111119; border-left:3px solid #2b5278; font-size:14px; line-height:1.5; color:#e4e6eb; }
+.detail-list li::before { content:'→ '; color:#6ab2f2; }
+.section-title { font-size:16px; color:#8696a4; margin:24px 0 12px; text-transform:uppercase; letter-spacing:1px; }
+.related-topics { display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
+.related-topics a { display:inline-block; background:#111119; border:1px solid #1e1e2e; padding:6px 14px; border-radius:8px; font-size:13px; color:#6ab2f2; }
+.related-topics a:hover { background:#1e1e2e; text-decoration:none; }
+.ext-link { display:block; margin-top:20px; padding:14px 20px; background:linear-gradient(135deg, rgba(106,178,242,0.08), rgba(106,178,242,0.02)); border:1px solid rgba(106,178,242,0.2); border-radius:12px; font-size:14px; }
+.ext-link .label { color:#8696a4; font-size:12px; }
+.nav-links { display:flex; justify-content:space-between; margin-top:30px; padding-top:20px; border-top:1px solid #1e1e2e; }
+.nav-links a { color:#6ab2f2; font-size:14px; }
+.nav-links .disabled { color:#333; }
+.topic-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:12px; margin-top:16px; }
+.topic-card { background:#111119; border-radius:12px; padding:18px; border-left:3px solid #2b5278; display:block; transition:background 0.15s; }
+.topic-card:hover { background:#1a1a2e; text-decoration:none; }
+.topic-card h3 { color:#e4e6eb; font-size:15px; margin-bottom:4px; }
+.topic-card .en { color:#8696a4; font-size:13px; }
+.footer { text-align:center; padding:30px; color:#8696a4; font-size:12px; margin-top:30px; border-top:1px solid #1e1e2e; }
+</style>
+</head>
+<body>
+<div class="header">
+  <a href="../index.html" class="back">&larr; Basic Theory</a>
+  <h1>🌌 Level 5: Horizons</h1>
+</div>
+<div class="container">
+  <div class="breadcrumb"><a href="../../index.html">Course</a> / <a href="../index.html">Basic Theory</a> / Level 5</div>
+  <span class="level-badge level-5">🌌 Level 5 — Горизонты / Horizons</span>
+  <h2>Level 5: Horizons</h2>
+  <p class="desc">Future of AI: AGI, safety, alignment, and philosophical questions about artificial intelligence.</p>
+  <div class="section-title">13 Topics</div>
+  <div class="topic-grid">
+    <a href="agi.html" class="topic-card"><h3>Общий искусственный интеллект</h3><div class="en">Artificial General Intelligence (AGI)</div></a>
+    <a href="asi.html" class="topic-card"><h3>Сверхинтеллект</h3><div class="en">Artificial Superintelligence (ASI)</div></a>
+    <a href="singularity.html" class="topic-card"><h3>Технологическая сингулярность</h3><div class="en">Technological Singularity</div></a>
+    <a href="intelligence-explosion.html" class="topic-card"><h3>Взрыв интеллекта</h3><div class="en">Intelligence Explosion</div></a>
+    <a href="transhumanism.html" class="topic-card"><h3>Трансгуманизм</h3><div class="en">Transhumanism</div></a>
+    <a href="spatial-intelligence.html" class="topic-card"><h3>Пространственный интеллект</h3><div class="en">Spatial Intelligence</div></a>
+    <a href="world-model.html" class="topic-card"><h3>Общая модель мира</h3><div class="en">General World Model</div></a>
+    <a href="accelerationists.html" class="topic-card"><h3>Техно-оптимисты</h3><div class="en">Techno-Optimists</div></a>
+    <a href="doomers.html" class="topic-card"><h3>Техно-пессимисты</h3><div class="en">Techno-Pessimists</div></a>
+    <a href="ai-safety.html" class="topic-card"><h3>AI Safety</h3><div class="en">AI Safety</div></a>
+    <a href="alignment.html" class="topic-card"><h3>AI Alignment</h3><div class="en">AI Alignment</div></a>
+    <a href="explainable-ai.html" class="topic-card"><h3>XAI и Constitutional AI</h3><div class="en">Explainable &amp; Constitutional AI</div></a>
+    <a href="decentralized-ai.html" class="topic-card"><h3>Децентрализованный ИИ</h3><div class="en">Decentralized AI</div></a>
+  </div>
+</div>
+<div class="footer"><a href="../../index.html">&larr; Back to Course</a> | <a href="../index.html">Basic Theory Overview</a></div>
+</body>
+</html>
