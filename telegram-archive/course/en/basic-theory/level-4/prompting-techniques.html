@@ -69,15 +69,38 @@ h2 { font-size:28px; margin-bottom:8px; }
   <h2>Prompting Techniques</h2>
   <p class="desc">Advanced prompting strategies for getting the best results from AI models.</p>
 
+  <div class="overview">
+    <p>Beyond basic prompt writing lies a rich landscape of techniques that can dramatically improve AI output quality. These strategies — from Chain-of-Thought reasoning to Tree-of-Thought exploration — exploit the way LLMs process and generate text to unlock capabilities that simple prompts cannot.</p>
+    <p>Mastering prompting techniques is arguably the highest-leverage skill in AI today. The same model can produce mediocre or exceptional results depending entirely on how you prompt it. These techniques work because they shape the model's reasoning process, not just its output format.</p>
+  </div>
   <div class="section-title">Key Topics Covered</div>
-  <ul class="detail-list">
-      <li>Zero-shot, one-shot, and few-shot prompting</li>
-      <li>Chain-of-Thought (CoT) and step-by-step reasoning</li>
-      <li>Tree-of-Thought and multi-path reasoning</li>
-      <li>ReAct: Reasoning + Acting pattern</li>
-      <li>Role prompting and persona engineering</li>
-      <li>Constitutional prompting and guardrails</li>
-  </ul>
+  <div class="detail-cards">
+    <div class="detail-card"><div class="dt">Zero-Shot Prompting</div><div class="dd">Asking the model to perform a task without any examples. Works well for simple, well-defined tasks where the model already has strong capabilities from training.</div><div class="dl"><a href="../level-2/prompt.html">Prompt</a></div></div>
+    <div class="detail-card"><div class="dt">Few-Shot Prompting</div><div class="dd">Providing 2-5 input/output examples before your actual request. Shows the model exactly what format, style, and quality you expect — dramatically improves consistency.</div><div class="dl"><a href="../level-1/foundation-models.html">Foundation Models</a></div></div>
+    <div class="detail-card"><div class="dt">Chain-of-Thought (CoT)</div><div class="dd">Adding &quot;think step by step&quot; or showing reasoning examples forces the model to break problems into steps. Dramatically improves math, logic, and multi-step reasoning accuracy.</div><div class="dl"><a href="../level-1/reasoning.html">Reasoning</a></div></div>
+    <div class="detail-card"><div class="dt">Tree-of-Thought</div><div class="dd">Exploring multiple reasoning paths in parallel, evaluating each, and selecting the best. Like CoT but branching — the model considers several approaches before committing to an answer.</div></div>
+    <div class="detail-card"><div class="dt">ReAct Pattern</div><div class="dd">Reasoning + Acting — the model alternates between thinking about what to do and taking actions (tool calls). Powers most AI agents: observe → think → act → observe results → think again.</div><div class="dl"><a href="agents.html">Agents</a></div></div>
+    <div class="detail-card"><div class="dt">Role Prompting</div><div class="dd">&quot;You are an expert in...&quot; activates domain-specific knowledge and communication style. Combining roles with constraints creates powerful persona engineering for consistent outputs.</div></div>
+    <div class="detail-card"><div class="dt">Constitutional Prompting</div><div class="dd">Defining principles and rules the model must follow, then having it self-evaluate against those rules. Used by Anthropic for Claude's safety — the model critiques and revises its own outputs.</div><div class="dl"><a href="../level-5/alignment.html">Alignment</a></div></div>
+    <div class="detail-card"><div class="dt">Prompt Chaining</div><div class="dd">Breaking a complex task into a sequence of simpler prompts where each output feeds into the next. Enables complex workflows that no single prompt could handle reliably.</div></div>
+    <div class="detail-card"><div class="dt">Meta-Prompting</div><div class="dd">Using AI to generate and optimize prompts. Ask the model to write a better version of your prompt, then use that improved prompt. Iterative meta-prompting converges on high-quality prompts.</div></div>
+    <div class="detail-card"><div class="dt">Structured Output Forcing</div><div class="dd">Using JSON schemas, XML tags, or markdown templates to constrain output format. Eliminates parsing issues and ensures programmatic usability. Most APIs now support native structured output.</div><div class="dl"><a href="tool-use.html">Tool Use</a></div></div>
+  </div>
+
+  <div class="section-title">Key Terms</div>
+  <div class="terms-grid">
+    <div class="term-card"><strong>Chain-of-Thought</strong><span>Prompting technique that elicits step-by-step reasoning, dramatically improving accuracy on complex tasks.</span></div>
+    <div class="term-card"><strong>ReAct</strong><span>Reasoning + Acting pattern where models alternate between thinking and taking actions with tools.</span></div>
+    <div class="term-card"><strong>Few-Shot</strong><span>Providing examples in the prompt to demonstrate desired output format and quality.</span></div>
+    <div class="term-card"><strong>Prompt Chaining</strong><span>Breaking complex tasks into sequences of simpler prompts, each building on the previous output.</span></div>
+  </div>
+
+  <div class="section-title">Practical Tips</div>
+  <div class="tip-box"><ul>
+    <li>Start with zero-shot, add CoT if accuracy is low, then add few-shot examples if format is wrong</li>
+    <li>For complex tasks, prompt chaining (multiple focused prompts) almost always beats a single long prompt</li>
+    <li>Test your prompts with edge cases — the prompt that works for typical inputs often fails on unusual ones</li>
+  </ul></div>
 
     <div class="section-title">Related Community Discussions</div>
     <div class="related-topics">

@@ -69,14 +69,38 @@ h2 { font-size:28px; margin-bottom:8px; }
   <h2>Spatial Intelligence</h2>
   <p class="desc">AI understanding of 3D space, physics, and physical world.</p>
 
+  <div class="overview">
+    <p>Spatial intelligence is AI's ability to understand and reason about the three-dimensional physical world — perceiving space, predicting physical interactions, navigating environments, and manipulating objects. While LLMs excel at language, spatial intelligence addresses the gap between digital and physical understanding.</p>
+    <p>This field is critical for robotics, autonomous vehicles, AR/VR, and any application where AI must interact with the physical world. Recent advances in 3D generation, physics simulation, and embodied AI are rapidly closing the gap between AI's language abilities and its understanding of physical space.</p>
+  </div>
   <div class="section-title">Key Topics Covered</div>
-  <ul class="detail-list">
-      <li>Spatial understanding in AI models</li>
-      <li>World models and physics simulation</li>
-      <li>Robotics and embodied AI</li>
-      <li>3D generation and reconstruction</li>
-      <li>Autonomous navigation and spatial reasoning</li>
-  </ul>
+  <div class="detail-cards">
+    <div class="detail-card"><div class="dt">What Is Spatial Intelligence</div><div class="dd">The ability to understand 3D structure, spatial relationships, physics, and physical causality. Humans do this naturally — AI must learn it from data. Fei-Fei Li calls it &quot;the next frontier of AI.&quot;</div></div>
+    <div class="detail-card"><div class="dt">Computer Vision to 3D Understanding</div><div class="dd">Evolution from 2D image recognition (ImageNet era) to 3D scene understanding. NeRF and Gaussian Splatting reconstruct 3D scenes from photos. Depth estimation, object pose detection, and scene graphs map spatial relationships.</div><div class="dl"><a href="../level-1/multimodality.html">Multimodality</a></div></div>
+    <div class="detail-card"><div class="dt">3D Generation</div><div class="dd">AI generating 3D objects and scenes from text or images. Point-E, Shap-E (OpenAI), DreamFusion (Google), Meshy, and others create 3D assets. Applications: gaming, architecture, product design, virtual worlds.</div><div class="dl"><a href="../level-1/generative-ai.html">Generative AI</a></div></div>
+    <div class="detail-card"><div class="dt">Physics Simulation</div><div class="dd">AI learning physical dynamics: how objects fall, collide, deform, and interact. Differentiable physics engines combine traditional simulation with neural networks. Enables more realistic prediction of physical outcomes.</div></div>
+    <div class="detail-card"><div class="dt">Robotics and Embodied AI</div><div class="dd">Robots that perceive, understand, and act in physical space. Foundation models for robotics (RT-2, Octo) use language-vision-action training. The challenge: bridging the sim-to-real gap between virtual training and physical deployment.</div><div class="dl"><a href="../level-4/agents.html">Agents</a></div></div>
+    <div class="detail-card"><div class="dt">Autonomous Navigation</div><div class="dd">Self-driving cars, drones, and delivery robots navigating complex 3D environments. Combines perception (cameras, LiDAR), mapping (SLAM), planning (path optimization), and real-time decision making.</div></div>
+    <div class="detail-card"><div class="dt">World Models for Spatial AI</div><div class="dd">AI systems that build internal models of how the physical world works. Predict &quot;what happens next&quot; in physical scenarios. Critical for planning physical actions and understanding consequences before acting.</div><div class="dl"><a href="world-model.html">General World Model</a></div></div>
+    <div class="detail-card"><div class="dt">AR/VR and Spatial Computing</div><div class="dd">Apple Vision Pro, Meta Quest, and spatial computing platforms need AI that understands 3D space. Real-time object recognition, scene understanding, hand tracking, and spatial anchoring all require spatial intelligence.</div></div>
+    <div class="detail-card"><div class="dt">Multimodal Spatial Understanding</div><div class="dd">Combining language with spatial reasoning: &quot;put the cup on the table to the left of the book.&quot; Requires grounding language in 3D space. Models like SpatialVLM and 3D-LLM bridge language and spatial understanding.</div></div>
+    <div class="detail-card"><div class="dt">The Gap to Close</div><div class="dd">A 2-year-old child has better spatial understanding than the most advanced AI. Closing this gap requires both better architectures (world models, embodied training) and better data (real-world interaction at scale).</div></div>
+  </div>
+
+  <div class="section-title">Key Terms</div>
+  <div class="terms-grid">
+    <div class="term-card"><strong>NeRF</strong><span>Neural Radiance Fields — AI technique for reconstructing photorealistic 3D scenes from 2D photos.</span></div>
+    <div class="term-card"><strong>Embodied AI</strong><span>AI systems with physical bodies (robots) that learn through real-world interaction.</span></div>
+    <div class="term-card"><strong>SLAM</strong><span>Simultaneous Localization and Mapping — building a map of an environment while tracking location within it.</span></div>
+    <div class="term-card"><strong>Sim-to-Real</strong><span>Transferring AI skills learned in simulation to real-world physical environments.</span></div>
+  </div>
+
+  <div class="section-title">Practical Tips</div>
+  <div class="tip-box"><ul>
+    <li>Spatial intelligence is where AI meets the physical world — watch robotics companies for the most impactful near-term advances</li>
+    <li>Try 3D generation tools (Meshy, TripoSR) to experience spatial AI capabilities firsthand</li>
+    <li>The sim-to-real gap is the biggest bottleneck in robotics AI — if you work in this field, focus on bridging it</li>
+  </ul></div>
 
 
   <div class="nav-links">

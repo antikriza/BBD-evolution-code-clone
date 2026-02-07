@@ -69,15 +69,38 @@ h2 { font-size:28px; margin-bottom:8px; }
   <h2>RAG (Retrieval-Augmented Generation)</h2>
   <p class="desc">Grounding AI responses in your own data using retrieval techniques.</p>
 
+  <div class="overview">
+    <p>RAG is the most practical technique for making AI work with your own data. Instead of fine-tuning a model on your documents (expensive and inflexible), RAG retrieves relevant information at query time and includes it in the prompt. The model then generates answers grounded in your actual data rather than its training knowledge.</p>
+    <p>A typical RAG pipeline: embed your documents into vectors, store in a vector database, and at query time retrieve the most relevant chunks to include in the context. This pattern powers knowledge bases, customer support bots, code assistants, and enterprise search. Getting the retrieval right is 80% of the challenge.</p>
+  </div>
   <div class="section-title">Key Topics Covered</div>
-  <ul class="detail-list">
-      <li>RAG architecture: retrieve, augment, generate</li>
-      <li>Embeddings and vector databases</li>
-      <li>Chunking strategies for documents and code</li>
-      <li>Hybrid search: semantic + keyword</li>
-      <li>Reranking and relevance scoring</li>
-      <li>Advanced RAG: CRAG, Self-RAG, Graph RAG</li>
-  </ul>
+  <div class="detail-cards">
+    <div class="detail-card"><div class="dt">RAG Architecture</div><div class="dd">Three phases: Retrieve (find relevant documents), Augment (add them to the prompt), Generate (LLM produces grounded answer). Simple in concept, nuanced in execution.</div><div class="dl"><a href="../level-2/context.html">Context</a></div></div>
+    <div class="detail-card"><div class="dt">Embeddings</div><div class="dd">Dense vector representations of text that capture semantic meaning. Similar texts have similar vectors. Models: OpenAI text-embedding-3, Cohere embed-v3, open-source BGE and E5.</div><div class="dl"><a href="../level-1/foundation-models.html">Foundation Models</a></div></div>
+    <div class="detail-card"><div class="dt">Vector Databases</div><div class="dd">Specialized databases for storing and querying embeddings. Pinecone (managed), Qdrant (open-source), Weaviate, ChromaDB (lightweight). Each optimizes for different scale and feature needs.</div></div>
+    <div class="detail-card"><div class="dt">Chunking Strategies</div><div class="dd">How you split documents into chunks dramatically affects retrieval quality. Fixed-size, sentence-based, semantic, recursive, and document-structure-aware chunking each suit different content types.</div></div>
+    <div class="detail-card"><div class="dt">Hybrid Search</div><div class="dd">Combining semantic search (embeddings) with keyword search (BM25). Hybrid catches both conceptually similar and keyword-exact matches. Most production RAG systems use hybrid search.</div></div>
+    <div class="detail-card"><div class="dt">Reranking</div><div class="dd">After initial retrieval, a cross-encoder reranker scores each chunk against the query more accurately. Cohere Rerank, BGE reranker. Dramatically improves retrieval precision.</div></div>
+    <div class="detail-card"><div class="dt">Advanced RAG Patterns</div><div class="dd">CRAG (Corrective RAG): verify retrieval quality before generating. Self-RAG: model decides when retrieval is needed. Graph RAG: combine vector search with knowledge graphs for richer context.</div></div>
+    <div class="detail-card"><div class="dt">Multi-Modal RAG</div><div class="dd">RAG beyond text — retrieving images, tables, and code snippets. Vision models can process retrieved images. Table extraction and code understanding require specialized chunking.</div><div class="dl"><a href="../level-1/multimodality.html">Multimodality</a></div></div>
+    <div class="detail-card"><div class="dt">Evaluation</div><div class="dd">Measuring RAG quality: retrieval metrics (precision, recall, MRR) and generation metrics (faithfulness, relevance, completeness). RAGAS framework automates RAG evaluation.</div></div>
+    <div class="detail-card"><div class="dt">Common Pitfalls</div><div class="dd">Too-small chunks lose context, too-large waste tokens. Poor embeddings retrieve irrelevant content. No reranking means noise in the top results. Always evaluate retrieval quality independently of generation.</div><div class="dl"><a href="../level-2/hallucination.html">Hallucinations</a></div></div>
+  </div>
+
+  <div class="section-title">Key Terms</div>
+  <div class="terms-grid">
+    <div class="term-card"><strong>Embedding</strong><span>Dense vector representation of text that captures semantic meaning for similarity search.</span></div>
+    <div class="term-card"><strong>Vector Database</strong><span>Database optimized for storing embeddings and performing fast similarity search (Pinecone, Qdrant, Weaviate).</span></div>
+    <div class="term-card"><strong>Chunking</strong><span>The process of splitting documents into smaller pieces for embedding and retrieval.</span></div>
+    <div class="term-card"><strong>Reranking</strong><span>Second-stage scoring of retrieved results using a cross-encoder model for improved precision.</span></div>
+  </div>
+
+  <div class="section-title">Practical Tips</div>
+  <div class="tip-box"><ul>
+    <li>Start with a simple chunking strategy (500 tokens with 50 overlap), then optimize only after measuring retrieval quality</li>
+    <li>Always add a reranking step — it is the single highest-impact improvement you can make to a RAG system</li>
+    <li>Evaluate retrieval and generation separately: poor retrieval cannot be fixed by a better LLM</li>
+  </ul></div>
 
     <div class="section-title">Related Community Discussions</div>
     <div class="related-topics">

@@ -69,15 +69,38 @@ h2 { font-size:28px; margin-bottom:8px; }
   <h2>Hardware Basics</h2>
   <p class="desc">Hardware requirements for running AI models locally.</p>
 
+  <div class="overview">
+    <p>Running AI models locally requires understanding the hardware constraints. The key bottleneck is memory — specifically GPU VRAM for fast inference. A 7B parameter model needs about 4-6GB VRAM (quantized), while a 70B model needs 35-48GB. Your hardware determines which models you can run and how fast they generate tokens.</p>
+    <p>The hardware landscape has democratized significantly. Apple Silicon Macs with unified memory can run surprisingly large models. Consumer NVIDIA GPUs (RTX 4090 with 24GB VRAM) handle 13B-34B models well. For larger models, cloud GPU providers offer pay-per-hour access. Understanding these options helps you choose the right balance of cost, speed, and capability.</p>
+  </div>
   <div class="section-title">Key Topics Covered</div>
-  <ul class="detail-list">
-      <li>GPU vs CPU for AI inference</li>
-      <li>VRAM requirements by model size</li>
-      <li>NVIDIA GPUs: consumer vs data center</li>
-      <li>Apple Silicon for local LLMs</li>
-      <li>Cloud GPU providers and pricing</li>
-      <li>Optimal hardware configurations by budget</li>
-  </ul>
+  <div class="detail-cards">
+    <div class="detail-card"><div class="dt">GPU vs CPU Inference</div><div class="dd">GPUs are 10-50x faster than CPUs for AI inference due to massive parallelism. CPUs work for small models or when using GGUF with CPU offloading. For any serious local AI work, a GPU is essential.</div></div>
+    <div class="detail-card"><div class="dt">VRAM Requirements</div><div class="dd">7B model: ~4GB (Q4), ~8GB (FP16). 13B: ~8GB (Q4). 34B: ~20GB (Q4). 70B: ~40GB (Q4). Rule of thumb: model size in GB at Q4 is roughly half the parameter count in billions.</div><div class="dl"><a href="model-formats.html">Model Formats</a></div></div>
+    <div class="detail-card"><div class="dt">NVIDIA Consumer GPUs</div><div class="dd">RTX 4090 (24GB, $1600) — king of local LLMs. RTX 4080 (16GB). RTX 3090 (24GB, used ~$800) — best value. RTX 4060 Ti 16GB — budget option. VRAM matters more than compute speed for LLMs.</div></div>
+    <div class="detail-card"><div class="dt">Apple Silicon</div><div class="dd">M1/M2/M3/M4 Macs with unified memory can run large models. M2 Ultra (192GB) can run 70B+ models. M3 Max (128GB) handles 34B well. Slower than NVIDIA but memory bandwidth is excellent.</div></div>
+    <div class="detail-card"><div class="dt">Data Center GPUs</div><div class="dd">A100 (80GB), H100 (80GB), H200 (141GB) — the hardware powering AI labs. 10-20x more expensive than consumer GPUs. Available through cloud providers for hourly rental.</div></div>
+    <div class="detail-card"><div class="dt">Cloud GPU Providers</div><div class="dd">RunPod, Vast.ai, Lambda Labs — rent GPUs by the hour ($0.50-$4/hr for A100). Good for occasional use or running models too large for local hardware. No upfront investment.</div><div class="dl"><a href="api-providers.html">API Providers</a></div></div>
+    <div class="detail-card"><div class="dt">Multi-GPU Setups</div><div class="dd">Split large models across multiple GPUs. NVLink provides fast GPU-to-GPU communication on matching NVIDIA cards. Consumer GPUs can use PCIe with slower but functional model sharding.</div></div>
+    <div class="detail-card"><div class="dt">Inference Engines</div><div class="dd">llama.cpp (CPU+GPU, versatile), vLLM (high-throughput GPU serving), Ollama (easy local setup), LM Studio (GUI), TGI (HuggingFace serving). Each optimizes for different use cases.</div><div class="dl"><a href="model-formats.html">Model Formats</a></div></div>
+    <div class="detail-card"><div class="dt">RAM and Storage</div><div class="dd">System RAM matters for CPU inference and model loading. 32GB minimum, 64GB+ recommended. NVMe SSD dramatically speeds up model loading times (30-70B models are 20-40GB files).</div></div>
+    <div class="detail-card"><div class="dt">Budget Configurations</div><div class="dd">Entry ($500): used RTX 3060 12GB — runs 7B models. Mid ($1500): RTX 4090 24GB — runs up to 34B. High ($3000+): Mac Studio M2 Ultra or dual GPU. Budget: use cloud APIs instead of local hardware.</div></div>
+  </div>
+
+  <div class="section-title">Key Terms</div>
+  <div class="terms-grid">
+    <div class="term-card"><strong>VRAM</strong><span>Video RAM on the GPU — the primary constraint for which AI models can run locally.</span></div>
+    <div class="term-card"><strong>Unified Memory</strong><span>Apple Silicon architecture where CPU and GPU share the same memory pool, enabling larger models on Mac.</span></div>
+    <div class="term-card"><strong>Model Sharding</strong><span>Splitting a model across multiple GPUs when it is too large to fit in a single GPU's VRAM.</span></div>
+    <div class="term-card"><strong>Inference Engine</strong><span>Software that loads and runs AI models — llama.cpp, vLLM, Ollama, TensorRT-LLM each optimize for different scenarios.</span></div>
+  </div>
+
+  <div class="section-title">Practical Tips</div>
+  <div class="tip-box"><ul>
+    <li>VRAM is the most important spec — an RTX 3090 with 24GB VRAM often beats an RTX 4080 with 16GB for LLM work</li>
+    <li>Start with Ollama or LM Studio for the easiest local setup experience before diving into raw llama.cpp</li>
+    <li>If you only need occasional access to large models, cloud GPU rental ($1-2/hour) is cheaper than buying hardware</li>
+  </ul></div>
 
     <div class="section-title">Related Community Discussions</div>
     <div class="related-topics">

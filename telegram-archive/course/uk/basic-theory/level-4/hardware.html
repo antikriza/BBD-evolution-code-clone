@@ -69,15 +69,38 @@ h2 { font-size:28px; margin-bottom:8px; }
   <h2>Основи обладнання</h2>
   <p class="desc">Вимоги до обладнання для локального запуску моделей ШІ.</p>
 
+  <div class="overview">
+    <p>Запуск моделей ШІ локально вимагає розуміння апаратних обмежень. Ключове вузьке місце — пам'ять, зокрема VRAM GPU для швидкого інференсу. Модель на 7B параметрів потребує близько 4-6GB VRAM (квантизована), а 70B — 35-48GB. Ваше обладнання визначає які моделі ви можете запускати та наскільки швидко вони генерують токени.</p>
+    <p>Ландшафт обладнання значно демократизувався. Apple Silicon Mac з unified memory може запускати напрочуд великі моделі. Споживчі GPU NVIDIA (RTX 4090 з 24GB VRAM) добре працюють з 13B-34B моделями. Для більших моделей хмарні GPU-провайдери пропонують погодинний доступ. Розуміння цих опцій допомагає обрати правильний баланс вартості, швидкості та можливостей.</p>
+  </div>
   <div class="section-title">Основні теми</div>
-  <ul class="detail-list">
-      <li>GPU проти CPU для інференсу ШІ</li>
-      <li>Вимоги до VRAM за розміром моделі</li>
-      <li>GPU NVIDIA: споживчі проти серверних</li>
-      <li>Apple Silicon для локальних LLM</li>
-      <li>Хмарні провайдери GPU та ціни</li>
-      <li>Оптимальні конфігурації обладнання за бюджетом</li>
-  </ul>
+  <div class="detail-cards">
+    <div class="detail-card"><div class="dt">GPU проти CPU інференсу</div><div class="dd">GPU у 10-50 разів швидше CPU для інференсу ШІ завдяки масивному паралелізму. CPU працює для малих моделей або з GGUF CPU offloading. Для серйозної локальної роботи з ШІ GPU необхідний.</div></div>
+    <div class="detail-card"><div class="dt">Вимоги до VRAM</div><div class="dd">7B модель: ~4GB (Q4), ~8GB (FP16). 13B: ~8GB (Q4). 34B: ~20GB (Q4). 70B: ~40GB (Q4). Правило: розмір моделі в GB при Q4 приблизно половина кількості параметрів у мільярдах.</div><div class="dl"><a href="model-formats.html">Формати моделей</a></div></div>
+    <div class="detail-card"><div class="dt">Споживчі GPU NVIDIA</div><div class="dd">RTX 4090 (24GB, $1600) — король локальних LLM. RTX 4080 (16GB). RTX 3090 (24GB, б/у ~$800) — найкраща цінність. RTX 4060 Ti 16GB — бюджетний варіант. VRAM важливіша за швидкість для LLM.</div></div>
+    <div class="detail-card"><div class="dt">Apple Silicon</div><div class="dd">M1/M2/M3/M4 Mac з unified memory можуть запускати великі моделі. M2 Ultra (192GB) може запускати 70B+. M3 Max (128GB) добре працює з 34B. Повільніший за NVIDIA, але пропускна здатність пам'яті відмінна.</div></div>
+    <div class="detail-card"><div class="dt">GPU серверного класу</div><div class="dd">A100 (80GB), H100 (80GB), H200 (141GB) — обладнання ШІ-лабораторій. У 10-20 разів дорожчі за споживчі GPU. Доступні через хмарних провайдерів для погодинної оренди.</div></div>
+    <div class="detail-card"><div class="dt">Хмарні GPU-провайдери</div><div class="dd">RunPod, Vast.ai, Lambda Labs — оренда GPU погодинно ($0.50-$4/год за A100). Добре для нечастого використання або моделей занадто великих для локального обладнання. Без початкових інвестицій.</div><div class="dl"><a href="api-providers.html">API-провайдери</a></div></div>
+    <div class="detail-card"><div class="dt">Мульти-GPU конфігурації</div><div class="dd">Розподіл великих моделей між кількома GPU. NVLink забезпечує швидку GPU-GPU комунікацію. Споживчі GPU можуть використовувати PCIe з повільнішим, але функціональним шардингом моделей.</div></div>
+    <div class="detail-card"><div class="dt">Движки інференсу</div><div class="dd">llama.cpp (CPU+GPU, універсальний), vLLM (високопропускний GPU-сервінг), Ollama (простий локальний запуск), LM Studio (GUI), TGI (сервінг HuggingFace). Кожен оптимізований під різні випадки.</div><div class="dl"><a href="model-formats.html">Формати моделей</a></div></div>
+    <div class="detail-card"><div class="dt">RAM та сховище</div><div class="dd">Системна RAM важлива для CPU-інференсу та завантаження моделей. Мінімум 32GB, рекомендовано 64GB+. NVMe SSD драматично прискорює завантаження моделей (30-70B моделі — файли 20-40GB).</div></div>
+    <div class="detail-card"><div class="dt">Конфігурації за бюджетом</div><div class="dd">Базова ($500): б/у RTX 3060 12GB — запуск 7B моделей. Середня ($1500): RTX 4090 24GB — до 34B. Висока ($3000+): Mac Studio M2 Ultra або dual GPU. Бюджет: хмарні API замість локального обладнання.</div></div>
+  </div>
+
+  <div class="section-title">Ключові терміни</div>
+  <div class="terms-grid">
+    <div class="term-card"><strong>VRAM</strong><span>Відеопам'ять GPU — основне обмеження для того, які моделі ШІ можуть працювати локально.</span></div>
+    <div class="term-card"><strong>Unified Memory</strong><span>Архітектура Apple Silicon, де CPU та GPU використовують спільний пул пам'яті, дозволяючи більші моделі на Mac.</span></div>
+    <div class="term-card"><strong>Шардинг моделі</strong><span>Розподіл моделі між кількома GPU, коли вона занадто велика для VRAM одного GPU.</span></div>
+    <div class="term-card"><strong>Движок інференсу</strong><span>ПЗ для завантаження та запуску моделей ШІ — llama.cpp, vLLM, Ollama, TensorRT-LLM оптимізовані під різні сценарії.</span></div>
+  </div>
+
+  <div class="section-title">Практичні поради</div>
+  <div class="tip-box"><ul>
+    <li>VRAM — найважливіша характеристика: RTX 3090 з 24GB VRAM часто перемагає RTX 4080 з 16GB для роботи з LLM</li>
+    <li>Почніть з Ollama або LM Studio для найпростішого локального досвіду перед переходом до сирого llama.cpp</li>
+    <li>Якщо потрібен лише нечастий доступ до великих моделей, оренда хмарного GPU ($1-2/год) дешевша за купівлю обладнання</li>
+  </ul></div>
 
     <div class="section-title">Пов'язані обговорення спільноти</div>
     <div class="related-topics">

@@ -69,14 +69,38 @@ h2 { font-size:28px; margin-bottom:8px; }
   <h2>General World Model</h2>
   <p class="desc">AI systems that build internal representations of how the world works.</p>
 
+  <div class="overview">
+    <p>A world model is an AI system's internal representation of how the world works — enabling it to predict outcomes, plan actions, and reason about causality. Yann LeCun argues that current LLMs lack true world models and that building them is the key to achieving human-level AI. Without a world model, AI can only pattern-match on training data rather than truly &quot;understand.&quot;</p>
+    <p>World models allow an agent to simulate &quot;what would happen if...&quot; before taking action — the foundation of planning and common sense. Humans do this constantly: you can predict that a glass will break if dropped, even if you have never seen that specific glass. Building this capability into AI is one of the grand challenges of the field.</p>
+  </div>
   <div class="section-title">Key Topics Covered</div>
-  <ul class="detail-list">
-      <li>What is a world model in AI</li>
-      <li>LeCun JEPA and world model proposals</li>
-      <li>Video prediction as world modeling</li>
-      <li>Implicit vs explicit world models in LLMs</li>
-      <li>Simulation and planning with world models</li>
-  </ul>
+  <div class="detail-cards">
+    <div class="detail-card"><div class="dt">What Is a World Model</div><div class="dd">An internal simulation of reality that enables prediction, planning, and causal reasoning. Humans have rich world models — we understand physics, social dynamics, and cause-effect intuitively. AI world models aim to replicate this.</div></div>
+    <div class="detail-card"><div class="dt">LeCun's JEPA Architecture</div><div class="dd">Yann LeCun proposes Joint Embedding Predictive Architecture (JEPA) as the path to world models. Instead of predicting pixels, JEPA predicts abstract representations of future states. This avoids the complexity of pixel-level prediction.</div><div class="dl"><a href="../level-1/foundation-models.html">Foundation Models</a></div></div>
+    <div class="detail-card"><div class="dt">Do LLMs Have World Models?</div><div class="dd">Heated debate: some research shows LLMs develop internal spatial and temporal representations (Othello-GPT, linear probes). Critics argue these are statistical patterns, not true understanding. The truth likely lies in between.</div><div class="dl"><a href="../level-1/reasoning.html">Reasoning</a></div></div>
+    <div class="detail-card"><div class="dt">Video Prediction as World Modeling</div><div class="dd">Predicting future video frames requires understanding physics, object permanence, and causality. Sora (OpenAI), Runway Gen-3, and similar models demonstrate implicit physics understanding through video generation.</div><div class="dl"><a href="../level-1/generative-ai.html">Generative AI</a></div></div>
+    <div class="detail-card"><div class="dt">Physics Engines vs Learned Models</div><div class="dd">Traditional approach: hand-coded physics rules (Unity, Unreal). New approach: learned physics from data (neural physics engines). Hybrid: combining traditional physics with neural networks for robustness.</div></div>
+    <div class="detail-card"><div class="dt">Planning with World Models</div><div class="dd">If you can simulate consequences, you can plan: try actions in simulation, observe predicted outcomes, choose the best. Model-based RL (MuZero, Dreamer) uses learned world models for efficient planning.</div><div class="dl"><a href="../level-4/agents.html">Agents</a></div></div>
+    <div class="detail-card"><div class="dt">Common Sense Reasoning</div><div class="dd">Understanding that objects fall down, water is wet, and people have feelings — the &quot;easy&quot; things that are hardest for AI. World models are considered essential for common sense, which remains a major weakness of current AI.</div></div>
+    <div class="detail-card"><div class="dt">Implicit vs Explicit World Models</div><div class="dd">Implicit: knowledge encoded in network weights (LLMs may have this). Explicit: a separate, queryable model of the world. LeCun and others argue explicit world models are needed for robust reasoning and planning.</div></div>
+    <div class="detail-card"><div class="dt">Multimodal World Models</div><div class="dd">True world models must integrate vision, language, sound, and physical interaction. A world model that only processes text cannot understand physics. Multimodal approaches (Gemini, GPT-4V) move toward integrated understanding.</div><div class="dl"><a href="../level-1/multimodality.html">Multimodality</a></div></div>
+    <div class="detail-card"><div class="dt">The Path Forward</div><div class="dd">Combining LLM reasoning with learned physics, embodied experience, and abstract representation learning. World models may not arrive as a single breakthrough but as a gradual integration of capabilities across AI systems.</div><div class="dl"><a href="agi.html">AGI</a></div></div>
+  </div>
+
+  <div class="section-title">Key Terms</div>
+  <div class="terms-grid">
+    <div class="term-card"><strong>World Model</strong><span>AI's internal representation of reality enabling prediction, planning, and causal reasoning.</span></div>
+    <div class="term-card"><strong>JEPA</strong><span>Joint Embedding Predictive Architecture — LeCun's proposed approach for building world models that predict abstract states.</span></div>
+    <div class="term-card"><strong>Common Sense</strong><span>Intuitive understanding of everyday physics, social dynamics, and cause-effect relationships — still a major AI challenge.</span></div>
+    <div class="term-card"><strong>Model-Based RL</strong><span>Reinforcement learning using a learned world model to simulate and plan actions before taking them.</span></div>
+  </div>
+
+  <div class="section-title">Practical Tips</div>
+  <div class="tip-box"><ul>
+    <li>Follow Yann LeCun's research and talks for the most influential thinking on world models and the path to human-level AI</li>
+    <li>Video generation quality is a proxy for world model capability — better video prediction implies better physics understanding</li>
+    <li>The &quot;do LLMs understand?&quot; debate is worth following — it has practical implications for how we build and trust AI systems</li>
+  </ul></div>
 
 
   <div class="nav-links">

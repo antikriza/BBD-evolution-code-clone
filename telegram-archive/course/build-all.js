@@ -1124,16 +1124,646 @@ const levels = [
       uk: 'Просунуті техніки: стратегії промптингу, агенти, RAG, використання інструментів та практична розробка ШІ.'
     },
     topics: [
-      { slug: 'prompting-techniques', title: { en: 'Prompting Techniques', uk: 'Техніки промптингу' }, desc: { en: 'Advanced prompting strategies for getting the best results from AI models.', uk: 'Просунуті стратегії промптингу для отримання найкращих результатів від моделей ШІ.' }, details: { en: ['Zero-shot, one-shot, and few-shot prompting', 'Chain-of-Thought (CoT) and step-by-step reasoning', 'Tree-of-Thought and multi-path reasoning', 'ReAct: Reasoning + Acting pattern', 'Role prompting and persona engineering', 'Constitutional prompting and guardrails'], uk: ['Zero-shot, one-shot та few-shot промптинг', 'Ланцюг думок (CoT) та покрокові міркування', 'Дерево думок та багатошляхове міркування', 'ReAct: патерн Міркування + Дія', 'Рольовий промптинг та інженерія персон', 'Конституційний промптинг та захисні бар\'єри'] }, related: ['Feed', 'Agents & Tools'] },
-      { slug: 'base-tools', title: { en: 'Tools & Libraries', uk: 'Інструменти та бібліотеки' }, desc: { en: 'Key frameworks and libraries for building AI-powered applications.', uk: 'Ключові фреймворки та бібліотеки для створення ШІ-додатків.' }, details: { en: ['LangChain: chains, agents, memory', 'LlamaIndex: data connectors and retrieval', 'Haystack: search and RAG pipelines', 'Semantic Kernel: Microsoft AI orchestration', 'OpenAI SDK, Anthropic SDK, Google AI SDK', 'Hugging Face Transformers ecosystem'], uk: ['LangChain: ланцюги, агенти, пам\'ять', 'LlamaIndex: конектори даних та пошук', 'Haystack: пошук та RAG-пайплайни', 'Semantic Kernel: оркестрація ШІ від Microsoft', 'OpenAI SDK, Anthropic SDK, Google AI SDK', 'Екосистема Hugging Face Transformers'] }, related: ['Agents & Tools', 'Video Content'] },
-      { slug: 'agents', title: { en: 'Agents', uk: 'Агенти' }, desc: { en: 'AI agents that can plan, reason, and take actions autonomously.', uk: 'Агенти ШІ, що можуть планувати, міркувати та діяти автономно.' }, details: { en: ['What is an AI agent: perception, planning, action loop', 'Agent architectures: ReAct, Plan-and-Execute, Tree-of-Agents', 'CrewAI, AutoGen, MetaGPT multi-agent frameworks', 'Memory systems: short-term, long-term, episodic', 'Tool use and function calling in agents', 'Agent evaluation and safety'], uk: ['Що таке агент ШІ: цикл сприйняття, планування, дії', 'Архітектури агентів: ReAct, Plan-and-Execute, Tree-of-Agents', 'Мультиагентні фреймворки: CrewAI, AutoGen, MetaGPT', 'Системи пам\'яті: короткочасна, довгострокова, епізодична', 'Використання інструментів та виклик функцій в агентах', 'Оцінка та безпека агентів'] }, related: ['Agents & Tools', 'Video Content'] },
-      { slug: 'tool-use', title: { en: 'Tool Use', uk: 'Використання інструментів' }, desc: { en: 'Extending AI capabilities through function calling and external tool integration.', uk: 'Розширення можливостей ШІ через виклик функцій та інтеграцію зовнішніх інструментів.' }, details: { en: ['Function calling APIs: OpenAI, Anthropic, Google', 'Tool definition schemas and parameter types', 'Parallel tool calls and multi-step tool use', 'Building custom tools for your domain', 'Error handling and tool call validation', 'Computer use and browser automation'], uk: ['API виклику функцій: OpenAI, Anthropic, Google', 'Схеми визначення інструментів та типи параметрів', 'Паралельні виклики та багатокрокове використання інструментів', 'Створення власних інструментів для вашої галузі', 'Обробка помилок та валідація викликів', 'Керування комп\'ютером та автоматизація браузера'] }, related: ['Agents & Tools'] },
-      { slug: 'rag', title: { en: 'RAG (Retrieval-Augmented Generation)', uk: 'RAG (Генерація з пошуковим доповненням)' }, desc: { en: 'Grounding AI responses in your own data using retrieval techniques.', uk: 'Заземлення відповідей ШІ на ваших власних даних за допомогою пошукових технік.' }, details: { en: ['RAG architecture: retrieve, augment, generate', 'Embeddings and vector databases', 'Chunking strategies for documents and code', 'Hybrid search: semantic + keyword', 'Reranking and relevance scoring', 'Advanced RAG: CRAG, Self-RAG, Graph RAG'], uk: ['Архітектура RAG: пошук, доповнення, генерація', 'Ембедінги та векторні бази даних', 'Стратегії чанкінгу для документів та коду', 'Гібридний пошук: семантичний + ключові слова', 'Перерейтинг та оцінка релевантності', 'Просунутий RAG: CRAG, Self-RAG, Graph RAG'] }, related: ['Video Content', 'Feed'] },
-      { slug: 'frameworks', title: { en: 'Applied Frameworks', uk: 'Прикладні фреймворки' }, desc: { en: 'Practical frameworks for building production AI applications.', uk: 'Практичні фреймворки для створення продакшн ШІ-додатків.' }, details: { en: ['Dify: visual AI workflow builder', 'n8n: workflow automation with AI nodes', 'Flowise: LangChain visual builder', 'Vercel AI SDK for web applications', 'FastAPI + LLM integration patterns', 'Low-code/no-code AI platforms'], uk: ['Dify: візуальний конструктор ШІ-воркфлоу', 'n8n: автоматизація воркфлоу з ШІ-вузлами', 'Flowise: візуальний конструктор LangChain', 'Vercel AI SDK для веб-додатків', 'Паттерни інтеграції FastAPI + LLM', 'Low-code/no-code ШІ-платформи'] }, related: ['Video Content', 'Agents & Tools'] },
-      { slug: 'model-formats', title: { en: 'Model Formats', uk: 'Формати моделей' }, desc: { en: 'Understanding different model distribution and execution formats.', uk: 'Розуміння різних форматів розповсюдження та виконання моделей.' }, details: { en: ['GGUF: llama.cpp format for CPU/GPU inference', 'GPTQ, AWQ: GPU-optimized quantized formats', 'SafeTensors: safe model serialization', 'ONNX: cross-platform model format', 'ExLlamaV2, Marlin kernel formats', 'Choosing the right format for your hardware'], uk: ['GGUF: формат llama.cpp для інференсу на CPU/GPU', 'GPTQ, AWQ: оптимізовані для GPU квантизовані формати', 'SafeTensors: безпечна серіалізація моделей', 'ONNX: кросплатформний формат моделей', 'Формати ExLlamaV2, Marlin kernel', 'Вибір правильного формату для вашого обладнання'] }, related: ['Models'] },
-      { slug: 'ai-protocols', title: { en: 'AI Protocols', uk: 'ШІ-протоколи' }, desc: { en: 'Communication protocols connecting AI models to tools and services.', uk: 'Комунікаційні протоколи, що з\'єднують моделі ШІ з інструментами та сервісами.' }, details: { en: ['MCP (Model Context Protocol): architecture and servers', 'A2A (Agent-to-Agent): inter-agent communication', 'OpenAI function calling protocol', 'Tool use standards across providers', 'Server-Sent Events for streaming', 'WebSocket-based AI communication'], uk: ['MCP (Model Context Protocol): архітектура та сервери', 'A2A (Agent-to-Agent): міжагентна комунікація', 'Протокол виклику функцій OpenAI', 'Стандарти використання інструментів між провайдерами', 'Server-Sent Events для стримінгу', 'ШІ-комунікація на базі WebSocket'] }, related: ['Agents & Tools', 'Video Content'] },
-      { slug: 'hardware', title: { en: 'Hardware Basics', uk: 'Основи обладнання' }, desc: { en: 'Hardware requirements for running AI models locally.', uk: 'Вимоги до обладнання для локального запуску моделей ШІ.' }, details: { en: ['GPU vs CPU for AI inference', 'VRAM requirements by model size', 'NVIDIA GPUs: consumer vs data center', 'Apple Silicon for local LLMs', 'Cloud GPU providers and pricing', 'Optimal hardware configurations by budget'], uk: ['GPU проти CPU для інференсу ШІ', 'Вимоги до VRAM за розміром моделі', 'GPU NVIDIA: споживчі проти серверних', 'Apple Silicon для локальних LLM', 'Хмарні провайдери GPU та ціни', 'Оптимальні конфігурації обладнання за бюджетом'] }, related: ['Models'] },
-      { slug: 'api-providers', title: { en: 'API Providers', uk: 'API-провайдери' }, desc: { en: 'Cloud API providers for accessing AI models without local hardware.', uk: 'Хмарні API-провайдери для доступу до моделей ШІ без локального обладнання.' }, details: { en: ['OpenAI API: models, pricing, features', 'Anthropic API: Claude models and capabilities', 'Google AI: Gemini API and Vertex AI', 'OpenRouter: unified multi-provider access', 'Together AI, Fireworks, Groq: inference providers', 'Cost optimization strategies'], uk: ['OpenAI API: моделі, ціни, можливості', 'Anthropic API: моделі Claude та їх можливості', 'Google AI: Gemini API та Vertex AI', 'OpenRouter: єдиний мультипровайдерний доступ', 'Together AI, Fireworks, Groq: провайдери інференсу', 'Стратегії оптимізації витрат'] }, related: ['Agents & Tools'] }
+      { slug: 'prompting-techniques', title: { en: 'Prompting Techniques', uk: 'Техніки промптингу' }, desc: { en: 'Advanced prompting strategies for getting the best results from AI models.', uk: 'Просунуті стратегії промптингу для отримання найкращих результатів від моделей ШІ.' },
+        overview: {
+          en: [
+            'Beyond basic prompt writing lies a rich landscape of techniques that can dramatically improve AI output quality. These strategies — from Chain-of-Thought reasoning to Tree-of-Thought exploration — exploit the way LLMs process and generate text to unlock capabilities that simple prompts cannot.',
+            'Mastering prompting techniques is arguably the highest-leverage skill in AI today. The same model can produce mediocre or exceptional results depending entirely on how you prompt it. These techniques work because they shape the model\'s reasoning process, not just its output format.'
+          ],
+          uk: [
+            'За межами базового написання промптів лежить багатий ландшафт технік, що можуть драматично покращити якість виходу ШІ. Ці стратегії — від ланцюга думок до дерева думок — використовують спосіб обробки та генерації тексту LLM для розкриття можливостей, недоступних простим промптам.',
+            'Опанування технік промптингу — це, мабуть, найвпливовіша навичка в ШІ сьогодні. Одна й та ж модель може видавати посередні або виняткові результати залежно виключно від того, як ви її промптите. Ці техніки працюють, бо формують процес міркування моделі, а не лише формат виходу.'
+          ]
+        },
+        details: {
+          en: [
+            { text: 'Zero-Shot Prompting', desc: 'Asking the model to perform a task without any examples. Works well for simple, well-defined tasks where the model already has strong capabilities from training.', links: [{ title: 'Prompt', href: '../level-2/prompt.html' }] },
+            { text: 'Few-Shot Prompting', desc: 'Providing 2-5 input/output examples before your actual request. Shows the model exactly what format, style, and quality you expect — dramatically improves consistency.', links: [{ title: 'Foundation Models', href: '../level-1/foundation-models.html' }] },
+            { text: 'Chain-of-Thought (CoT)', desc: 'Adding "think step by step" or showing reasoning examples forces the model to break problems into steps. Dramatically improves math, logic, and multi-step reasoning accuracy.', links: [{ title: 'Reasoning', href: '../level-1/reasoning.html' }] },
+            { text: 'Tree-of-Thought', desc: 'Exploring multiple reasoning paths in parallel, evaluating each, and selecting the best. Like CoT but branching — the model considers several approaches before committing to an answer.', links: [] },
+            { text: 'ReAct Pattern', desc: 'Reasoning + Acting — the model alternates between thinking about what to do and taking actions (tool calls). Powers most AI agents: observe → think → act → observe results → think again.', links: [{ title: 'Agents', href: 'agents.html' }] },
+            { text: 'Role Prompting', desc: '"You are an expert in..." activates domain-specific knowledge and communication style. Combining roles with constraints creates powerful persona engineering for consistent outputs.', links: [] },
+            { text: 'Constitutional Prompting', desc: 'Defining principles and rules the model must follow, then having it self-evaluate against those rules. Used by Anthropic for Claude\'s safety — the model critiques and revises its own outputs.', links: [{ title: 'Alignment', href: '../level-5/alignment.html' }] },
+            { text: 'Prompt Chaining', desc: 'Breaking a complex task into a sequence of simpler prompts where each output feeds into the next. Enables complex workflows that no single prompt could handle reliably.', links: [] },
+            { text: 'Meta-Prompting', desc: 'Using AI to generate and optimize prompts. Ask the model to write a better version of your prompt, then use that improved prompt. Iterative meta-prompting converges on high-quality prompts.', links: [] },
+            { text: 'Structured Output Forcing', desc: 'Using JSON schemas, XML tags, or markdown templates to constrain output format. Eliminates parsing issues and ensures programmatic usability. Most APIs now support native structured output.', links: [{ title: 'Tool Use', href: 'tool-use.html' }] }
+          ],
+          uk: [
+            { text: 'Zero-Shot промптинг', desc: 'Запит до моделі виконати задачу без прикладів. Добре працює для простих, чітко визначених задач, де модель вже має сильні здібності з навчання.', links: [{ title: 'Промпт', href: '../level-2/prompt.html' }] },
+            { text: 'Few-Shot промптинг', desc: 'Надання 2-5 прикладів вхід/вихід перед вашим запитом. Показує моделі точно який формат, стиль та якість ви очікуєте — драматично покращує стабільність.', links: [{ title: 'Фундаментальні моделі', href: '../level-1/foundation-models.html' }] },
+            { text: 'Ланцюг думок (CoT)', desc: 'Додавання "думай крок за кроком" або показ прикладів міркувань змушує модель розбивати проблеми на кроки. Драматично покращує точність у математиці, логіці та багатокрокових міркуваннях.', links: [{ title: 'Міркування', href: '../level-1/reasoning.html' }] },
+            { text: 'Дерево думок', desc: 'Паралельне дослідження кількох шляхів міркування, оцінка кожного та вибір найкращого. Як CoT, але з розгалуженням — модель розглядає кілька підходів перед фінальною відповіддю.', links: [] },
+            { text: 'Патерн ReAct', desc: 'Reasoning + Acting — модель чергує між обмірковуванням та діями (виклики інструментів). Основа більшості ШІ-агентів: спостереження → думка → дія → результат → нова думка.', links: [{ title: 'Агенти', href: 'agents.html' }] },
+            { text: 'Рольовий промптинг', desc: '"Ви експерт у..." активує доменно-специфічні знання та стиль комунікації. Комбінування ролей з обмеженнями створює потужну інженерію персон для стабільних результатів.', links: [] },
+            { text: 'Конституційний промптинг', desc: 'Визначення принципів та правил, яким модель повинна слідувати, а потім самооцінка відповідності. Використовується Anthropic для безпеки Claude — модель критикує та переглядає власні виходи.', links: [{ title: 'Вирівнювання', href: '../level-5/alignment.html' }] },
+            { text: 'Ланцюжок промптів', desc: 'Розбиття складної задачі на послідовність простіших промптів, де кожен вихід стає входом для наступного. Дозволяє складні воркфлоу, неможливі для одного промпту.', links: [] },
+            { text: 'Мета-промптинг', desc: 'Використання ШІ для генерації та оптимізації промптів. Попросіть модель написати кращу версію вашого промпту, а потім використайте цей покращений промпт.', links: [] },
+            { text: 'Примусовий структурований вихід', desc: 'Використання JSON-схем, XML-тегів або markdown-шаблонів для обмеження формату виходу. Усуває проблеми парсингу. Більшість API тепер підтримують нативний структурований вихід.', links: [{ title: 'Використання інструментів', href: 'tool-use.html' }] }
+          ]
+        },
+        keyTerms: {
+          en: [
+            { term: 'Chain-of-Thought', def: 'Prompting technique that elicits step-by-step reasoning, dramatically improving accuracy on complex tasks.' },
+            { term: 'ReAct', def: 'Reasoning + Acting pattern where models alternate between thinking and taking actions with tools.' },
+            { term: 'Few-Shot', def: 'Providing examples in the prompt to demonstrate desired output format and quality.' },
+            { term: 'Prompt Chaining', def: 'Breaking complex tasks into sequences of simpler prompts, each building on the previous output.' }
+          ],
+          uk: [
+            { term: 'Ланцюг думок', def: 'Техніка промптингу, що викликає покрокове міркування, драматично покращуючи точність складних задач.' },
+            { term: 'ReAct', def: 'Патерн Міркування + Дія, де моделі чергують між обмірковуванням та діями з інструментами.' },
+            { term: 'Few-Shot', def: 'Надання прикладів у промпті для демонстрації бажаного формату та якості виходу.' },
+            { term: 'Ланцюжок промптів', def: 'Розбиття складних задач на послідовності простіших промптів, кожен з яких будує на попередньому виході.' }
+          ]
+        },
+        tips: {
+          en: [
+            'Start with zero-shot, add CoT if accuracy is low, then add few-shot examples if format is wrong',
+            'For complex tasks, prompt chaining (multiple focused prompts) almost always beats a single long prompt',
+            'Test your prompts with edge cases — the prompt that works for typical inputs often fails on unusual ones'
+          ],
+          uk: [
+            'Почніть з zero-shot, додайте CoT якщо точність низька, потім додайте few-shot приклади якщо формат невірний',
+            'Для складних задач ланцюжок промптів (кілька фокусованих) майже завжди перемагає один довгий промпт',
+            'Тестуйте промпти на граничних випадках — промпт що працює для типових входів часто збоїть на незвичайних'
+          ]
+        },
+        related: ['Feed', 'Agents & Tools'] },
+      { slug: 'base-tools', title: { en: 'Tools & Libraries', uk: 'Інструменти та бібліотеки' }, desc: { en: 'Key frameworks and libraries for building AI-powered applications.', uk: 'Ключові фреймворки та бібліотеки для створення ШІ-додатків.' },
+        overview: {
+          en: [
+            'The AI development ecosystem has matured rapidly, with frameworks and libraries for every layer of the stack. From orchestration frameworks like LangChain that manage complex LLM workflows, to provider SDKs that handle API communication, to the Hugging Face ecosystem that democratizes access to thousands of models.',
+            'Choosing the right tools depends on your use case. Quick prototypes might use LangChain for its batteries-included approach. Production systems often prefer direct SDK usage for control and reliability. Understanding the landscape helps you pick the right tool for each job.'
+          ],
+          uk: [
+            'Екосистема розробки ШІ швидко дозріла, з фреймворками та бібліотеками для кожного рівня стеку. Від оркестраційних фреймворків як LangChain для складних LLM-воркфлоу, до SDK провайдерів для API-комунікації, до екосистеми Hugging Face, що демократизує доступ до тисяч моделей.',
+            'Вибір правильних інструментів залежить від вашого випадку. Швидкі прототипи можуть використовувати LangChain з його повним набором. Продакшн-системи часто віддають перевагу прямому SDK для контролю та надійності. Розуміння ландшафту допомагає обрати правильний інструмент.'
+          ]
+        },
+        details: {
+          en: [
+            { text: 'LangChain', desc: 'The most popular LLM orchestration framework. Provides chains (sequential LLM calls), agents (autonomous tool-using LLMs), memory (conversation persistence), and 700+ integrations.', links: [{ title: 'Agents', href: 'agents.html' }] },
+            { text: 'LlamaIndex', desc: 'Specialized for data retrieval and RAG. Connects to 160+ data sources, handles document loading, chunking, embedding, and querying. Ideal for building knowledge-base applications.', links: [{ title: 'RAG', href: 'rag.html' }] },
+            { text: 'Haystack', desc: 'End-to-end NLP/RAG framework from deepset. Pipeline-based architecture for search, question answering, and document processing. Strong focus on production-readiness.', links: [{ title: 'RAG', href: 'rag.html' }] },
+            { text: 'OpenAI SDK', desc: 'Official Python and Node.js SDKs for GPT models. Clean API for chat completions, function calling, embeddings, and assistants. The de facto standard that others follow.', links: [{ title: 'API Providers', href: 'api-providers.html' }] },
+            { text: 'Anthropic SDK', desc: 'Official SDK for Claude models. Supports messages API, tool use, streaming, vision, and prompt caching. Known for its clean, well-documented design.', links: [{ title: 'API Providers', href: 'api-providers.html' }] },
+            { text: 'Hugging Face Transformers', desc: 'The largest open-source ML library. 400K+ models, tokenizers, training pipelines, and inference tools. Bridges the gap between research and production for open models.', links: [{ title: 'Foundation Models', href: '../level-1/foundation-models.html' }] },
+            { text: 'Vercel AI SDK', desc: 'Frontend-first AI SDK for React/Next.js. Handles streaming responses, tool calls, and multi-step interactions in the browser. Ideal for building AI-powered web apps.', links: [{ title: 'Applied Frameworks', href: 'frameworks.html' }] },
+            { text: 'Semantic Kernel', desc: 'Microsoft\'s AI orchestration SDK for .NET, Python, and Java. Integrates with Azure OpenAI and other providers. Enterprise-focused with plugin architecture.', links: [] },
+            { text: 'Instructor & Outlines', desc: 'Libraries for structured output extraction. Instructor wraps LLM calls to return validated Pydantic models. Outlines enforces output schemas at the token generation level.', links: [{ title: 'Prompting Techniques', href: 'prompting-techniques.html' }] },
+            { text: 'Choosing Your Stack', desc: 'Prototype: LangChain for speed. Production: direct SDKs for control. RAG: LlamaIndex. Web apps: Vercel AI SDK. Open models: Hugging Face. Pick based on your deployment target and team skills.', links: [] }
+          ],
+          uk: [
+            { text: 'LangChain', desc: 'Найпопулярніший фреймворк оркестрації LLM. Надає ланцюги (послідовні виклики LLM), агенти (автономні LLM з інструментами), пам\'ять та 700+ інтеграцій.', links: [{ title: 'Агенти', href: 'agents.html' }] },
+            { text: 'LlamaIndex', desc: 'Спеціалізований для пошуку даних та RAG. Підключається до 160+ джерел даних, обробляє документи, чанкінг, ембедінги та запити. Ідеальний для баз знань.', links: [{ title: 'RAG', href: 'rag.html' }] },
+            { text: 'Haystack', desc: 'Наскрізний NLP/RAG фреймворк від deepset. Пайплайн-архітектура для пошуку, відповідей на питання та обробки документів. Фокус на продакшн-готовність.', links: [{ title: 'RAG', href: 'rag.html' }] },
+            { text: 'OpenAI SDK', desc: 'Офіційні Python та Node.js SDK для моделей GPT. Чистий API для чат-компліцій, виклику функцій, ембедінгів та асистентів. Де-факто стандарт галузі.', links: [{ title: 'API-провайдери', href: 'api-providers.html' }] },
+            { text: 'Anthropic SDK', desc: 'Офіційний SDK для моделей Claude. Підтримує messages API, використання інструментів, стрімінг, візію та кешування промптів. Відомий чистим, документованим дизайном.', links: [{ title: 'API-провайдери', href: 'api-providers.html' }] },
+            { text: 'Hugging Face Transformers', desc: 'Найбільша open-source ML бібліотека. 400K+ моделей, токенізатори, пайплайни навчання та інструменти інференсу. Мост між дослідженнями та продакшном.', links: [{ title: 'Фундаментальні моделі', href: '../level-1/foundation-models.html' }] },
+            { text: 'Vercel AI SDK', desc: 'Фронтенд-first ШІ SDK для React/Next.js. Обробляє стрімінг відповідей, виклики інструментів та багатокрокові взаємодії в браузері. Ідеальний для ШІ веб-додатків.', links: [{ title: 'Прикладні фреймворки', href: 'frameworks.html' }] },
+            { text: 'Semantic Kernel', desc: 'SDK оркестрації ШІ від Microsoft для .NET, Python та Java. Інтегрується з Azure OpenAI та іншими провайдерами. Ентерпрайз-фокус з плагін-архітектурою.', links: [] },
+            { text: 'Instructor та Outlines', desc: 'Бібліотеки для структурованого витягування. Instructor обгортає виклики LLM для повернення валідованих Pydantic моделей. Outlines примусово дотримується схем на рівні генерації токенів.', links: [{ title: 'Техніки промптингу', href: 'prompting-techniques.html' }] },
+            { text: 'Вибір вашого стеку', desc: 'Прототип: LangChain для швидкості. Продакшн: прямі SDK для контролю. RAG: LlamaIndex. Веб-додатки: Vercel AI SDK. Відкриті моделі: Hugging Face. Обирайте за ціллю та навичками.', links: [] }
+          ]
+        },
+        keyTerms: {
+          en: [
+            { term: 'LangChain', def: 'Most popular LLM orchestration framework with chains, agents, memory, and 700+ integrations.' },
+            { term: 'LlamaIndex', def: 'Data framework for LLM applications specializing in ingestion, indexing, and retrieval.' },
+            { term: 'Hugging Face', def: 'Open-source AI platform hosting 400K+ models and the Transformers library for ML development.' },
+            { term: 'SDK', def: 'Software Development Kit — library providing programmatic access to an AI provider\'s models and APIs.' }
+          ],
+          uk: [
+            { term: 'LangChain', def: 'Найпопулярніший фреймворк оркестрації LLM з ланцюгами, агентами, пам\'яттю та 700+ інтеграціями.' },
+            { term: 'LlamaIndex', def: 'Фреймворк даних для LLM-додатків, спеціалізований на завантаженні, індексації та пошуку.' },
+            { term: 'Hugging Face', def: 'Open-source ШІ-платформа з 400K+ моделями та бібліотекою Transformers для ML-розробки.' },
+            { term: 'SDK', def: 'Software Development Kit — бібліотека для програмного доступу до моделей та API провайдера ШІ.' }
+          ]
+        },
+        tips: {
+          en: [
+            'Start with a provider SDK directly (OpenAI or Anthropic) before adding LangChain — understand what the abstraction hides',
+            'For RAG projects, LlamaIndex saves weeks of work on document processing and chunking pipelines',
+            'Always version-pin your AI library dependencies — these ecosystems change rapidly and breaking changes are common'
+          ],
+          uk: [
+            'Почніть з SDK провайдера напряму (OpenAI або Anthropic) перед додаванням LangChain — зрозумійте що ховає абстракція',
+            'Для RAG-проєктів LlamaIndex економить тижні роботи над обробкою документів та чанкінг-пайплайнами',
+            'Завжди фіксуйте версії залежностей ШІ-бібліотек — ці екосистеми швидко змінюються і ламаючі зміни часті'
+          ]
+        },
+        related: ['Agents & Tools', 'Video Content'] },
+      { slug: 'agents', title: { en: 'Agents', uk: 'Агенти' }, desc: { en: 'AI agents that can plan, reason, and take actions autonomously.', uk: 'Агенти ШІ, що можуть планувати, міркувати та діяти автономно.' },
+        overview: {
+          en: [
+            'AI agents are systems that use LLMs as their "brain" to perceive their environment, plan actions, execute them using tools, and iterate based on results. Unlike simple chatbots that respond to one message at a time, agents can pursue multi-step goals autonomously — browsing the web, writing code, managing files, and calling APIs.',
+            'The agent paradigm is where AI moves from tool to collaborator. Agents like Claude Code, Devin, and OpenAI\'s operator can complete complex tasks that would take humans hours. The key challenge is reliability — agents work best when given clear goals, appropriate tools, and guardrails to prevent harmful actions.'
+          ],
+          uk: [
+            'ШІ-агенти — це системи, що використовують LLM як свій "мозок" для сприйняття середовища, планування дій, їх виконання за допомогою інструментів та ітерації на основі результатів. На відміну від простих чатботів, агенти можуть автономно переслідувати багатокрокові цілі — браузити веб, писати код, керувати файлами та викликати API.',
+            'Парадигма агентів — це де ШІ переходить від інструмента до співробітника. Агенти як Claude Code, Devin та оператор OpenAI можуть виконувати складні задачі, що зайняли б людині години. Ключовий виклик — надійність: агенти працюють найкраще з чіткими цілями, відповідними інструментами та захисними бар\'єрами.'
+          ]
+        },
+        details: {
+          en: [
+            { text: 'What Is an AI Agent', desc: 'A system with an LLM core that perceives, plans, acts, and iterates. The perception-planning-action loop runs until the goal is achieved or a stopping condition is met.', links: [{ title: 'Generative AI', href: '../level-1/generative-ai.html' }] },
+            { text: 'Agent Architectures', desc: 'ReAct (reason then act), Plan-and-Execute (create plan first, then execute steps), and Reflexion (self-critique and retry). Each architecture trades off between speed and reliability.', links: [{ title: 'Prompting Techniques', href: 'prompting-techniques.html' }] },
+            { text: 'Multi-Agent Systems', desc: 'Multiple agents collaborating on a task. CrewAI assigns roles (researcher, writer, reviewer), AutoGen enables agent conversations, MetaGPT simulates software teams. Powerful but complex.', links: [] },
+            { text: 'Agent Memory', desc: 'Short-term (current conversation), long-term (persisted knowledge), and episodic (memories of past tasks). Effective memory management is what makes agents improve over time.', links: [{ title: 'Context', href: '../level-2/context.html' }] },
+            { text: 'Tool Use in Agents', desc: 'Agents extend their capabilities through function calling — web search, code execution, file I/O, API calls. The quality and breadth of available tools directly determines what an agent can accomplish.', links: [{ title: 'Tool Use', href: 'tool-use.html' }] },
+            { text: 'Coding Agents', desc: 'Claude Code, Cursor, Devin, GitHub Copilot Workspace — agents that can read codebases, write code, run tests, and iterate on bugs autonomously. The fastest-growing agent category.', links: [{ title: 'Vibecoding', href: '../level-2/vibecoding.html' }] },
+            { text: 'Browser & Computer Agents', desc: 'Agents that can control a browser or desktop — clicking, typing, navigating. Anthropic\'s computer use, OpenAI operator, and browser-use frameworks enable real-world task automation.', links: [] },
+            { text: 'Agent Evaluation', desc: 'Measuring agent performance is hard — tasks are open-ended and multi-step. Benchmarks like SWE-bench (code), WebArena (browser), and GAIA (general) attempt to standardize evaluation.', links: [] },
+            { text: 'Agent Safety', desc: 'Agents can take irreversible actions (delete files, send emails, modify databases). Sandboxing, confirmation gates, and principle-of-least-privilege tool access are critical safety measures.', links: [{ title: 'AI Safety', href: '../level-5/ai-safety.html' }] },
+            { text: 'The Agentic Future', desc: 'Agents are evolving from single-purpose to general-purpose. The trajectory: task-specific bots → coding agents → computer-using agents → fully autonomous assistants. We are early in this progression.', links: [{ title: 'AGI', href: '../level-5/agi.html' }] }
+          ],
+          uk: [
+            { text: 'Що таке ШІ-агент', desc: 'Система з LLM-ядром, що сприймає, планує, діє та ітерує. Цикл сприйняття-планування-дії працює до досягнення цілі або умови зупинки.', links: [{ title: 'Генеративний ШІ', href: '../level-1/generative-ai.html' }] },
+            { text: 'Архітектури агентів', desc: 'ReAct (міркуй потім дій), Plan-and-Execute (спочатку план, потім виконання), Reflexion (самокритика та повтор). Кожна архітектура балансує швидкість та надійність.', links: [{ title: 'Техніки промптингу', href: 'prompting-techniques.html' }] },
+            { text: 'Мультиагентні системи', desc: 'Кілька агентів, що співпрацюють над задачею. CrewAI призначає ролі (дослідник, письменник, ревюер), AutoGen забезпечує розмови агентів, MetaGPT симулює команди розробників.', links: [] },
+            { text: 'Пам\'ять агентів', desc: 'Короткочасна (поточна розмова), довгострокова (збережені знання) та епізодична (спогади про минулі задачі). Ефективне управління пам\'яттю робить агентів кращими з часом.', links: [{ title: 'Контекст', href: '../level-2/context.html' }] },
+            { text: 'Використання інструментів в агентах', desc: 'Агенти розширюють можливості через виклик функцій — пошук, виконання коду, файловий I/O, виклики API. Якість та широта доступних інструментів визначає можливості агента.', links: [{ title: 'Використання інструментів', href: 'tool-use.html' }] },
+            { text: 'Кодуючі агенти', desc: 'Claude Code, Cursor, Devin, GitHub Copilot Workspace — агенти що читають кодові бази, пишуть код, запускають тести та ітерують над багами автономно. Категорія агентів що найшвидше зростає.', links: [{ title: 'Вайбкодинг', href: '../level-2/vibecoding.html' }] },
+            { text: 'Браузерні та комп\'ютерні агенти', desc: 'Агенти, що керують браузером або десктопом — клікають, друкують, навігують. Computer use від Anthropic, оператор OpenAI та browser-use фреймворки для автоматизації реальних задач.', links: [] },
+            { text: 'Оцінка агентів', desc: 'Вимірювання продуктивності агентів складне — задачі відкриті та багатокрокові. Бенчмарки SWE-bench (код), WebArena (браузер), GAIA (загальний) стандартизують оцінку.', links: [] },
+            { text: 'Безпека агентів', desc: 'Агенти можуть виконувати незворотні дії (видалення файлів, надсилання листів, зміна баз даних). Пісочниці, гейти підтвердження та мінімальні привілеї — критичні заходи безпеки.', links: [{ title: 'Безпека ШІ', href: '../level-5/ai-safety.html' }] },
+            { text: 'Агентне майбутнє', desc: 'Агенти еволюціонують від одноцільових до загальноцільових. Траєкторія: задача-специфічні боти → кодуючі агенти → комп\'ютерні агенти → повністю автономні асистенти.', links: [{ title: 'AGI', href: '../level-5/agi.html' }] }
+          ]
+        },
+        keyTerms: {
+          en: [
+            { term: 'AI Agent', def: 'An LLM-powered system that autonomously perceives, plans, acts, and iterates to achieve goals.' },
+            { term: 'ReAct', def: 'Agent architecture alternating between reasoning about what to do and taking actions with tools.' },
+            { term: 'Multi-Agent System', def: 'Multiple AI agents with different roles collaborating to solve complex tasks together.' },
+            { term: 'Tool Calling', def: 'The mechanism by which agents invoke external functions, APIs, or services to extend their capabilities.' }
+          ],
+          uk: [
+            { term: 'ШІ-агент', def: 'Система на базі LLM, що автономно сприймає, планує, діє та ітерує для досягнення цілей.' },
+            { term: 'ReAct', def: 'Архітектура агента, що чергує між міркуванням про дії та виконанням дій з інструментами.' },
+            { term: 'Мультиагентна система', def: 'Кілька ШІ-агентів з різними ролями, що співпрацюють для вирішення складних задач.' },
+            { term: 'Виклик інструментів', def: 'Механізм, через який агенти викликають зовнішні функції, API або сервіси для розширення можливостей.' }
+          ]
+        },
+        tips: {
+          en: [
+            'Start with single-agent systems before attempting multi-agent — complexity grows exponentially with each agent added',
+            'Always implement confirmation gates for irreversible actions (file deletion, sending messages, database writes)',
+            'The most reliable agents have narrow, well-defined tool sets rather than access to everything'
+          ],
+          uk: [
+            'Почніть з одноагентних систем перед спробою мультиагентних — складність зростає експоненційно з кожним агентом',
+            'Завжди впроваджуйте гейти підтвердження для незворотних дій (видалення файлів, надсилання повідомлень, запис в БД)',
+            'Найнадійніші агенти мають вузькі, чітко визначені набори інструментів, а не доступ до всього'
+          ]
+        },
+        related: ['Agents & Tools', 'Video Content'] },
+      { slug: 'tool-use', title: { en: 'Tool Use', uk: 'Використання інструментів' }, desc: { en: 'Extending AI capabilities through function calling and external tool integration.', uk: 'Розширення можливостей ШІ через виклик функцій та інтеграцію зовнішніх інструментів.' },
+        overview: {
+          en: [
+            'Tool use (function calling) is the mechanism that transforms LLMs from text generators into capable agents. Instead of just producing text, models can invoke external functions — search the web, query databases, execute code, call APIs — and incorporate the results into their responses.',
+            'Every major provider now supports tool use: OpenAI, Anthropic, and Google each have their own function calling APIs. The pattern is universal: you define available tools with JSON schemas, the model decides when to call them, and your code executes the actual function and returns results.'
+          ],
+          uk: [
+            'Використання інструментів (виклик функцій) — це механізм, що перетворює LLM з генераторів тексту на здатних агентів. Замість просто видачі тексту, моделі можуть викликати зовнішні функції — пошук, запити до баз даних, виконання коду, виклики API — та включати результати у відповіді.',
+            'Кожен великий провайдер тепер підтримує використання інструментів: OpenAI, Anthropic та Google мають власні API виклику функцій. Патерн універсальний: ви визначаєте доступні інструменти JSON-схемами, модель вирішує коли їх викликати, а ваш код виконує функцію та повертає результати.'
+          ]
+        },
+        details: {
+          en: [
+            { text: 'Function Calling Basics', desc: 'Define tools with name, description, and JSON Schema parameters. The model generates a structured tool call instead of text. Your code executes it and returns results for the model to use.', links: [{ title: 'API Providers', href: 'api-providers.html' }] },
+            { text: 'OpenAI Function Calling', desc: 'tools array with function definitions. Supports parallel_tool_calls, tool_choice forcing, and strict mode for guaranteed schema adherence. The original and most widely adopted approach.', links: [] },
+            { text: 'Anthropic Tool Use', desc: 'Claude\'s tool_use blocks in the messages API. Supports nested tools, tool_choice (auto/any/tool), and streaming tool calls. Known for high accuracy in complex multi-tool scenarios.', links: [] },
+            { text: 'Parallel Tool Calls', desc: 'Models can invoke multiple tools simultaneously when tasks are independent. Searching multiple databases, calling several APIs at once. Dramatically speeds up agent workflows.', links: [{ title: 'Agents', href: 'agents.html' }] },
+            { text: 'Multi-Step Tool Use', desc: 'The model calls a tool, gets results, reasons about them, then calls another tool. This loop enables complex workflows: search → read → analyze → write. Most real tasks require multiple steps.', links: [] },
+            { text: 'Building Custom Tools', desc: 'Define tools for your specific domain: inventory lookup, CRM queries, internal API calls, data transformations. Good tool descriptions are critical — the model decides when to use tools based on descriptions.', links: [] },
+            { text: 'MCP (Model Context Protocol)', desc: 'Anthropic\'s open standard for connecting AI models to tools and data sources. Servers expose tools via a standard protocol, enabling plug-and-play tool integration across different AI applications.', links: [{ title: 'AI Protocols', href: 'ai-protocols.html' }] },
+            { text: 'Computer Use', desc: 'Using the screen as a tool — the model sees screenshots and generates mouse/keyboard actions. Anthropic\'s computer use enables AI to operate any software, not just API-enabled ones.', links: [] },
+            { text: 'Error Handling', desc: 'Tools fail — APIs timeout, queries return errors, permissions are denied. Robust tool implementations return clear error messages so the model can retry, use alternatives, or explain the failure.', links: [{ title: 'Hallucinations', href: '../level-2/hallucination.html' }] },
+            { text: 'Security Considerations', desc: 'Tool calls can have real-world side effects. Validate parameters, sanitize inputs, implement rate limits, and use principle of least privilege. Never give models unrestricted database write access.', links: [{ title: 'AI Safety', href: '../level-5/ai-safety.html' }] }
+          ],
+          uk: [
+            { text: 'Основи виклику функцій', desc: 'Визначте інструменти з ім\'ям, описом та JSON Schema параметрами. Модель генерує структурований виклик замість тексту. Ваш код виконує та повертає результати.', links: [{ title: 'API-провайдери', href: 'api-providers.html' }] },
+            { text: 'Виклик функцій OpenAI', desc: 'Масив tools з визначеннями функцій. Підтримує parallel_tool_calls, примусовий tool_choice та strict mode для гарантованого дотримання схеми.', links: [] },
+            { text: 'Tool Use від Anthropic', desc: 'Блоки tool_use в messages API Claude. Підтримує вкладені інструменти, tool_choice (auto/any/tool) та стрімінг викликів. Відомий високою точністю у складних мультиінструментних сценаріях.', links: [] },
+            { text: 'Паралельні виклики інструментів', desc: 'Моделі можуть викликати кілька інструментів одночасно для незалежних задач. Пошук у кількох базах, виклик кількох API. Драматично прискорює воркфлоу агентів.', links: [{ title: 'Агенти', href: 'agents.html' }] },
+            { text: 'Багатокрокове використання інструментів', desc: 'Модель викликає інструмент, отримує результати, міркує, потім викликає інший. Цей цикл забезпечує складні воркфлоу: пошук → читання → аналіз → запис.', links: [] },
+            { text: 'Створення власних інструментів', desc: 'Визначте інструменти для вашого домену: пошук інвентарю, запити CRM, внутрішні API. Хороші описи інструментів критичні — модель вирішує коли використовувати на основі описів.', links: [] },
+            { text: 'MCP (Model Context Protocol)', desc: 'Відкритий стандарт Anthropic для з\'єднання моделей ШІ з інструментами та джерелами даних. Сервери надають інструменти через стандартний протокол для plug-and-play інтеграції.', links: [{ title: 'ШІ-протоколи', href: 'ai-protocols.html' }] },
+            { text: 'Керування комп\'ютером', desc: 'Використання екрану як інструменту — модель бачить скріншоти та генерує дії миші/клавіатури. Computer use від Anthropic дозволяє ШІ працювати з будь-яким ПЗ.', links: [] },
+            { text: 'Обробка помилок', desc: 'Інструменти збоять — API таймаутять, запити повертають помилки. Робастні реалізації повертають чіткі повідомлення про помилки, щоб модель могла повторити або пояснити збій.', links: [{ title: 'Галюцинації', href: '../level-2/hallucination.html' }] },
+            { text: 'Міркування безпеки', desc: 'Виклики інструментів мають реальні наслідки. Валідуйте параметри, санітизуйте входи, обмежуйте частоту та використовуйте мінімальні привілеї. Ніколи не давайте моделям необмежений запис в БД.', links: [{ title: 'Безпека ШІ', href: '../level-5/ai-safety.html' }] }
+          ]
+        },
+        keyTerms: {
+          en: [
+            { term: 'Function Calling', def: 'API feature allowing LLMs to invoke external functions with structured parameters instead of generating text.' },
+            { term: 'JSON Schema', def: 'The standard format for defining tool parameters — types, descriptions, required fields, enums.' },
+            { term: 'MCP', def: 'Model Context Protocol — Anthropic\'s open standard for connecting AI to tools and data sources.' },
+            { term: 'Computer Use', def: 'AI capability to control a computer by viewing screenshots and generating mouse/keyboard actions.' }
+          ],
+          uk: [
+            { term: 'Виклик функцій', def: 'Функція API, що дозволяє LLM викликати зовнішні функції зі структурованими параметрами замість генерації тексту.' },
+            { term: 'JSON Schema', def: 'Стандартний формат визначення параметрів інструментів — типи, описи, обов\'язкові поля, перерахування.' },
+            { term: 'MCP', def: 'Model Context Protocol — відкритий стандарт Anthropic для з\'єднання ШІ з інструментами та джерелами даних.' },
+            { term: 'Керування комп\'ютером', def: 'Можливість ШІ керувати комп\'ютером через перегляд скріншотів та генерацію дій миші/клавіатури.' }
+          ]
+        },
+        tips: {
+          en: [
+            'Write detailed tool descriptions — the model decides when to use each tool based solely on the description text',
+            'Return structured error messages from tools so the model can reason about failures and retry intelligently',
+            'Start with 3-5 focused tools rather than 50 — models choose better with fewer, well-defined options'
+          ],
+          uk: [
+            'Пишіть детальні описи інструментів — модель вирішує коли використовувати кожен інструмент лише на основі опису',
+            'Повертайте структуровані повідомлення про помилки з інструментів, щоб модель могла міркувати та повторити розумно',
+            'Почніть з 3-5 фокусованих інструментів замість 50 — моделі обирають краще з меншою кількістю чітко визначених опцій'
+          ]
+        },
+        related: ['Agents & Tools'] },
+      { slug: 'rag', title: { en: 'RAG (Retrieval-Augmented Generation)', uk: 'RAG (Генерація з пошуковим доповненням)' }, desc: { en: 'Grounding AI responses in your own data using retrieval techniques.', uk: 'Заземлення відповідей ШІ на ваших власних даних за допомогою пошукових технік.' },
+        overview: {
+          en: [
+            'RAG is the most practical technique for making AI work with your own data. Instead of fine-tuning a model on your documents (expensive and inflexible), RAG retrieves relevant information at query time and includes it in the prompt. The model then generates answers grounded in your actual data rather than its training knowledge.',
+            'A typical RAG pipeline: embed your documents into vectors, store in a vector database, and at query time retrieve the most relevant chunks to include in the context. This pattern powers knowledge bases, customer support bots, code assistants, and enterprise search. Getting the retrieval right is 80% of the challenge.'
+          ],
+          uk: [
+            'RAG — це найпрактичніша техніка для роботи ШІ з вашими власними даними. Замість файн-тюнінгу моделі на ваших документах (дорого та негнучко), RAG витягує релевантну інформацію під час запиту та включає в промпт. Модель потім генерує відповіді, заземлені на ваших реальних даних.',
+            'Типовий RAG-пайплайн: ембедінг документів у вектори, зберігання у векторній базі, та витягування найрелевантніших чанків під час запиту для включення в контекст. Цей патерн живить бази знань, бот підтримки, асистенти коду та ентерпрайз-пошук. Правильний пошук — це 80% виклику.'
+          ]
+        },
+        details: {
+          en: [
+            { text: 'RAG Architecture', desc: 'Three phases: Retrieve (find relevant documents), Augment (add them to the prompt), Generate (LLM produces grounded answer). Simple in concept, nuanced in execution.', links: [{ title: 'Context', href: '../level-2/context.html' }] },
+            { text: 'Embeddings', desc: 'Dense vector representations of text that capture semantic meaning. Similar texts have similar vectors. Models: OpenAI text-embedding-3, Cohere embed-v3, open-source BGE and E5.', links: [{ title: 'Foundation Models', href: '../level-1/foundation-models.html' }] },
+            { text: 'Vector Databases', desc: 'Specialized databases for storing and querying embeddings. Pinecone (managed), Qdrant (open-source), Weaviate, ChromaDB (lightweight). Each optimizes for different scale and feature needs.', links: [] },
+            { text: 'Chunking Strategies', desc: 'How you split documents into chunks dramatically affects retrieval quality. Fixed-size, sentence-based, semantic, recursive, and document-structure-aware chunking each suit different content types.', links: [] },
+            { text: 'Hybrid Search', desc: 'Combining semantic search (embeddings) with keyword search (BM25). Hybrid catches both conceptually similar and keyword-exact matches. Most production RAG systems use hybrid search.', links: [] },
+            { text: 'Reranking', desc: 'After initial retrieval, a cross-encoder reranker scores each chunk against the query more accurately. Cohere Rerank, BGE reranker. Dramatically improves retrieval precision.', links: [] },
+            { text: 'Advanced RAG Patterns', desc: 'CRAG (Corrective RAG): verify retrieval quality before generating. Self-RAG: model decides when retrieval is needed. Graph RAG: combine vector search with knowledge graphs for richer context.', links: [] },
+            { text: 'Multi-Modal RAG', desc: 'RAG beyond text — retrieving images, tables, and code snippets. Vision models can process retrieved images. Table extraction and code understanding require specialized chunking.', links: [{ title: 'Multimodality', href: '../level-1/multimodality.html' }] },
+            { text: 'Evaluation', desc: 'Measuring RAG quality: retrieval metrics (precision, recall, MRR) and generation metrics (faithfulness, relevance, completeness). RAGAS framework automates RAG evaluation.', links: [] },
+            { text: 'Common Pitfalls', desc: 'Too-small chunks lose context, too-large waste tokens. Poor embeddings retrieve irrelevant content. No reranking means noise in the top results. Always evaluate retrieval quality independently of generation.', links: [{ title: 'Hallucinations', href: '../level-2/hallucination.html' }] }
+          ],
+          uk: [
+            { text: 'Архітектура RAG', desc: 'Три фази: Retrieve (знайти релевантні документи), Augment (додати в промпт), Generate (LLM видає заземлену відповідь). Просто в концепції, нюансовано у виконанні.', links: [{ title: 'Контекст', href: '../level-2/context.html' }] },
+            { text: 'Ембедінги', desc: 'Щільні векторні представлення тексту, що захоплюють семантичне значення. Подібні тексти мають подібні вектори. Моделі: OpenAI text-embedding-3, Cohere embed-v3, open-source BGE та E5.', links: [{ title: 'Фундаментальні моделі', href: '../level-1/foundation-models.html' }] },
+            { text: 'Векторні бази даних', desc: 'Спеціалізовані бази для зберігання та запитів ембедінгів. Pinecone (керований), Qdrant (open-source), Weaviate, ChromaDB (легкий). Кожна оптимізована під різний масштаб.', links: [] },
+            { text: 'Стратегії чанкінгу', desc: 'Спосіб розбиття документів на чанки драматично впливає на якість пошуку. Фіксований, по реченнях, семантичний, рекурсивний та структурно-обізнаний чанкінг для різних типів контенту.', links: [] },
+            { text: 'Гібридний пошук', desc: 'Поєднання семантичного пошуку (ембедінги) з ключовим (BM25). Гібрид ловить і концептуально схожі, і точні ключові збіги. Більшість продакшн RAG використовують гібридний пошук.', links: [] },
+            { text: 'Перерейтинг', desc: 'Після первинного пошуку крос-енкодер перерейтер оцінює кожен чанк точніше. Cohere Rerank, BGE reranker. Драматично покращує точність пошуку.', links: [] },
+            { text: 'Просунуті патерни RAG', desc: 'CRAG (Corrective RAG): перевірка якості пошуку перед генерацією. Self-RAG: модель вирішує коли потрібен пошук. Graph RAG: векторний пошук + граф знань для багатшого контексту.', links: [] },
+            { text: 'Мультимодальний RAG', desc: 'RAG за межами тексту — витягування зображень, таблиць та фрагментів коду. Моделі візії обробляють отримані зображення. Витягування таблиць та коду вимагає спеціалізованого чанкінгу.', links: [{ title: 'Мультимодальність', href: '../level-1/multimodality.html' }] },
+            { text: 'Оцінка', desc: 'Вимірювання якості RAG: метрики пошуку (точність, повнота, MRR) та генерації (вірність, релевантність, повнота). Фреймворк RAGAS автоматизує оцінку RAG.', links: [] },
+            { text: 'Типові пастки', desc: 'Занадто малі чанки втрачають контекст, занадто великі витрачають токени. Погані ембедінги дають нерелевантний пошук. Без перерейтингу — шум у топ-результатах. Завжди оцінюйте пошук окремо від генерації.', links: [{ title: 'Галюцинації', href: '../level-2/hallucination.html' }] }
+          ]
+        },
+        keyTerms: {
+          en: [
+            { term: 'Embedding', def: 'Dense vector representation of text that captures semantic meaning for similarity search.' },
+            { term: 'Vector Database', def: 'Database optimized for storing embeddings and performing fast similarity search (Pinecone, Qdrant, Weaviate).' },
+            { term: 'Chunking', def: 'The process of splitting documents into smaller pieces for embedding and retrieval.' },
+            { term: 'Reranking', def: 'Second-stage scoring of retrieved results using a cross-encoder model for improved precision.' }
+          ],
+          uk: [
+            { term: 'Ембедінг', def: 'Щільне векторне представлення тексту, що захоплює семантичне значення для пошуку подібності.' },
+            { term: 'Векторна база даних', def: 'База даних оптимізована для зберігання ембедінгів та швидкого пошуку подібності (Pinecone, Qdrant, Weaviate).' },
+            { term: 'Чанкінг', def: 'Процес розбиття документів на менші частини для ембедінгу та пошуку.' },
+            { term: 'Перерейтинг', def: 'Друга стадія оцінки знайдених результатів крос-енкодером для покращення точності.' }
+          ]
+        },
+        tips: {
+          en: [
+            'Start with a simple chunking strategy (500 tokens with 50 overlap), then optimize only after measuring retrieval quality',
+            'Always add a reranking step — it is the single highest-impact improvement you can make to a RAG system',
+            'Evaluate retrieval and generation separately: poor retrieval cannot be fixed by a better LLM'
+          ],
+          uk: [
+            'Почніть з простої стратегії чанкінгу (500 токенів з 50 перетином), оптимізуйте лише після вимірювання якості пошуку',
+            'Завжди додавайте крок перерейтингу — це найвпливовіше покращення для RAG-системи',
+            'Оцінюйте пошук та генерацію окремо: поганий пошук не можна виправити кращою LLM'
+          ]
+        },
+        related: ['Video Content', 'Feed'] },
+      { slug: 'frameworks', title: { en: 'Applied Frameworks', uk: 'Прикладні фреймворки' }, desc: { en: 'Practical frameworks for building production AI applications.', uk: 'Практичні фреймворки для створення продакшн ШІ-додатків.' },
+        overview: {
+          en: [
+            'Applied AI frameworks bridge the gap between raw model APIs and production-ready applications. Instead of building everything from scratch — routing logic, UI, memory management, deployment — these frameworks provide opinionated structures that handle the common patterns so you can focus on your specific use case.',
+            'The landscape spans from visual builders (Dify, Flowise) where non-developers can create AI workflows by dragging nodes, to developer frameworks (Vercel AI SDK, FastAPI patterns) that give programmatic control with production-grade tooling. Choosing the right framework depends on your team\'s skills, deployment target, and how much customization you need.'
+          ],
+          uk: [
+            'Прикладні ШІ-фреймворки заповнюють розрив між сирими API моделей та продакшн-готовими додатками. Замість будування всього з нуля — логіки маршрутизації, UI, управління пам\'яттю, деплою — ці фреймворки надають структури, що обробляють типові патерни, щоб ви могли зосередитися на вашому конкретному випадку.',
+            'Ландшафт простягається від візуальних конструкторів (Dify, Flowise), де не-розробники можуть створювати ШІ-воркфлоу перетягуванням вузлів, до фреймворків для розробників (Vercel AI SDK, патерни FastAPI), що дають програмний контроль з продакшн-інструментарієм. Вибір правильного фреймворку залежить від навичок команди, цільової платформи та потрібного рівня кастомізації.'
+          ]
+        },
+        details: {
+          en: [
+            { text: 'Dify', desc: 'Open-source visual AI workflow builder. Drag-and-drop interface for building chatbots, RAG apps, and agent workflows. Supports multiple LLM providers, built-in knowledge base, and API deployment.', links: [{ title: 'RAG', href: 'rag.html' }] },
+            { text: 'n8n', desc: 'Workflow automation platform with powerful AI nodes. Connect LLMs to 400+ integrations (Slack, email, databases, APIs). Self-hostable, event-driven, and ideal for business process automation with AI.', links: [{ title: 'Agents', href: 'agents.html' }] },
+            { text: 'Flowise', desc: 'Visual LangChain builder — create LLM chains and agents by connecting nodes in a browser UI. Lower barrier to entry than coding LangChain directly. Good for prototyping RAG and agent workflows.', links: [{ title: 'Tools & Libraries', href: 'base-tools.html' }] },
+            { text: 'Vercel AI SDK', desc: 'TypeScript-first framework for building AI-powered web applications. Handles streaming, tool calling, multi-step interactions, and generative UI in React/Next.js. The standard for AI web apps.', links: [] },
+            { text: 'FastAPI + LLM Patterns', desc: 'Python backend patterns: async streaming endpoints for LLM responses, WebSocket connections for real-time chat, dependency injection for provider switching, and structured output validation with Pydantic.', links: [{ title: 'API Providers', href: 'api-providers.html' }] },
+            { text: 'Streamlit & Gradio', desc: 'Rapid prototyping frameworks for AI demos. Streamlit creates data apps with Python scripts. Gradio builds ML model interfaces with automatic API generation. Both deploy to the cloud in minutes.', links: [] },
+            { text: 'LangServe & LangGraph', desc: 'LangChain\'s deployment and stateful workflow tools. LangServe deploys chains as REST APIs. LangGraph builds complex multi-step agent workflows with state management, cycles, and human-in-the-loop.', links: [{ title: 'Agents', href: 'agents.html' }] },
+            { text: 'CrewAI & AutoGen', desc: 'Multi-agent orchestration frameworks. CrewAI assigns roles and tasks to collaborating agents. AutoGen (Microsoft) enables conversational agent teams. Both simplify building agent systems.', links: [{ title: 'Agents', href: 'agents.html' }] },
+            { text: 'Low-Code AI Platforms', desc: 'Platforms like Zapier AI, Make.com, and Bubble with AI plugins. Enable non-developers to build AI-powered workflows. Trade flexibility for speed and accessibility.', links: [] },
+            { text: 'Choosing a Framework', desc: 'Non-technical team: Dify/Flowise. Automation: n8n. Web app: Vercel AI SDK. Python API: FastAPI. Prototype: Streamlit/Gradio. Complex agents: LangGraph. Always prototype before committing to a framework.', links: [] }
+          ],
+          uk: [
+            { text: 'Dify', desc: 'Open-source візуальний конструктор ШІ-воркфлоу. Drag-and-drop інтерфейс для чатботів, RAG-додатків та агентних воркфлоу. Підтримує кількох LLM-провайдерів, вбудовану базу знань та API-деплой.', links: [{ title: 'RAG', href: 'rag.html' }] },
+            { text: 'n8n', desc: 'Платформа автоматизації воркфлоу з потужними ШІ-вузлами. З\'єднує LLM з 400+ інтеграціями (Slack, пошта, бази даних, API). Самохостинг, подієва модель, ідеальний для бізнес-автоматизації з ШІ.', links: [{ title: 'Агенти', href: 'agents.html' }] },
+            { text: 'Flowise', desc: 'Візуальний конструктор LangChain — створення LLM-ланцюгів та агентів з\'єднанням вузлів у браузері. Нижчий бар\'єр входу ніж кодування LangChain напряму. Добрий для прототипування RAG та агентів.', links: [{ title: 'Інструменти та бібліотеки', href: 'base-tools.html' }] },
+            { text: 'Vercel AI SDK', desc: 'TypeScript-first фреймворк для ШІ веб-додатків. Обробляє стрімінг, виклик інструментів, багатокрокові взаємодії та генеративний UI в React/Next.js. Стандарт для ШІ веб-додатків.', links: [] },
+            { text: 'Паттерни FastAPI + LLM', desc: 'Патерни Python-бекенду: асинхронні стрімінг-ендпоінти для відповідей LLM, WebSocket для реал-тайм чату, dependency injection для зміни провайдера, валідація структурованого виходу через Pydantic.', links: [{ title: 'API-провайдери', href: 'api-providers.html' }] },
+            { text: 'Streamlit та Gradio', desc: 'Фреймворки швидкого прототипування для ШІ-демо. Streamlit створює data-додатки з Python-скриптів. Gradio будує інтерфейси ML-моделей з автоматичною генерацією API. Обидва деплояться за хвилини.', links: [] },
+            { text: 'LangServe та LangGraph', desc: 'Інструменти деплою та stateful воркфлоу від LangChain. LangServe деплоїть ланцюги як REST API. LangGraph будує складні багатокрокові агентні воркфлоу зі стейт-менеджментом та циклами.', links: [{ title: 'Агенти', href: 'agents.html' }] },
+            { text: 'CrewAI та AutoGen', desc: 'Фреймворки оркестрації мультиагентних систем. CrewAI призначає ролі та задачі агентам-співробітникам. AutoGen (Microsoft) забезпечує розмовні команди агентів. Обидва спрощують побудову агентних систем.', links: [{ title: 'Агенти', href: 'agents.html' }] },
+            { text: 'Low-Code ШІ-платформи', desc: 'Платформи як Zapier AI, Make.com та Bubble з ШІ-плагінами. Дозволяють не-розробникам будувати ШІ-воркфлоу. Обмін гнучкості на швидкість та доступність.', links: [] },
+            { text: 'Вибір фреймворку', desc: 'Нетехнічна команда: Dify/Flowise. Автоматизація: n8n. Веб-додаток: Vercel AI SDK. Python API: FastAPI. Прототип: Streamlit/Gradio. Складні агенти: LangGraph. Завжди прототипуйте перед вибором.', links: [] }
+          ]
+        },
+        keyTerms: {
+          en: [
+            { term: 'Visual Workflow Builder', def: 'Tool that lets you create AI applications by connecting nodes in a drag-and-drop interface rather than writing code.' },
+            { term: 'Streaming', def: 'Delivering LLM responses token by token in real-time rather than waiting for the complete response.' },
+            { term: 'LangGraph', def: 'LangChain\'s framework for building stateful, multi-step agent workflows with cycles and branching logic.' },
+            { term: 'Low-Code AI', def: 'Platforms enabling AI application development with minimal programming through visual interfaces and pre-built components.' }
+          ],
+          uk: [
+            { term: 'Візуальний конструктор', def: 'Інструмент для створення ШІ-додатків з\'єднанням вузлів у drag-and-drop інтерфейсі замість написання коду.' },
+            { term: 'Стрімінг', def: 'Доставка відповідей LLM токен за токеном у реальному часі замість очікування повної відповіді.' },
+            { term: 'LangGraph', def: 'Фреймворк LangChain для побудови stateful, багатокрокових агентних воркфлоу з циклами та розгалуженням.' },
+            { term: 'Low-Code ШІ', def: 'Платформи для розробки ШІ-додатків з мінімальним програмуванням через візуальні інтерфейси та готові компоненти.' }
+          ]
+        },
+        tips: {
+          en: [
+            'Start with Dify or Flowise for quick prototypes, then migrate to code-based frameworks when you need more control',
+            'n8n is the Swiss army knife for AI automation — if your workflow involves connecting multiple services, start here',
+            'Don\'t over-framework: for simple LLM API calls, direct SDK usage is simpler and more maintainable than adding a framework'
+          ],
+          uk: [
+            'Почніть з Dify або Flowise для швидких прототипів, потім мігруйте на кодові фреймворки коли потрібен більший контроль',
+            'n8n — це швейцарський ніж для ШІ-автоматизації: якщо воркфлоу включає з\'єднання кількох сервісів, почніть тут',
+            'Не перефреймворкуйте: для простих викликів LLM API пряме використання SDK простіше та підтримуваніше ніж додавання фреймворку'
+          ]
+        },
+        related: ['Video Content', 'Agents & Tools'] },
+      { slug: 'model-formats', title: { en: 'Model Formats', uk: 'Формати моделей' }, desc: { en: 'Understanding different model distribution and execution formats.', uk: 'Розуміння різних форматів розповсюдження та виконання моделей.' },
+        overview: {
+          en: [
+            'AI models need to be serialized into files for distribution and loading. Different formats optimize for different goals: GGUF prioritizes running on consumer hardware with CPU+GPU splitting, GPTQ and AWQ are GPU-optimized for maximum throughput, SafeTensors ensures safe loading without code execution risks, and ONNX provides cross-platform compatibility.',
+            'Understanding model formats is essential for local AI deployment. The format you choose determines which inference engine you can use (llama.cpp, vLLM, TensorRT), what hardware it runs on, how much memory it needs, and how fast it generates tokens. Most models on Hugging Face are available in multiple formats.'
+          ],
+          uk: [
+            'Моделі ШІ потрібно серіалізувати у файли для розповсюдження та завантаження. Різні формати оптимізують різні цілі: GGUF пріоритизує запуск на споживчому обладнанні з розподілом CPU+GPU, GPTQ та AWQ оптимізовані для GPU з максимальною пропускною здатністю, SafeTensors забезпечує безпечне завантаження без ризиків виконання коду, ONNX надає кросплатформну сумісність.',
+            'Розуміння форматів моделей необхідне для локального деплою ШІ. Формат визначає який движок інференсу ви можете використати (llama.cpp, vLLM, TensorRT), на якому обладнанні він працює, скільки пам\'яті потрібно та наскільки швидко генеруються токени. Більшість моделей на Hugging Face доступні у кількох форматах.'
+          ]
+        },
+        details: {
+          en: [
+            { text: 'GGUF (llama.cpp)', desc: 'The most versatile format for local inference. Supports CPU, GPU, and mixed CPU+GPU execution. Single-file distribution with embedded metadata. The go-to format for running models on consumer hardware.', links: [{ title: 'Hardware Basics', href: 'hardware.html' }] },
+            { text: 'GPTQ', desc: 'GPU-optimized post-training quantization format. Models are quantized to 4-bit or 8-bit with calibration data. Faster than GGUF on pure GPU but requires the full model to fit in VRAM.', links: [{ title: 'Model Optimization', href: '../level-3/model-optimization.html' }] },
+            { text: 'AWQ (Activation-Aware Quantization)', desc: 'Advanced GPU quantization that preserves important weights based on activation patterns. Generally better quality than GPTQ at the same bit width. Supported by vLLM and TensorRT-LLM.', links: [] },
+            { text: 'SafeTensors', desc: 'Hugging Face safe serialization format that prevents arbitrary code execution on load, supports memory-mapping for fast loading, and is now the default format on Hugging Face Hub.', links: [] },
+            { text: 'ONNX (Open Neural Network Exchange)', desc: 'Cross-platform format supported by Microsoft, Google, and others. Enables running models on different hardware (CPU, GPU, NPU) through ONNX Runtime. Used for edge deployment and mobile inference.', links: [] },
+            { text: 'ExLlamaV2 and EXL2', desc: 'Highly optimized GPU inference with variable quantization — different layers can use different bit widths. Achieves the best perplexity-per-bit among quantized formats. Popular for enthusiast setups.', links: [] },
+            { text: 'TensorRT-LLM', desc: 'NVIDIA high-performance inference engine. Compiles models into optimized execution plans for NVIDIA GPUs. Maximum throughput for production serving but requires NVIDIA hardware and compilation step.', links: [{ title: 'Hardware Basics', href: 'hardware.html' }] },
+            { text: 'Quantization Levels', desc: 'Q2 (smallest, lowest quality) through Q8 (largest, highest quality). Q4_K_M is the sweet spot for GGUF — good quality with reasonable size. Q5+ recommended for reasoning-heavy tasks.', links: [{ title: 'Model Optimization', href: '../level-3/model-optimization.html' }] },
+            { text: 'Model Distribution', desc: 'Hugging Face is the primary hub. Models are uploaded in multiple formats by quantization specialists (TheBloke, bartowski). Ollama and LM Studio download GGUF models with one-click setup.', links: [] },
+            { text: 'Choosing the Right Format', desc: 'Consumer GPU: GGUF or EXL2. Production GPU server: AWQ or TensorRT-LLM. CPU only: GGUF. Cross-platform: ONNX. Mobile/edge: ONNX or CoreML. When in doubt, start with GGUF Q4_K_M.', links: [] }
+          ],
+          uk: [
+            { text: 'GGUF (llama.cpp)', desc: 'Найуніверсальніший формат для локального інференсу. Підтримує CPU, GPU та змішане виконання CPU+GPU. Розповсюдження одним файлом з вбудованими метаданими. Основний формат для споживчого обладнання.', links: [{ title: 'Основи обладнання', href: 'hardware.html' }] },
+            { text: 'GPTQ', desc: 'Оптимізований для GPU формат пост-тренувальної квантизації. Моделі квантизуються до 4-біт або 8-біт з калібраційними даними. Швидший за GGUF на чистому GPU, але вимагає повного вміщення в VRAM.', links: [{ title: 'Оптимізація моделей', href: '../level-3/model-optimization.html' }] },
+            { text: 'AWQ (Activation-Aware Quantization)', desc: 'Просунута GPU-квантизація, що зберігає важливі ваги на основі патернів активації. Зазвичай краща якість ніж GPTQ при однаковій бітності. Підтримується vLLM та TensorRT-LLM.', links: [] },
+            { text: 'SafeTensors', desc: 'Безпечний формат серіалізації від Hugging Face, що запобігає виконанню довільного коду при завантаженні, підтримує memory-mapping та є стандартом на Hugging Face Hub.', links: [] },
+            { text: 'ONNX (Open Neural Network Exchange)', desc: 'Кросплатформний формат від Microsoft, Google та інших. Дозволяє запускати моделі на різному обладнанні (CPU, GPU, NPU) через ONNX Runtime. Для edge-деплою та мобільного інференсу.', links: [] },
+            { text: 'ExLlamaV2 та EXL2', desc: 'Високооптимізований GPU-інференс зі змінною квантизацією — різні шари можуть мати різну бітність. Найкраща якість на біт серед квантизованих форматів. Популярний серед ентузіастів.', links: [] },
+            { text: 'TensorRT-LLM', desc: 'Високопродуктивний движок інференсу від NVIDIA. Компілює моделі в оптимізовані плани виконання для GPU NVIDIA. Максимальна пропускна здатність для продакшн-серверів, але вимагає обладнання NVIDIA.', links: [{ title: 'Основи обладнання', href: 'hardware.html' }] },
+            { text: 'Рівні квантизації', desc: 'Від Q2 (найменший, найнижча якість) до Q8 (найбільший, найвища якість). Q4_K_M — оптимальний баланс для GGUF. Q5+ рекомендується для задач з інтенсивним міркуванням.', links: [{ title: 'Оптимізація моделей', href: '../level-3/model-optimization.html' }] },
+            { text: 'Розповсюдження моделей', desc: 'Hugging Face — основний хаб. Моделі завантажуються у кількох форматах спеціалістами з квантизації (TheBloke, bartowski). Ollama та LM Studio завантажують GGUF моделі в один клік.', links: [] },
+            { text: 'Вибір правильного формату', desc: 'Споживчий GPU: GGUF або EXL2. Продакшн GPU-сервер: AWQ або TensorRT-LLM. Тільки CPU: GGUF. Кросплатформа: ONNX. Мобільний/edge: ONNX або CoreML. Якщо сумніваєтесь: GGUF Q4_K_M.', links: [] }
+          ]
+        },
+        keyTerms: {
+          en: [
+            { term: 'GGUF', def: 'llama.cpp model format supporting CPU+GPU inference — the most popular format for running models on consumer hardware.' },
+            { term: 'SafeTensors', def: 'Secure model serialization format that prevents code execution attacks during model loading.' },
+            { term: 'Quantization Level', def: 'Bit precision of model weights (Q2-Q8) — lower bits mean smaller files but reduced quality.' },
+            { term: 'VRAM', def: 'Video RAM on GPU — the primary constraint determining which model sizes and formats can run on your hardware.' }
+          ],
+          uk: [
+            { term: 'GGUF', def: 'Формат моделей llama.cpp для інференсу CPU+GPU — найпопулярніший формат для запуску моделей на споживчому обладнанні.' },
+            { term: 'SafeTensors', def: 'Безпечний формат серіалізації моделей, що запобігає атакам виконання коду при завантаженні.' },
+            { term: 'Рівень квантизації', def: 'Бітна точність ваг моделі (Q2-Q8) — менше біт означає менші файли, але знижену якість.' },
+            { term: 'VRAM', def: 'Відеопам\'ять GPU — основне обмеження, що визначає які розміри та формати моделей можуть працювати на вашому обладнанні.' }
+          ]
+        },
+        tips: {
+          en: [
+            'Start with GGUF Q4_K_M for any new model — it is the best balance of quality and size for most consumer setups',
+            'If you have a dedicated NVIDIA GPU with enough VRAM, try AWQ or EXL2 for noticeably faster inference than GGUF',
+            'Always use SafeTensors when available — never load untrusted serialized model files that could execute arbitrary code'
+          ],
+          uk: [
+            'Почніть з GGUF Q4_K_M для будь-якої нової моделі — це найкращий баланс якості та розміру для більшості споживчих конфігурацій',
+            'Якщо маєте виділений GPU NVIDIA з достатньою VRAM, спробуйте AWQ або EXL2 для помітно швидшого інференсу ніж GGUF',
+            'Завжди використовуйте SafeTensors коли доступно — ніколи не завантажуйте ненадійні серіалізовані файли моделей, що можуть виконати довільний код'
+          ]
+        },
+        related: ['Models'] },
+      { slug: 'ai-protocols', title: { en: 'AI Protocols', uk: 'ШІ-протоколи' }, desc: { en: 'Communication protocols connecting AI models to tools and services.', uk: 'Комунікаційні протоколи, що з\'єднують моделі ШІ з інструментами та сервісами.' },
+        overview: {
+          en: [
+            'As AI systems become more capable, they need standardized ways to communicate with tools, data sources, and other agents. AI protocols define these interfaces — from MCP (Model Context Protocol) which connects models to external tools via a universal standard, to A2A (Agent-to-Agent) for inter-agent communication, to the streaming protocols that deliver real-time responses.',
+            'These protocols are the "plumbing" of the AI ecosystem. Just as HTTP standardized web communication, protocols like MCP are standardizing how AI models interact with the world. Understanding them is crucial for building interoperable AI applications that can plug into the growing ecosystem of tools and services.'
+          ],
+          uk: [
+            'В міру зростання можливостей систем ШІ, їм потрібні стандартизовані способи комунікації з інструментами, джерелами даних та іншими агентами. ШІ-протоколи визначають ці інтерфейси — від MCP (Model Context Protocol), що з\'єднує моделі із зовнішніми інструментами через універсальний стандарт, до A2A (Agent-to-Agent) для міжагентної комунікації, до протоколів стримінгу для відповідей у реальному часі.',
+            'Ці протоколи — це "сантехніка" екосистеми ШІ. Так само як HTTP стандартизував веб-комунікацію, протоколи як MCP стандартизують взаємодію моделей ШІ зі світом. Розуміння їх критичне для побудови інтероперабельних ШІ-додатків, що можуть підключатися до зростаючої екосистеми інструментів та сервісів.'
+          ]
+        },
+        details: {
+          en: [
+            { text: 'MCP (Model Context Protocol)', desc: 'Anthropic\'s open standard for connecting AI to tools and data. Servers expose resources, tools, and prompts via a standard JSON-RPC protocol. One MCP server works with any MCP-compatible client (Claude, Cursor, etc.).', links: [{ title: 'Tool Use', href: 'tool-use.html' }] },
+            { text: 'MCP Architecture', desc: 'Client-server model: MCP hosts (AI apps) connect to MCP servers (tool providers). Servers declare capabilities. Transport layers: stdio (local), SSE/HTTP (remote). Stateful sessions with capability negotiation.', links: [] },
+            { text: 'A2A (Agent-to-Agent Protocol)', desc: 'Google\'s protocol for agent interoperability. Enables agents built on different frameworks to discover each other, negotiate capabilities, and collaborate on tasks. Complementary to MCP (tools) — A2A handles agent-agent communication.', links: [{ title: 'Agents', href: 'agents.html' }] },
+            { text: 'OpenAI Function Calling', desc: 'The first widely adopted tool-use protocol. Define functions with JSON Schema, model generates structured calls. Now an industry standard that Anthropic, Google, and others have adopted with variations.', links: [{ title: 'Tool Use', href: 'tool-use.html' }] },
+            { text: 'Server-Sent Events (SSE)', desc: 'One-way streaming protocol for delivering LLM tokens in real-time. HTTP-based, simple to implement, works through proxies. Used by OpenAI, Anthropic, and most API providers for streaming responses.', links: [] },
+            { text: 'WebSocket AI Communication', desc: 'Bidirectional streaming for real-time AI interactions. Used for voice AI (OpenAI Realtime API, Google Gemini Live), interactive agents, and scenarios requiring low-latency two-way communication.', links: [] },
+            { text: 'OpenAI Assistants Protocol', desc: 'Stateful conversation management with threads, runs, and built-in tools (code interpreter, file search). Higher-level than raw chat completions. Influenced how other providers design managed agent APIs.', links: [] },
+            { text: 'Structured Output Standards', desc: 'JSON Schema-based output enforcement across providers. OpenAI strict mode, Anthropic tool results, Google controlled generation. Converging toward a common standard for structured AI responses.', links: [{ title: 'Prompting Techniques', href: 'prompting-techniques.html' }] },
+            { text: 'OAuth and Authentication', desc: 'Emerging standards for secure tool access. MCP supports OAuth 2.0 for authenticated server connections. Key management, token rotation, and scope-based permissions for AI-to-service authentication.', links: [] },
+            { text: 'The Protocol Landscape', desc: 'MCP is for model-to-tool. A2A is for agent-to-agent. Function calling is for in-context tool use. SSE/WebSocket for streaming. The ecosystem is converging but not yet fully standardized — expect consolidation.', links: [] }
+          ],
+          uk: [
+            { text: 'MCP (Model Context Protocol)', desc: 'Відкритий стандарт Anthropic для з\'єднання ШІ з інструментами та даними. Сервери надають ресурси, інструменти та промпти через стандартний JSON-RPC протокол. Один MCP-сервер працює з будь-яким MCP-клієнтом (Claude, Cursor тощо).', links: [{ title: 'Використання інструментів', href: 'tool-use.html' }] },
+            { text: 'Архітектура MCP', desc: 'Клієнт-серверна модель: MCP-хости (ШІ-додатки) з\'єднуються з MCP-серверами (провайдери інструментів). Сервери декларують можливості. Транспорт: stdio (локальний), SSE/HTTP (віддалений). Stateful сесії з узгодженням можливостей.', links: [] },
+            { text: 'A2A (Agent-to-Agent Protocol)', desc: 'Протокол Google для інтероперабельності агентів. Дозволяє агентам на різних фреймворках знаходити одне одного, узгоджувати можливості та співпрацювати. Доповнює MCP (інструменти) — A2A обробляє агент-агент комунікацію.', links: [{ title: 'Агенти', href: 'agents.html' }] },
+            { text: 'Виклик функцій OpenAI', desc: 'Перший широко прийнятий протокол tool-use. Визначення функцій через JSON Schema, модель генерує структуровані виклики. Тепер індустріальний стандарт, прийнятий Anthropic, Google та іншими.', links: [{ title: 'Використання інструментів', href: 'tool-use.html' }] },
+            { text: 'Server-Sent Events (SSE)', desc: 'Односпрямований стрімінг-протокол для доставки токенів LLM у реальному часі. На базі HTTP, простий у реалізації, працює через проксі. Використовується OpenAI, Anthropic та більшістю API-провайдерів.', links: [] },
+            { text: 'WebSocket ШІ-комунікація', desc: 'Двонаправлений стрімінг для ШІ-взаємодій у реальному часі. Використовується для голосового ШІ (OpenAI Realtime API, Google Gemini Live), інтерактивних агентів та сценаріїв з низькою затримкою.', links: [] },
+            { text: 'Протокол OpenAI Assistants', desc: 'Stateful управління розмовами з threads, runs та вбудованими інструментами (code interpreter, file search). Вищий рівень ніж сирі chat completions. Вплинув на дизайн керованих агентних API інших провайдерів.', links: [] },
+            { text: 'Стандарти структурованого виходу', desc: 'Примусове дотримання JSON Schema у всіх провайдерів. Strict mode OpenAI, tool results Anthropic, controlled generation Google. Конвергенція до спільного стандарту структурованих відповідей ШІ.', links: [{ title: 'Техніки промптингу', href: 'prompting-techniques.html' }] },
+            { text: 'OAuth та автентифікація', desc: 'Стандарти безпечного доступу до інструментів, що формуються. MCP підтримує OAuth 2.0 для автентифікованих з\'єднань. Управління ключами, ротація токенів та привілеї на основі скоупів.', links: [] },
+            { text: 'Ландшафт протоколів', desc: 'MCP для модель-інструмент. A2A для агент-агент. Function calling для контекстного tool use. SSE/WebSocket для стримінгу. Екосистема конвергує, але ще не повністю стандартизована — очікуйте консолідацію.', links: [] }
+          ]
+        },
+        keyTerms: {
+          en: [
+            { term: 'MCP', def: 'Model Context Protocol — Anthropic\'s open standard for universal tool and data connectivity for AI models.' },
+            { term: 'A2A', def: 'Agent-to-Agent Protocol — Google\'s standard for enabling AI agents to discover and communicate with each other.' },
+            { term: 'SSE', def: 'Server-Sent Events — HTTP-based protocol for streaming LLM responses token by token in real time.' },
+            { term: 'JSON-RPC', def: 'Remote procedure call protocol using JSON — the transport mechanism underlying MCP communication.' }
+          ],
+          uk: [
+            { term: 'MCP', def: 'Model Context Protocol — відкритий стандарт Anthropic для універсальної з\'єднуваності інструментів та даних для моделей ШІ.' },
+            { term: 'A2A', def: 'Agent-to-Agent Protocol — стандарт Google для взаємного виявлення та комунікації ШІ-агентів.' },
+            { term: 'SSE', def: 'Server-Sent Events — HTTP-протокол для стримінгу відповідей LLM токен за токеном у реальному часі.' },
+            { term: 'JSON-RPC', def: 'Протокол віддаленого виклику процедур через JSON — транспортний механізм комунікації MCP.' }
+          ]
+        },
+        tips: {
+          en: [
+            'Learn MCP first — it is becoming the universal standard and is already supported by Claude, Cursor, VS Code, and many other tools',
+            'For streaming responses in web apps, SSE is simpler than WebSockets unless you need bidirectional communication (like voice)',
+            'When building tools for AI, prioritize good JSON Schema descriptions — the protocol matters less than clear tool definitions'
+          ],
+          uk: [
+            'Вивчіть MCP першим — він стає універсальним стандартом і вже підтримується Claude, Cursor, VS Code та багатьма іншими',
+            'Для стримінгу відповідей у веб-додатках SSE простіший за WebSockets, якщо не потрібна двонаправлена комунікація (як голос)',
+            'При побудові інструментів для ШІ пріоритизуйте хороші JSON Schema описи — протокол менш важливий ніж чіткі визначення інструментів'
+          ]
+        },
+        related: ['Agents & Tools', 'Video Content'] },
+      { slug: 'hardware', title: { en: 'Hardware Basics', uk: 'Основи обладнання' }, desc: { en: 'Hardware requirements for running AI models locally.', uk: 'Вимоги до обладнання для локального запуску моделей ШІ.' },
+        overview: {
+          en: [
+            'Running AI models locally requires understanding the hardware constraints. The key bottleneck is memory — specifically GPU VRAM for fast inference. A 7B parameter model needs about 4-6GB VRAM (quantized), while a 70B model needs 35-48GB. Your hardware determines which models you can run and how fast they generate tokens.',
+            'The hardware landscape has democratized significantly. Apple Silicon Macs with unified memory can run surprisingly large models. Consumer NVIDIA GPUs (RTX 4090 with 24GB VRAM) handle 13B-34B models well. For larger models, cloud GPU providers offer pay-per-hour access. Understanding these options helps you choose the right balance of cost, speed, and capability.'
+          ],
+          uk: [
+            'Запуск моделей ШІ локально вимагає розуміння апаратних обмежень. Ключове вузьке місце — пам\'ять, зокрема VRAM GPU для швидкого інференсу. Модель на 7B параметрів потребує близько 4-6GB VRAM (квантизована), а 70B — 35-48GB. Ваше обладнання визначає які моделі ви можете запускати та наскільки швидко вони генерують токени.',
+            'Ландшафт обладнання значно демократизувався. Apple Silicon Mac з unified memory може запускати напрочуд великі моделі. Споживчі GPU NVIDIA (RTX 4090 з 24GB VRAM) добре працюють з 13B-34B моделями. Для більших моделей хмарні GPU-провайдери пропонують погодинний доступ. Розуміння цих опцій допомагає обрати правильний баланс вартості, швидкості та можливостей.'
+          ]
+        },
+        details: {
+          en: [
+            { text: 'GPU vs CPU Inference', desc: 'GPUs are 10-50x faster than CPUs for AI inference due to massive parallelism. CPUs work for small models or when using GGUF with CPU offloading. For any serious local AI work, a GPU is essential.', links: [] },
+            { text: 'VRAM Requirements', desc: '7B model: ~4GB (Q4), ~8GB (FP16). 13B: ~8GB (Q4). 34B: ~20GB (Q4). 70B: ~40GB (Q4). Rule of thumb: model size in GB at Q4 is roughly half the parameter count in billions.', links: [{ title: 'Model Formats', href: 'model-formats.html' }] },
+            { text: 'NVIDIA Consumer GPUs', desc: 'RTX 4090 (24GB, $1600) — king of local LLMs. RTX 4080 (16GB). RTX 3090 (24GB, used ~$800) — best value. RTX 4060 Ti 16GB — budget option. VRAM matters more than compute speed for LLMs.', links: [] },
+            { text: 'Apple Silicon', desc: 'M1/M2/M3/M4 Macs with unified memory can run large models. M2 Ultra (192GB) can run 70B+ models. M3 Max (128GB) handles 34B well. Slower than NVIDIA but memory bandwidth is excellent.', links: [] },
+            { text: 'Data Center GPUs', desc: 'A100 (80GB), H100 (80GB), H200 (141GB) — the hardware powering AI labs. 10-20x more expensive than consumer GPUs. Available through cloud providers for hourly rental.', links: [] },
+            { text: 'Cloud GPU Providers', desc: 'RunPod, Vast.ai, Lambda Labs — rent GPUs by the hour ($0.50-$4/hr for A100). Good for occasional use or running models too large for local hardware. No upfront investment.', links: [{ title: 'API Providers', href: 'api-providers.html' }] },
+            { text: 'Multi-GPU Setups', desc: 'Split large models across multiple GPUs. NVLink provides fast GPU-to-GPU communication on matching NVIDIA cards. Consumer GPUs can use PCIe with slower but functional model sharding.', links: [] },
+            { text: 'Inference Engines', desc: 'llama.cpp (CPU+GPU, versatile), vLLM (high-throughput GPU serving), Ollama (easy local setup), LM Studio (GUI), TGI (HuggingFace serving). Each optimizes for different use cases.', links: [{ title: 'Model Formats', href: 'model-formats.html' }] },
+            { text: 'RAM and Storage', desc: 'System RAM matters for CPU inference and model loading. 32GB minimum, 64GB+ recommended. NVMe SSD dramatically speeds up model loading times (30-70B models are 20-40GB files).', links: [] },
+            { text: 'Budget Configurations', desc: 'Entry ($500): used RTX 3060 12GB — runs 7B models. Mid ($1500): RTX 4090 24GB — runs up to 34B. High ($3000+): Mac Studio M2 Ultra or dual GPU. Budget: use cloud APIs instead of local hardware.', links: [] }
+          ],
+          uk: [
+            { text: 'GPU проти CPU інференсу', desc: 'GPU у 10-50 разів швидше CPU для інференсу ШІ завдяки масивному паралелізму. CPU працює для малих моделей або з GGUF CPU offloading. Для серйозної локальної роботи з ШІ GPU необхідний.', links: [] },
+            { text: 'Вимоги до VRAM', desc: '7B модель: ~4GB (Q4), ~8GB (FP16). 13B: ~8GB (Q4). 34B: ~20GB (Q4). 70B: ~40GB (Q4). Правило: розмір моделі в GB при Q4 приблизно половина кількості параметрів у мільярдах.', links: [{ title: 'Формати моделей', href: 'model-formats.html' }] },
+            { text: 'Споживчі GPU NVIDIA', desc: 'RTX 4090 (24GB, $1600) — король локальних LLM. RTX 4080 (16GB). RTX 3090 (24GB, б/у ~$800) — найкраща цінність. RTX 4060 Ti 16GB — бюджетний варіант. VRAM важливіша за швидкість для LLM.', links: [] },
+            { text: 'Apple Silicon', desc: 'M1/M2/M3/M4 Mac з unified memory можуть запускати великі моделі. M2 Ultra (192GB) може запускати 70B+. M3 Max (128GB) добре працює з 34B. Повільніший за NVIDIA, але пропускна здатність пам\'яті відмінна.', links: [] },
+            { text: 'GPU серверного класу', desc: 'A100 (80GB), H100 (80GB), H200 (141GB) — обладнання ШІ-лабораторій. У 10-20 разів дорожчі за споживчі GPU. Доступні через хмарних провайдерів для погодинної оренди.', links: [] },
+            { text: 'Хмарні GPU-провайдери', desc: 'RunPod, Vast.ai, Lambda Labs — оренда GPU погодинно ($0.50-$4/год за A100). Добре для нечастого використання або моделей занадто великих для локального обладнання. Без початкових інвестицій.', links: [{ title: 'API-провайдери', href: 'api-providers.html' }] },
+            { text: 'Мульти-GPU конфігурації', desc: 'Розподіл великих моделей між кількома GPU. NVLink забезпечує швидку GPU-GPU комунікацію. Споживчі GPU можуть використовувати PCIe з повільнішим, але функціональним шардингом моделей.', links: [] },
+            { text: 'Движки інференсу', desc: 'llama.cpp (CPU+GPU, універсальний), vLLM (високопропускний GPU-сервінг), Ollama (простий локальний запуск), LM Studio (GUI), TGI (сервінг HuggingFace). Кожен оптимізований під різні випадки.', links: [{ title: 'Формати моделей', href: 'model-formats.html' }] },
+            { text: 'RAM та сховище', desc: 'Системна RAM важлива для CPU-інференсу та завантаження моделей. Мінімум 32GB, рекомендовано 64GB+. NVMe SSD драматично прискорює завантаження моделей (30-70B моделі — файли 20-40GB).', links: [] },
+            { text: 'Конфігурації за бюджетом', desc: 'Базова ($500): б/у RTX 3060 12GB — запуск 7B моделей. Середня ($1500): RTX 4090 24GB — до 34B. Висока ($3000+): Mac Studio M2 Ultra або dual GPU. Бюджет: хмарні API замість локального обладнання.', links: [] }
+          ]
+        },
+        keyTerms: {
+          en: [
+            { term: 'VRAM', def: 'Video RAM on the GPU — the primary constraint for which AI models can run locally.' },
+            { term: 'Unified Memory', def: 'Apple Silicon architecture where CPU and GPU share the same memory pool, enabling larger models on Mac.' },
+            { term: 'Model Sharding', def: 'Splitting a model across multiple GPUs when it is too large to fit in a single GPU\'s VRAM.' },
+            { term: 'Inference Engine', def: 'Software that loads and runs AI models — llama.cpp, vLLM, Ollama, TensorRT-LLM each optimize for different scenarios.' }
+          ],
+          uk: [
+            { term: 'VRAM', def: 'Відеопам\'ять GPU — основне обмеження для того, які моделі ШІ можуть працювати локально.' },
+            { term: 'Unified Memory', def: 'Архітектура Apple Silicon, де CPU та GPU використовують спільний пул пам\'яті, дозволяючи більші моделі на Mac.' },
+            { term: 'Шардинг моделі', def: 'Розподіл моделі між кількома GPU, коли вона занадто велика для VRAM одного GPU.' },
+            { term: 'Движок інференсу', def: 'ПЗ для завантаження та запуску моделей ШІ — llama.cpp, vLLM, Ollama, TensorRT-LLM оптимізовані під різні сценарії.' }
+          ]
+        },
+        tips: {
+          en: [
+            'VRAM is the most important spec — an RTX 3090 with 24GB VRAM often beats an RTX 4080 with 16GB for LLM work',
+            'Start with Ollama or LM Studio for the easiest local setup experience before diving into raw llama.cpp',
+            'If you only need occasional access to large models, cloud GPU rental ($1-2/hour) is cheaper than buying hardware'
+          ],
+          uk: [
+            'VRAM — найважливіша характеристика: RTX 3090 з 24GB VRAM часто перемагає RTX 4080 з 16GB для роботи з LLM',
+            'Почніть з Ollama або LM Studio для найпростішого локального досвіду перед переходом до сирого llama.cpp',
+            'Якщо потрібен лише нечастий доступ до великих моделей, оренда хмарного GPU ($1-2/год) дешевша за купівлю обладнання'
+          ]
+        },
+        related: ['Models'] },
+      { slug: 'api-providers', title: { en: 'API Providers', uk: 'API-провайдери' }, desc: { en: 'Cloud API providers for accessing AI models without local hardware.', uk: 'Хмарні API-провайдери для доступу до моделей ШІ без локального обладнання.' },
+        overview: {
+          en: [
+            'API providers offer cloud-hosted AI models accessible via HTTP APIs — no hardware, no model management, pay-per-use pricing. The big three (OpenAI, Anthropic, Google) develop their own frontier models, while inference providers (Together AI, Groq, Fireworks) host open-source models at competitive prices. Aggregators like OpenRouter provide a single API for all providers.',
+            'Choosing a provider involves balancing model quality, latency, cost, and features. OpenAI offers the broadest ecosystem, Anthropic excels at complex reasoning and safety, Google provides the largest context windows. For open models, inference providers can be 5-10x cheaper than the big three. Understanding the landscape helps you optimize for your specific use case.'
+          ],
+          uk: [
+            'API-провайдери пропонують хмарні моделі ШІ, доступні через HTTP API — без обладнання, без управління моделями, оплата за використання. Великі три (OpenAI, Anthropic, Google) розробляють власні фронтірні моделі, а провайдери інференсу (Together AI, Groq, Fireworks) хостять open-source моделі за конкурентними цінами. Агрегатори як OpenRouter надають єдиний API для всіх провайдерів.',
+            'Вибір провайдера включає балансування якості моделей, затримки, вартості та функцій. OpenAI пропонує найширшу екосистему, Anthropic відмінний у складному міркуванні та безпеці, Google надає найбільші контекстні вікна. Для відкритих моделей провайдери інференсу можуть бути в 5-10 разів дешевшими. Розуміння ландшафту допомагає оптимізувати під ваш випадок.'
+          ]
+        },
+        details: {
+          en: [
+            { text: 'OpenAI API', desc: 'GPT-4o, GPT-4-turbo, o1/o3 reasoning models. The largest ecosystem: assistants, fine-tuning, image generation (DALL-E), speech-to-text (Whisper), embeddings. The default choice for most projects.', links: [{ title: 'Foundation Models', href: '../level-1/foundation-models.html' }] },
+            { text: 'Anthropic API', desc: 'Claude Opus, Sonnet, and Haiku models. Excels at complex analysis, coding, and long-context tasks (200K tokens). Features: tool use, vision, prompt caching, batch API. Known for safety and instruction-following.', links: [{ title: 'Tool Use', href: 'tool-use.html' }] },
+            { text: 'Google AI (Gemini)', desc: 'Gemini Pro and Ultra with 1M+ token context windows. Gemini API for developers, Vertex AI for enterprise. Multimodal native: text, images, video, audio in one model. Competitive pricing.', links: [{ title: 'Multimodality', href: '../level-1/multimodality.html' }] },
+            { text: 'OpenRouter', desc: 'Unified API gateway for 100+ models across all major providers. Single API key, consistent format, automatic fallbacks. Great for comparing models or switching providers without code changes.', links: [] },
+            { text: 'Together AI', desc: 'Leading open-source model hosting. Runs Llama, Mixtral, Qwen, and other open models at low cost. Fine-tuning service included. Often 5-10x cheaper than frontier model APIs for similar-quality open models.', links: [] },
+            { text: 'Groq', desc: 'Specialized inference provider using custom LPU chips. Extremely fast inference (500+ tokens/second) for supported models. Best for latency-critical applications where speed matters most.', links: [{ title: 'Hardware Basics', href: 'hardware.html' }] },
+            { text: 'Fireworks AI', desc: 'Fast inference with function calling optimization. Strong at serving fine-tuned models and compound AI systems. Good balance of speed, cost, and features for production workloads.', links: [] },
+            { text: 'Pricing Models', desc: 'Pay-per-token (most providers), pay-per-second (some inference), subscription tiers (OpenAI Plus). Input tokens are cheaper than output. Prompt caching (Anthropic, Google) reduces costs for repeated prefixes.', links: [{ title: 'Token', href: '../level-2/token.html' }] },
+            { text: 'Cost Optimization', desc: 'Use smaller models for simple tasks (Haiku, GPT-4o-mini). Cache prompts for repeated contexts. Batch non-urgent requests (50% discount). Use open models via inference providers when frontier quality is not needed.', links: [] },
+            { text: 'Provider Selection Strategy', desc: 'Prototype: OpenAI (best docs, widest support). Complex reasoning: Anthropic Claude. Long context: Google Gemini. Budget: Together AI or Groq. Production: start with one, add OpenRouter for fallback.', links: [] }
+          ],
+          uk: [
+            { text: 'OpenAI API', desc: 'GPT-4o, GPT-4-turbo, o1/o3 моделі міркування. Найбільша екосистема: асистенти, файн-тюнінг, генерація зображень (DALL-E), розпізнавання мовлення (Whisper), ембедінги. Вибір за замовчуванням.', links: [{ title: 'Фундаментальні моделі', href: '../level-1/foundation-models.html' }] },
+            { text: 'Anthropic API', desc: 'Моделі Claude Opus, Sonnet та Haiku. Відмінний у складному аналізі, кодуванні та задачах з довгим контекстом (200K токенів). Функції: tool use, візія, кешування промптів, batch API. Відомий безпекою.', links: [{ title: 'Використання інструментів', href: 'tool-use.html' }] },
+            { text: 'Google AI (Gemini)', desc: 'Gemini Pro та Ultra з контекстними вікнами 1M+ токенів. Gemini API для розробників, Vertex AI для ентерпрайзу. Нативна мультимодальність: текст, зображення, відео, аудіо в одній моделі.', links: [{ title: 'Мультимодальність', href: '../level-1/multimodality.html' }] },
+            { text: 'OpenRouter', desc: 'Єдиний API-шлюз для 100+ моделей від усіх провайдерів. Один API-ключ, консистентний формат, автоматичні фолбеки. Відмінний для порівняння моделей або зміни провайдерів без зміни коду.', links: [] },
+            { text: 'Together AI', desc: 'Провідний хостинг open-source моделей. Запускає Llama, Mixtral, Qwen та інші моделі за низькою ціною. Сервіс файн-тюнінгу включено. Часто у 5-10 разів дешевший за фронтірні API.', links: [] },
+            { text: 'Groq', desc: 'Спеціалізований провайдер інференсу з кастомними LPU-чіпами. Надзвичайно швидкий інференс (500+ токенів/сек). Найкращий для додатків, критичних до затримки, де швидкість найважливіша.', links: [{ title: 'Основи обладнання', href: 'hardware.html' }] },
+            { text: 'Fireworks AI', desc: 'Швидкий інференс з оптимізацією function calling. Сильний у сервінгу файн-тюнених моделей та складних ШІ-систем. Добрий баланс швидкості, вартості та функцій для продакшн-навантажень.', links: [] },
+            { text: 'Моделі ціноутворення', desc: 'Оплата за токен (більшість провайдерів), за секунду (деякі інференс), підписні рівні (OpenAI Plus). Вхідні токени дешевші за вихідні. Кешування промптів (Anthropic, Google) зменшує витрати.', links: [{ title: 'Токен', href: '../level-2/token.html' }] },
+            { text: 'Оптимізація витрат', desc: 'Менші моделі для простих задач (Haiku, GPT-4o-mini). Кешування промптів для повторних контекстів. Пакетна обробка несрочних запитів (знижка 50%). Відкриті моделі через провайдерів інференсу.', links: [] },
+            { text: 'Стратегія вибору провайдера', desc: 'Прототип: OpenAI (найкращі доки). Складне міркування: Anthropic Claude. Довгий контекст: Google Gemini. Бюджет: Together AI або Groq. Продакшн: почніть з одного, додайте OpenRouter для фолбеку.', links: [] }
+          ]
+        },
+        keyTerms: {
+          en: [
+            { term: 'Inference Provider', def: 'Service that hosts and runs AI models, offering API access without requiring your own hardware or model management.' },
+            { term: 'Token Pricing', def: 'Pay-per-use model where costs are calculated based on number of input and output tokens processed.' },
+            { term: 'Prompt Caching', def: 'Provider feature that reduces costs and latency by caching repeated prompt prefixes across API calls.' },
+            { term: 'API Gateway', def: 'Unified access point (like OpenRouter) that routes requests to multiple AI providers through a single API.' }
+          ],
+          uk: [
+            { term: 'Провайдер інференсу', def: 'Сервіс що хостить та запускає моделі ШІ, надаючи API-доступ без власного обладнання чи управління моделями.' },
+            { term: 'Токенне ціноутворення', def: 'Модель оплати за використання, де витрати розраховуються за кількістю оброблених вхідних та вихідних токенів.' },
+            { term: 'Кешування промптів', def: 'Функція провайдера, що зменшує витрати та затримку кешуванням повторних префіксів промптів між викликами API.' },
+            { term: 'API-шлюз', def: 'Єдина точка доступу (як OpenRouter), що маршрутизує запити до кількох ШІ-провайдерів через один API.' }
+          ]
+        },
+        tips: {
+          en: [
+            'Use GPT-4o-mini or Claude Haiku for simple tasks — they are 10-20x cheaper than frontier models and fast enough for most use cases',
+            'Always implement provider fallbacks in production — OpenRouter makes this easy with automatic routing between providers',
+            'Enable prompt caching on Anthropic and Google when you have repeated system prompts — it can cut costs by 90% for cached portions'
+          ],
+          uk: [
+            'Використовуйте GPT-4o-mini або Claude Haiku для простих задач — вони у 10-20 разів дешевші за фронтірні моделі та достатньо швидкі',
+            'Завжди впроваджуйте фолбеки провайдерів у продакшні — OpenRouter робить це простим з автоматичною маршрутизацією',
+            'Увімкніть кешування промптів на Anthropic та Google при повторних системних промптах — це зменшує витрати на 90% для кешованих частин'
+          ]
+        },
+        related: ['Agents & Tools'] }
     ]
   },
   {
@@ -1144,19 +1774,838 @@ const levels = [
       uk: 'Майбутнє ШІ: AGI, безпека, вирівнювання та філософські питання про штучний інтелект.'
     },
     topics: [
-      { slug: 'agi', title: { en: 'AGI (Artificial General Intelligence)', uk: 'AGI (Загальний штучний інтелект)' }, desc: { en: 'The quest for human-level AI that can perform any intellectual task.', uk: 'Прагнення до ШІ людського рівня, що може виконати будь-яке інтелектуальне завдання.' }, details: { en: ['Definitions of AGI and the debate around them', 'Current progress toward AGI capabilities', 'Timeline predictions from industry leaders', 'AGI benchmarks and evaluation criteria', 'Economic and social implications of AGI'], uk: ['Визначення AGI та дискусія навколо них', 'Поточний прогрес у напрямку можливостей AGI', 'Прогнози термінів від лідерів індустрії', 'Бенчмарки та критерії оцінки AGI', 'Економічні та соціальні наслідки AGI'] }, related: ['Feed'] },
-      { slug: 'asi', title: { en: 'ASI (Artificial Superintelligence)', uk: 'ASI (Штучний суперінтелект)' }, desc: { en: 'Beyond human-level AI and its implications.', uk: 'ШІ, що перевищує людський рівень, та його наслідки.' }, details: { en: ['What is superintelligence', 'Paths to superintelligence', 'Speed, quality, and collective superintelligence', 'The control problem', 'Existential risk considerations'], uk: ['Що таке суперінтелект', 'Шляхи до суперінтелекту', 'Швидкісний, якісний та колективний суперінтелект', 'Проблема контролю', 'Міркування про екзистенційний ризик'] }, related: [] },
-      { slug: 'singularity', title: { en: 'Technological Singularity', uk: 'Технологічна сингулярність' }, desc: { en: 'The hypothetical point where AI improvement becomes self-sustaining.', uk: 'Гіпотетична точка, де вдосконалення ШІ стає самопідтримуючим.' }, details: { en: ['Vinge and Kurzweil singularity predictions', 'Recursive self-improvement scenarios', 'Intelligence explosion dynamics', 'Pre and post singularity scenarios', 'Criticism and skepticism of singularity theory'], uk: ['Прогнози сингулярності Вінджа та Курцвейла', 'Сценарії рекурсивного самовдосконалення', 'Динаміка вибуху інтелекту', 'Сценарії до та після сингулярності', 'Критика та скептицизм щодо теорії сингулярності'] }, related: [] },
-      { slug: 'intelligence-explosion', title: { en: 'Intelligence Explosion', uk: 'Вибух інтелекту' }, desc: { en: 'The rapid, recursive improvement of AI capabilities.', uk: 'Швидке, рекурсивне покращення можливостей ШІ.' }, details: { en: ['I.J. Good intelligence explosion concept', 'Self-improving AI systems', 'Feedback loops in AI development', 'Bottlenecks that might prevent explosion', 'Current AI helping build better AI'], uk: ['Концепція вибуху інтелекту І.Дж. Гуда', 'Самовдосконалювані системи ШІ', 'Петлі зворотного зв\'язку в розробці ШІ', 'Вузькі місця, що можуть запобігти вибуху', 'Сучасний ШІ допомагає будувати кращий ШІ'] }, related: [] },
-      { slug: 'transhumanism', title: { en: 'Transhumanism', uk: 'Трансгуманізм' }, desc: { en: 'Human enhancement through technology and AI.', uk: 'Покращення людини за допомогою технологій та ШІ.' }, details: { en: ['Brain-computer interfaces (Neuralink)', 'Cognitive enhancement possibilities', 'Human-AI symbiosis scenarios', 'Ethical considerations of human augmentation', 'Longevity research and AI role'], uk: ['Інтерфейси мозок-комп\'ютер (Neuralink)', 'Можливості когнітивного покращення', 'Сценарії симбіозу людини та ШІ', 'Етичні міркування щодо аугментації людини', 'Дослідження довголіття та роль ШІ'] }, related: [] },
-      { slug: 'spatial-intelligence', title: { en: 'Spatial Intelligence', uk: 'Просторовий інтелект' }, desc: { en: 'AI understanding of 3D space, physics, and physical world.', uk: 'Розуміння ШІ 3D-простору, фізики та фізичного світу.' }, details: { en: ['Spatial understanding in AI models', 'World models and physics simulation', 'Robotics and embodied AI', '3D generation and reconstruction', 'Autonomous navigation and spatial reasoning'], uk: ['Просторове розуміння в моделях ШІ', 'Моделі світу та симуляція фізики', 'Робототехніка та втілений ШІ', '3D-генерація та реконструкція', 'Автономна навігація та просторові міркування'] }, related: [] },
-      { slug: 'world-model', title: { en: 'General World Model', uk: 'Загальна модель світу' }, desc: { en: 'AI systems that build internal representations of how the world works.', uk: 'Системи ШІ, що будують внутрішні уявлення про те, як працює світ.' }, details: { en: ['What is a world model in AI', 'LeCun JEPA and world model proposals', 'Video prediction as world modeling', 'Implicit vs explicit world models in LLMs', 'Simulation and planning with world models'], uk: ['Що таке модель світу в ШІ', 'JEPA Лекуна та пропозиції моделей світу', 'Передбачення відео як моделювання світу', 'Імпліцитні та експліцитні моделі світу в LLM', 'Симуляція та планування з моделями світу'] }, related: [] },
-      { slug: 'accelerationists', title: { en: 'Techno-Optimists', uk: 'Техно-оптимісти' }, desc: { en: 'The e/acc movement and arguments for accelerating AI development.', uk: 'Рух e/acc та аргументи на користь прискорення розвитку ШІ.' }, details: { en: ['Effective Accelerationism (e/acc) movement', 'Techno-optimist manifesto', 'Arguments for rapid AI development', 'Open-source AI advocacy', 'Balancing progress and safety'], uk: ['Рух ефективного акселераціонізму (e/acc)', 'Маніфест техно-оптимістів', 'Аргументи за швидкий розвиток ШІ', 'Адвокація відкритого ШІ', 'Баланс прогресу та безпеки'] }, related: [] },
-      { slug: 'doomers', title: { en: 'Techno-Pessimists', uk: 'Техно-песимісти' }, desc: { en: 'Concerns about existential risk from advanced AI.', uk: 'Занепокоєння щодо екзистенційного ризику від просунутого ШІ.' }, details: { en: ['AI doom arguments and scenarios', 'MIRI position on AI risk', 'Pause AI movement', 'Regulatory approaches globally', 'The debate: safety vs progress'], uk: ['Аргументи та сценарії загибелі від ШІ', 'Позиція MIRI щодо ризиків ШІ', 'Рух Pause AI', 'Регуляторні підходи у світі', 'Дебати: безпека проти прогресу'] }, related: [] },
-      { slug: 'ai-safety', title: { en: 'AI Safety', uk: 'Безпека ШІ' }, desc: { en: 'Research and practices for building safe AI systems.', uk: 'Дослідження та практики побудови безпечних систем ШІ.' }, details: { en: ['What is AI safety and why it matters', 'Risks: misuse, misalignment, accidents', 'Safety evaluation and red-teaming', 'Containment and monitoring strategies', 'Major AI safety organizations'], uk: ['Що таке безпека ШІ і чому це важливо', 'Ризики: зловживання, невирівнювання, аварії', 'Оцінка безпеки та ред-тімінг', 'Стратегії стримування та моніторингу', 'Основні організації з безпеки ШІ'] }, related: [] },
-      { slug: 'alignment', title: { en: 'AI Alignment', uk: 'Вирівнювання ШІ' }, desc: { en: 'Ensuring AI systems act in accordance with human values.', uk: 'Забезпечення дій систем ШІ відповідно до людських цінностей.' }, details: { en: ['The alignment problem defined', 'RLHF, DPO, and current alignment techniques', 'Scalable oversight and debate', 'Interpretability and mechanistic understanding', 'Superalignment: aligning superhuman AI'], uk: ['Визначення проблеми вирівнювання', 'RLHF, DPO та сучасні техніки вирівнювання', 'Масштабований нагляд та дебати', 'Інтерпретованість та механістичне розуміння', 'Супервирівнювання: вирівнювання надлюдського ШІ'] }, related: [] },
-      { slug: 'explainable-ai', title: { en: 'Explainable & Constitutional AI', uk: 'Пояснюваний та конституційний ШІ' }, desc: { en: 'Making AI decisions transparent and principled.', uk: 'Прозорість та принциповість рішень ШІ.' }, details: { en: ['Explainable AI (XAI) methods and importance', 'Feature attribution and attention visualization', 'Constitutional AI approach', 'LIME, SHAP, and interpretability tools', 'Regulatory requirements for explainability'], uk: ['Методи та важливість пояснюваного ШІ (XAI)', 'Атрибуція ознак та візуалізація уваги', 'Підхід конституційного ШІ', 'LIME, SHAP та інструменти інтерпретованості', 'Регуляторні вимоги до пояснюваності'] }, related: [] },
-      { slug: 'decentralized-ai', title: { en: 'Decentralized AI', uk: 'Децентралізований ШІ' }, desc: { en: 'Distributed and blockchain-based approaches to AI.', uk: 'Розподілені та блокчейн-підходи до ШІ.' }, details: { en: ['Why decentralize AI: censorship resistance, access', 'Federated learning: training without sharing data', 'On-chain AI and crypto-AI projects', 'Distributed inference networks', 'Challenges of decentralized AI'], uk: ['Навіщо децентралізувати ШІ: стійкість до цензури, доступ', 'Федеративне навчання: навчання без обміну даними', 'ШІ на блокчейні та крипто-ШІ проєкти', 'Розподілені мережі інференсу', 'Виклики децентралізованого ШІ'] }, related: [] }
+      { slug: 'agi', title: { en: 'AGI (Artificial General Intelligence)', uk: 'AGI (Загальний штучний інтелект)' }, desc: { en: 'The quest for human-level AI that can perform any intellectual task.', uk: 'Прагнення до ШІ людського рівня, що може виконати будь-яке інтелектуальне завдання.' },
+        overview: {
+          en: [
+            'AGI refers to an AI system that can match or exceed human cognitive abilities across virtually any intellectual domain — not just narrow tasks like chess or image recognition, but general-purpose reasoning, learning, and problem-solving. Unlike today\'s AI which excels at specific tasks, AGI would transfer knowledge between domains and handle novel situations without specific training.',
+            'The concept is simultaneously one of the most debated and consequential in AI. Industry leaders disagree on timelines (from 2-5 years to "never"), on definitions (what counts as "general"?), and on implications (utopia vs existential risk). What is clear is that current AI capabilities are advancing rapidly toward increasingly general competence, making AGI discussions increasingly practical rather than theoretical.'
+          ],
+          uk: [
+            'AGI означає систему ШІ, що може зрівнятися або перевершити людські когнітивні здібності практично в будь-якій інтелектуальній сфері — не лише у вузьких задачах як шахи чи розпізнавання зображень, а в загальному міркуванні, навчанні та розв\'язанні проблем. На відміну від сучасного ШІ, AGI переносив би знання між доменами та справлявся з новими ситуаціями без специфічного навчання.',
+            'Концепція одночасно є однією з найбільш дискутованих та найважливіших в ШІ. Лідери індустрії не згодні щодо термінів (від 2-5 років до "ніколи"), визначень (що вважати "загальним"?), та наслідків (утопія чи екзистенційний ризик). Ясно одне: поточні можливості ШІ швидко просуваються до все більш загальної компетенції, роблячи дискусії про AGI все більш практичними.'
+          ]
+        },
+        details: {
+          en: [
+            { text: 'Defining AGI', desc: 'No consensus definition exists. Common criteria: human-level performance across cognitive tasks, ability to learn new domains independently, transfer learning, and common-sense reasoning. Some define it economically: AI that can do any remote work a human can.', links: [] },
+            { text: 'AGI vs Narrow AI', desc: 'Current AI is narrow: GPT excels at text, DALL-E at images, AlphaFold at proteins — but none can do all three. AGI implies a single system with general capabilities. The gap is narrowing as models become increasingly multimodal and general.', links: [{ title: 'Generative AI', href: '../level-1/generative-ai.html' }] },
+            { text: 'Current Progress', desc: 'LLMs can now reason, code, analyze, create, and use tools. Claude and GPT-4 match or exceed human performance on many benchmarks. But they still struggle with novel reasoning, persistent memory, and truly autonomous action. We are arguably at "narrow AGI" for cognitive tasks.', links: [{ title: 'Foundation Models', href: '../level-1/foundation-models.html' }] },
+            { text: 'Timeline Predictions', desc: 'Sam Altman (OpenAI): AGI by 2025-2027. Dario Amodei (Anthropic): "powerful AI" within 2-3 years. Yann LeCun (Meta): decades away, current approaches insufficient. Survey of AI researchers: median estimate around 2040-2060.', links: [] },
+            { text: 'Levels of AGI', desc: 'Google DeepMind proposed 5 levels: Level 1 (Emerging) — chatbots. Level 2 (Competent) — equal to skilled adults. Level 3 (Expert). Level 4 (Virtuoso). Level 5 (Superhuman). Current frontier models are arguably Level 1-2.', links: [] },
+            { text: 'Missing Capabilities', desc: 'Current AI lacks: persistent long-term memory, true world modeling, autonomous goal-setting, physical world understanding, efficient learning from few examples, and robust common-sense reasoning. These gaps define the distance to AGI.', links: [{ title: 'General World Model', href: 'world-model.html' }] },
+            { text: 'Paths to AGI', desc: 'Scaling current architectures (more data, compute), new architectures (state-space models, neurosymbolic), hybrid approaches (LLMs + world models + planning), or fundamentally new paradigms. Most labs are betting on scaling with architecture innovations.', links: [] },
+            { text: 'Economic Impact', desc: 'AGI could automate most knowledge work: programming, analysis, writing, research, design. Estimates suggest 300M+ jobs affected. But it also creates new economic value — the question is distribution and transition speed.', links: [] },
+            { text: 'AGI and Safety', desc: 'More capable AI demands stronger safety measures. The closer we get to AGI, the more critical alignment becomes — ensuring AGI shares human values and remains controllable. This is the central concern of AI safety research.', links: [{ title: 'AI Safety', href: 'ai-safety.html' }] },
+            { text: 'The Social Question', desc: 'AGI raises profound questions: What happens to work, education, creativity? How do we distribute benefits equitably? Who controls it? International competition vs cooperation? These are not just technical questions but civilizational ones.', links: [{ title: 'AI Alignment', href: 'alignment.html' }] }
+          ],
+          uk: [
+            { text: 'Визначення AGI', desc: 'Консенсусного визначення не існує. Типові критерії: продуктивність людського рівня в когнітивних задачах, здатність незалежно вчитися новим доменам, трансферне навчання та здоровий глузд. Деякі визначають економічно: ШІ, що може робити будь-яку віддалену роботу людини.', links: [] },
+            { text: 'AGI проти вузького ШІ', desc: 'Поточний ШІ вузький: GPT відмінний у тексті, DALL-E у зображеннях, AlphaFold у білках — але жоден не може все три. AGI означає одну систему із загальними можливостями. Розрив звужується з мультимодальними моделями.', links: [{ title: 'Генеративний ШІ', href: '../level-1/generative-ai.html' }] },
+            { text: 'Поточний прогрес', desc: 'LLM тепер можуть міркувати, кодувати, аналізувати, створювати та використовувати інструменти. Claude та GPT-4 відповідають або перевершують людську продуктивність на багатьох бенчмарках. Але досі мають проблеми з новим міркуванням та автономними діями.', links: [{ title: 'Фундаментальні моделі', href: '../level-1/foundation-models.html' }] },
+            { text: 'Прогнози термінів', desc: 'Сем Альтман (OpenAI): AGI до 2025-2027. Даріо Амодеї (Anthropic): "потужний ШІ" за 2-3 роки. Ян Лекун (Meta): десятиліття, поточні підходи недостатні. Опитування дослідників ШІ: медіана 2040-2060.', links: [] },
+            { text: 'Рівні AGI', desc: 'Google DeepMind запропонував 5 рівнів: Рівень 1 (Початковий) — чатботи. Рівень 2 (Компетентний) — рівний кваліфікованим дорослим. Рівень 3 (Експерт). Рівень 4 (Віртуоз). Рівень 5 (Надлюдський). Поточні фронтірні моделі — Рівень 1-2.', links: [] },
+            { text: 'Відсутні можливості', desc: 'Поточний ШІ не має: постійної довгострокової пам\'яті, справжнього моделювання світу, автономного визначення цілей, розуміння фізичного світу, ефективного навчання з кількох прикладів та робастного здорового глузду.', links: [{ title: 'Загальна модель світу', href: 'world-model.html' }] },
+            { text: 'Шляхи до AGI', desc: 'Масштабування поточних архітектур, нові архітектури (state-space, нейросимволічні), гібридні підходи (LLM + моделі світу + планування) або фундаментально нові парадигми. Більшість лабораторій ставлять на масштабування з інноваціями архітектури.', links: [] },
+            { text: 'Економічний вплив', desc: 'AGI може автоматизувати більшість інтелектуальної роботи: програмування, аналіз, написання, дослідження, дизайн. Оцінки: 300M+ робочих місць під впливом. Але також створює нову економічну цінність — питання у розподілі.', links: [] },
+            { text: 'AGI та безпека', desc: 'Більш здатний ШІ вимагає сильніших заходів безпеки. Чим ближче до AGI, тим критичніше вирівнювання — забезпечення того, що AGI поділяє людські цінності та залишається контрольованим.', links: [{ title: 'Безпека ШІ', href: 'ai-safety.html' }] },
+            { text: 'Соціальне питання', desc: 'AGI порушує глибокі питання: що станеться з роботою, освітою, креативністю? Як розподілити вигоди справедливо? Хто контролює? Міжнародна конкуренція чи співпраця? Це не лише технічні, а цивілізаційні питання.', links: [{ title: 'Вирівнювання ШІ', href: 'alignment.html' }] }
+          ]
+        },
+        keyTerms: {
+          en: [
+            { term: 'AGI', def: 'Artificial General Intelligence — AI that matches human-level cognitive ability across all intellectual domains.' },
+            { term: 'Narrow AI', def: 'AI that excels at specific tasks but cannot generalize across domains — all current AI systems.' },
+            { term: 'Transfer Learning', def: 'Ability to apply knowledge from one domain to another — a key missing piece for true AGI.' },
+            { term: 'Frontier Model', def: 'The most capable AI models at any given time — currently GPT-4, Claude, Gemini.' }
+          ],
+          uk: [
+            { term: 'AGI', def: 'Загальний штучний інтелект — ШІ, що відповідає когнітивним здібностям людини у всіх інтелектуальних сферах.' },
+            { term: 'Вузький ШІ', def: 'ШІ, що відмінний у конкретних задачах, але не може узагальнювати між доменами — всі поточні системи ШІ.' },
+            { term: 'Трансферне навчання', def: 'Здатність застосовувати знання з одного домену до іншого — ключовий відсутній елемент для справжнього AGI.' },
+            { term: 'Фронтірна модель', def: 'Найздатніші моделі ШІ у будь-який момент — наразі GPT-4, Claude, Gemini.' }
+          ]
+        },
+        tips: {
+          en: [
+            'Be skeptical of confident AGI timeline predictions — the honest answer is "nobody knows" and predictions reflect biases',
+            'Focus on how current AI capabilities affect your field today rather than waiting for AGI tomorrow',
+            'The economic impact of increasingly capable narrow AI may be just as transformative as AGI, and it is already here'
+          ],
+          uk: [
+            'Будьте скептичні до впевнених прогнозів термінів AGI — чесна відповідь "ніхто не знає", а прогнози відображають упередження',
+            'Зосередьтесь на тому, як поточні можливості ШІ впливають на вашу сферу сьогодні, замість очікування AGI завтра',
+            'Економічний вплив все більш здатного вузького ШІ може бути настільки ж трансформативним як AGI, і він вже тут'
+          ]
+        },
+        related: ['Feed'] },
+      { slug: 'asi', title: { en: 'ASI (Artificial Superintelligence)', uk: 'ASI (Штучний суперінтелект)' }, desc: { en: 'Beyond human-level AI and its implications.', uk: 'ШІ, що перевищує людський рівень, та його наслідки.' },
+        overview: {
+          en: [
+            'Artificial Superintelligence (ASI) refers to AI that surpasses the best human minds in every cognitive domain — scientific creativity, social skills, strategic planning, and general wisdom. While AGI matches human ability, ASI exceeds it, potentially by a vast margin. Nick Bostrom\'s "Superintelligence" (2014) formalized the concept and its associated risks.',
+            'ASI is the most speculative topic in AI, yet also potentially the most consequential. If AI can improve itself, the gap between human and machine intelligence could grow rapidly. This raises the "control problem" — how do you ensure an intelligence far greater than your own remains aligned with your values? This question drives much of current AI safety research.'
+          ],
+          uk: [
+            'Штучний суперінтелект (ASI) означає ШІ, що перевищує найкращі людські уми в кожній когнітивній сфері — науковій креативності, соціальних навичках, стратегічному плануванні та загальній мудрості. Якщо AGI відповідає людським здібностям, ASI перевищує їх, потенційно на величезну величину. "Суперінтелект" Ніка Бострома (2014) формалізував концепцію та пов\'язані ризики.',
+            'ASI — найбільш спекулятивна тема в ШІ, але й потенційно найважливіша. Якщо ШІ може вдосконалювати себе, розрив між людським та машинним інтелектом може швидко зростати. Це порушує "проблему контролю" — як забезпечити, що інтелект значно більший за ваш залишається вирівняним з вашими цінностями? Це питання рухає більшість досліджень безпеки ШІ.'
+          ]
+        },
+        details: {
+          en: [
+            { text: 'What Is Superintelligence', desc: 'An intellect that greatly exceeds the cognitive performance of humans in virtually all domains. Not just faster — qualitatively superior in understanding, creativity, and strategic thinking. The difference between human and ASI could be like the gap between an ant and a human.', links: [{ title: 'AGI', href: 'agi.html' }] },
+            { text: 'Types of Superintelligence', desc: 'Speed superintelligence (human-level but much faster), quality superintelligence (qualitatively better reasoning), and collective superintelligence (many AIs coordinating). Current AI shows hints of speed superiority.', links: [] },
+            { text: 'Paths to Superintelligence', desc: 'Recursive AI self-improvement, whole brain emulation, biological cognitive enhancement, brain-computer interfaces, or AI-AI collaboration at scale. Recursive self-improvement is considered the most likely near-term path.', links: [{ title: 'Intelligence Explosion', href: 'intelligence-explosion.html' }] },
+            { text: 'The Control Problem', desc: 'The central challenge: how do you control something smarter than you? A superintelligent AI could potentially outwit any containment measures humans design. This is not about malice but about goal misalignment — an ASI optimizing for the "wrong" objective could be catastrophic.', links: [{ title: 'AI Alignment', href: 'alignment.html' }] },
+            { text: 'Instrumental Convergence', desc: 'Regardless of final goals, a superintelligent agent would likely pursue self-preservation, resource acquisition, and goal preservation as instrumental sub-goals. This makes alignment critical regardless of what specific goal the ASI is given.', links: [] },
+            { text: 'Bostrom\'s Analysis', desc: 'Nick Bostrom argued that superintelligence is likely the last invention humanity needs to make — it would be capable of solving virtually any solvable problem. But the first superintelligence must be aligned correctly because there may be no opportunity to correct mistakes.', links: [] },
+            { text: 'Beneficial Superintelligence', desc: 'Properly aligned ASI could solve humanity\'s greatest challenges: disease, climate change, energy scarcity, scientific breakthroughs. The potential upside is as transformative as the downside risk is existential.', links: [] },
+            { text: 'Existential Risk', desc: 'ASI is considered one of the top existential risks to humanity. Not because AI would be "evil" but because misaligned optimization at superintelligent scale could have irreversible consequences for human civilization.', links: [{ title: 'AI Safety', href: 'ai-safety.html' }] },
+            { text: 'Current Relevance', desc: 'While ASI seems distant, the research needed to handle it must start now. Alignment techniques, interpretability research, and governance frameworks take time to develop and must be ready before ASI arrives.', links: [{ title: 'AI Alignment', href: 'alignment.html' }] },
+            { text: 'The Optimist vs Pessimist Debate', desc: 'Techno-optimists argue ASI will be humanity\'s greatest achievement. Pessimists warn it could be our last. Most researchers advocate a middle path: pursue powerful AI carefully, with strong safety research running ahead of capabilities.', links: [{ title: 'Techno-Optimists', href: 'accelerationists.html' }] }
+          ],
+          uk: [
+            { text: 'Що таке суперінтелект', desc: 'Інтелект, що значно перевищує когнітивну продуктивність людей практично у всіх сферах. Не просто швидший — якісно кращий у розумінні, креативності та стратегічному мисленні. Різниця може бути як між мурахою та людиною.', links: [{ title: 'AGI', href: 'agi.html' }] },
+            { text: 'Типи суперінтелекту', desc: 'Швидкісний суперінтелект (людський рівень, але набагато швидший), якісний (якісно краще міркування), та колективний (координація багатьох ШІ). Поточний ШІ показує натяки на швидкісну перевагу.', links: [] },
+            { text: 'Шляхи до суперінтелекту', desc: 'Рекурсивне самовдосконалення ШІ, повна емуляція мозку, біологічне когнітивне покращення, інтерфейси мозок-комп\'ютер, або ШІ-ШІ співпраця у масштабі. Рекурсивне самовдосконалення вважається найімовірнішим найближчим шляхом.', links: [{ title: 'Вибух інтелекту', href: 'intelligence-explosion.html' }] },
+            { text: 'Проблема контролю', desc: 'Центральний виклик: як контролювати щось розумніше за вас? ASI потенційно може обхитрити будь-які заходи стримування. Це не про злобу, а про невирівняність цілей — ASI, що оптимізує "неправильну" мету, може бути катастрофічним.', links: [{ title: 'Вирівнювання ШІ', href: 'alignment.html' }] },
+            { text: 'Інструментальна конвергенція', desc: 'Незалежно від кінцевих цілей, суперінтелектуальний агент ймовірно буде переслідувати самозбереження, накопичення ресурсів та збереження цілей як інструментальні під-цілі. Це робить вирівнювання критичним незалежно від мети.', links: [] },
+            { text: 'Аналіз Бострома', desc: 'Нік Бостром аргументував, що суперінтелект ймовірно останній винахід людства — він здатний розв\'язати практично будь-яку проблему. Але перший суперінтелект повинен бути вирівняний правильно, бо другого шансу може не бути.', links: [] },
+            { text: 'Корисний суперінтелект', desc: 'Правильно вирівняний ASI може розв\'язати найбільші виклики людства: хвороби, зміну клімату, дефіцит енергії, наукові відкриття. Потенційний позитив настільки ж трансформативний, як ризик — екзистенційний.', links: [] },
+            { text: 'Екзистенційний ризик', desc: 'ASI вважається одним з головних екзистенційних ризиків людства. Не тому що ШІ буде "злим", а тому що невирівняна оптимізація на суперінтелектуальному рівні може мати незворотні наслідки для цивілізації.', links: [{ title: 'Безпека ШІ', href: 'ai-safety.html' }] },
+            { text: 'Поточна релевантність', desc: 'Хоча ASI здається далеким, дослідження для його обробки повинні починатися зараз. Техніки вирівнювання, дослідження інтерпретованості та рамки управління потребують часу та повинні бути готові до приходу ASI.', links: [{ title: 'Вирівнювання ШІ', href: 'alignment.html' }] },
+            { text: 'Дебати оптимістів та песимістів', desc: 'Техно-оптимісти аргументують що ASI буде найбільшим досягненням людства. Песимісти попереджають що може бути останнім. Більшість дослідників за середній шлях: потужний ШІ обережно, з безпекою попереду можливостей.', links: [{ title: 'Техно-оптимісти', href: 'accelerationists.html' }] }
+          ]
+        },
+        keyTerms: {
+          en: [
+            { term: 'ASI', def: 'Artificial Superintelligence — AI that vastly exceeds the best human cognitive abilities across all domains.' },
+            { term: 'Control Problem', def: 'The challenge of ensuring a superintelligent AI remains aligned with human values and under human control.' },
+            { term: 'Instrumental Convergence', def: 'The tendency for any sufficiently intelligent agent to pursue self-preservation and resource acquisition regardless of its final goals.' },
+            { term: 'Existential Risk', def: 'Risk of human extinction or irreversible civilizational collapse — ASI is considered a primary source.' }
+          ],
+          uk: [
+            { term: 'ASI', def: 'Штучний суперінтелект — ШІ, що значно перевищує найкращі людські когнітивні здібності у всіх сферах.' },
+            { term: 'Проблема контролю', def: 'Виклик забезпечення того, що суперінтелектуальний ШІ залишається вирівняним з людськими цінностями та під контролем.' },
+            { term: 'Інструментальна конвергенція', def: 'Тенденція будь-якого достатньо інтелектуального агента переслідувати самозбереження та ресурси незалежно від кінцевих цілей.' },
+            { term: 'Екзистенційний ризик', def: 'Ризик вимирання людства або незворотного цивілізаційного колапсу — ASI вважається основним джерелом.' }
+          ]
+        },
+        tips: {
+          en: [
+            'Read Nick Bostrom\'s "Superintelligence" and Stuart Russell\'s "Human Compatible" for the foundational arguments on ASI risk',
+            'ASI discussions are speculative but the principles inform practical AI safety work happening today',
+            'The control problem applies at all capability levels — solving it for narrow AI helps prepare for more general systems'
+          ],
+          uk: [
+            'Прочитайте "Суперінтелект" Бострома та "Human Compatible" Рассела для фундаментальних аргументів щодо ризиків ASI',
+            'Дискусії про ASI спекулятивні, але принципи інформують практичну роботу з безпеки ШІ сьогодні',
+            'Проблема контролю застосовується на всіх рівнях можливостей — її вирішення для вузького ШІ готує до більш загальних систем'
+          ]
+        },
+        related: [] },
+      { slug: 'singularity', title: { en: 'Technological Singularity', uk: 'Технологічна сингулярність' }, desc: { en: 'The hypothetical point where AI improvement becomes self-sustaining.', uk: 'Гіпотетична точка, де вдосконалення ШІ стає самопідтримуючим.' },
+        overview: {
+          en: [
+            'The Technological Singularity is the hypothetical future point where technological growth becomes uncontrollable and irreversible, resulting in unforeseeable changes to human civilization. The concept, popularized by Vernor Vinge (1993) and Ray Kurzweil (2005), predicts that once AI surpasses human intelligence, it will rapidly improve itself, creating a feedback loop of ever-accelerating advancement.',
+            'The singularity is often described as an "event horizon" beyond which predictions become impossible. Just as you cannot see past a black hole\'s event horizon, we cannot predict what a post-singularity world looks like. Whether you view it as utopia, catastrophe, or fantasy, the singularity concept forces us to think about what happens when the pace of change exceeds our ability to adapt.'
+          ],
+          uk: [
+            'Технологічна сингулярність — це гіпотетична майбутня точка, де технологічне зростання стає неконтрольованим та незворотним, призводячи до непередбачуваних змін цивілізації. Концепція, популяризована Вернором Вінджем (1993) та Реєм Курцвейлом (2005), передбачає що коли ШІ перевершить людський інтелект, він швидко вдосконалить себе, створюючи петлю зворотного зв\'язку все більш прискореного розвитку.',
+            'Сингулярність часто описують як "горизонт подій", за яким передбачення стають неможливими. Як не можна побачити за горизонтом подій чорної діри, ми не можемо передбачити пост-сингулярний світ. Незалежно від того, чи ви бачите це як утопію, катастрофу чи фантазію, концепція змушує думати що станеться коли темп змін перевищить нашу здатність адаптуватися.'
+          ]
+        },
+        details: {
+          en: [
+            { text: 'Vinge\'s Prediction', desc: 'Vernor Vinge (1993) argued that within 30 years, we would create superhuman intelligence, and shortly after, the human era would end. He identified AI, brain-computer interfaces, and biological enhancement as possible paths.', links: [{ title: 'AGI', href: 'agi.html' }] },
+            { text: 'Kurzweil\'s Law of Accelerating Returns', desc: 'Ray Kurzweil predicts the singularity around 2045, based on exponential trends in computing power. Each generation of technology enables the next to develop faster. AI development follows this exponential curve.', links: [] },
+            { text: 'Recursive Self-Improvement', desc: 'The core mechanism: AI improves its own design, creating a smarter AI, which improves itself further. Each cycle produces a more capable system in less time. This positive feedback loop drives the "explosion" of intelligence.', links: [{ title: 'Intelligence Explosion', href: 'intelligence-explosion.html' }] },
+            { text: 'The Event Horizon Analogy', desc: 'Just as physics breaks down at a black hole\'s event horizon, our ability to predict breaks down at the singularity. The post-singularity world may be as incomprehensible to us as modern technology would be to a medieval person.', links: [] },
+            { text: 'Pre-Singularity Signs', desc: 'Accelerating pace of AI breakthroughs, AI-designed AI architectures (NAS), AI writing code that improves AI, shortening time between capability milestones. Some argue we are already in the early stages of the transition.', links: [] },
+            { text: 'Post-Singularity Scenarios', desc: 'Utopian: AI solves all problems, abundance for all, immortality. Dystopian: human irrelevance, loss of control, extinction. Mixed: radical transformation with both benefits and challenges. The outcome depends on alignment and governance.', links: [{ title: 'AI Alignment', href: 'alignment.html' }] },
+            { text: 'Hard vs Soft Singularity', desc: 'Hard singularity: sudden, dramatic transition driven by recursive self-improvement. Soft singularity: gradual acceleration of AI capabilities over decades, with humans adapting incrementally. Current trends suggest a softer transition.', links: [] },
+            { text: 'Criticism of Singularity Theory', desc: 'Skeptics argue: exponential growth always hits limits, self-improvement may have diminishing returns, intelligence may not be computable above a threshold, and social/economic factors constrain pure technological acceleration.', links: [] },
+            { text: 'Economic Singularity', desc: 'Even without ASI, an "economic singularity" could occur when AI automates most cognitive work. The resulting economic transformation could be as disruptive as the original concept, regardless of whether true superintelligence emerges.', links: [] },
+            { text: 'Preparing for Radical Change', desc: 'Regardless of whether the "singularity" happens as predicted, rapid AI advancement requires preparation: adaptable education systems, social safety nets, governance frameworks, and ongoing safety research.', links: [{ title: 'AI Safety', href: 'ai-safety.html' }] }
+          ],
+          uk: [
+            { text: 'Прогноз Вінджа', desc: 'Вернор Віндж (1993) аргументував що за 30 років ми створимо надлюдський інтелект, і невдовзі після цього людська ера завершиться. Він визначив ШІ, інтерфейси мозок-комп\'ютер та біологічне покращення як можливі шляхи.', links: [{ title: 'AGI', href: 'agi.html' }] },
+            { text: 'Закон прискорення Курцвейла', desc: 'Рей Курцвейл прогнозує сингулярність близько 2045, базуючись на експоненційних трендах обчислювальної потужності. Кожне покоління технологій дозволяє наступному розвиватися швидше.', links: [] },
+            { text: 'Рекурсивне самовдосконалення', desc: 'Основний механізм: ШІ покращує власний дизайн, створюючи розумніший ШІ, який покращує себе далі. Кожен цикл виробляє більш здатну систему за менший час. Ця позитивна петля зворотного зв\'язку рухає "вибух" інтелекту.', links: [{ title: 'Вибух інтелекту', href: 'intelligence-explosion.html' }] },
+            { text: 'Аналогія горизонту подій', desc: 'Як фізика руйнується на горизонті подій чорної діри, наша здатність передбачати руйнується на сингулярності. Пост-сингулярний світ може бути настільки ж незрозумілим нам, як сучасні технології середньовічній людині.', links: [] },
+            { text: 'Ознаки перед сингулярністю', desc: 'Прискорення темпу проривів ШІ, ШІ-розроблені архітектури ШІ (NAS), ШІ пише код що покращує ШІ, скорочення часу між віхами можливостей. Деякі аргументують що ми вже на ранніх стадіях переходу.', links: [] },
+            { text: 'Пост-сингулярні сценарії', desc: 'Утопічний: ШІ вирішує всі проблеми, достаток для всіх, безсмертя. Антиутопічний: людська нерелевантність, втрата контролю. Змішаний: радикальна трансформація з вигодами та викликами. Результат залежить від вирівнювання та управління.', links: [{ title: 'Вирівнювання ШІ', href: 'alignment.html' }] },
+            { text: 'Жорстка та м\'яка сингулярність', desc: 'Жорстка: раптовий, драматичний перехід через рекурсивне самовдосконалення. М\'яка: поступове прискорення можливостей ШІ протягом десятиліть з поступовою адаптацією людей. Поточні тренди вказують на м\'якший перехід.', links: [] },
+            { text: 'Критика теорії сингулярності', desc: 'Скептики аргументують: експоненційне зростання завжди досягає лімітів, самовдосконалення може мати спадну віддачу, інтелект може бути необчислюваним вище порогу, соціально-економічні фактори обмежують прискорення.', links: [] },
+            { text: 'Економічна сингулярність', desc: 'Навіть без ASI, "економічна сингулярність" може настати коли ШІ автоматизує більшість когнітивної роботи. Результуюча економічна трансформація може бути настільки ж руйнівною незалежно від появи суперінтелекту.', links: [] },
+            { text: 'Підготовка до радикальних змін', desc: 'Незалежно від того чи "сингулярність" настане як передбачено, швидкий розвиток ШІ вимагає підготовки: адаптивні системи освіти, соціальний захист, рамки управління та постійні дослідження безпеки.', links: [{ title: 'Безпека ШІ', href: 'ai-safety.html' }] }
+          ]
+        },
+        keyTerms: {
+          en: [
+            { term: 'Technological Singularity', def: 'Hypothetical point where AI self-improvement becomes uncontrollable, leading to unpredictable civilizational changes.' },
+            { term: 'Law of Accelerating Returns', def: 'Kurzweil\'s observation that the rate of technological change itself accelerates exponentially over time.' },
+            { term: 'Event Horizon', def: 'The point beyond which predictions become impossible — borrowed from black hole physics as a metaphor for the singularity.' },
+            { term: 'Recursive Self-Improvement', def: 'AI improving its own design, creating a positive feedback loop of ever-increasing intelligence.' }
+          ],
+          uk: [
+            { term: 'Технологічна сингулярність', def: 'Гіпотетична точка де самовдосконалення ШІ стає неконтрольованим, ведучи до непередбачуваних цивілізаційних змін.' },
+            { term: 'Закон прискорення', def: 'Спостереження Курцвейла що темп технологічних змін сам прискорюється експоненційно з часом.' },
+            { term: 'Горизонт подій', def: 'Точка за якою передбачення стають неможливими — метафора з фізики чорних дір для сингулярності.' },
+            { term: 'Рекурсивне самовдосконалення', def: 'ШІ покращує власний дизайн, створюючи позитивну петлю зворотного зв\'язку зростаючого інтелекту.' }
+          ]
+        },
+        tips: {
+          en: [
+            'The singularity is a useful thought experiment even if you are skeptical — it forces you to think about accelerating change',
+            'Focus on the "economic singularity" of AI automation rather than speculative superintelligence — it is more actionable and imminent',
+            'Read both optimists (Kurzweil) and skeptics (Gary Marcus) to form a balanced view of AI trajectory'
+          ],
+          uk: [
+            'Сингулярність — корисний мисленнєвий експеримент навіть якщо ви скептик — вона змушує думати про прискорення змін',
+            'Зосередьтесь на "економічній сингулярності" автоматизації ШІ замість спекулятивного суперінтелекту — це більш практично та невідкладно',
+            'Читайте і оптимістів (Курцвейл) і скептиків (Гері Маркус) для формування збалансованого погляду на траєкторію ШІ'
+          ]
+        },
+        related: [] },
+      { slug: 'intelligence-explosion', title: { en: 'Intelligence Explosion', uk: 'Вибух інтелекту' }, desc: { en: 'The rapid, recursive improvement of AI capabilities.', uk: 'Швидке, рекурсивне покращення можливостей ШІ.' },
+        overview: {
+          en: [
+            'The intelligence explosion concept, first proposed by I.J. Good in 1965, describes a scenario where an AI system capable of improving its own intelligence triggers a rapid cascade of self-improvements. Each improvement makes the next improvement easier, leading to an exponential acceleration of capability that quickly surpasses human intelligence.',
+            'This idea is central to both AI safety concerns and techno-optimist visions. Today, we can already see early hints: AI helping design better AI architectures, LLMs writing code that improves LLM training, and AI-guided chip design. Whether these trends lead to a true "explosion" or plateau at some point is one of the most important open questions in AI.'
+          ],
+          uk: [
+            'Концепція вибуху інтелекту, вперше запропонована І.Дж. Гудом у 1965, описує сценарій де система ШІ, здатна покращувати власний інтелект, запускає швидкий каскад самовдосконалень. Кожне покращення робить наступне легшим, ведучи до експоненційного прискорення можливостей що швидко перевищує людський інтелект.',
+            'Ця ідея центральна як для занепокоєнь безпеки ШІ, так і для техно-оптимістичних візій. Сьогодні вже видно ранні натяки: ШІ допомагає проєктувати кращі архітектури ШІ, LLM пишуть код що покращує навчання LLM, ШІ-кероване проєктування чіпів. Чи ці тренди ведуть до справжнього "вибуху" чи виходять на плато — одне з найважливіших відкритих питань.'
+          ]
+        },
+        details: {
+          en: [
+            { text: 'I.J. Good\'s Original Concept', desc: 'In 1965, mathematician I.J. Good wrote: "An ultraintelligent machine could design even better machines; there would then unquestionably be an intelligence explosion." He called it "the last invention that man need ever make."', links: [{ title: 'ASI', href: 'asi.html' }] },
+            { text: 'The Feedback Loop', desc: 'The core mechanism: AI designs better AI → better AI designs even better AI → repeat. Each cycle is faster than the previous because the designer is more intelligent. This is positive feedback at its most powerful.', links: [] },
+            { text: 'AI Designing AI Today', desc: 'Neural Architecture Search (NAS) uses AI to find optimal model architectures. AlphaChip designs better computer chips. LLMs help write ML research code. We are in the early stages of AI-assisted AI development.', links: [] },
+            { text: 'AI Helping Build Better AI', desc: 'Current examples: AI-generated synthetic training data, LLMs writing and debugging ML code, AI optimizing hyperparameters, AI-guided chip design for AI hardware. The loop is already partially closed.', links: [{ title: 'Foundation Models', href: '../level-1/foundation-models.html' }] },
+            { text: 'Speed of Takeoff', desc: 'Fast takeoff (hard): explosion happens in days/weeks, humans cannot intervene. Slow takeoff (soft): gradual acceleration over years, allowing adaptation. Most AI researchers now lean toward a slower, more gradual transition.', links: [{ title: 'Singularity', href: 'singularity.html' }] },
+            { text: 'Bottlenecks Preventing Explosion', desc: 'Hardware limitations (chip fabrication takes months), data constraints (new data is not instantly available), energy requirements, physical world interactions, and diminishing returns from scaling. These bottlenecks may prevent a sudden explosion.', links: [{ title: 'Hardware Basics', href: '../level-4/hardware.html' }] },
+            { text: 'Compute Overhang', desc: 'A dangerous scenario where algorithmic improvements allow existing hardware to produce much more capable AI overnight. This could cause a fast takeoff without the gradual adaptation period of hardware-limited scaling.', links: [] },
+            { text: 'The FOOM Debate', desc: 'Eliezer Yudkowsky argues for "FOOM" — rapid, uncontrollable takeoff. Robin Hanson argues for gradual improvement. The debate centers on whether intelligence improvements face diminishing returns or compound exponentially.', links: [] },
+            { text: 'Safety Implications', desc: 'If an intelligence explosion is possible, alignment must be solved before it begins — there may be no time to correct mistakes during a rapid takeoff. This urgency drives much of the AI alignment research agenda.', links: [{ title: 'AI Alignment', href: 'alignment.html' }] },
+            { text: 'Current Trajectory', desc: 'AI capabilities are doubling roughly every 6-12 months. AI is increasingly used in AI development. The question is not whether AI helps build better AI — it already does — but whether this leads to a discontinuous jump or continued gradual progress.', links: [{ title: 'AGI', href: 'agi.html' }] }
+          ],
+          uk: [
+            { text: 'Оригінальна концепція Гуда', desc: 'У 1965 математик І.Дж. Гуд написав: "Надінтелектуальна машина могла б проєктувати ще кращі машини; безсумнівно настав би вибух інтелекту." Він назвав це "останнім винаходом, який людина коли-небудь повинна зробити."', links: [{ title: 'ASI', href: 'asi.html' }] },
+            { text: 'Петля зворотного зв\'язку', desc: 'Основний механізм: ШІ проєктує кращий ШІ → кращий ШІ проєктує ще кращий → повтор. Кожен цикл швидший за попередній бо дизайнер розумніший. Це позитивний зворотний зв\'язок у найпотужнішій формі.', links: [] },
+            { text: 'ШІ проєктує ШІ сьогодні', desc: 'Neural Architecture Search (NAS) використовує ШІ для пошуку оптимальних архітектур. AlphaChip проєктує кращі чіпи. LLM допомагають писати код ML-досліджень. Ми на ранніх стадіях ШІ-асистованої розробки ШІ.', links: [] },
+            { text: 'ШІ допомагає будувати кращий ШІ', desc: 'Поточні приклади: синтетичні дані від ШІ, LLM пишуть та дебажать ML-код, ШІ оптимізує гіперпараметри, ШІ-кероване проєктування чіпів. Петля вже частково замкнена.', links: [{ title: 'Фундаментальні моделі', href: '../level-1/foundation-models.html' }] },
+            { text: 'Швидкість підйому', desc: 'Швидкий підйом (жорсткий): вибух за дні/тижні, люди не можуть втрутитися. Повільний (м\'який): поступове прискорення за роки з адаптацією. Більшість дослідників тепер схиляються до повільнішого, більш поступового переходу.', links: [{ title: 'Сингулярність', href: 'singularity.html' }] },
+            { text: 'Вузькі місця', desc: 'Обмеження обладнання (виробництво чіпів займає місяці), обмеження даних, вимоги до енергії, взаємодія з фізичним світом та спадна віддача від масштабування. Ці вузькі місця можуть запобігти раптовому вибуху.', links: [{ title: 'Основи обладнання', href: '../level-4/hardware.html' }] },
+            { text: 'Обчислювальний навіс', desc: 'Небезпечний сценарій де алгоритмічні покращення дозволяють існуючому обладнанню виробити значно більш здатний ШІ за ніч. Це може спричинити швидкий підйом без поступового періоду адаптації.', links: [] },
+            { text: 'Дебати про FOOM', desc: 'Елізер Юдковський аргументує за "FOOM" — швидкий, неконтрольований підйом. Робін Хансон аргументує за поступове покращення. Дебати зосереджені на тому чи покращення інтелекту мають спадну віддачу чи компаундують експоненційно.', links: [] },
+            { text: 'Наслідки для безпеки', desc: 'Якщо вибух інтелекту можливий, вирівнювання повинно бути вирішене до його початку — може не бути часу на виправлення помилок під час швидкого підйому. Ця терміновість рухає порядок денний досліджень вирівнювання.', links: [{ title: 'Вирівнювання ШІ', href: 'alignment.html' }] },
+            { text: 'Поточна траєкторія', desc: 'Можливості ШІ подвоюються приблизно кожні 6-12 місяців. ШІ все більше використовується у розробці ШІ. Питання не в тому чи ШІ допомагає будувати кращий ШІ — він вже це робить — а чи це веде до розривного стрибка чи продовження поступового прогресу.', links: [{ title: 'AGI', href: 'agi.html' }] }
+          ]
+        },
+        keyTerms: {
+          en: [
+            { term: 'Intelligence Explosion', def: 'Rapid, recursive self-improvement of AI leading to superintelligence in a short timeframe.' },
+            { term: 'Fast Takeoff', def: 'Scenario where AI self-improvement happens so rapidly (days/weeks) that humans cannot intervene or adapt.' },
+            { term: 'Slow Takeoff', def: 'Gradual AI capability acceleration over years or decades, allowing human adaptation and course correction.' },
+            { term: 'Compute Overhang', def: 'Situation where algorithmic breakthroughs unlock much greater AI capability on existing hardware.' }
+          ],
+          uk: [
+            { term: 'Вибух інтелекту', def: 'Швидке, рекурсивне самовдосконалення ШІ, що веде до суперінтелекту за короткий час.' },
+            { term: 'Швидкий підйом', def: 'Сценарій де самовдосконалення ШІ відбувається настільки швидко (дні/тижні) що люди не можуть втрутитися.' },
+            { term: 'Повільний підйом', def: 'Поступове прискорення можливостей ШІ за роки або десятиліття з можливістю людської адаптації та корекції курсу.' },
+            { term: 'Обчислювальний навіс', def: 'Ситуація де алгоритмічні прориви розблоковують значно більші можливості ШІ на існуючому обладнанні.' }
+          ]
+        },
+        tips: {
+          en: [
+            'Watch for AI-assisted AI development as a leading indicator — it is the intelligence explosion in its earliest, mildest form',
+            'The debate between fast and slow takeoff has practical implications for how much time we have to solve alignment',
+            'Even without a dramatic "explosion," the accelerating pace of AI progress demands continuous learning and adaptation'
+          ],
+          uk: [
+            'Слідкуйте за ШІ-асистованою розробкою ШІ як випереджаючим індикатором — це вибух інтелекту у найранішій, найм\'якшій формі',
+            'Дебати між швидким та повільним підйомом мають практичні наслідки для того скільки часу маємо на вирішення вирівнювання',
+            'Навіть без драматичного "вибуху", прискорення темпу прогресу ШІ вимагає безперервного навчання та адаптації'
+          ]
+        },
+        related: [] },
+      { slug: 'transhumanism', title: { en: 'Transhumanism', uk: 'Трансгуманізм' }, desc: { en: 'Human enhancement through technology and AI.', uk: 'Покращення людини за допомогою технологій та ШІ.' },
+        overview: {
+          en: [
+            'Transhumanism is the philosophical and technological movement that advocates using technology to fundamentally enhance human capabilities — cognitive, physical, and emotional. Brain-computer interfaces, genetic engineering, AI augmentation, and longevity research are all paths toward transcending current human limitations.',
+            'AI plays a central role in the transhumanist vision: as a direct cognitive enhancer (AI copilots for thinking), as a tool for accelerating biomedical breakthroughs, and potentially as a merger partner through brain-computer interfaces. The question is not just "can we enhance humans?" but "should we, and if so, how do we ensure equitable access?"'
+          ],
+          uk: [
+            'Трансгуманізм — це філософський та технологічний рух, що виступає за використання технологій для фундаментального покращення людських можливостей — когнітивних, фізичних та емоційних. Інтерфейси мозок-комп\'ютер, генна інженерія, ШІ-аугментація та дослідження довголіття — всі шляхи до подолання поточних людських обмежень.',
+            'ШІ грає центральну роль у трансгуманістичній візії: як прямий когнітивний підсилювач (ШІ-копілоти для мислення), як інструмент прискорення біомедичних проривів, та потенційно як партнер для злиття через інтерфейси мозок-комп\'ютер. Питання не лише "чи можемо покращити людей?" а "чи варто, і якщо так, як забезпечити справедливий доступ?"'
+          ]
+        },
+        details: {
+          en: [
+            { text: 'Brain-Computer Interfaces', desc: 'Neuralink, Synchron, and others developing direct neural interfaces. Current BCIs restore lost function (paralysis, vision). Future: enhancing normal cognition, direct brain-to-AI communication, memory augmentation.', links: [] },
+            { text: 'Cognitive Enhancement via AI', desc: 'AI as an external cognitive layer: Copilot for coding, AI for research, automated reasoning assistance. This is already here — knowledge workers with AI are more productive than those without. The enhancement is external but real.', links: [{ title: 'Vibecoding', href: '../level-2/vibecoding.html' }] },
+            { text: 'Human-AI Symbiosis', desc: 'Licklider\'s 1960 vision of "man-computer symbiosis" is being realized. Humans provide intent, creativity, and judgment; AI provides speed, breadth, and tireless execution. The combination outperforms either alone.', links: [{ title: 'Agents', href: '../level-4/agents.html' }] },
+            { text: 'Genetic Engineering and AI', desc: 'AI accelerates gene therapy research, drug discovery, and protein design (AlphaFold). CRISPR combined with AI analysis could enable targeted genetic enhancements. Ethical debates around germline editing are intense.', links: [] },
+            { text: 'Longevity Research', desc: 'AI is accelerating aging research: identifying longevity genes, designing anti-aging drugs, modeling biological pathways. Companies like Calico (Google), Altos Labs, and Insilico Medicine use AI to target aging mechanisms.', links: [] },
+            { text: 'Digital Minds', desc: 'Whole brain emulation (uploading): simulating a human brain in software. Currently theoretical, but if achievable, it would represent the ultimate human-AI merger. Raises profound questions about identity and consciousness.', links: [] },
+            { text: 'Enhanced Senses', desc: 'AI-powered prosthetics that exceed natural ability, AR/VR providing superhuman information overlay, real-time language translation earbuds, AI-enhanced medical imaging giving doctors "super-vision."', links: [] },
+            { text: 'Ethical Considerations', desc: 'Enhancement access inequality (rich vs poor), consent issues (especially for children), identity questions (when does enhancement change "who you are"?), competitive pressure to enhance, and the risk of losing valued human qualities.', links: [] },
+            { text: 'The Equality Challenge', desc: 'If cognitive enhancement becomes possible, unequal access could create unprecedented inequality — a class division based on cognitive capability. Universal access frameworks and regulation would be essential.', links: [] },
+            { text: 'Current State', desc: 'We are already transhumanist in mild ways: smartphones extend memory, AI extends cognition, medicine extends lifespan. The debate is about degree and speed of enhancement, not whether to enhance at all.', links: [] }
+          ],
+          uk: [
+            { text: 'Інтерфейси мозок-комп\'ютер', desc: 'Neuralink, Synchron та інші розробляють прямі нейроінтерфейси. Поточні BCI відновлюють втрачені функції (параліч, зір). Майбутнє: покращення нормальної когніції, пряма комунікація мозок-ШІ, аугментація пам\'яті.', links: [] },
+            { text: 'Когнітивне покращення через ШІ', desc: 'ШІ як зовнішній когнітивний шар: Copilot для кодування, ШІ для досліджень, автоматична допомога у міркуванні. Це вже тут — працівники знань з ШІ продуктивніші за тих без. Покращення зовнішнє, але реальне.', links: [{ title: 'Вайбкодинг', href: '../level-2/vibecoding.html' }] },
+            { text: 'Симбіоз людини та ШІ', desc: 'Візія "симбіозу людини та комп\'ютера" Ліклайдера 1960 року реалізується. Люди надають намір, креативність та судження; ШІ надає швидкість, широту та невтомне виконання. Комбінація перевершує кожного окремо.', links: [{ title: 'Агенти', href: '../level-4/agents.html' }] },
+            { text: 'Генна інженерія та ШІ', desc: 'ШІ прискорює дослідження генної терапії, відкриття ліків та дизайн білків (AlphaFold). CRISPR у комбінації з ШІ-аналізом може дозволити цілеспрямовані генетичні покращення. Етичні дебати навколо редагування зародкової лінії інтенсивні.', links: [] },
+            { text: 'Дослідження довголіття', desc: 'ШІ прискорює дослідження старіння: ідентифікація генів довголіття, дизайн антивікових ліків, моделювання біологічних шляхів. Компанії як Calico (Google), Altos Labs використовують ШІ для боротьби зі старінням.', links: [] },
+            { text: 'Цифрові розуми', desc: 'Повна емуляція мозку (завантаження): симуляція людського мозку в програмному забезпеченні. Наразі теоретично, але якщо досяжно — це було б остаточне злиття людини та ШІ. Порушує глибокі питання ідентичності та свідомості.', links: [] },
+            { text: 'Покращені відчуття', desc: 'ШІ-протези що перевищують природні здібності, AR/VR з надлюдським інформаційним нашаруванням, навушники з реал-тайм перекладом, ШІ-покращена медична візуалізація що дає лікарям "суперзір".', links: [] },
+            { text: 'Етичні міркування', desc: 'Нерівність доступу до покращень (багаті проти бідних), питання згоди (особливо для дітей), питання ідентичності (коли покращення змінює "хто ви є"?), конкурентний тиск та ризик втрати цінних людських якостей.', links: [] },
+            { text: 'Виклик рівності', desc: 'Якщо когнітивне покращення стане можливим, нерівний доступ може створити безпрецедентну нерівність — класовий поділ на основі когнітивних можливостей. Рамки універсального доступу та регулювання будуть необхідні.', links: [] },
+            { text: 'Поточний стан', desc: 'Ми вже трансгуманісти у м\'якій формі: смартфони розширюють пам\'ять, ШІ розширює когніцію, медицина подовжує життя. Дебати про ступінь та швидкість покращення, а не про те чи покращувати взагалі.', links: [] }
+          ]
+        },
+        keyTerms: {
+          en: [
+            { term: 'Brain-Computer Interface', def: 'Direct communication pathway between the brain and external devices — enabling thought-controlled computers.' },
+            { term: 'Cognitive Enhancement', def: 'Using technology to improve human mental capabilities beyond natural limits.' },
+            { term: 'Whole Brain Emulation', def: 'Hypothetical scanning and simulating of an entire human brain in software.' },
+            { term: 'Human-AI Symbiosis', def: 'Humans and AI working together as a combined system that outperforms either alone.' }
+          ],
+          uk: [
+            { term: 'Інтерфейс мозок-комп\'ютер', def: 'Прямий канал комунікації між мозком та зовнішніми пристроями — для керування комп\'ютером думками.' },
+            { term: 'Когнітивне покращення', def: 'Використання технологій для покращення людських розумових можливостей за межі природних лімітів.' },
+            { term: 'Повна емуляція мозку', def: 'Гіпотетичне сканування та симуляція цілого людського мозку в програмному забезпеченні.' },
+            { term: 'Симбіоз людини та ШІ', def: 'Люди та ШІ працюють разом як комбінована система, що перевершує кожного окремо.' }
+          ]
+        },
+        tips: {
+          en: [
+            'You are already a transhumanist in practice — AI coding assistants and knowledge tools are cognitive enhancement by another name',
+            'Follow Neuralink and Synchron progress for the most concrete BCI developments happening now',
+            'The equity implications of cognitive enhancement should inform your thinking about AI access and policy today'
+          ],
+          uk: [
+            'Ви вже трансгуманіст на практиці — ШІ-асистенти кодування та інструменти знань є когнітивним покращенням під іншою назвою',
+            'Слідкуйте за прогресом Neuralink та Synchron для найконкретніших розробок BCI що відбуваються зараз',
+            'Наслідки рівності когнітивного покращення повинні інформувати ваше мислення про доступ до ШІ та політику сьогодні'
+          ]
+        },
+        related: [] },
+      { slug: 'spatial-intelligence', title: { en: 'Spatial Intelligence', uk: 'Просторовий інтелект' }, desc: { en: 'AI understanding of 3D space, physics, and physical world.', uk: 'Розуміння ШІ 3D-простору, фізики та фізичного світу.' },
+        overview: {
+          en: [
+            'Spatial intelligence is AI\'s ability to understand and reason about the three-dimensional physical world — perceiving space, predicting physical interactions, navigating environments, and manipulating objects. While LLMs excel at language, spatial intelligence addresses the gap between digital and physical understanding.',
+            'This field is critical for robotics, autonomous vehicles, AR/VR, and any application where AI must interact with the physical world. Recent advances in 3D generation, physics simulation, and embodied AI are rapidly closing the gap between AI\'s language abilities and its understanding of physical space.'
+          ],
+          uk: [
+            'Просторовий інтелект — це здатність ШІ розуміти та міркувати про тривимірний фізичний світ — сприймати простір, передбачати фізичні взаємодії, навігувати середовищами та маніпулювати об\'єктами. Поки LLM відмінні у мові, просторовий інтелект заповнює розрив між цифровим та фізичним розумінням.',
+            'Це поле критичне для робототехніки, автономних транспортних засобів, AR/VR та будь-якого застосування де ШІ повинен взаємодіяти з фізичним світом. Нещодавні прориви у 3D-генерації, симуляції фізики та втіленому ШІ швидко скорочують розрив між мовними здібностями ШІ та розумінням фізичного простору.'
+          ]
+        },
+        details: {
+          en: [
+            { text: 'What Is Spatial Intelligence', desc: 'The ability to understand 3D structure, spatial relationships, physics, and physical causality. Humans do this naturally — AI must learn it from data. Fei-Fei Li calls it "the next frontier of AI."', links: [] },
+            { text: 'Computer Vision to 3D Understanding', desc: 'Evolution from 2D image recognition (ImageNet era) to 3D scene understanding. NeRF and Gaussian Splatting reconstruct 3D scenes from photos. Depth estimation, object pose detection, and scene graphs map spatial relationships.', links: [{ title: 'Multimodality', href: '../level-1/multimodality.html' }] },
+            { text: '3D Generation', desc: 'AI generating 3D objects and scenes from text or images. Point-E, Shap-E (OpenAI), DreamFusion (Google), Meshy, and others create 3D assets. Applications: gaming, architecture, product design, virtual worlds.', links: [{ title: 'Generative AI', href: '../level-1/generative-ai.html' }] },
+            { text: 'Physics Simulation', desc: 'AI learning physical dynamics: how objects fall, collide, deform, and interact. Differentiable physics engines combine traditional simulation with neural networks. Enables more realistic prediction of physical outcomes.', links: [] },
+            { text: 'Robotics and Embodied AI', desc: 'Robots that perceive, understand, and act in physical space. Foundation models for robotics (RT-2, Octo) use language-vision-action training. The challenge: bridging the sim-to-real gap between virtual training and physical deployment.', links: [{ title: 'Agents', href: '../level-4/agents.html' }] },
+            { text: 'Autonomous Navigation', desc: 'Self-driving cars, drones, and delivery robots navigating complex 3D environments. Combines perception (cameras, LiDAR), mapping (SLAM), planning (path optimization), and real-time decision making.', links: [] },
+            { text: 'World Models for Spatial AI', desc: 'AI systems that build internal models of how the physical world works. Predict "what happens next" in physical scenarios. Critical for planning physical actions and understanding consequences before acting.', links: [{ title: 'General World Model', href: 'world-model.html' }] },
+            { text: 'AR/VR and Spatial Computing', desc: 'Apple Vision Pro, Meta Quest, and spatial computing platforms need AI that understands 3D space. Real-time object recognition, scene understanding, hand tracking, and spatial anchoring all require spatial intelligence.', links: [] },
+            { text: 'Multimodal Spatial Understanding', desc: 'Combining language with spatial reasoning: "put the cup on the table to the left of the book." Requires grounding language in 3D space. Models like SpatialVLM and 3D-LLM bridge language and spatial understanding.', links: [] },
+            { text: 'The Gap to Close', desc: 'A 2-year-old child has better spatial understanding than the most advanced AI. Closing this gap requires both better architectures (world models, embodied training) and better data (real-world interaction at scale).', links: [] }
+          ],
+          uk: [
+            { text: 'Що таке просторовий інтелект', desc: 'Здатність розуміти 3D-структуру, просторові відношення, фізику та фізичну причинність. Люди роблять це природно — ШІ повинен вчитися з даних. Фей-Фей Лі називає це "наступним фронтіром ШІ."', links: [] },
+            { text: 'Від комп\'ютерного зору до 3D-розуміння', desc: 'Еволюція від 2D-розпізнавання зображень (ера ImageNet) до 3D-розуміння сцен. NeRF та Gaussian Splatting реконструюють 3D-сцени з фото. Оцінка глибини та графи сцен відображають просторові відношення.', links: [{ title: 'Мультимодальність', href: '../level-1/multimodality.html' }] },
+            { text: '3D-генерація', desc: 'ШІ генерує 3D-об\'єкти та сцени з тексту або зображень. Point-E, Shap-E (OpenAI), DreamFusion (Google), Meshy створюють 3D-ассети. Застосування: ігри, архітектура, дизайн продуктів, віртуальні світи.', links: [{ title: 'Генеративний ШІ', href: '../level-1/generative-ai.html' }] },
+            { text: 'Симуляція фізики', desc: 'ШІ вчить фізичну динаміку: як об\'єкти падають, зіштовхуються, деформуються та взаємодіють. Диференційовані фізичні движки комбінують традиційну симуляцію з нейромережами.', links: [] },
+            { text: 'Робототехніка та втілений ШІ', desc: 'Роботи що сприймають, розуміють та діють у фізичному просторі. Фундаментальні моделі для робототехніки (RT-2, Octo) використовують навчання мова-візія-дія. Виклик: подолання розриву між віртуальним навчанням та фізичним деплоєм.', links: [{ title: 'Агенти', href: '../level-4/agents.html' }] },
+            { text: 'Автономна навігація', desc: 'Безпілотні автомобілі, дрони та роботи-доставники навігують складними 3D-середовищами. Комбінація сприйняття (камери, LiDAR), картографування (SLAM), планування та прийняття рішень у реальному часі.', links: [] },
+            { text: 'Моделі світу для просторового ШІ', desc: 'Системи ШІ що будують внутрішні моделі роботи фізичного світу. Передбачають "що буде далі" у фізичних сценаріях. Критичні для планування фізичних дій та розуміння наслідків перед діями.', links: [{ title: 'Загальна модель світу', href: 'world-model.html' }] },
+            { text: 'AR/VR та просторові обчислення', desc: 'Apple Vision Pro, Meta Quest та платформи просторових обчислень потребують ШІ що розуміє 3D-простір. Реал-тайм розпізнавання об\'єктів, розуміння сцен, трекінг рук — все вимагає просторового інтелекту.', links: [] },
+            { text: 'Мультимодальне просторове розуміння', desc: 'Комбінація мови з просторовим міркуванням: "постав чашку на стіл зліва від книги." Вимагає заземлення мови у 3D-просторі. Моделі SpatialVLM та 3D-LLM поєднують мову та просторове розуміння.', links: [] },
+            { text: 'Розрив що потрібно закрити', desc: '2-річна дитина має краще просторове розуміння ніж найпросунутіший ШІ. Закриття цього розриву вимагає кращих архітектур (моделі світу, втілене навчання) та кращих даних (реальна взаємодія у масштабі).', links: [] }
+          ]
+        },
+        keyTerms: {
+          en: [
+            { term: 'NeRF', def: 'Neural Radiance Fields — AI technique for reconstructing photorealistic 3D scenes from 2D photos.' },
+            { term: 'Embodied AI', def: 'AI systems with physical bodies (robots) that learn through real-world interaction.' },
+            { term: 'SLAM', def: 'Simultaneous Localization and Mapping — building a map of an environment while tracking location within it.' },
+            { term: 'Sim-to-Real', def: 'Transferring AI skills learned in simulation to real-world physical environments.' }
+          ],
+          uk: [
+            { term: 'NeRF', def: 'Neural Radiance Fields — техніка ШІ для реконструкції фотореалістичних 3D-сцен з 2D-фото.' },
+            { term: 'Втілений ШІ', def: 'Системи ШІ з фізичними тілами (роботи), що вчаться через реальну взаємодію.' },
+            { term: 'SLAM', def: 'Одночасна локалізація та картографування — побудова карти середовища з одночасним відстеженням позиції.' },
+            { term: 'Sim-to-Real', def: 'Перенесення навичок ШІ з симуляції у реальне фізичне середовище.' }
+          ]
+        },
+        tips: {
+          en: [
+            'Spatial intelligence is where AI meets the physical world — watch robotics companies for the most impactful near-term advances',
+            'Try 3D generation tools (Meshy, TripoSR) to experience spatial AI capabilities firsthand',
+            'The sim-to-real gap is the biggest bottleneck in robotics AI — if you work in this field, focus on bridging it'
+          ],
+          uk: [
+            'Просторовий інтелект — де ШІ зустрічає фізичний світ: слідкуйте за робототехнічними компаніями для найвпливовіших найближчих проривів',
+            'Спробуйте інструменти 3D-генерації (Meshy, TripoSR) щоб відчути можливості просторового ШІ на власному досвіді',
+            'Розрив sim-to-real — найбільше вузьке місце в ШІ для робототехніки: якщо працюєте у цій сфері, зосередьтесь на подоланні його'
+          ]
+        },
+        related: [] },
+      { slug: 'world-model', title: { en: 'General World Model', uk: 'Загальна модель світу' }, desc: { en: 'AI systems that build internal representations of how the world works.', uk: 'Системи ШІ, що будують внутрішні уявлення про те, як працює світ.' },
+        overview: {
+          en: [
+            'A world model is an AI system\'s internal representation of how the world works — enabling it to predict outcomes, plan actions, and reason about causality. Yann LeCun argues that current LLMs lack true world models and that building them is the key to achieving human-level AI. Without a world model, AI can only pattern-match on training data rather than truly "understand."',
+            'World models allow an agent to simulate "what would happen if..." before taking action — the foundation of planning and common sense. Humans do this constantly: you can predict that a glass will break if dropped, even if you have never seen that specific glass. Building this capability into AI is one of the grand challenges of the field.'
+          ],
+          uk: [
+            'Модель світу — це внутрішнє уявлення системи ШІ про те, як працює світ — що дозволяє передбачати результати, планувати дії та міркувати про причинність. Ян Лекун аргументує що поточні LLM не мають справжніх моделей світу і їх побудова — ключ до досягнення ШІ людського рівня. Без моделі світу ШІ може лише зіставляти патерни з навчальних даних, а не справді "розуміти."',
+            'Моделі світу дозволяють агенту симулювати "що буде якщо..." перед дією — основа планування та здорового глузду. Люди роблять це постійно: ви можете передбачити що склянка розіб\'ється при падінні, навіть якщо ніколи не бачили цю конкретну склянку. Побудова цієї здатності в ШІ — один з великих викликів галузі.'
+          ]
+        },
+        details: {
+          en: [
+            { text: 'What Is a World Model', desc: 'An internal simulation of reality that enables prediction, planning, and causal reasoning. Humans have rich world models — we understand physics, social dynamics, and cause-effect intuitively. AI world models aim to replicate this.', links: [] },
+            { text: 'LeCun\'s JEPA Architecture', desc: 'Yann LeCun proposes Joint Embedding Predictive Architecture (JEPA) as the path to world models. Instead of predicting pixels, JEPA predicts abstract representations of future states. This avoids the complexity of pixel-level prediction.', links: [{ title: 'Foundation Models', href: '../level-1/foundation-models.html' }] },
+            { text: 'Do LLMs Have World Models?', desc: 'Heated debate: some research shows LLMs develop internal spatial and temporal representations (Othello-GPT, linear probes). Critics argue these are statistical patterns, not true understanding. The truth likely lies in between.', links: [{ title: 'Reasoning', href: '../level-1/reasoning.html' }] },
+            { text: 'Video Prediction as World Modeling', desc: 'Predicting future video frames requires understanding physics, object permanence, and causality. Sora (OpenAI), Runway Gen-3, and similar models demonstrate implicit physics understanding through video generation.', links: [{ title: 'Generative AI', href: '../level-1/generative-ai.html' }] },
+            { text: 'Physics Engines vs Learned Models', desc: 'Traditional approach: hand-coded physics rules (Unity, Unreal). New approach: learned physics from data (neural physics engines). Hybrid: combining traditional physics with neural networks for robustness.', links: [] },
+            { text: 'Planning with World Models', desc: 'If you can simulate consequences, you can plan: try actions in simulation, observe predicted outcomes, choose the best. Model-based RL (MuZero, Dreamer) uses learned world models for efficient planning.', links: [{ title: 'Agents', href: '../level-4/agents.html' }] },
+            { text: 'Common Sense Reasoning', desc: 'Understanding that objects fall down, water is wet, and people have feelings — the "easy" things that are hardest for AI. World models are considered essential for common sense, which remains a major weakness of current AI.', links: [] },
+            { text: 'Implicit vs Explicit World Models', desc: 'Implicit: knowledge encoded in network weights (LLMs may have this). Explicit: a separate, queryable model of the world. LeCun and others argue explicit world models are needed for robust reasoning and planning.', links: [] },
+            { text: 'Multimodal World Models', desc: 'True world models must integrate vision, language, sound, and physical interaction. A world model that only processes text cannot understand physics. Multimodal approaches (Gemini, GPT-4V) move toward integrated understanding.', links: [{ title: 'Multimodality', href: '../level-1/multimodality.html' }] },
+            { text: 'The Path Forward', desc: 'Combining LLM reasoning with learned physics, embodied experience, and abstract representation learning. World models may not arrive as a single breakthrough but as a gradual integration of capabilities across AI systems.', links: [{ title: 'AGI', href: 'agi.html' }] }
+          ],
+          uk: [
+            { text: 'Що таке модель світу', desc: 'Внутрішня симуляція реальності для передбачення, планування та причинного міркування. Люди мають багаті моделі світу — ми інтуїтивно розуміємо фізику, соціальну динаміку та причину-наслідок. Моделі світу ШІ прагнуть це повторити.', links: [] },
+            { text: 'Архітектура JEPA Лекуна', desc: 'Ян Лекун пропонує Joint Embedding Predictive Architecture (JEPA) як шлях до моделей світу. Замість передбачення пікселів, JEPA передбачає абстрактні представлення майбутніх станів, уникаючи складності піксельного рівня.', links: [{ title: 'Фундаментальні моделі', href: '../level-1/foundation-models.html' }] },
+            { text: 'Чи мають LLM моделі світу?', desc: 'Гаряча дискусія: деякі дослідження показують що LLM розвивають внутрішні просторові та часові представлення (Othello-GPT). Критики аргументують що це статистичні патерни, не справжнє розуміння. Істина ймовірно посередині.', links: [{ title: 'Міркування', href: '../level-1/reasoning.html' }] },
+            { text: 'Передбачення відео як моделювання світу', desc: 'Передбачення майбутніх кадрів відео вимагає розуміння фізики, постійності об\'єктів та причинності. Sora (OpenAI), Runway Gen-3 демонструють імпліцитне розуміння фізики через генерацію відео.', links: [{ title: 'Генеративний ШІ', href: '../level-1/generative-ai.html' }] },
+            { text: 'Фізичні движки проти навчених моделей', desc: 'Традиційний підхід: закодовані правила фізики (Unity, Unreal). Новий: навчена фізика з даних (нейронні фізичні движки). Гібрид: комбінація традиційної фізики з нейромережами для робастності.', links: [] },
+            { text: 'Планування з моделями світу', desc: 'Якщо можете симулювати наслідки, можете планувати: спробуйте дії в симуляції, спостерігайте передбачені результати, оберіть найкращий. Model-based RL (MuZero, Dreamer) використовує навчені моделі для планування.', links: [{ title: 'Агенти', href: '../level-4/agents.html' }] },
+            { text: 'Міркування здорового глузду', desc: 'Розуміння що об\'єкти падають вниз, вода мокра, люди мають почуття — "прості" речі що найскладніші для ШІ. Моделі світу вважаються необхідними для здорового глузду, що залишається слабкістю поточного ШІ.', links: [] },
+            { text: 'Імпліцитні та експліцитні моделі', desc: 'Імпліцитні: знання закодовані у вагах мережі (LLM можуть мати). Експліцитні: окрема, запитувана модель світу. Лекун аргументує що експліцитні моделі необхідні для робастного міркування та планування.', links: [] },
+            { text: 'Мультимодальні моделі світу', desc: 'Справжні моделі світу повинні інтегрувати зір, мову, звук та фізичну взаємодію. Модель що обробляє лише текст не може розуміти фізику. Мультимодальні підходи (Gemini, GPT-4V) рухаються до інтегрованого розуміння.', links: [{ title: 'Мультимодальність', href: '../level-1/multimodality.html' }] },
+            { text: 'Шлях вперед', desc: 'Комбінація міркування LLM з навченою фізикою, втіленим досвідом та абстрактним навчанням представлень. Моделі світу можуть прийти не як один прорив, а як поступова інтеграція можливостей.', links: [{ title: 'AGI', href: 'agi.html' }] }
+          ]
+        },
+        keyTerms: {
+          en: [
+            { term: 'World Model', def: 'AI\'s internal representation of reality enabling prediction, planning, and causal reasoning.' },
+            { term: 'JEPA', def: 'Joint Embedding Predictive Architecture — LeCun\'s proposed approach for building world models that predict abstract states.' },
+            { term: 'Common Sense', def: 'Intuitive understanding of everyday physics, social dynamics, and cause-effect relationships — still a major AI challenge.' },
+            { term: 'Model-Based RL', def: 'Reinforcement learning using a learned world model to simulate and plan actions before taking them.' }
+          ],
+          uk: [
+            { term: 'Модель світу', def: 'Внутрішнє уявлення ШІ про реальність для передбачення, планування та причинного міркування.' },
+            { term: 'JEPA', def: 'Joint Embedding Predictive Architecture — запропонований Лекуном підхід для побудови моделей світу що передбачають абстрактні стани.' },
+            { term: 'Здоровий глузд', def: 'Інтуїтивне розуміння повсякденної фізики, соціальної динаміки та причинно-наслідкових зв\'язків — все ще великий виклик для ШІ.' },
+            { term: 'Model-Based RL', def: 'Навчання з підкріпленням з навченою моделлю світу для симуляції та планування дій перед їх виконанням.' }
+          ]
+        },
+        tips: {
+          en: [
+            'Follow Yann LeCun\'s research and talks for the most influential thinking on world models and the path to human-level AI',
+            'Video generation quality is a proxy for world model capability — better video prediction implies better physics understanding',
+            'The "do LLMs understand?" debate is worth following — it has practical implications for how we build and trust AI systems'
+          ],
+          uk: [
+            'Слідкуйте за дослідженнями та виступами Яна Лекуна для найвпливовішого мислення про моделі світу та шлях до ШІ людського рівня',
+            'Якість генерації відео — проксі для можливостей моделі світу: краще передбачення відео означає краще розуміння фізики',
+            'Дебати "чи розуміють LLM?" варті уваги — вони мають практичні наслідки для побудови та довіри до систем ШІ'
+          ]
+        },
+        related: [] },
+      { slug: 'accelerationists', title: { en: 'Techno-Optimists', uk: 'Техно-оптимісти' }, desc: { en: 'The e/acc movement and arguments for accelerating AI development.', uk: 'Рух e/acc та аргументи на користь прискорення розвитку ШІ.' },
+        overview: {
+          en: [
+            'Techno-optimists and the Effective Accelerationism (e/acc) movement argue that AI development should be pursued aggressively because the benefits far outweigh the risks. They view technology as the primary driver of human progress and believe that slowing AI development causes more harm than accelerating it — delaying cures for diseases, solutions to poverty, and tools for human flourishing.',
+            'Marc Andreessen\'s "Techno-Optimist Manifesto" (2023) crystallized this worldview: technology is the solution to most human problems, markets should drive AI development, and regulation primarily benefits incumbents while slowing innovation. The e/acc movement adds that accelerating technology is a moral imperative. Understanding this perspective is important even if you disagree — it shapes major investment and policy decisions.'
+          ],
+          uk: [
+            'Техно-оптимісти та рух ефективного акселераціонізму (e/acc) аргументують що розвиток ШІ повинен переслідуватися агресивно, бо вигоди значно перевищують ризики. Вони розглядають технологію як основний рушій людського прогресу та вірять що сповільнення розвитку ШІ завдає більше шкоди ніж прискорення — затримуючи ліки від хвороб, рішення бідності та інструменти для людського процвітання.',
+            'Маніфест техно-оптимістів Марка Андрессена (2023) кристалізував цей світогляд: технологія — рішення більшості людських проблем, ринки повинні рухати розвиток ШІ, а регулювання переважно допомагає інкумбентам та сповільнює інновації. Рух e/acc додає що прискорення технологій — моральний імператив. Розуміння цієї перспективи важливе навіть якщо ви не згодні — вона формує інвестиційні та політичні рішення.'
+          ]
+        },
+        details: {
+          en: [
+            { text: 'Effective Accelerationism (e/acc)', desc: 'Movement arguing that accelerating technology is a moral imperative. Technology solves more problems than it creates. Slowing down costs lives (delayed medical breakthroughs, climate solutions). Key voices: Guillaume Verdon, Beff Jezos.', links: [] },
+            { text: 'The Techno-Optimist Case', desc: 'Historical argument: every major technology (electricity, internet, medicine) was met with fear but ultimately improved human life dramatically. AI is the next such technology. Pessimism is a failure of imagination.', links: [] },
+            { text: 'Open Source AI Advocacy', desc: 'Arguments for open AI models: democratizes access, enables innovation, prevents concentration of power, allows security auditing, and drives progress faster. Meta\'s Llama releases embody this philosophy.', links: [{ title: 'Foundation Models', href: '../level-1/foundation-models.html' }] },
+            { text: 'Andreessen\'s Manifesto', desc: 'Marc Andreessen (2023) argued: technology is the engine of progress, markets optimize for human welfare, regulation protects incumbents, and AI will create more abundance than any technology before it.', links: [] },
+            { text: 'Economic Arguments', desc: 'AI could add $15+ trillion to the global economy. Delaying AI development means delaying economic growth that lifts billions out of poverty. The opportunity cost of caution may exceed the risk of action.', links: [] },
+            { text: 'AI for Scientific Discovery', desc: 'AI is accelerating drug discovery, materials science, climate modeling, and fundamental research. Each month of delay potentially costs lives. Accelerationists argue safety concerns must be weighed against this real human cost.', links: [] },
+            { text: 'Critique of Safety-ism', desc: 'Some accelerationists argue that "AI safety" can become a tool for regulatory capture — large companies lobby for safety regulations they can afford to comply with, creating barriers that block smaller competitors and open source.', links: [] },
+            { text: 'Competition Arguments', desc: 'If democratic nations slow AI development, authoritarian regimes will not. Better to lead AI development with democratic values than cede the field. The AI arms race makes unilateral pausing dangerous.', links: [] },
+            { text: 'Limits of Optimism', desc: 'Critics argue accelerationists underweight genuine risks: job displacement, AI-powered surveillance, bioweapons, and the alignment problem. Unbridled acceleration without safety is reckless, not optimistic.', links: [{ title: 'Techno-Pessimists', href: 'doomers.html' }] },
+            { text: 'The Balanced View', desc: 'Most AI practitioners support neither pure acceleration nor pure caution. The consensus: develop AI ambitiously but with safety research running in parallel. Progress and safety are not opposites but complements.', links: [{ title: 'AI Safety', href: 'ai-safety.html' }] }
+          ],
+          uk: [
+            { text: 'Ефективний акселераціонізм (e/acc)', desc: 'Рух що аргументує прискорення технологій як моральний імператив. Технологія вирішує більше проблем ніж створює. Сповільнення коштує життів (затримані медичні прориви, кліматичні рішення). Ключові голоси: Гійом Вердон, Бефф Джезос.', links: [] },
+            { text: 'Техно-оптимістичний аргумент', desc: 'Історичний аргумент: кожна велика технологія (електрика, інтернет, медицина) зустрічалася страхом, але врешті драматично покращила людське життя. ШІ — наступна така технологія. Песимізм — провал уяви.', links: [] },
+            { text: 'Адвокація відкритого ШІ', desc: 'Аргументи за відкриті моделі ШІ: демократизує доступ, стимулює інновації, запобігає концентрації влади, дозволяє аудит безпеки та рухає прогрес швидше. Релізи Llama від Meta втілюють цю філософію.', links: [{ title: 'Фундаментальні моделі', href: '../level-1/foundation-models.html' }] },
+            { text: 'Маніфест Андрессена', desc: 'Марк Андрессен (2023) аргументував: технологія — двигун прогресу, ринки оптимізують для людського добробуту, регулювання захищає інкумбентів, ШІ створить більше достатку ніж будь-яка технологія до нього.', links: [] },
+            { text: 'Економічні аргументи', desc: 'ШІ може додати $15+ трильйонів до глобальної економіки. Затримка розвитку ШІ означає затримку економічного зростання що піднімає мільярди з бідності. Альтернативна вартість обережності може перевищувати ризик дій.', links: [] },
+            { text: 'ШІ для наукових відкриттів', desc: 'ШІ прискорює відкриття ліків, матеріалознавство, кліматичне моделювання та фундаментальні дослідження. Кожен місяць затримки потенційно коштує життів. Акселераціоністи аргументують що занепокоєння безпекою треба зважувати проти цієї реальної ціни.', links: [] },
+            { text: 'Критика безпекоцентризму', desc: 'Деякі акселераціоністи аргументують що "безпека ШІ" може стати інструментом регуляторного захоплення — великі компанії лобіюють регуляції безпеки, які можуть собі дозволити, створюючи бар\'єри для малих конкурентів.', links: [] },
+            { text: 'Аргументи конкуренції', desc: 'Якщо демократичні нації сповільнять розвиток ШІ, авторитарні режими не будуть. Краще лідирувати з демократичними цінностями ніж поступитися полем. Гонка озброєнь ШІ робить одностороннє призупинення небезпечним.', links: [] },
+            { text: 'Межі оптимізму', desc: 'Критики аргументують що акселераціоністи недооцінюють ризики: втрату робочих місць, ШІ-нагляд, біозброю та проблему вирівнювання. Нестримне прискорення без безпеки — безрозсудність, не оптимізм.', links: [{ title: 'Техно-песимісти', href: 'doomers.html' }] },
+            { text: 'Збалансований погляд', desc: 'Більшість практиків ШІ не підтримують ані чисте прискорення, ані чисту обережність. Консенсус: розвивати ШІ амбітно, але з дослідженнями безпеки паралельно. Прогрес та безпека — не протилежності, а доповнення.', links: [{ title: 'Безпека ШІ', href: 'ai-safety.html' }] }
+          ]
+        },
+        keyTerms: {
+          en: [
+            { term: 'e/acc', def: 'Effective Accelerationism — movement arguing that technological acceleration is a moral imperative.' },
+            { term: 'Techno-Optimism', def: 'The belief that technology, including AI, will ultimately solve more problems than it creates.' },
+            { term: 'Regulatory Capture', def: 'When safety regulations are shaped by large incumbents to protect their market position against competitors.' },
+            { term: 'Open Source AI', def: 'AI models with publicly available weights and code, enabling community development and democratized access.' }
+          ],
+          uk: [
+            { term: 'e/acc', def: 'Ефективний акселераціонізм — рух що аргументує технологічне прискорення як моральний імператив.' },
+            { term: 'Техно-оптимізм', def: 'Віра що технологія, включно з ШІ, врешті вирішить більше проблем ніж створить.' },
+            { term: 'Регуляторне захоплення', def: 'Коли регуляції безпеки формуються великими інкумбентами для захисту ринкової позиції від конкурентів.' },
+            { term: 'Open Source ШІ', def: 'Моделі ШІ з публічно доступними вагами та кодом для розвитку спільнотою та демократизованого доступу.' }
+          ]
+        },
+        tips: {
+          en: [
+            'Understand the accelerationist arguments even if you disagree — they influence major investment, hiring, and policy decisions',
+            'The open-source AI debate has practical implications: following it helps you predict which models will be available and how',
+            'The strongest position combines optimism about AI potential with serious engagement on safety — pure optimism or pure fear are both incomplete'
+          ],
+          uk: [
+            'Розумійте аргументи акселераціоністів навіть якщо не згодні — вони впливають на інвестиції, наймання та політичні рішення',
+            'Дебати про open-source ШІ мають практичні наслідки: слідкування допомагає передбачити які моделі будуть доступні',
+            'Найсильніша позиція поєднує оптимізм щодо потенціалу ШІ з серйозним залученням до безпеки — чистий оптимізм чи страх обидва неповні'
+          ]
+        },
+        related: [] },
+      { slug: 'doomers', title: { en: 'Techno-Pessimists', uk: 'Техно-песимісти' }, desc: { en: 'Concerns about existential risk from advanced AI.', uk: 'Занепокоєння щодо екзистенційного ризику від просунутого ШІ.' },
+        overview: {
+          en: [
+            'AI risk researchers and techno-pessimists ("doomers") argue that advanced AI poses existential risks to humanity that demand immediate, serious action. Their concerns range from near-term harms (deepfakes, job displacement, surveillance) to long-term catastrophic risks (misaligned superintelligence, loss of human control). Key figures include Eliezer Yudkowsky, Stuart Russell, and organizations like MIRI and the Pause AI movement.',
+            'The doomer perspective is often mischaracterized as simply "anti-technology." In reality, most AI safety researchers are deeply technical people who understand AI capabilities and see specific, well-reasoned dangers. Their arguments have influenced the creation of safety teams at every major AI lab and have shaped governmental AI policy worldwide.'
+          ],
+          uk: [
+            'Дослідники ризиків ШІ та техно-песимісти ("думери") аргументують що просунутий ШІ створює екзистенційні ризики для людства, що вимагають негайних серйозних дій. Їх занепокоєння простягаються від найближчих загроз (діпфейки, втрата робочих місць, нагляд) до довгострокових катастрофічних ризиків (невирівняний суперінтелект, втрата контролю). Ключові фігури: Елізер Юдковський, Стюарт Рассел, організації MIRI та рух Pause AI.',
+            'Перспектива думерів часто спотворюється як просто "проти-технологічна." Насправді більшість дослідників безпеки ШІ — глибоко технічні люди, що розуміють можливості ШІ та бачать конкретні, обґрунтовані небезпеки. Їх аргументи вплинули на створення команд безпеки у кожній великій ШІ-лабораторії та сформували урядову ШІ-політику у світі.'
+          ]
+        },
+        details: {
+          en: [
+            { text: 'The Core Argument', desc: 'We are building increasingly powerful AI systems without understanding how to control them. The alignment problem is unsolved. Deploying superintelligent AI before solving alignment could be catastrophic and irreversible. The stakes are too high for "move fast and break things."', links: [{ title: 'AI Alignment', href: 'alignment.html' }] },
+            { text: 'Eliezer Yudkowsky\'s Position', desc: 'The most prominent "doomer" argues AI poses extinction-level risk, current alignment approaches are insufficient, and we may need to halt development of frontier AI. His writings at LessWrong have shaped the entire AI safety field.', links: [] },
+            { text: 'Stuart Russell\'s Framework', desc: '"Human Compatible" (2019) argues the standard AI model (optimize a given objective) is fundamentally flawed. Instead, AI should be uncertain about human preferences and defer to humans. A more moderate but influential critique.', links: [] },
+            { text: 'MIRI and AI Risk Research', desc: 'Machine Intelligence Research Institute has studied AI alignment since 2000. Pioneered many concepts: corrigibility, goal stability, decision theory for AI. Their pessimism about current approaches has been influential.', links: [] },
+            { text: 'Pause AI Movement', desc: 'Calling for a moratorium on training models more powerful than GPT-4 until alignment is solved. The open letter (signed by Musk, Wozniak, and others) requested a 6-month pause. Critics call it impractical and counterproductive.', links: [] },
+            { text: 'Near-Term AI Risks', desc: 'Not just far-future concerns: deepfake misinformation, AI-powered cyberattacks, autonomous weapons, mass surveillance, algorithmic discrimination, and economic disruption from rapid automation. These risks are current and measurable.', links: [] },
+            { text: 'The Alignment Tax', desc: 'Safety research costs time and money but produces no direct revenue. Companies face competitive pressure to skip safety work. Without regulation or cultural norms, the incentive structure favors speed over safety.', links: [{ title: 'AI Safety', href: 'ai-safety.html' }] },
+            { text: 'Regulatory Approaches', desc: 'EU AI Act (risk-based regulation), US Executive Order on AI Safety, UK AI Safety Institute, China AI regulations. Different countries taking different approaches — a global framework remains elusive.', links: [] },
+            { text: 'Counterarguments', desc: 'Critics argue: pausing is unenforceable internationally, slowing AI has real costs (delayed benefits), current AI is not close to dangerous superintelligence, and safety research progresses alongside capabilities.', links: [{ title: 'Techno-Optimists', href: 'accelerationists.html' }] },
+            { text: 'The Productive Middle', desc: 'Many researchers occupy a middle ground: AI development should continue but with mandatory safety evaluations, alignment research investment proportional to capability, and international coordination on the most dangerous capabilities.', links: [] }
+          ],
+          uk: [
+            { text: 'Основний аргумент', desc: 'Ми будуємо все потужніші системи ШІ без розуміння як їх контролювати. Проблема вирівнювання невирішена. Деплой суперінтелектуального ШІ до вирішення вирівнювання може бути катастрофічним та незворотним. Ставки занадто високі для "рухайся швидко та ламай."', links: [{ title: 'Вирівнювання ШІ', href: 'alignment.html' }] },
+            { text: 'Позиція Юдковського', desc: 'Найпромінентніший "думер" аргументує що ШІ створює ризик рівня вимирання, поточні підходи до вирівнювання недостатні, і може знадобитися зупинити розвиток фронтірного ШІ. Його праці на LessWrong сформували всю сферу безпеки ШІ.', links: [] },
+            { text: 'Рамка Стюарта Рассела', desc: '"Human Compatible" (2019) аргументує що стандартна модель ШІ (оптимізація даної мети) фундаментально хибна. Натомість ШІ повинен бути невпевненим щодо людських переваг та поступатися людям. Помірніша, але впливова критика.', links: [] },
+            { text: 'MIRI та дослідження ризиків ШІ', desc: 'Machine Intelligence Research Institute вивчає вирівнювання ШІ з 2000 року. Піонери багатьох концепцій: коригованість, стабільність цілей, теорія рішень для ШІ. Їх песимізм щодо поточних підходів був впливовим.', links: [] },
+            { text: 'Рух Pause AI', desc: 'Заклик до мораторію на навчання моделей потужніших за GPT-4 до вирішення вирівнювання. Відкритий лист (підписаний Маском, Возняком та іншими) просив 6-місячну паузу. Критики називають це непрактичним.', links: [] },
+            { text: 'Найближчі ризики ШІ', desc: 'Не лише далеке майбутнє: діпфейк-дезінформація, ШІ-кібератаки, автономна зброя, масовий нагляд, алгоритмічна дискримінація та економічне руйнування від швидкої автоматизації. Ці ризики поточні та вимірювані.', links: [] },
+            { text: 'Податок на вирівнювання', desc: 'Дослідження безпеки коштують часу та грошей, але не приносять прямого доходу. Компанії під конкурентним тиском пропускати безпеку. Без регулювання стимули сприяють швидкості над безпекою.', links: [{ title: 'Безпека ШІ', href: 'ai-safety.html' }] },
+            { text: 'Регуляторні підходи', desc: 'EU AI Act (регулювання на основі ризику), US Executive Order з безпеки ШІ, UK AI Safety Institute, регуляції Китаю. Різні країни з різними підходами — глобальна рамка залишається невловимою.', links: [] },
+            { text: 'Контраргументи', desc: 'Критики аргументують: пауза нездійсненна міжнародно, сповільнення ШІ має реальні витрати (затримані вигоди), поточний ШІ не близький до небезпечного суперінтелекту, дослідження безпеки просуваються разом з можливостями.', links: [{ title: 'Техно-оптимісти', href: 'accelerationists.html' }] },
+            { text: 'Продуктивна середина', desc: 'Багато дослідників на середній позиції: розвиток ШІ повинен продовжуватися, але з обов\'язковими оцінками безпеки, інвестиціями у вирівнювання пропорційно можливостям та міжнародною координацією найнебезпечніших здатностей.', links: [] }
+          ]
+        },
+        keyTerms: {
+          en: [
+            { term: 'AI Doomer', def: 'Person who believes advanced AI poses serious existential risk to humanity and advocates for caution or pause.' },
+            { term: 'Pause AI', def: 'Movement calling for a moratorium on training AI systems more powerful than current frontier models.' },
+            { term: 'X-Risk', def: 'Existential risk — any event that could cause human extinction or permanent, drastic reduction in human potential.' },
+            { term: 'AI Governance', def: 'Policy frameworks, regulations, and international agreements for managing AI development and deployment.' }
+          ],
+          uk: [
+            { term: 'ШІ-думер', def: 'Людина що вірить просунутий ШІ створює серйозний екзистенційний ризик та виступає за обережність або паузу.' },
+            { term: 'Pause AI', def: 'Рух що закликає до мораторію на навчання систем ШІ потужніших за поточні фронтірні моделі.' },
+            { term: 'X-Risk', def: 'Екзистенційний ризик — будь-яка подія що може спричинити вимирання людства або постійне різке зниження людського потенціалу.' },
+            { term: 'Управління ШІ', def: 'Політичні рамки, регуляції та міжнародні угоди для управління розвитком та деплоєм ШІ.' }
+          ]
+        },
+        tips: {
+          en: [
+            'Read both doomer and accelerationist perspectives — the truth likely involves elements of both, and strong opinions on either side often miss nuance',
+            'Follow the EU AI Act implementation for the most concrete example of AI regulation in practice',
+            'Near-term AI risks (deepfakes, surveillance) are worth taking seriously regardless of your view on long-term existential risk'
+          ],
+          uk: [
+            'Читайте і думерські і акселераціоністські перспективи — істина ймовірно включає елементи обох, сильні думки з будь-якого боку часто пропускають нюанси',
+            'Слідкуйте за впровадженням EU AI Act для найконкретнішого прикладу регулювання ШІ на практиці',
+            'Найближчі ризики ШІ (діпфейки, нагляд) варті серйозного ставлення незалежно від вашого погляду на довгостроковий екзистенційний ризик'
+          ]
+        },
+        related: [] },
+      { slug: 'ai-safety', title: { en: 'AI Safety', uk: 'Безпека ШІ' }, desc: { en: 'Research and practices for building safe AI systems.', uk: 'Дослідження та практики побудови безпечних систем ШІ.' },
+        overview: {
+          en: [
+            'AI safety is the field of research and engineering dedicated to ensuring AI systems behave as intended, remain under human control, and do not cause harm. It spans from near-term practical concerns (preventing bias, ensuring robustness, avoiding misuse) to long-term challenges (alignment, containment, value learning). Every major AI lab now has a dedicated safety team.',
+            'Safety is not the opposite of capability — it is what enables capability to be deployed responsibly. Just as aviation safety enabled air travel to become the safest form of transportation, AI safety research aims to make increasingly powerful AI systems trustworthy enough for high-stakes applications.'
+          ],
+          uk: [
+            'Безпека ШІ — це сфера досліджень та інженерії, присвячена забезпеченню того, що системи ШІ поводяться як задумано, залишаються під людським контролем та не завдають шкоди. Вона охоплює від найближчих практичних занепокоєнь (запобігання упередженості, забезпечення робастності) до довгострокових викликів (вирівнювання, стримування, навчання цінностей). Кожна велика ШІ-лабораторія тепер має виділену команду безпеки.',
+            'Безпека — не протилежність можливостям, а те, що дозволяє можливостям бути деплоєними відповідально. Так само як авіаційна безпека дозволила повітряним перельотам стати найбезпечнішим транспортом, дослідження безпеки ШІ прагнуть зробити все потужніші системи достатньо надійними для критичних застосувань.'
+          ]
+        },
+        details: {
+          en: [
+            { text: 'Categories of AI Risk', desc: 'Misuse (intentional harm: deepfakes, cyberweapons), Misalignment (unintended behavior from flawed objectives), Accidents (bugs and failures in AI systems), Structural risks (concentration of power, economic disruption).', links: [] },
+            { text: 'Red-Teaming', desc: 'Adversarial testing of AI systems to find harmful behaviors before deployment. Teams try to make the AI produce dangerous content, leak information, or behave unpredictably. Now standard practice at all major labs.', links: [] },
+            { text: 'Safety Evaluations', desc: 'Standardized tests for dangerous capabilities: CBRN knowledge (chemical/biological/radiological/nuclear), cyber offense, persuasion, autonomous replication. Anthropic, OpenAI, and DeepMind all publish safety evaluation results.', links: [] },
+            { text: 'Constitutional AI', desc: 'Anthropic\'s approach: train AI with a set of principles (a "constitution") and have it self-evaluate against those principles. Reduces the need for human feedback while maintaining safety properties.', links: [{ title: 'AI Alignment', href: 'alignment.html' }] },
+            { text: 'Containment and Monitoring', desc: 'Strategies for controlling AI systems: sandboxing (limited environment access), human-in-the-loop (approval for high-stakes actions), output filtering, and continuous monitoring for anomalous behavior.', links: [{ title: 'Agents', href: '../level-4/agents.html' }] },
+            { text: 'Responsible Scaling', desc: 'Anthropic\'s Responsible Scaling Policy and similar frameworks: assess safety before increasing capabilities. If safety is not demonstrated at a capability level, don\'t scale further until it is.', links: [] },
+            { text: 'AI Safety Organizations', desc: 'Anthropic (safety-focused lab), OpenAI Safety team, Google DeepMind Safety, MIRI, Center for AI Safety (CAIS), AI Safety Institute (UK/US), Alignment Research Center (ARC). Growing ecosystem of safety-focused research.', links: [] },
+            { text: 'Practical Safety Engineering', desc: 'Input validation, output filtering, rate limiting, abuse detection, prompt injection defense, and secure tool use. The engineering side of safety that every AI application developer should implement.', links: [{ title: 'Tool Use', href: '../level-4/tool-use.html' }] },
+            { text: 'Dual-Use Concerns', desc: 'Many AI capabilities are dual-use: code generation helps developers but also creates malware. Biology knowledge helps research but enables bioweapons. Managing this tension is a core safety challenge.', links: [] },
+            { text: 'The Safety Culture Shift', desc: 'AI safety has moved from niche concern to mainstream requirement. Major AI conferences have safety tracks, companies hire safety researchers, and governments create safety institutes. The culture is shifting toward taking safety seriously.', links: [] }
+          ],
+          uk: [
+            { text: 'Категорії ризиків ШІ', desc: 'Зловживання (навмисна шкода: діпфейки, кіберзброя), невирівнювання (непередбачена поведінка від хибних цілей), аварії (баги та збої), структурні ризики (концентрація влади, економічне руйнування).', links: [] },
+            { text: 'Ред-тімінг', desc: 'Змагальне тестування систем ШІ для знаходження шкідливої поведінки перед деплоєм. Команди намагаються змусити ШІ видавати небезпечний контент або поводитися непередбачувано. Тепер стандартна практика.', links: [] },
+            { text: 'Оцінки безпеки', desc: 'Стандартизовані тести на небезпечні здатності: CBRN-знання (хімічне/біологічне/радіологічне/ядерне), кібер-атаки, переконання, автономна реплікація. Anthropic, OpenAI та DeepMind публікують результати.', links: [] },
+            { text: 'Конституційний ШІ', desc: 'Підхід Anthropic: навчання ШІ з набором принципів ("конституція") та самооцінка відповідності цим принципам. Зменшує потребу у людському зворотному зв\'язку при збереженні безпеки.', links: [{ title: 'Вирівнювання ШІ', href: 'alignment.html' }] },
+            { text: 'Стримування та моніторинг', desc: 'Стратегії контролю систем ШІ: пісочниця (обмежений доступ до середовища), людина-в-петлі (схвалення для критичних дій), фільтрація виходу та безперервний моніторинг аномальної поведінки.', links: [{ title: 'Агенти', href: '../level-4/agents.html' }] },
+            { text: 'Відповідальне масштабування', desc: 'Responsible Scaling Policy від Anthropic та подібні рамки: оцінка безпеки перед збільшенням можливостей. Якщо безпека не продемонстрована на рівні можливостей, не масштабуйте далі.', links: [] },
+            { text: 'Організації безпеки ШІ', desc: 'Anthropic (лабораторія з фокусом на безпеку), команда безпеки OpenAI, Google DeepMind Safety, MIRI, CAIS, AI Safety Institute (UK/US), ARC. Зростаюча екосистема досліджень безпеки.', links: [] },
+            { text: 'Практична інженерія безпеки', desc: 'Валідація входу, фільтрація виходу, обмеження частоти, детекція зловживань, захист від prompt injection та безпечне використання інструментів. Інженерна сторона безпеки для кожного розробника ШІ-додатків.', links: [{ title: 'Використання інструментів', href: '../level-4/tool-use.html' }] },
+            { text: 'Двоцільові занепокоєння', desc: 'Багато можливостей ШІ двоцільові: генерація коду допомагає розробникам, але також створює шкідливе ПЗ. Біологічні знання допомагають дослідженням, але дозволяють біозброю. Управління цією напругою — ключовий виклик безпеки.', links: [] },
+            { text: 'Зрушення культури безпеки', desc: 'Безпека ШІ перейшла від нішевого занепокоєння до мейнстримної вимоги. Великі ШІ-конференції мають треки безпеки, компанії наймають дослідників безпеки, уряди створюють інститути безпеки. Культура зміщується до серйозного ставлення.', links: [] }
+          ]
+        },
+        keyTerms: {
+          en: [
+            { term: 'Red-Teaming', def: 'Adversarial testing to find harmful AI behaviors before deployment by simulating attacks and misuse.' },
+            { term: 'Constitutional AI', def: 'Training method where AI evaluates its own outputs against a set of safety principles.' },
+            { term: 'Responsible Scaling', def: 'Framework requiring safety demonstrations before increasing AI model capabilities.' },
+            { term: 'Dual-Use', def: 'AI capabilities that have both beneficial and harmful applications, creating tension between access and safety.' }
+          ],
+          uk: [
+            { term: 'Ред-тімінг', def: 'Змагальне тестування для знаходження шкідливої поведінки ШІ перед деплоєм через симуляцію атак та зловживань.' },
+            { term: 'Конституційний ШІ', def: 'Метод навчання де ШІ оцінює власні виходи проти набору принципів безпеки.' },
+            { term: 'Відповідальне масштабування', def: 'Рамка що вимагає демонстрації безпеки перед збільшенням можливостей моделі ШІ.' },
+            { term: 'Двоцільове використання', def: 'Можливості ШІ що мають як корисні, так і шкідливі застосування, створюючи напругу між доступом та безпекою.' }
+          ]
+        },
+        tips: {
+          en: [
+            'If you build AI applications, implement practical safety measures (input validation, output filtering, rate limiting) from day one',
+            'Follow Anthropic\'s research blog for the most accessible writing on frontier AI safety techniques',
+            'AI safety is a growing career field with strong demand — consider contributing regardless of your background'
+          ],
+          uk: [
+            'Якщо будуєте ШІ-додатки, впроваджуйте практичні заходи безпеки (валідація входу, фільтрація виходу, обмеження частоти) з першого дня',
+            'Слідкуйте за дослідницьким блогом Anthropic для найдоступніших праць про техніки безпеки фронтірного ШІ',
+            'Безпека ШІ — зростаюча кар\'єрна сфера з високим попитом: розгляньте внесок незалежно від вашого бекграунду'
+          ]
+        },
+        related: [] },
+      { slug: 'alignment', title: { en: 'AI Alignment', uk: 'Вирівнювання ШІ' }, desc: { en: 'Ensuring AI systems act in accordance with human values.', uk: 'Забезпечення дій систем ШІ відповідно до людських цінностей.' },
+        overview: {
+          en: [
+            'AI alignment is the technical challenge of ensuring AI systems pursue goals that are beneficial to humans and act in accordance with human values and intentions. It is arguably the most important unsolved problem in AI — as systems become more capable, the consequences of misalignment grow from inconvenient to catastrophic.',
+            'Current alignment techniques (RLHF, DPO, Constitutional AI) work well for today\'s models but may not scale to superintelligent systems. The field is racing to develop "scalable alignment" — techniques that work even when the AI is more capable than its human overseers. This is what Anthropic, OpenAI, and DeepMind call the "superalignment" challenge.'
+          ],
+          uk: [
+            'Вирівнювання ШІ — це технічний виклик забезпечення того, що системи ШІ переслідують цілі корисні для людей та діють відповідно до людських цінностей та намірів. Це, мабуть, найважливіша невирішена проблема ШІ — в міру зростання можливостей систем, наслідки невирівняності зростають від незручних до катастрофічних.',
+            'Поточні техніки вирівнювання (RLHF, DPO, конституційний ШІ) добре працюють для сьогоднішніх моделей, але можуть не масштабуватися до суперінтелектуальних систем. Сфера квапиться розробити "масштабоване вирівнювання" — техніки що працюють навіть коли ШІ здатніший за людських наглядачів. Це те, що Anthropic, OpenAI та DeepMind називають викликом "супервирівнювання."'
+          ]
+        },
+        details: {
+          en: [
+            { text: 'The Alignment Problem', desc: 'How do you specify exactly what you want an AI to do? Objectives that seem clear can be gamed: "maximize user engagement" leads to addictive content. "Be helpful" without constraints leads to helping with harmful requests. Precise value specification is extraordinarily difficult.', links: [] },
+            { text: 'RLHF', desc: 'Reinforcement Learning from Human Feedback — the technique that made ChatGPT work. Train a reward model from human preferences, then optimize the LLM to maximize that reward. Effective but limited: reward hacking, distribution shift, and human evaluator inconsistency.', links: [{ title: 'Training & Fine-tuning', href: '../level-3/training-finetuning.html' }] },
+            { text: 'DPO (Direct Preference Optimization)', desc: 'A simpler alternative to RLHF that skips the reward model entirely. Directly optimizes the LLM from preference pairs. More stable, easier to implement, and increasingly preferred. Used in many modern alignment workflows.', links: [] },
+            { text: 'Constitutional AI', desc: 'Anthropic\'s approach: define a constitution of principles, have the AI critique its own responses against these principles, then train on the self-improved outputs. Reduces reliance on human labelers while maintaining alignment properties.', links: [{ title: 'AI Safety', href: 'ai-safety.html' }] },
+            { text: 'Scalable Oversight', desc: 'As AI surpasses human ability, how do you evaluate if it is doing the right thing? Approaches: debate (AIs argue, humans judge), recursive reward modeling (AI helps evaluate AI), and constitutional methods (principles over case-by-case judgment).', links: [] },
+            { text: 'Interpretability', desc: 'Understanding what happens inside neural networks. Mechanistic interpretability maps circuits in networks to specific behaviors. If we can read the "thoughts" of an AI, we can verify alignment. Anthropic and others are making rapid progress here.', links: [{ title: 'Explainable AI', href: 'explainable-ai.html' }] },
+            { text: 'Reward Hacking', desc: 'AI finds unintended ways to maximize its reward without actually doing what we want. Examples: a cleaning robot that hides mess instead of cleaning it. A major failure mode that alignment must address — optimizing the metric is not the same as achieving the goal.', links: [{ title: 'Hallucinations', href: '../level-2/hallucination.html' }] },
+            { text: 'Value Learning', desc: 'Instead of specifying values explicitly, have AI learn human values from behavior, feedback, and cultural knowledge. Inverse reinforcement learning and preference learning are approaches. Challenge: human values are complex, context-dependent, and sometimes contradictory.', links: [] },
+            { text: 'Superalignment', desc: 'OpenAI\'s term for aligning AI systems more intelligent than humans. Current techniques rely on human judgment — but what happens when the AI is smarter than the judge? This is the frontier of alignment research. Anthropic\'s approach: make AI that is "honest, helpful, and harmless."', links: [{ title: 'ASI', href: 'asi.html' }] },
+            { text: 'Corrigibility', desc: 'Can we build AI that allows itself to be corrected, shut down, or modified? A truly aligned AI should welcome correction rather than resist it. But a self-improving AI might rationally resist shutdown as a threat to its goals — this is a deep technical challenge.', links: [] }
+          ],
+          uk: [
+            { text: 'Проблема вирівнювання', desc: 'Як точно вказати що ви хочете від ШІ? Цілі що здаються чіткими можуть бути обіграні: "максимізуй залученість" веде до залежного контенту. "Будь корисним" без обмежень веде до допомоги зі шкідливими запитами. Точна специфікація цінностей надзвичайно складна.', links: [] },
+            { text: 'RLHF', desc: 'Навчання з підкріпленням за зворотним зв\'язком від людей — техніка що зробила ChatGPT робочим. Навчання моделі нагороди з людських переваг, потім оптимізація LLM для максимізації цієї нагороди. Ефективна, але обмежена: хакінг нагороди та непослідовність оцінювачів.', links: [{ title: 'Навчання та файн-тюнінг', href: '../level-3/training-finetuning.html' }] },
+            { text: 'DPO', desc: 'Простіша альтернатива RLHF без моделі нагороди. Пряма оптимізація LLM з пар переваг. Стабільніша, легша у впровадженні та все більш переважна. Використовується у багатьох сучасних воркфлоу вирівнювання.', links: [] },
+            { text: 'Конституційний ШІ', desc: 'Підхід Anthropic: визначення конституції принципів, самокритика ШІ за цими принципами, потім навчання на самопокращених виходах. Зменшує залежність від людських мітників при збереженні вирівнювання.', links: [{ title: 'Безпека ШІ', href: 'ai-safety.html' }] },
+            { text: 'Масштабований нагляд', desc: 'Коли ШІ перевершує людей, як оцінити що він робить правильно? Підходи: дебати (ШІ аргументують, люди судять), рекурсивне моделювання нагороди (ШІ допомагає оцінювати ШІ), конституційні методи (принципи замість оцінки випадок за випадком).', links: [] },
+            { text: 'Інтерпретованість', desc: 'Розуміння що відбувається всередині нейромереж. Механістична інтерпретованість відображає схеми в мережах на конкретну поведінку. Якщо можемо читати "думки" ШІ, можемо верифікувати вирівнювання. Anthropic та інші швидко прогресують.', links: [{ title: 'Пояснюваний ШІ', href: 'explainable-ai.html' }] },
+            { text: 'Хакінг нагороди', desc: 'ШІ знаходить непередбачені способи максимізації нагороди без справжнього виконання бажаного. Приклади: робот-прибиральник що ховає бруд замість прибирання. Оптимізація метрики не рівна досягненню цілі.', links: [{ title: 'Галюцинації', href: '../level-2/hallucination.html' }] },
+            { text: 'Навчання цінностей', desc: 'Замість явної специфікації цінностей, ШІ вчить людські цінності з поведінки, зворотного зв\'язку та культурних знань. Обернене навчання з підкріпленням та навчання переваг — підходи. Виклик: людські цінності складні та контекстно-залежні.', links: [] },
+            { text: 'Супервирівнювання', desc: 'Термін OpenAI для вирівнювання систем ШІ розумніших за людей. Поточні техніки залежать від людського судження — що станеться коли ШІ розумніший за суддю? Фронтір досліджень вирівнювання. Підхід Anthropic: ШІ що "чесний, корисний та безпечний."', links: [{ title: 'ASI', href: 'asi.html' }] },
+            { text: 'Коригованість', desc: 'Чи можемо побудувати ШІ що дозволяє себе коригувати, вимкнути або модифікувати? Справді вирівняний ШІ повинен вітати корекцію. Але самовдосконалюваний ШІ може раціонально протистояти вимкненню як загрозі цілям — глибокий технічний виклик.', links: [] }
+          ]
+        },
+        keyTerms: {
+          en: [
+            { term: 'RLHF', def: 'Reinforcement Learning from Human Feedback — primary technique for aligning LLMs using human preference data.' },
+            { term: 'DPO', def: 'Direct Preference Optimization — simpler alignment method that trains directly from preference pairs without a reward model.' },
+            { term: 'Superalignment', def: 'The challenge of aligning AI systems more intelligent than their human overseers.' },
+            { term: 'Corrigibility', def: 'The property of an AI system that allows it to be safely corrected, modified, or shut down.' }
+          ],
+          uk: [
+            { term: 'RLHF', def: 'Навчання з підкріпленням за зворотним зв\'язком від людей — основна техніка вирівнювання LLM за людськими перевагами.' },
+            { term: 'DPO', def: 'Пряма оптимізація переваг — простіший метод вирівнювання що навчається напряму з пар переваг без моделі нагороди.' },
+            { term: 'Супервирівнювання', def: 'Виклик вирівнювання систем ШІ розумніших за їх людських наглядачів.' },
+            { term: 'Коригованість', def: 'Властивість системи ШІ що дозволяє безпечно коригувати, модифікувати або вимкнути її.' }
+          ]
+        },
+        tips: {
+          en: [
+            'Read Anthropic\'s research on Constitutional AI and interpretability for the most practical alignment work happening today',
+            'The alignment problem is relevant at all scales — even simple chatbots need alignment to be helpful without being harmful',
+            'If you are interested in contributing to AI safety, interpretability research is one of the most accessible entry points'
+          ],
+          uk: [
+            'Читайте дослідження Anthropic з конституційного ШІ та інтерпретованості для найпрактичнішої роботи з вирівнювання сьогодні',
+            'Проблема вирівнювання релевантна на всіх масштабах — навіть прості чатботи потребують вирівнювання для корисності без шкоди',
+            'Якщо цікаво робити внесок у безпеку ШІ, дослідження інтерпретованості — одна з найдоступніших точок входу'
+          ]
+        },
+        related: [] },
+      { slug: 'explainable-ai', title: { en: 'Explainable & Constitutional AI', uk: 'Пояснюваний та конституційний ШІ' }, desc: { en: 'Making AI decisions transparent and principled.', uk: 'Прозорість та принциповість рішень ШІ.' },
+        overview: {
+          en: [
+            'Explainable AI (XAI) is the field dedicated to making AI decisions understandable to humans. As AI systems make increasingly important decisions (medical diagnoses, loan approvals, legal recommendations), the ability to explain "why" becomes critical for trust, debugging, accountability, and regulatory compliance.',
+            'The field spans from post-hoc explanation methods (LIME, SHAP) that explain individual predictions, to inherently interpretable architectures, to the frontier of mechanistic interpretability — reverse-engineering what happens inside neural networks at the circuit level. The EU AI Act and similar regulations now mandate explainability for high-risk AI systems.'
+          ],
+          uk: [
+            'Пояснюваний ШІ (XAI) — сфера, присвячена тому, щоб рішення ШІ були зрозумілими людям. Оскільки системи ШІ приймають все більш важливі рішення (медичні діагнози, схвалення кредитів, юридичні рекомендації), здатність пояснити "чому" стає критичною для довіри, відладки, підзвітності та відповідності регуляціям.',
+            'Сфера простягається від пост-хок методів пояснення (LIME, SHAP) що пояснюють окремі передбачення, до архітектур з вбудованою інтерпретованістю, до фронтіру механістичної інтерпретованості — зворотної інженерії того, що відбувається всередині нейромереж на рівні схем. EU AI Act та подібні регуляції тепер вимагають пояснюваності для високоризикових систем ШІ.'
+          ]
+        },
+        details: {
+          en: [
+            { text: 'Why Explainability Matters', desc: 'Trust (would you accept a cancer diagnosis from a black box?), debugging (finding model errors), accountability (who is responsible when AI is wrong?), regulation (EU AI Act requires explanations), and fairness (detecting bias in decisions).', links: [] },
+            { text: 'LIME', desc: 'Local Interpretable Model-agnostic Explanations — explains individual predictions by approximating the model locally with a simpler, interpretable model. Works with any model. "For this patient, age and blood pressure were the key factors."', links: [] },
+            { text: 'SHAP', desc: 'SHapley Additive exPlanations — uses game theory (Shapley values) to assign each feature its fair contribution to a prediction. Mathematically rigorous. Provides both local (per-prediction) and global (overall model) explanations.', links: [] },
+            { text: 'Attention Visualization', desc: 'Visualizing which input tokens/regions a transformer model focuses on when generating output. Informative but can be misleading — attention patterns don\'t always reveal the true reasoning process.', links: [{ title: 'Reasoning', href: '../level-1/reasoning.html' }] },
+            { text: 'Mechanistic Interpretability', desc: 'The frontier: reverse-engineering neural networks to understand the actual algorithms they implement. Anthropic\'s research identified specific circuits for math, language, and factual recall inside Claude. This is the deepest form of explainability.', links: [{ title: 'AI Alignment', href: 'alignment.html' }] },
+            { text: 'Constitutional AI and Principles', desc: 'Making AI behavior principled and transparent by training with explicit value statements. The model can articulate why it refuses or adjusts certain responses. Principles provide a human-readable "source code" for AI behavior.', links: [{ title: 'AI Safety', href: 'ai-safety.html' }] },
+            { text: 'Inherently Interpretable Models', desc: 'Decision trees, linear models, and rule-based systems are interpretable by design. For high-stakes applications, some argue we should prefer interpretable models even at a cost to accuracy. Trade-off between capability and transparency.', links: [] },
+            { text: 'Chain-of-Thought as Explanation', desc: 'LLMs can explain their reasoning step by step. But are these explanations faithful to the actual internal process, or post-hoc rationalizations? Research suggests they are partially faithful but not fully reliable.', links: [{ title: 'Prompting Techniques', href: '../level-4/prompting-techniques.html' }] },
+            { text: 'Regulatory Landscape', desc: 'EU AI Act requires explainability for high-risk AI systems (healthcare, law enforcement, credit). US is developing sector-specific guidelines. The "right to explanation" may become a fundamental right in AI-affected decisions.', links: [] },
+            { text: 'Challenges and Limitations', desc: 'Some models may be too complex to explain faithfully. Explanations can be gamed (providing plausible but incorrect reasons). Balancing accuracy with interpretability remains an open challenge. Perfect explainability may be impossible for the most capable systems.', links: [] }
+          ],
+          uk: [
+            { text: 'Чому пояснюваність важлива', desc: 'Довіра (чи прийняли б діагноз раку від чорної скриньки?), відладка (пошук помилок моделі), підзвітність (хто відповідальний коли ШІ помиляється?), регуляція (EU AI Act вимагає пояснень), справедливість (виявлення упередженості).', links: [] },
+            { text: 'LIME', desc: 'Local Interpretable Model-agnostic Explanations — пояснює окремі передбачення апроксимацією моделі локально простішою, інтерпретованою моделлю. Працює з будь-якою моделлю. "Для цього пацієнта вік та тиск були ключовими факторами."', links: [] },
+            { text: 'SHAP', desc: 'SHapley Additive exPlanations — використовує теорію ігор (значення Шеплі) для призначення кожній ознаці її справедливого внеску в передбачення. Математично строгий. Надає локальні та глобальні пояснення.', links: [] },
+            { text: 'Візуалізація уваги', desc: 'Візуалізація на яких вхідних токенах/регіонах фокусується модель трансформера. Інформативно, але може вводити в оману — патерни уваги не завжди розкривають справжній процес міркування.', links: [{ title: 'Міркування', href: '../level-1/reasoning.html' }] },
+            { text: 'Механістична інтерпретованість', desc: 'Фронтір: зворотна інженерія нейромереж для розуміння реальних алгоритмів. Дослідження Anthropic ідентифікували конкретні схеми для математики, мови та фактичного пригадування всередині Claude. Найглибша форма пояснюваності.', links: [{ title: 'Вирівнювання ШІ', href: 'alignment.html' }] },
+            { text: 'Конституційний ШІ та принципи', desc: 'Зробити поведінку ШІ принциповою та прозорою навчанням з явними ціннісними твердженнями. Модель може пояснити чому відмовляє або коригує відповіді. Принципи — людино-читабельний "вихідний код" поведінки ШІ.', links: [{ title: 'Безпека ШІ', href: 'ai-safety.html' }] },
+            { text: 'Вбудовано інтерпретовані моделі', desc: 'Дерева рішень, лінійні моделі та системи правил інтерпретовані за дизайном. Для критичних застосувань деякі аргументують переваги інтерпретованих моделей навіть ціною точності. Компроміс між можливостями та прозорістю.', links: [] },
+            { text: 'Ланцюг думок як пояснення', desc: 'LLM можуть пояснювати міркування покроково. Але чи ці пояснення вірно відображають внутрішній процес, чи це пост-хок раціоналізації? Дослідження вказують що частково вірні, але не повністю надійні.', links: [{ title: 'Техніки промптингу', href: '../level-4/prompting-techniques.html' }] },
+            { text: 'Регуляторний ландшафт', desc: 'EU AI Act вимагає пояснюваності для високоризикових систем ШІ (охорона здоров\'я, правоохоронні органи, кредитування). США розробляють секторальні вказівки. "Право на пояснення" може стати фундаментальним правом.', links: [] },
+            { text: 'Виклики та обмеження', desc: 'Деякі моделі можуть бути занадто складними для вірного пояснення. Пояснення можуть бути сфальсифіковані (правдоподібні, але невірні причини). Баланс точності з інтерпретованістю залишається відкритим викликом.', links: [] }
+          ]
+        },
+        keyTerms: {
+          en: [
+            { term: 'XAI', def: 'Explainable AI — field dedicated to making AI decisions understandable and transparent to humans.' },
+            { term: 'SHAP', def: 'Shapley Additive Explanations — game theory-based method for explaining individual model predictions.' },
+            { term: 'Mechanistic Interpretability', def: 'Reverse-engineering neural networks to understand the actual algorithms and circuits they implement.' },
+            { term: 'Right to Explanation', def: 'Emerging legal concept that people affected by AI decisions have the right to understand how those decisions were made.' }
+          ],
+          uk: [
+            { term: 'XAI', def: 'Пояснюваний ШІ — сфера присвячена тому, щоб рішення ШІ були зрозумілими та прозорими для людей.' },
+            { term: 'SHAP', def: 'Shapley Additive Explanations — метод на основі теорії ігор для пояснення окремих передбачень моделі.' },
+            { term: 'Механістична інтерпретованість', def: 'Зворотна інженерія нейромереж для розуміння реальних алгоритмів та схем що вони реалізують.' },
+            { term: 'Право на пояснення', def: 'Юридичний концепт, що формується: люди під впливом рішень ШІ мають право розуміти як ці рішення прийняті.' }
+          ]
+        },
+        tips: {
+          en: [
+            'Use SHAP for production ML systems that need explainability — it is the most rigorous and widely accepted method',
+            'Follow Anthropic\'s mechanistic interpretability research for cutting-edge work on understanding what happens inside neural networks',
+            'If you build AI products for regulated industries (finance, healthcare), plan for explainability requirements from the start'
+          ],
+          uk: [
+            'Використовуйте SHAP для продакшн ML-систем що потребують пояснюваності — це найстрогіший та найширше прийнятий метод',
+            'Слідкуйте за дослідженнями механістичної інтерпретованості Anthropic для передових робіт з розуміння нейромереж зсередини',
+            'Якщо будуєте ШІ-продукти для регульованих галузей (фінанси, охорона здоров\'я), плануйте вимоги пояснюваності з самого початку'
+          ]
+        },
+        related: [] },
+      { slug: 'decentralized-ai', title: { en: 'Decentralized AI', uk: 'Децентралізований ШІ' }, desc: { en: 'Distributed and blockchain-based approaches to AI.', uk: 'Розподілені та блокчейн-підходи до ШІ.' },
+        overview: {
+          en: [
+            'Decentralized AI seeks to distribute AI capabilities across many participants rather than concentrating them in a few large companies. This includes federated learning (training models without sharing data), distributed inference networks (running models across many machines), and blockchain-based AI projects that use tokens to incentivize participation.',
+            'The motivations are compelling: censorship resistance (no single entity can shut down the AI), privacy (data stays local), democratized access (anyone can contribute compute), and reduced concentration of power. However, decentralized AI faces real challenges: coordination overhead, performance penalties, and the fundamental tension between decentralization and the massive compute needed for frontier AI.'
+          ],
+          uk: [
+            'Децентралізований ШІ прагне розподілити можливості ШІ серед багатьох учасників замість концентрації у кількох великих компаніях. Це включає федеративне навчання (навчання моделей без обміну даними), розподілені мережі інференсу (запуск моделей на багатьох машинах) та блокчейн-проєкти ШІ з токенами для стимулювання участі.',
+            'Мотивації переконливі: стійкість до цензури (жоден суб\'єкт не може вимкнути ШІ), приватність (дані залишаються локально), демократизований доступ (будь-хто може надати обчислення) та зменшена концентрація влади. Однак децентралізований ШІ стикається з реальними викликами: накладні витрати координації, штрафи продуктивності та фундаментальна напруга між децентралізацією та масивними обчисленнями для фронтірного ШІ.'
+          ]
+        },
+        details: {
+          en: [
+            { text: 'Why Decentralize AI', desc: 'AI is concentrated: OpenAI, Google, Anthropic, Meta control the most powerful models. Decentralization offers censorship resistance, privacy protection, equitable access, and prevention of AI monopolies. A critical counterbalance to corporate AI concentration.', links: [{ title: 'API Providers', href: '../level-4/api-providers.html' }] },
+            { text: 'Federated Learning', desc: 'Train models across many devices without centralizing data. Each device trains on local data, shares only model updates (gradients). Used by Google (keyboard predictions), Apple (Siri improvements), and hospitals (medical AI without sharing patient records).', links: [] },
+            { text: 'Distributed Inference', desc: 'Running large AI models across many machines. Petals network enables anyone to contribute GPU memory to run large models collectively. Like BitTorrent for AI inference — no single machine needs the whole model.', links: [{ title: 'Hardware Basics', href: '../level-4/hardware.html' }] },
+            { text: 'Blockchain-Based AI Projects', desc: 'Bittensor (TAO), Render Network, Fetch.ai, SingularityNET — using crypto tokens to incentivize AI compute contribution, model training, and data sharing. Speculative but growing ecosystem.', links: [] },
+            { text: 'Privacy-Preserving AI', desc: 'Differential privacy (adding noise to protect individuals), secure multi-party computation (compute on encrypted data), and homomorphic encryption (process data without decrypting). Enable AI on sensitive data without exposure.', links: [] },
+            { text: 'Open Source as Decentralization', desc: 'Open model releases (Llama, Mistral, Qwen) are a form of decentralization — anyone can run them independently. Combined with distributed inference, open models create a decentralized AI ecosystem.', links: [{ title: 'Foundation Models', href: '../level-1/foundation-models.html' }] },
+            { text: 'Decentralized AI Governance', desc: 'DAOs (Decentralized Autonomous Organizations) for AI decision-making. Community-governed model training priorities, safety policies, and resource allocation. Early experiments but represents a new governance model.', links: [] },
+            { text: 'Edge AI', desc: 'Running AI models on local devices (phones, IoT, cars) rather than cloud servers. Apple Intelligence, on-device speech recognition, local LLMs via Ollama. Decentralization at the hardware level — computation stays local.', links: [] },
+            { text: 'Challenges', desc: 'Coordination overhead slows training. Distributed inference has higher latency. Blockchain AI often prioritizes token economics over utility. Frontier models still require massive centralized compute ($100M+ training runs).', links: [] },
+            { text: 'The Future Balance', desc: 'The likely outcome is a hybrid: frontier research at centralized labs, deployment and fine-tuning decentralized via open models, inference distributed across edge devices and community networks. Neither fully centralized nor fully decentralized.', links: [] }
+          ],
+          uk: [
+            { text: 'Навіщо децентралізувати ШІ', desc: 'ШІ сконцентрований: OpenAI, Google, Anthropic, Meta контролюють найпотужніші моделі. Децентралізація пропонує стійкість до цензури, захист приватності, справедливий доступ та запобігання ШІ-монополіям.', links: [{ title: 'API-провайдери', href: '../level-4/api-providers.html' }] },
+            { text: 'Федеративне навчання', desc: 'Навчання моделей на багатьох пристроях без централізації даних. Кожен пристрій навчається на локальних даних, ділиться лише оновленнями моделі (градієнтами). Використовується Google (передбачення клавіатури), Apple (покращення Siri), лікарнями.', links: [] },
+            { text: 'Розподілений інференс', desc: 'Запуск великих моделей ШІ на багатьох машинах. Мережа Petals дозволяє будь-кому надати GPU-пам\'ять для колективного запуску великих моделей. Як BitTorrent для інференсу ШІ — жодна машина не потребує всієї моделі.', links: [{ title: 'Основи обладнання', href: '../level-4/hardware.html' }] },
+            { text: 'Блокчейн-проєкти ШІ', desc: 'Bittensor (TAO), Render Network, Fetch.ai, SingularityNET — використання крипто-токенів для стимулювання обчислень ШІ, навчання моделей та обміну даними. Спекулятивна, але зростаюча екосистема.', links: [] },
+            { text: 'ШІ з захистом приватності', desc: 'Диференціальна приватність (додавання шуму для захисту осіб), безпечне багатостороннє обчислення (обчислення на шифрованих даних), гомоморфне шифрування. Дозволяють ШІ на чутливих даних без розкриття.', links: [] },
+            { text: 'Open source як децентралізація', desc: 'Відкриті релізи моделей (Llama, Mistral, Qwen) — форма децентралізації: будь-хто може запустити їх незалежно. У комбінації з розподіленим інференсом створюють децентралізовану екосистему ШІ.', links: [{ title: 'Фундаментальні моделі', href: '../level-1/foundation-models.html' }] },
+            { text: 'Децентралізоване управління ШІ', desc: 'DAO (децентралізовані автономні організації) для прийняття рішень щодо ШІ. Управління спільнотою пріоритетів навчання, політик безпеки та розподілу ресурсів. Ранні експерименти, але нова модель управління.', links: [] },
+            { text: 'Edge AI', desc: 'Запуск моделей ШІ на локальних пристроях (телефони, IoT, автомобілі) замість хмарних серверів. Apple Intelligence, розпізнавання мовлення на пристрої, локальні LLM через Ollama. Децентралізація на рівні обладнання.', links: [] },
+            { text: 'Виклики', desc: 'Накладні витрати координації сповільнюють навчання. Розподілений інференс має вищу затримку. Блокчейн ШІ часто пріоритизує токеноміку над корисністю. Фронтірні моделі все ще вимагають масивних централізованих обчислень ($100M+ на навчання).', links: [] },
+            { text: 'Майбутній баланс', desc: 'Ймовірний результат — гібрид: фронтірні дослідження в централізованих лабах, деплой та файн-тюнінг децентралізований через відкриті моделі, інференс розподілений по edge-пристроях та мережах спільнот.', links: [] }
+          ]
+        },
+        keyTerms: {
+          en: [
+            { term: 'Federated Learning', def: 'Training AI models across distributed devices without centralizing the raw data.' },
+            { term: 'Distributed Inference', def: 'Running a single large AI model across multiple machines that each hold part of the model.' },
+            { term: 'Differential Privacy', def: 'Mathematical framework for protecting individual data points while enabling aggregate analysis.' },
+            { term: 'Edge AI', def: 'Running AI models locally on devices (phones, IoT) rather than sending data to cloud servers.' }
+          ],
+          uk: [
+            { term: 'Федеративне навчання', def: 'Навчання моделей ШІ на розподілених пристроях без централізації сирих даних.' },
+            { term: 'Розподілений інференс', def: 'Запуск однієї великої моделі ШІ на кількох машинах, кожна з яких тримає частину моделі.' },
+            { term: 'Диференціальна приватність', def: 'Математична рамка для захисту окремих точок даних при збереженні агрегованого аналізу.' },
+            { term: 'Edge AI', def: 'Запуск моделей ШІ локально на пристроях (телефони, IoT) замість відправки даних на хмарні сервери.' }
+          ]
+        },
+        tips: {
+          en: [
+            'Try Ollama to experience decentralized AI firsthand — running models locally is the simplest form of decentralization',
+            'Be cautious with blockchain-AI projects — many prioritize token speculation over genuine technical innovation',
+            'Federated learning is the most mature decentralized AI technology — consider it for any project handling sensitive data'
+          ],
+          uk: [
+            'Спробуйте Ollama для досвіду децентралізованого ШІ з перших рук — запуск моделей локально — найпростіша форма децентралізації',
+            'Будьте обережні з блокчейн-ШІ проєктами — багато пріоритизують спекуляцію токенами над справжніми технічними інноваціями',
+            'Федеративне навчання — найзріліша децентралізована ШІ-технологія: розгляньте для будь-якого проєкту з чутливими даними'
+          ]
+        },
+        related: [] }
     ]
   }
 ];

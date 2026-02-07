@@ -69,14 +69,38 @@ h2 { font-size:28px; margin-bottom:8px; }
   <h2>Explainable &amp; Constitutional AI</h2>
   <p class="desc">Making AI decisions transparent and principled.</p>
 
+  <div class="overview">
+    <p>Explainable AI (XAI) is the field dedicated to making AI decisions understandable to humans. As AI systems make increasingly important decisions (medical diagnoses, loan approvals, legal recommendations), the ability to explain &quot;why&quot; becomes critical for trust, debugging, accountability, and regulatory compliance.</p>
+    <p>The field spans from post-hoc explanation methods (LIME, SHAP) that explain individual predictions, to inherently interpretable architectures, to the frontier of mechanistic interpretability — reverse-engineering what happens inside neural networks at the circuit level. The EU AI Act and similar regulations now mandate explainability for high-risk AI systems.</p>
+  </div>
   <div class="section-title">Key Topics Covered</div>
-  <ul class="detail-list">
-      <li>Explainable AI (XAI) methods and importance</li>
-      <li>Feature attribution and attention visualization</li>
-      <li>Constitutional AI approach</li>
-      <li>LIME, SHAP, and interpretability tools</li>
-      <li>Regulatory requirements for explainability</li>
-  </ul>
+  <div class="detail-cards">
+    <div class="detail-card"><div class="dt">Why Explainability Matters</div><div class="dd">Trust (would you accept a cancer diagnosis from a black box?), debugging (finding model errors), accountability (who is responsible when AI is wrong?), regulation (EU AI Act requires explanations), and fairness (detecting bias in decisions).</div></div>
+    <div class="detail-card"><div class="dt">LIME</div><div class="dd">Local Interpretable Model-agnostic Explanations — explains individual predictions by approximating the model locally with a simpler, interpretable model. Works with any model. &quot;For this patient, age and blood pressure were the key factors.&quot;</div></div>
+    <div class="detail-card"><div class="dt">SHAP</div><div class="dd">SHapley Additive exPlanations — uses game theory (Shapley values) to assign each feature its fair contribution to a prediction. Mathematically rigorous. Provides both local (per-prediction) and global (overall model) explanations.</div></div>
+    <div class="detail-card"><div class="dt">Attention Visualization</div><div class="dd">Visualizing which input tokens/regions a transformer model focuses on when generating output. Informative but can be misleading — attention patterns don't always reveal the true reasoning process.</div><div class="dl"><a href="../level-1/reasoning.html">Reasoning</a></div></div>
+    <div class="detail-card"><div class="dt">Mechanistic Interpretability</div><div class="dd">The frontier: reverse-engineering neural networks to understand the actual algorithms they implement. Anthropic's research identified specific circuits for math, language, and factual recall inside Claude. This is the deepest form of explainability.</div><div class="dl"><a href="alignment.html">AI Alignment</a></div></div>
+    <div class="detail-card"><div class="dt">Constitutional AI and Principles</div><div class="dd">Making AI behavior principled and transparent by training with explicit value statements. The model can articulate why it refuses or adjusts certain responses. Principles provide a human-readable &quot;source code&quot; for AI behavior.</div><div class="dl"><a href="ai-safety.html">AI Safety</a></div></div>
+    <div class="detail-card"><div class="dt">Inherently Interpretable Models</div><div class="dd">Decision trees, linear models, and rule-based systems are interpretable by design. For high-stakes applications, some argue we should prefer interpretable models even at a cost to accuracy. Trade-off between capability and transparency.</div></div>
+    <div class="detail-card"><div class="dt">Chain-of-Thought as Explanation</div><div class="dd">LLMs can explain their reasoning step by step. But are these explanations faithful to the actual internal process, or post-hoc rationalizations? Research suggests they are partially faithful but not fully reliable.</div><div class="dl"><a href="../level-4/prompting-techniques.html">Prompting Techniques</a></div></div>
+    <div class="detail-card"><div class="dt">Regulatory Landscape</div><div class="dd">EU AI Act requires explainability for high-risk AI systems (healthcare, law enforcement, credit). US is developing sector-specific guidelines. The &quot;right to explanation&quot; may become a fundamental right in AI-affected decisions.</div></div>
+    <div class="detail-card"><div class="dt">Challenges and Limitations</div><div class="dd">Some models may be too complex to explain faithfully. Explanations can be gamed (providing plausible but incorrect reasons). Balancing accuracy with interpretability remains an open challenge. Perfect explainability may be impossible for the most capable systems.</div></div>
+  </div>
+
+  <div class="section-title">Key Terms</div>
+  <div class="terms-grid">
+    <div class="term-card"><strong>XAI</strong><span>Explainable AI — field dedicated to making AI decisions understandable and transparent to humans.</span></div>
+    <div class="term-card"><strong>SHAP</strong><span>Shapley Additive Explanations — game theory-based method for explaining individual model predictions.</span></div>
+    <div class="term-card"><strong>Mechanistic Interpretability</strong><span>Reverse-engineering neural networks to understand the actual algorithms and circuits they implement.</span></div>
+    <div class="term-card"><strong>Right to Explanation</strong><span>Emerging legal concept that people affected by AI decisions have the right to understand how those decisions were made.</span></div>
+  </div>
+
+  <div class="section-title">Practical Tips</div>
+  <div class="tip-box"><ul>
+    <li>Use SHAP for production ML systems that need explainability — it is the most rigorous and widely accepted method</li>
+    <li>Follow Anthropic's mechanistic interpretability research for cutting-edge work on understanding what happens inside neural networks</li>
+    <li>If you build AI products for regulated industries (finance, healthcare), plan for explainability requirements from the start</li>
+  </ul></div>
 
 
   <div class="nav-links">

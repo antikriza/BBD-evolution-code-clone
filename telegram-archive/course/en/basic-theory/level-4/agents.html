@@ -69,15 +69,38 @@ h2 { font-size:28px; margin-bottom:8px; }
   <h2>Agents</h2>
   <p class="desc">AI agents that can plan, reason, and take actions autonomously.</p>
 
+  <div class="overview">
+    <p>AI agents are systems that use LLMs as their &quot;brain&quot; to perceive their environment, plan actions, execute them using tools, and iterate based on results. Unlike simple chatbots that respond to one message at a time, agents can pursue multi-step goals autonomously — browsing the web, writing code, managing files, and calling APIs.</p>
+    <p>The agent paradigm is where AI moves from tool to collaborator. Agents like Claude Code, Devin, and OpenAI's operator can complete complex tasks that would take humans hours. The key challenge is reliability — agents work best when given clear goals, appropriate tools, and guardrails to prevent harmful actions.</p>
+  </div>
   <div class="section-title">Key Topics Covered</div>
-  <ul class="detail-list">
-      <li>What is an AI agent: perception, planning, action loop</li>
-      <li>Agent architectures: ReAct, Plan-and-Execute, Tree-of-Agents</li>
-      <li>CrewAI, AutoGen, MetaGPT multi-agent frameworks</li>
-      <li>Memory systems: short-term, long-term, episodic</li>
-      <li>Tool use and function calling in agents</li>
-      <li>Agent evaluation and safety</li>
-  </ul>
+  <div class="detail-cards">
+    <div class="detail-card"><div class="dt">What Is an AI Agent</div><div class="dd">A system with an LLM core that perceives, plans, acts, and iterates. The perception-planning-action loop runs until the goal is achieved or a stopping condition is met.</div><div class="dl"><a href="../level-1/generative-ai.html">Generative AI</a></div></div>
+    <div class="detail-card"><div class="dt">Agent Architectures</div><div class="dd">ReAct (reason then act), Plan-and-Execute (create plan first, then execute steps), and Reflexion (self-critique and retry). Each architecture trades off between speed and reliability.</div><div class="dl"><a href="prompting-techniques.html">Prompting Techniques</a></div></div>
+    <div class="detail-card"><div class="dt">Multi-Agent Systems</div><div class="dd">Multiple agents collaborating on a task. CrewAI assigns roles (researcher, writer, reviewer), AutoGen enables agent conversations, MetaGPT simulates software teams. Powerful but complex.</div></div>
+    <div class="detail-card"><div class="dt">Agent Memory</div><div class="dd">Short-term (current conversation), long-term (persisted knowledge), and episodic (memories of past tasks). Effective memory management is what makes agents improve over time.</div><div class="dl"><a href="../level-2/context.html">Context</a></div></div>
+    <div class="detail-card"><div class="dt">Tool Use in Agents</div><div class="dd">Agents extend their capabilities through function calling — web search, code execution, file I/O, API calls. The quality and breadth of available tools directly determines what an agent can accomplish.</div><div class="dl"><a href="tool-use.html">Tool Use</a></div></div>
+    <div class="detail-card"><div class="dt">Coding Agents</div><div class="dd">Claude Code, Cursor, Devin, GitHub Copilot Workspace — agents that can read codebases, write code, run tests, and iterate on bugs autonomously. The fastest-growing agent category.</div><div class="dl"><a href="../level-2/vibecoding.html">Vibecoding</a></div></div>
+    <div class="detail-card"><div class="dt">Browser &amp; Computer Agents</div><div class="dd">Agents that can control a browser or desktop — clicking, typing, navigating. Anthropic's computer use, OpenAI operator, and browser-use frameworks enable real-world task automation.</div></div>
+    <div class="detail-card"><div class="dt">Agent Evaluation</div><div class="dd">Measuring agent performance is hard — tasks are open-ended and multi-step. Benchmarks like SWE-bench (code), WebArena (browser), and GAIA (general) attempt to standardize evaluation.</div></div>
+    <div class="detail-card"><div class="dt">Agent Safety</div><div class="dd">Agents can take irreversible actions (delete files, send emails, modify databases). Sandboxing, confirmation gates, and principle-of-least-privilege tool access are critical safety measures.</div><div class="dl"><a href="../level-5/ai-safety.html">AI Safety</a></div></div>
+    <div class="detail-card"><div class="dt">The Agentic Future</div><div class="dd">Agents are evolving from single-purpose to general-purpose. The trajectory: task-specific bots → coding agents → computer-using agents → fully autonomous assistants. We are early in this progression.</div><div class="dl"><a href="../level-5/agi.html">AGI</a></div></div>
+  </div>
+
+  <div class="section-title">Key Terms</div>
+  <div class="terms-grid">
+    <div class="term-card"><strong>AI Agent</strong><span>An LLM-powered system that autonomously perceives, plans, acts, and iterates to achieve goals.</span></div>
+    <div class="term-card"><strong>ReAct</strong><span>Agent architecture alternating between reasoning about what to do and taking actions with tools.</span></div>
+    <div class="term-card"><strong>Multi-Agent System</strong><span>Multiple AI agents with different roles collaborating to solve complex tasks together.</span></div>
+    <div class="term-card"><strong>Tool Calling</strong><span>The mechanism by which agents invoke external functions, APIs, or services to extend their capabilities.</span></div>
+  </div>
+
+  <div class="section-title">Practical Tips</div>
+  <div class="tip-box"><ul>
+    <li>Start with single-agent systems before attempting multi-agent — complexity grows exponentially with each agent added</li>
+    <li>Always implement confirmation gates for irreversible actions (file deletion, sending messages, database writes)</li>
+    <li>The most reliable agents have narrow, well-defined tool sets rather than access to everything</li>
+  </ul></div>
 
     <div class="section-title">Related Community Discussions</div>
     <div class="related-topics">

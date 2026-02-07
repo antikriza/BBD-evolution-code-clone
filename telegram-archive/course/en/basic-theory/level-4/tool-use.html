@@ -69,15 +69,38 @@ h2 { font-size:28px; margin-bottom:8px; }
   <h2>Tool Use</h2>
   <p class="desc">Extending AI capabilities through function calling and external tool integration.</p>
 
+  <div class="overview">
+    <p>Tool use (function calling) is the mechanism that transforms LLMs from text generators into capable agents. Instead of just producing text, models can invoke external functions — search the web, query databases, execute code, call APIs — and incorporate the results into their responses.</p>
+    <p>Every major provider now supports tool use: OpenAI, Anthropic, and Google each have their own function calling APIs. The pattern is universal: you define available tools with JSON schemas, the model decides when to call them, and your code executes the actual function and returns results.</p>
+  </div>
   <div class="section-title">Key Topics Covered</div>
-  <ul class="detail-list">
-      <li>Function calling APIs: OpenAI, Anthropic, Google</li>
-      <li>Tool definition schemas and parameter types</li>
-      <li>Parallel tool calls and multi-step tool use</li>
-      <li>Building custom tools for your domain</li>
-      <li>Error handling and tool call validation</li>
-      <li>Computer use and browser automation</li>
-  </ul>
+  <div class="detail-cards">
+    <div class="detail-card"><div class="dt">Function Calling Basics</div><div class="dd">Define tools with name, description, and JSON Schema parameters. The model generates a structured tool call instead of text. Your code executes it and returns results for the model to use.</div><div class="dl"><a href="api-providers.html">API Providers</a></div></div>
+    <div class="detail-card"><div class="dt">OpenAI Function Calling</div><div class="dd">tools array with function definitions. Supports parallel_tool_calls, tool_choice forcing, and strict mode for guaranteed schema adherence. The original and most widely adopted approach.</div></div>
+    <div class="detail-card"><div class="dt">Anthropic Tool Use</div><div class="dd">Claude's tool_use blocks in the messages API. Supports nested tools, tool_choice (auto/any/tool), and streaming tool calls. Known for high accuracy in complex multi-tool scenarios.</div></div>
+    <div class="detail-card"><div class="dt">Parallel Tool Calls</div><div class="dd">Models can invoke multiple tools simultaneously when tasks are independent. Searching multiple databases, calling several APIs at once. Dramatically speeds up agent workflows.</div><div class="dl"><a href="agents.html">Agents</a></div></div>
+    <div class="detail-card"><div class="dt">Multi-Step Tool Use</div><div class="dd">The model calls a tool, gets results, reasons about them, then calls another tool. This loop enables complex workflows: search → read → analyze → write. Most real tasks require multiple steps.</div></div>
+    <div class="detail-card"><div class="dt">Building Custom Tools</div><div class="dd">Define tools for your specific domain: inventory lookup, CRM queries, internal API calls, data transformations. Good tool descriptions are critical — the model decides when to use tools based on descriptions.</div></div>
+    <div class="detail-card"><div class="dt">MCP (Model Context Protocol)</div><div class="dd">Anthropic's open standard for connecting AI models to tools and data sources. Servers expose tools via a standard protocol, enabling plug-and-play tool integration across different AI applications.</div><div class="dl"><a href="ai-protocols.html">AI Protocols</a></div></div>
+    <div class="detail-card"><div class="dt">Computer Use</div><div class="dd">Using the screen as a tool — the model sees screenshots and generates mouse/keyboard actions. Anthropic's computer use enables AI to operate any software, not just API-enabled ones.</div></div>
+    <div class="detail-card"><div class="dt">Error Handling</div><div class="dd">Tools fail — APIs timeout, queries return errors, permissions are denied. Robust tool implementations return clear error messages so the model can retry, use alternatives, or explain the failure.</div><div class="dl"><a href="../level-2/hallucination.html">Hallucinations</a></div></div>
+    <div class="detail-card"><div class="dt">Security Considerations</div><div class="dd">Tool calls can have real-world side effects. Validate parameters, sanitize inputs, implement rate limits, and use principle of least privilege. Never give models unrestricted database write access.</div><div class="dl"><a href="../level-5/ai-safety.html">AI Safety</a></div></div>
+  </div>
+
+  <div class="section-title">Key Terms</div>
+  <div class="terms-grid">
+    <div class="term-card"><strong>Function Calling</strong><span>API feature allowing LLMs to invoke external functions with structured parameters instead of generating text.</span></div>
+    <div class="term-card"><strong>JSON Schema</strong><span>The standard format for defining tool parameters — types, descriptions, required fields, enums.</span></div>
+    <div class="term-card"><strong>MCP</strong><span>Model Context Protocol — Anthropic's open standard for connecting AI to tools and data sources.</span></div>
+    <div class="term-card"><strong>Computer Use</strong><span>AI capability to control a computer by viewing screenshots and generating mouse/keyboard actions.</span></div>
+  </div>
+
+  <div class="section-title">Practical Tips</div>
+  <div class="tip-box"><ul>
+    <li>Write detailed tool descriptions — the model decides when to use each tool based solely on the description text</li>
+    <li>Return structured error messages from tools so the model can reason about failures and retry intelligently</li>
+    <li>Start with 3-5 focused tools rather than 50 — models choose better with fewer, well-defined options</li>
+  </ul></div>
 
     <div class="section-title">Related Community Discussions</div>
     <div class="related-topics">

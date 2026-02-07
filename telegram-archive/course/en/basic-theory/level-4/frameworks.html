@@ -69,15 +69,38 @@ h2 { font-size:28px; margin-bottom:8px; }
   <h2>Applied Frameworks</h2>
   <p class="desc">Practical frameworks for building production AI applications.</p>
 
+  <div class="overview">
+    <p>Applied AI frameworks bridge the gap between raw model APIs and production-ready applications. Instead of building everything from scratch — routing logic, UI, memory management, deployment — these frameworks provide opinionated structures that handle the common patterns so you can focus on your specific use case.</p>
+    <p>The landscape spans from visual builders (Dify, Flowise) where non-developers can create AI workflows by dragging nodes, to developer frameworks (Vercel AI SDK, FastAPI patterns) that give programmatic control with production-grade tooling. Choosing the right framework depends on your team's skills, deployment target, and how much customization you need.</p>
+  </div>
   <div class="section-title">Key Topics Covered</div>
-  <ul class="detail-list">
-      <li>Dify: visual AI workflow builder</li>
-      <li>n8n: workflow automation with AI nodes</li>
-      <li>Flowise: LangChain visual builder</li>
-      <li>Vercel AI SDK for web applications</li>
-      <li>FastAPI + LLM integration patterns</li>
-      <li>Low-code/no-code AI platforms</li>
-  </ul>
+  <div class="detail-cards">
+    <div class="detail-card"><div class="dt">Dify</div><div class="dd">Open-source visual AI workflow builder. Drag-and-drop interface for building chatbots, RAG apps, and agent workflows. Supports multiple LLM providers, built-in knowledge base, and API deployment.</div><div class="dl"><a href="rag.html">RAG</a></div></div>
+    <div class="detail-card"><div class="dt">n8n</div><div class="dd">Workflow automation platform with powerful AI nodes. Connect LLMs to 400+ integrations (Slack, email, databases, APIs). Self-hostable, event-driven, and ideal for business process automation with AI.</div><div class="dl"><a href="agents.html">Agents</a></div></div>
+    <div class="detail-card"><div class="dt">Flowise</div><div class="dd">Visual LangChain builder — create LLM chains and agents by connecting nodes in a browser UI. Lower barrier to entry than coding LangChain directly. Good for prototyping RAG and agent workflows.</div><div class="dl"><a href="base-tools.html">Tools &amp; Libraries</a></div></div>
+    <div class="detail-card"><div class="dt">Vercel AI SDK</div><div class="dd">TypeScript-first framework for building AI-powered web applications. Handles streaming, tool calling, multi-step interactions, and generative UI in React/Next.js. The standard for AI web apps.</div></div>
+    <div class="detail-card"><div class="dt">FastAPI + LLM Patterns</div><div class="dd">Python backend patterns: async streaming endpoints for LLM responses, WebSocket connections for real-time chat, dependency injection for provider switching, and structured output validation with Pydantic.</div><div class="dl"><a href="api-providers.html">API Providers</a></div></div>
+    <div class="detail-card"><div class="dt">Streamlit &amp; Gradio</div><div class="dd">Rapid prototyping frameworks for AI demos. Streamlit creates data apps with Python scripts. Gradio builds ML model interfaces with automatic API generation. Both deploy to the cloud in minutes.</div></div>
+    <div class="detail-card"><div class="dt">LangServe &amp; LangGraph</div><div class="dd">LangChain's deployment and stateful workflow tools. LangServe deploys chains as REST APIs. LangGraph builds complex multi-step agent workflows with state management, cycles, and human-in-the-loop.</div><div class="dl"><a href="agents.html">Agents</a></div></div>
+    <div class="detail-card"><div class="dt">CrewAI &amp; AutoGen</div><div class="dd">Multi-agent orchestration frameworks. CrewAI assigns roles and tasks to collaborating agents. AutoGen (Microsoft) enables conversational agent teams. Both simplify building agent systems.</div><div class="dl"><a href="agents.html">Agents</a></div></div>
+    <div class="detail-card"><div class="dt">Low-Code AI Platforms</div><div class="dd">Platforms like Zapier AI, Make.com, and Bubble with AI plugins. Enable non-developers to build AI-powered workflows. Trade flexibility for speed and accessibility.</div></div>
+    <div class="detail-card"><div class="dt">Choosing a Framework</div><div class="dd">Non-technical team: Dify/Flowise. Automation: n8n. Web app: Vercel AI SDK. Python API: FastAPI. Prototype: Streamlit/Gradio. Complex agents: LangGraph. Always prototype before committing to a framework.</div></div>
+  </div>
+
+  <div class="section-title">Key Terms</div>
+  <div class="terms-grid">
+    <div class="term-card"><strong>Visual Workflow Builder</strong><span>Tool that lets you create AI applications by connecting nodes in a drag-and-drop interface rather than writing code.</span></div>
+    <div class="term-card"><strong>Streaming</strong><span>Delivering LLM responses token by token in real-time rather than waiting for the complete response.</span></div>
+    <div class="term-card"><strong>LangGraph</strong><span>LangChain's framework for building stateful, multi-step agent workflows with cycles and branching logic.</span></div>
+    <div class="term-card"><strong>Low-Code AI</strong><span>Platforms enabling AI application development with minimal programming through visual interfaces and pre-built components.</span></div>
+  </div>
+
+  <div class="section-title">Practical Tips</div>
+  <div class="tip-box"><ul>
+    <li>Start with Dify or Flowise for quick prototypes, then migrate to code-based frameworks when you need more control</li>
+    <li>n8n is the Swiss army knife for AI automation — if your workflow involves connecting multiple services, start here</li>
+    <li>Don't over-framework: for simple LLM API calls, direct SDK usage is simpler and more maintainable than adding a framework</li>
+  </ul></div>
 
     <div class="section-title">Related Community Discussions</div>
     <div class="related-topics">

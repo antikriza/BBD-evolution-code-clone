@@ -69,15 +69,38 @@ h2 { font-size:28px; margin-bottom:8px; }
   <h2>API-провайдери</h2>
   <p class="desc">Хмарні API-провайдери для доступу до моделей ШІ без локального обладнання.</p>
 
+  <div class="overview">
+    <p>API-провайдери пропонують хмарні моделі ШІ, доступні через HTTP API — без обладнання, без управління моделями, оплата за використання. Великі три (OpenAI, Anthropic, Google) розробляють власні фронтірні моделі, а провайдери інференсу (Together AI, Groq, Fireworks) хостять open-source моделі за конкурентними цінами. Агрегатори як OpenRouter надають єдиний API для всіх провайдерів.</p>
+    <p>Вибір провайдера включає балансування якості моделей, затримки, вартості та функцій. OpenAI пропонує найширшу екосистему, Anthropic відмінний у складному міркуванні та безпеці, Google надає найбільші контекстні вікна. Для відкритих моделей провайдери інференсу можуть бути в 5-10 разів дешевшими. Розуміння ландшафту допомагає оптимізувати під ваш випадок.</p>
+  </div>
   <div class="section-title">Основні теми</div>
-  <ul class="detail-list">
-      <li>OpenAI API: моделі, ціни, можливості</li>
-      <li>Anthropic API: моделі Claude та їх можливості</li>
-      <li>Google AI: Gemini API та Vertex AI</li>
-      <li>OpenRouter: єдиний мультипровайдерний доступ</li>
-      <li>Together AI, Fireworks, Groq: провайдери інференсу</li>
-      <li>Стратегії оптимізації витрат</li>
-  </ul>
+  <div class="detail-cards">
+    <div class="detail-card"><div class="dt">OpenAI API</div><div class="dd">GPT-4o, GPT-4-turbo, o1/o3 моделі міркування. Найбільша екосистема: асистенти, файн-тюнінг, генерація зображень (DALL-E), розпізнавання мовлення (Whisper), ембедінги. Вибір за замовчуванням.</div><div class="dl"><a href="../level-1/foundation-models.html">Фундаментальні моделі</a></div></div>
+    <div class="detail-card"><div class="dt">Anthropic API</div><div class="dd">Моделі Claude Opus, Sonnet та Haiku. Відмінний у складному аналізі, кодуванні та задачах з довгим контекстом (200K токенів). Функції: tool use, візія, кешування промптів, batch API. Відомий безпекою.</div><div class="dl"><a href="tool-use.html">Використання інструментів</a></div></div>
+    <div class="detail-card"><div class="dt">Google AI (Gemini)</div><div class="dd">Gemini Pro та Ultra з контекстними вікнами 1M+ токенів. Gemini API для розробників, Vertex AI для ентерпрайзу. Нативна мультимодальність: текст, зображення, відео, аудіо в одній моделі.</div><div class="dl"><a href="../level-1/multimodality.html">Мультимодальність</a></div></div>
+    <div class="detail-card"><div class="dt">OpenRouter</div><div class="dd">Єдиний API-шлюз для 100+ моделей від усіх провайдерів. Один API-ключ, консистентний формат, автоматичні фолбеки. Відмінний для порівняння моделей або зміни провайдерів без зміни коду.</div></div>
+    <div class="detail-card"><div class="dt">Together AI</div><div class="dd">Провідний хостинг open-source моделей. Запускає Llama, Mixtral, Qwen та інші моделі за низькою ціною. Сервіс файн-тюнінгу включено. Часто у 5-10 разів дешевший за фронтірні API.</div></div>
+    <div class="detail-card"><div class="dt">Groq</div><div class="dd">Спеціалізований провайдер інференсу з кастомними LPU-чіпами. Надзвичайно швидкий інференс (500+ токенів/сек). Найкращий для додатків, критичних до затримки, де швидкість найважливіша.</div><div class="dl"><a href="hardware.html">Основи обладнання</a></div></div>
+    <div class="detail-card"><div class="dt">Fireworks AI</div><div class="dd">Швидкий інференс з оптимізацією function calling. Сильний у сервінгу файн-тюнених моделей та складних ШІ-систем. Добрий баланс швидкості, вартості та функцій для продакшн-навантажень.</div></div>
+    <div class="detail-card"><div class="dt">Моделі ціноутворення</div><div class="dd">Оплата за токен (більшість провайдерів), за секунду (деякі інференс), підписні рівні (OpenAI Plus). Вхідні токени дешевші за вихідні. Кешування промптів (Anthropic, Google) зменшує витрати.</div><div class="dl"><a href="../level-2/token.html">Токен</a></div></div>
+    <div class="detail-card"><div class="dt">Оптимізація витрат</div><div class="dd">Менші моделі для простих задач (Haiku, GPT-4o-mini). Кешування промптів для повторних контекстів. Пакетна обробка несрочних запитів (знижка 50%). Відкриті моделі через провайдерів інференсу.</div></div>
+    <div class="detail-card"><div class="dt">Стратегія вибору провайдера</div><div class="dd">Прототип: OpenAI (найкращі доки). Складне міркування: Anthropic Claude. Довгий контекст: Google Gemini. Бюджет: Together AI або Groq. Продакшн: почніть з одного, додайте OpenRouter для фолбеку.</div></div>
+  </div>
+
+  <div class="section-title">Ключові терміни</div>
+  <div class="terms-grid">
+    <div class="term-card"><strong>Провайдер інференсу</strong><span>Сервіс що хостить та запускає моделі ШІ, надаючи API-доступ без власного обладнання чи управління моделями.</span></div>
+    <div class="term-card"><strong>Токенне ціноутворення</strong><span>Модель оплати за використання, де витрати розраховуються за кількістю оброблених вхідних та вихідних токенів.</span></div>
+    <div class="term-card"><strong>Кешування промптів</strong><span>Функція провайдера, що зменшує витрати та затримку кешуванням повторних префіксів промптів між викликами API.</span></div>
+    <div class="term-card"><strong>API-шлюз</strong><span>Єдина точка доступу (як OpenRouter), що маршрутизує запити до кількох ШІ-провайдерів через один API.</span></div>
+  </div>
+
+  <div class="section-title">Практичні поради</div>
+  <div class="tip-box"><ul>
+    <li>Використовуйте GPT-4o-mini або Claude Haiku для простих задач — вони у 10-20 разів дешевші за фронтірні моделі та достатньо швидкі</li>
+    <li>Завжди впроваджуйте фолбеки провайдерів у продакшні — OpenRouter робить це простим з автоматичною маршрутизацією</li>
+    <li>Увімкніть кешування промптів на Anthropic та Google при повторних системних промптах — це зменшує витрати на 90% для кешованих частин</li>
+  </ul></div>
 
     <div class="section-title">Пов'язані обговорення спільноти</div>
     <div class="related-topics">

@@ -69,15 +69,38 @@ h2 { font-size:28px; margin-bottom:8px; }
   <h2>AI Protocols</h2>
   <p class="desc">Communication protocols connecting AI models to tools and services.</p>
 
+  <div class="overview">
+    <p>As AI systems become more capable, they need standardized ways to communicate with tools, data sources, and other agents. AI protocols define these interfaces — from MCP (Model Context Protocol) which connects models to external tools via a universal standard, to A2A (Agent-to-Agent) for inter-agent communication, to the streaming protocols that deliver real-time responses.</p>
+    <p>These protocols are the &quot;plumbing&quot; of the AI ecosystem. Just as HTTP standardized web communication, protocols like MCP are standardizing how AI models interact with the world. Understanding them is crucial for building interoperable AI applications that can plug into the growing ecosystem of tools and services.</p>
+  </div>
   <div class="section-title">Key Topics Covered</div>
-  <ul class="detail-list">
-      <li>MCP (Model Context Protocol): architecture and servers</li>
-      <li>A2A (Agent-to-Agent): inter-agent communication</li>
-      <li>OpenAI function calling protocol</li>
-      <li>Tool use standards across providers</li>
-      <li>Server-Sent Events for streaming</li>
-      <li>WebSocket-based AI communication</li>
-  </ul>
+  <div class="detail-cards">
+    <div class="detail-card"><div class="dt">MCP (Model Context Protocol)</div><div class="dd">Anthropic's open standard for connecting AI to tools and data. Servers expose resources, tools, and prompts via a standard JSON-RPC protocol. One MCP server works with any MCP-compatible client (Claude, Cursor, etc.).</div><div class="dl"><a href="tool-use.html">Tool Use</a></div></div>
+    <div class="detail-card"><div class="dt">MCP Architecture</div><div class="dd">Client-server model: MCP hosts (AI apps) connect to MCP servers (tool providers). Servers declare capabilities. Transport layers: stdio (local), SSE/HTTP (remote). Stateful sessions with capability negotiation.</div></div>
+    <div class="detail-card"><div class="dt">A2A (Agent-to-Agent Protocol)</div><div class="dd">Google's protocol for agent interoperability. Enables agents built on different frameworks to discover each other, negotiate capabilities, and collaborate on tasks. Complementary to MCP (tools) — A2A handles agent-agent communication.</div><div class="dl"><a href="agents.html">Agents</a></div></div>
+    <div class="detail-card"><div class="dt">OpenAI Function Calling</div><div class="dd">The first widely adopted tool-use protocol. Define functions with JSON Schema, model generates structured calls. Now an industry standard that Anthropic, Google, and others have adopted with variations.</div><div class="dl"><a href="tool-use.html">Tool Use</a></div></div>
+    <div class="detail-card"><div class="dt">Server-Sent Events (SSE)</div><div class="dd">One-way streaming protocol for delivering LLM tokens in real-time. HTTP-based, simple to implement, works through proxies. Used by OpenAI, Anthropic, and most API providers for streaming responses.</div></div>
+    <div class="detail-card"><div class="dt">WebSocket AI Communication</div><div class="dd">Bidirectional streaming for real-time AI interactions. Used for voice AI (OpenAI Realtime API, Google Gemini Live), interactive agents, and scenarios requiring low-latency two-way communication.</div></div>
+    <div class="detail-card"><div class="dt">OpenAI Assistants Protocol</div><div class="dd">Stateful conversation management with threads, runs, and built-in tools (code interpreter, file search). Higher-level than raw chat completions. Influenced how other providers design managed agent APIs.</div></div>
+    <div class="detail-card"><div class="dt">Structured Output Standards</div><div class="dd">JSON Schema-based output enforcement across providers. OpenAI strict mode, Anthropic tool results, Google controlled generation. Converging toward a common standard for structured AI responses.</div><div class="dl"><a href="prompting-techniques.html">Prompting Techniques</a></div></div>
+    <div class="detail-card"><div class="dt">OAuth and Authentication</div><div class="dd">Emerging standards for secure tool access. MCP supports OAuth 2.0 for authenticated server connections. Key management, token rotation, and scope-based permissions for AI-to-service authentication.</div></div>
+    <div class="detail-card"><div class="dt">The Protocol Landscape</div><div class="dd">MCP is for model-to-tool. A2A is for agent-to-agent. Function calling is for in-context tool use. SSE/WebSocket for streaming. The ecosystem is converging but not yet fully standardized — expect consolidation.</div></div>
+  </div>
+
+  <div class="section-title">Key Terms</div>
+  <div class="terms-grid">
+    <div class="term-card"><strong>MCP</strong><span>Model Context Protocol — Anthropic's open standard for universal tool and data connectivity for AI models.</span></div>
+    <div class="term-card"><strong>A2A</strong><span>Agent-to-Agent Protocol — Google's standard for enabling AI agents to discover and communicate with each other.</span></div>
+    <div class="term-card"><strong>SSE</strong><span>Server-Sent Events — HTTP-based protocol for streaming LLM responses token by token in real time.</span></div>
+    <div class="term-card"><strong>JSON-RPC</strong><span>Remote procedure call protocol using JSON — the transport mechanism underlying MCP communication.</span></div>
+  </div>
+
+  <div class="section-title">Practical Tips</div>
+  <div class="tip-box"><ul>
+    <li>Learn MCP first — it is becoming the universal standard and is already supported by Claude, Cursor, VS Code, and many other tools</li>
+    <li>For streaming responses in web apps, SSE is simpler than WebSockets unless you need bidirectional communication (like voice)</li>
+    <li>When building tools for AI, prioritize good JSON Schema descriptions — the protocol matters less than clear tool definitions</li>
+  </ul></div>
 
     <div class="section-title">Related Community Discussions</div>
     <div class="related-topics">

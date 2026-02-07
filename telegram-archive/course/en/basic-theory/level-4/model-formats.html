@@ -69,15 +69,38 @@ h2 { font-size:28px; margin-bottom:8px; }
   <h2>Model Formats</h2>
   <p class="desc">Understanding different model distribution and execution formats.</p>
 
+  <div class="overview">
+    <p>AI models need to be serialized into files for distribution and loading. Different formats optimize for different goals: GGUF prioritizes running on consumer hardware with CPU+GPU splitting, GPTQ and AWQ are GPU-optimized for maximum throughput, SafeTensors ensures safe loading without code execution risks, and ONNX provides cross-platform compatibility.</p>
+    <p>Understanding model formats is essential for local AI deployment. The format you choose determines which inference engine you can use (llama.cpp, vLLM, TensorRT), what hardware it runs on, how much memory it needs, and how fast it generates tokens. Most models on Hugging Face are available in multiple formats.</p>
+  </div>
   <div class="section-title">Key Topics Covered</div>
-  <ul class="detail-list">
-      <li>GGUF: llama.cpp format for CPU/GPU inference</li>
-      <li>GPTQ, AWQ: GPU-optimized quantized formats</li>
-      <li>SafeTensors: safe model serialization</li>
-      <li>ONNX: cross-platform model format</li>
-      <li>ExLlamaV2, Marlin kernel formats</li>
-      <li>Choosing the right format for your hardware</li>
-  </ul>
+  <div class="detail-cards">
+    <div class="detail-card"><div class="dt">GGUF (llama.cpp)</div><div class="dd">The most versatile format for local inference. Supports CPU, GPU, and mixed CPU+GPU execution. Single-file distribution with embedded metadata. The go-to format for running models on consumer hardware.</div><div class="dl"><a href="hardware.html">Hardware Basics</a></div></div>
+    <div class="detail-card"><div class="dt">GPTQ</div><div class="dd">GPU-optimized post-training quantization format. Models are quantized to 4-bit or 8-bit with calibration data. Faster than GGUF on pure GPU but requires the full model to fit in VRAM.</div><div class="dl"><a href="../level-3/model-optimization.html">Model Optimization</a></div></div>
+    <div class="detail-card"><div class="dt">AWQ (Activation-Aware Quantization)</div><div class="dd">Advanced GPU quantization that preserves important weights based on activation patterns. Generally better quality than GPTQ at the same bit width. Supported by vLLM and TensorRT-LLM.</div></div>
+    <div class="detail-card"><div class="dt">SafeTensors</div><div class="dd">Hugging Face safe serialization format that prevents arbitrary code execution on load, supports memory-mapping for fast loading, and is now the default format on Hugging Face Hub.</div></div>
+    <div class="detail-card"><div class="dt">ONNX (Open Neural Network Exchange)</div><div class="dd">Cross-platform format supported by Microsoft, Google, and others. Enables running models on different hardware (CPU, GPU, NPU) through ONNX Runtime. Used for edge deployment and mobile inference.</div></div>
+    <div class="detail-card"><div class="dt">ExLlamaV2 and EXL2</div><div class="dd">Highly optimized GPU inference with variable quantization — different layers can use different bit widths. Achieves the best perplexity-per-bit among quantized formats. Popular for enthusiast setups.</div></div>
+    <div class="detail-card"><div class="dt">TensorRT-LLM</div><div class="dd">NVIDIA high-performance inference engine. Compiles models into optimized execution plans for NVIDIA GPUs. Maximum throughput for production serving but requires NVIDIA hardware and compilation step.</div><div class="dl"><a href="hardware.html">Hardware Basics</a></div></div>
+    <div class="detail-card"><div class="dt">Quantization Levels</div><div class="dd">Q2 (smallest, lowest quality) through Q8 (largest, highest quality). Q4_K_M is the sweet spot for GGUF — good quality with reasonable size. Q5+ recommended for reasoning-heavy tasks.</div><div class="dl"><a href="../level-3/model-optimization.html">Model Optimization</a></div></div>
+    <div class="detail-card"><div class="dt">Model Distribution</div><div class="dd">Hugging Face is the primary hub. Models are uploaded in multiple formats by quantization specialists (TheBloke, bartowski). Ollama and LM Studio download GGUF models with one-click setup.</div></div>
+    <div class="detail-card"><div class="dt">Choosing the Right Format</div><div class="dd">Consumer GPU: GGUF or EXL2. Production GPU server: AWQ or TensorRT-LLM. CPU only: GGUF. Cross-platform: ONNX. Mobile/edge: ONNX or CoreML. When in doubt, start with GGUF Q4_K_M.</div></div>
+  </div>
+
+  <div class="section-title">Key Terms</div>
+  <div class="terms-grid">
+    <div class="term-card"><strong>GGUF</strong><span>llama.cpp model format supporting CPU+GPU inference — the most popular format for running models on consumer hardware.</span></div>
+    <div class="term-card"><strong>SafeTensors</strong><span>Secure model serialization format that prevents code execution attacks during model loading.</span></div>
+    <div class="term-card"><strong>Quantization Level</strong><span>Bit precision of model weights (Q2-Q8) — lower bits mean smaller files but reduced quality.</span></div>
+    <div class="term-card"><strong>VRAM</strong><span>Video RAM on GPU — the primary constraint determining which model sizes and formats can run on your hardware.</span></div>
+  </div>
+
+  <div class="section-title">Practical Tips</div>
+  <div class="tip-box"><ul>
+    <li>Start with GGUF Q4_K_M for any new model — it is the best balance of quality and size for most consumer setups</li>
+    <li>If you have a dedicated NVIDIA GPU with enough VRAM, try AWQ or EXL2 for noticeably faster inference than GGUF</li>
+    <li>Always use SafeTensors when available — never load untrusted serialized model files that could execute arbitrary code</li>
+  </ul></div>
 
     <div class="section-title">Related Community Discussions</div>
     <div class="related-topics">

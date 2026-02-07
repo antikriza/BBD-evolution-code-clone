@@ -69,15 +69,38 @@ h2 { font-size:28px; margin-bottom:8px; }
   <h2>Tools &amp; Libraries</h2>
   <p class="desc">Key frameworks and libraries for building AI-powered applications.</p>
 
+  <div class="overview">
+    <p>The AI development ecosystem has matured rapidly, with frameworks and libraries for every layer of the stack. From orchestration frameworks like LangChain that manage complex LLM workflows, to provider SDKs that handle API communication, to the Hugging Face ecosystem that democratizes access to thousands of models.</p>
+    <p>Choosing the right tools depends on your use case. Quick prototypes might use LangChain for its batteries-included approach. Production systems often prefer direct SDK usage for control and reliability. Understanding the landscape helps you pick the right tool for each job.</p>
+  </div>
   <div class="section-title">Key Topics Covered</div>
-  <ul class="detail-list">
-      <li>LangChain: chains, agents, memory</li>
-      <li>LlamaIndex: data connectors and retrieval</li>
-      <li>Haystack: search and RAG pipelines</li>
-      <li>Semantic Kernel: Microsoft AI orchestration</li>
-      <li>OpenAI SDK, Anthropic SDK, Google AI SDK</li>
-      <li>Hugging Face Transformers ecosystem</li>
-  </ul>
+  <div class="detail-cards">
+    <div class="detail-card"><div class="dt">LangChain</div><div class="dd">The most popular LLM orchestration framework. Provides chains (sequential LLM calls), agents (autonomous tool-using LLMs), memory (conversation persistence), and 700+ integrations.</div><div class="dl"><a href="agents.html">Agents</a></div></div>
+    <div class="detail-card"><div class="dt">LlamaIndex</div><div class="dd">Specialized for data retrieval and RAG. Connects to 160+ data sources, handles document loading, chunking, embedding, and querying. Ideal for building knowledge-base applications.</div><div class="dl"><a href="rag.html">RAG</a></div></div>
+    <div class="detail-card"><div class="dt">Haystack</div><div class="dd">End-to-end NLP/RAG framework from deepset. Pipeline-based architecture for search, question answering, and document processing. Strong focus on production-readiness.</div><div class="dl"><a href="rag.html">RAG</a></div></div>
+    <div class="detail-card"><div class="dt">OpenAI SDK</div><div class="dd">Official Python and Node.js SDKs for GPT models. Clean API for chat completions, function calling, embeddings, and assistants. The de facto standard that others follow.</div><div class="dl"><a href="api-providers.html">API Providers</a></div></div>
+    <div class="detail-card"><div class="dt">Anthropic SDK</div><div class="dd">Official SDK for Claude models. Supports messages API, tool use, streaming, vision, and prompt caching. Known for its clean, well-documented design.</div><div class="dl"><a href="api-providers.html">API Providers</a></div></div>
+    <div class="detail-card"><div class="dt">Hugging Face Transformers</div><div class="dd">The largest open-source ML library. 400K+ models, tokenizers, training pipelines, and inference tools. Bridges the gap between research and production for open models.</div><div class="dl"><a href="../level-1/foundation-models.html">Foundation Models</a></div></div>
+    <div class="detail-card"><div class="dt">Vercel AI SDK</div><div class="dd">Frontend-first AI SDK for React/Next.js. Handles streaming responses, tool calls, and multi-step interactions in the browser. Ideal for building AI-powered web apps.</div><div class="dl"><a href="frameworks.html">Applied Frameworks</a></div></div>
+    <div class="detail-card"><div class="dt">Semantic Kernel</div><div class="dd">Microsoft's AI orchestration SDK for .NET, Python, and Java. Integrates with Azure OpenAI and other providers. Enterprise-focused with plugin architecture.</div></div>
+    <div class="detail-card"><div class="dt">Instructor &amp; Outlines</div><div class="dd">Libraries for structured output extraction. Instructor wraps LLM calls to return validated Pydantic models. Outlines enforces output schemas at the token generation level.</div><div class="dl"><a href="prompting-techniques.html">Prompting Techniques</a></div></div>
+    <div class="detail-card"><div class="dt">Choosing Your Stack</div><div class="dd">Prototype: LangChain for speed. Production: direct SDKs for control. RAG: LlamaIndex. Web apps: Vercel AI SDK. Open models: Hugging Face. Pick based on your deployment target and team skills.</div></div>
+  </div>
+
+  <div class="section-title">Key Terms</div>
+  <div class="terms-grid">
+    <div class="term-card"><strong>LangChain</strong><span>Most popular LLM orchestration framework with chains, agents, memory, and 700+ integrations.</span></div>
+    <div class="term-card"><strong>LlamaIndex</strong><span>Data framework for LLM applications specializing in ingestion, indexing, and retrieval.</span></div>
+    <div class="term-card"><strong>Hugging Face</strong><span>Open-source AI platform hosting 400K+ models and the Transformers library for ML development.</span></div>
+    <div class="term-card"><strong>SDK</strong><span>Software Development Kit — library providing programmatic access to an AI provider's models and APIs.</span></div>
+  </div>
+
+  <div class="section-title">Practical Tips</div>
+  <div class="tip-box"><ul>
+    <li>Start with a provider SDK directly (OpenAI or Anthropic) before adding LangChain — understand what the abstraction hides</li>
+    <li>For RAG projects, LlamaIndex saves weeks of work on document processing and chunking pipelines</li>
+    <li>Always version-pin your AI library dependencies — these ecosystems change rapidly and breaking changes are common</li>
+  </ul></div>
 
     <div class="section-title">Related Community Discussions</div>
     <div class="related-topics">

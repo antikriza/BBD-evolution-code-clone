@@ -69,15 +69,38 @@ h2 { font-size:28px; margin-bottom:8px; }
   <h2>Інструменти та бібліотеки</h2>
   <p class="desc">Ключові фреймворки та бібліотеки для створення ШІ-додатків.</p>
 
+  <div class="overview">
+    <p>Екосистема розробки ШІ швидко дозріла, з фреймворками та бібліотеками для кожного рівня стеку. Від оркестраційних фреймворків як LangChain для складних LLM-воркфлоу, до SDK провайдерів для API-комунікації, до екосистеми Hugging Face, що демократизує доступ до тисяч моделей.</p>
+    <p>Вибір правильних інструментів залежить від вашого випадку. Швидкі прототипи можуть використовувати LangChain з його повним набором. Продакшн-системи часто віддають перевагу прямому SDK для контролю та надійності. Розуміння ландшафту допомагає обрати правильний інструмент.</p>
+  </div>
   <div class="section-title">Основні теми</div>
-  <ul class="detail-list">
-      <li>LangChain: ланцюги, агенти, пам'ять</li>
-      <li>LlamaIndex: конектори даних та пошук</li>
-      <li>Haystack: пошук та RAG-пайплайни</li>
-      <li>Semantic Kernel: оркестрація ШІ від Microsoft</li>
-      <li>OpenAI SDK, Anthropic SDK, Google AI SDK</li>
-      <li>Екосистема Hugging Face Transformers</li>
-  </ul>
+  <div class="detail-cards">
+    <div class="detail-card"><div class="dt">LangChain</div><div class="dd">Найпопулярніший фреймворк оркестрації LLM. Надає ланцюги (послідовні виклики LLM), агенти (автономні LLM з інструментами), пам'ять та 700+ інтеграцій.</div><div class="dl"><a href="agents.html">Агенти</a></div></div>
+    <div class="detail-card"><div class="dt">LlamaIndex</div><div class="dd">Спеціалізований для пошуку даних та RAG. Підключається до 160+ джерел даних, обробляє документи, чанкінг, ембедінги та запити. Ідеальний для баз знань.</div><div class="dl"><a href="rag.html">RAG</a></div></div>
+    <div class="detail-card"><div class="dt">Haystack</div><div class="dd">Наскрізний NLP/RAG фреймворк від deepset. Пайплайн-архітектура для пошуку, відповідей на питання та обробки документів. Фокус на продакшн-готовність.</div><div class="dl"><a href="rag.html">RAG</a></div></div>
+    <div class="detail-card"><div class="dt">OpenAI SDK</div><div class="dd">Офіційні Python та Node.js SDK для моделей GPT. Чистий API для чат-компліцій, виклику функцій, ембедінгів та асистентів. Де-факто стандарт галузі.</div><div class="dl"><a href="api-providers.html">API-провайдери</a></div></div>
+    <div class="detail-card"><div class="dt">Anthropic SDK</div><div class="dd">Офіційний SDK для моделей Claude. Підтримує messages API, використання інструментів, стрімінг, візію та кешування промптів. Відомий чистим, документованим дизайном.</div><div class="dl"><a href="api-providers.html">API-провайдери</a></div></div>
+    <div class="detail-card"><div class="dt">Hugging Face Transformers</div><div class="dd">Найбільша open-source ML бібліотека. 400K+ моделей, токенізатори, пайплайни навчання та інструменти інференсу. Мост між дослідженнями та продакшном.</div><div class="dl"><a href="../level-1/foundation-models.html">Фундаментальні моделі</a></div></div>
+    <div class="detail-card"><div class="dt">Vercel AI SDK</div><div class="dd">Фронтенд-first ШІ SDK для React/Next.js. Обробляє стрімінг відповідей, виклики інструментів та багатокрокові взаємодії в браузері. Ідеальний для ШІ веб-додатків.</div><div class="dl"><a href="frameworks.html">Прикладні фреймворки</a></div></div>
+    <div class="detail-card"><div class="dt">Semantic Kernel</div><div class="dd">SDK оркестрації ШІ від Microsoft для .NET, Python та Java. Інтегрується з Azure OpenAI та іншими провайдерами. Ентерпрайз-фокус з плагін-архітектурою.</div></div>
+    <div class="detail-card"><div class="dt">Instructor та Outlines</div><div class="dd">Бібліотеки для структурованого витягування. Instructor обгортає виклики LLM для повернення валідованих Pydantic моделей. Outlines примусово дотримується схем на рівні генерації токенів.</div><div class="dl"><a href="prompting-techniques.html">Техніки промптингу</a></div></div>
+    <div class="detail-card"><div class="dt">Вибір вашого стеку</div><div class="dd">Прототип: LangChain для швидкості. Продакшн: прямі SDK для контролю. RAG: LlamaIndex. Веб-додатки: Vercel AI SDK. Відкриті моделі: Hugging Face. Обирайте за ціллю та навичками.</div></div>
+  </div>
+
+  <div class="section-title">Ключові терміни</div>
+  <div class="terms-grid">
+    <div class="term-card"><strong>LangChain</strong><span>Найпопулярніший фреймворк оркестрації LLM з ланцюгами, агентами, пам'яттю та 700+ інтеграціями.</span></div>
+    <div class="term-card"><strong>LlamaIndex</strong><span>Фреймворк даних для LLM-додатків, спеціалізований на завантаженні, індексації та пошуку.</span></div>
+    <div class="term-card"><strong>Hugging Face</strong><span>Open-source ШІ-платформа з 400K+ моделями та бібліотекою Transformers для ML-розробки.</span></div>
+    <div class="term-card"><strong>SDK</strong><span>Software Development Kit — бібліотека для програмного доступу до моделей та API провайдера ШІ.</span></div>
+  </div>
+
+  <div class="section-title">Практичні поради</div>
+  <div class="tip-box"><ul>
+    <li>Почніть з SDK провайдера напряму (OpenAI або Anthropic) перед додаванням LangChain — зрозумійте що ховає абстракція</li>
+    <li>Для RAG-проєктів LlamaIndex економить тижні роботи над обробкою документів та чанкінг-пайплайнами</li>
+    <li>Завжди фіксуйте версії залежностей ШІ-бібліотек — ці екосистеми швидко змінюються і ламаючі зміни часті</li>
+  </ul></div>
 
     <div class="section-title">Пов'язані обговорення спільноти</div>
     <div class="related-topics">

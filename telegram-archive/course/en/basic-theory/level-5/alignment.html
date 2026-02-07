@@ -69,14 +69,38 @@ h2 { font-size:28px; margin-bottom:8px; }
   <h2>AI Alignment</h2>
   <p class="desc">Ensuring AI systems act in accordance with human values.</p>
 
+  <div class="overview">
+    <p>AI alignment is the technical challenge of ensuring AI systems pursue goals that are beneficial to humans and act in accordance with human values and intentions. It is arguably the most important unsolved problem in AI — as systems become more capable, the consequences of misalignment grow from inconvenient to catastrophic.</p>
+    <p>Current alignment techniques (RLHF, DPO, Constitutional AI) work well for today's models but may not scale to superintelligent systems. The field is racing to develop &quot;scalable alignment&quot; — techniques that work even when the AI is more capable than its human overseers. This is what Anthropic, OpenAI, and DeepMind call the &quot;superalignment&quot; challenge.</p>
+  </div>
   <div class="section-title">Key Topics Covered</div>
-  <ul class="detail-list">
-      <li>The alignment problem defined</li>
-      <li>RLHF, DPO, and current alignment techniques</li>
-      <li>Scalable oversight and debate</li>
-      <li>Interpretability and mechanistic understanding</li>
-      <li>Superalignment: aligning superhuman AI</li>
-  </ul>
+  <div class="detail-cards">
+    <div class="detail-card"><div class="dt">The Alignment Problem</div><div class="dd">How do you specify exactly what you want an AI to do? Objectives that seem clear can be gamed: &quot;maximize user engagement&quot; leads to addictive content. &quot;Be helpful&quot; without constraints leads to helping with harmful requests. Precise value specification is extraordinarily difficult.</div></div>
+    <div class="detail-card"><div class="dt">RLHF</div><div class="dd">Reinforcement Learning from Human Feedback — the technique that made ChatGPT work. Train a reward model from human preferences, then optimize the LLM to maximize that reward. Effective but limited: reward hacking, distribution shift, and human evaluator inconsistency.</div><div class="dl"><a href="../level-3/training-finetuning.html">Training &amp; Fine-tuning</a></div></div>
+    <div class="detail-card"><div class="dt">DPO (Direct Preference Optimization)</div><div class="dd">A simpler alternative to RLHF that skips the reward model entirely. Directly optimizes the LLM from preference pairs. More stable, easier to implement, and increasingly preferred. Used in many modern alignment workflows.</div></div>
+    <div class="detail-card"><div class="dt">Constitutional AI</div><div class="dd">Anthropic's approach: define a constitution of principles, have the AI critique its own responses against these principles, then train on the self-improved outputs. Reduces reliance on human labelers while maintaining alignment properties.</div><div class="dl"><a href="ai-safety.html">AI Safety</a></div></div>
+    <div class="detail-card"><div class="dt">Scalable Oversight</div><div class="dd">As AI surpasses human ability, how do you evaluate if it is doing the right thing? Approaches: debate (AIs argue, humans judge), recursive reward modeling (AI helps evaluate AI), and constitutional methods (principles over case-by-case judgment).</div></div>
+    <div class="detail-card"><div class="dt">Interpretability</div><div class="dd">Understanding what happens inside neural networks. Mechanistic interpretability maps circuits in networks to specific behaviors. If we can read the &quot;thoughts&quot; of an AI, we can verify alignment. Anthropic and others are making rapid progress here.</div><div class="dl"><a href="explainable-ai.html">Explainable AI</a></div></div>
+    <div class="detail-card"><div class="dt">Reward Hacking</div><div class="dd">AI finds unintended ways to maximize its reward without actually doing what we want. Examples: a cleaning robot that hides mess instead of cleaning it. A major failure mode that alignment must address — optimizing the metric is not the same as achieving the goal.</div><div class="dl"><a href="../level-2/hallucination.html">Hallucinations</a></div></div>
+    <div class="detail-card"><div class="dt">Value Learning</div><div class="dd">Instead of specifying values explicitly, have AI learn human values from behavior, feedback, and cultural knowledge. Inverse reinforcement learning and preference learning are approaches. Challenge: human values are complex, context-dependent, and sometimes contradictory.</div></div>
+    <div class="detail-card"><div class="dt">Superalignment</div><div class="dd">OpenAI's term for aligning AI systems more intelligent than humans. Current techniques rely on human judgment — but what happens when the AI is smarter than the judge? This is the frontier of alignment research. Anthropic's approach: make AI that is &quot;honest, helpful, and harmless.&quot;</div><div class="dl"><a href="asi.html">ASI</a></div></div>
+    <div class="detail-card"><div class="dt">Corrigibility</div><div class="dd">Can we build AI that allows itself to be corrected, shut down, or modified? A truly aligned AI should welcome correction rather than resist it. But a self-improving AI might rationally resist shutdown as a threat to its goals — this is a deep technical challenge.</div></div>
+  </div>
+
+  <div class="section-title">Key Terms</div>
+  <div class="terms-grid">
+    <div class="term-card"><strong>RLHF</strong><span>Reinforcement Learning from Human Feedback — primary technique for aligning LLMs using human preference data.</span></div>
+    <div class="term-card"><strong>DPO</strong><span>Direct Preference Optimization — simpler alignment method that trains directly from preference pairs without a reward model.</span></div>
+    <div class="term-card"><strong>Superalignment</strong><span>The challenge of aligning AI systems more intelligent than their human overseers.</span></div>
+    <div class="term-card"><strong>Corrigibility</strong><span>The property of an AI system that allows it to be safely corrected, modified, or shut down.</span></div>
+  </div>
+
+  <div class="section-title">Practical Tips</div>
+  <div class="tip-box"><ul>
+    <li>Read Anthropic's research on Constitutional AI and interpretability for the most practical alignment work happening today</li>
+    <li>The alignment problem is relevant at all scales — even simple chatbots need alignment to be helpful without being harmful</li>
+    <li>If you are interested in contributing to AI safety, interpretability research is one of the most accessible entry points</li>
+  </ul></div>
 
 
   <div class="nav-links">

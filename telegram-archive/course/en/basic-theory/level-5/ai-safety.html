@@ -69,14 +69,38 @@ h2 { font-size:28px; margin-bottom:8px; }
   <h2>AI Safety</h2>
   <p class="desc">Research and practices for building safe AI systems.</p>
 
+  <div class="overview">
+    <p>AI safety is the field of research and engineering dedicated to ensuring AI systems behave as intended, remain under human control, and do not cause harm. It spans from near-term practical concerns (preventing bias, ensuring robustness, avoiding misuse) to long-term challenges (alignment, containment, value learning). Every major AI lab now has a dedicated safety team.</p>
+    <p>Safety is not the opposite of capability — it is what enables capability to be deployed responsibly. Just as aviation safety enabled air travel to become the safest form of transportation, AI safety research aims to make increasingly powerful AI systems trustworthy enough for high-stakes applications.</p>
+  </div>
   <div class="section-title">Key Topics Covered</div>
-  <ul class="detail-list">
-      <li>What is AI safety and why it matters</li>
-      <li>Risks: misuse, misalignment, accidents</li>
-      <li>Safety evaluation and red-teaming</li>
-      <li>Containment and monitoring strategies</li>
-      <li>Major AI safety organizations</li>
-  </ul>
+  <div class="detail-cards">
+    <div class="detail-card"><div class="dt">Categories of AI Risk</div><div class="dd">Misuse (intentional harm: deepfakes, cyberweapons), Misalignment (unintended behavior from flawed objectives), Accidents (bugs and failures in AI systems), Structural risks (concentration of power, economic disruption).</div></div>
+    <div class="detail-card"><div class="dt">Red-Teaming</div><div class="dd">Adversarial testing of AI systems to find harmful behaviors before deployment. Teams try to make the AI produce dangerous content, leak information, or behave unpredictably. Now standard practice at all major labs.</div></div>
+    <div class="detail-card"><div class="dt">Safety Evaluations</div><div class="dd">Standardized tests for dangerous capabilities: CBRN knowledge (chemical/biological/radiological/nuclear), cyber offense, persuasion, autonomous replication. Anthropic, OpenAI, and DeepMind all publish safety evaluation results.</div></div>
+    <div class="detail-card"><div class="dt">Constitutional AI</div><div class="dd">Anthropic's approach: train AI with a set of principles (a &quot;constitution&quot;) and have it self-evaluate against those principles. Reduces the need for human feedback while maintaining safety properties.</div><div class="dl"><a href="alignment.html">AI Alignment</a></div></div>
+    <div class="detail-card"><div class="dt">Containment and Monitoring</div><div class="dd">Strategies for controlling AI systems: sandboxing (limited environment access), human-in-the-loop (approval for high-stakes actions), output filtering, and continuous monitoring for anomalous behavior.</div><div class="dl"><a href="../level-4/agents.html">Agents</a></div></div>
+    <div class="detail-card"><div class="dt">Responsible Scaling</div><div class="dd">Anthropic's Responsible Scaling Policy and similar frameworks: assess safety before increasing capabilities. If safety is not demonstrated at a capability level, don't scale further until it is.</div></div>
+    <div class="detail-card"><div class="dt">AI Safety Organizations</div><div class="dd">Anthropic (safety-focused lab), OpenAI Safety team, Google DeepMind Safety, MIRI, Center for AI Safety (CAIS), AI Safety Institute (UK/US), Alignment Research Center (ARC). Growing ecosystem of safety-focused research.</div></div>
+    <div class="detail-card"><div class="dt">Practical Safety Engineering</div><div class="dd">Input validation, output filtering, rate limiting, abuse detection, prompt injection defense, and secure tool use. The engineering side of safety that every AI application developer should implement.</div><div class="dl"><a href="../level-4/tool-use.html">Tool Use</a></div></div>
+    <div class="detail-card"><div class="dt">Dual-Use Concerns</div><div class="dd">Many AI capabilities are dual-use: code generation helps developers but also creates malware. Biology knowledge helps research but enables bioweapons. Managing this tension is a core safety challenge.</div></div>
+    <div class="detail-card"><div class="dt">The Safety Culture Shift</div><div class="dd">AI safety has moved from niche concern to mainstream requirement. Major AI conferences have safety tracks, companies hire safety researchers, and governments create safety institutes. The culture is shifting toward taking safety seriously.</div></div>
+  </div>
+
+  <div class="section-title">Key Terms</div>
+  <div class="terms-grid">
+    <div class="term-card"><strong>Red-Teaming</strong><span>Adversarial testing to find harmful AI behaviors before deployment by simulating attacks and misuse.</span></div>
+    <div class="term-card"><strong>Constitutional AI</strong><span>Training method where AI evaluates its own outputs against a set of safety principles.</span></div>
+    <div class="term-card"><strong>Responsible Scaling</strong><span>Framework requiring safety demonstrations before increasing AI model capabilities.</span></div>
+    <div class="term-card"><strong>Dual-Use</strong><span>AI capabilities that have both beneficial and harmful applications, creating tension between access and safety.</span></div>
+  </div>
+
+  <div class="section-title">Practical Tips</div>
+  <div class="tip-box"><ul>
+    <li>If you build AI applications, implement practical safety measures (input validation, output filtering, rate limiting) from day one</li>
+    <li>Follow Anthropic's research blog for the most accessible writing on frontier AI safety techniques</li>
+    <li>AI safety is a growing career field with strong demand — consider contributing regardless of your background</li>
+  </ul></div>
 
 
   <div class="nav-links">

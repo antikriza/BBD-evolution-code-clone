@@ -69,14 +69,38 @@ h2 { font-size:28px; margin-bottom:8px; }
   <h2>Decentralized AI</h2>
   <p class="desc">Distributed and blockchain-based approaches to AI.</p>
 
+  <div class="overview">
+    <p>Decentralized AI seeks to distribute AI capabilities across many participants rather than concentrating them in a few large companies. This includes federated learning (training models without sharing data), distributed inference networks (running models across many machines), and blockchain-based AI projects that use tokens to incentivize participation.</p>
+    <p>The motivations are compelling: censorship resistance (no single entity can shut down the AI), privacy (data stays local), democratized access (anyone can contribute compute), and reduced concentration of power. However, decentralized AI faces real challenges: coordination overhead, performance penalties, and the fundamental tension between decentralization and the massive compute needed for frontier AI.</p>
+  </div>
   <div class="section-title">Key Topics Covered</div>
-  <ul class="detail-list">
-      <li>Why decentralize AI: censorship resistance, access</li>
-      <li>Federated learning: training without sharing data</li>
-      <li>On-chain AI and crypto-AI projects</li>
-      <li>Distributed inference networks</li>
-      <li>Challenges of decentralized AI</li>
-  </ul>
+  <div class="detail-cards">
+    <div class="detail-card"><div class="dt">Why Decentralize AI</div><div class="dd">AI is concentrated: OpenAI, Google, Anthropic, Meta control the most powerful models. Decentralization offers censorship resistance, privacy protection, equitable access, and prevention of AI monopolies. A critical counterbalance to corporate AI concentration.</div><div class="dl"><a href="../level-4/api-providers.html">API Providers</a></div></div>
+    <div class="detail-card"><div class="dt">Federated Learning</div><div class="dd">Train models across many devices without centralizing data. Each device trains on local data, shares only model updates (gradients). Used by Google (keyboard predictions), Apple (Siri improvements), and hospitals (medical AI without sharing patient records).</div></div>
+    <div class="detail-card"><div class="dt">Distributed Inference</div><div class="dd">Running large AI models across many machines. Petals network enables anyone to contribute GPU memory to run large models collectively. Like BitTorrent for AI inference — no single machine needs the whole model.</div><div class="dl"><a href="../level-4/hardware.html">Hardware Basics</a></div></div>
+    <div class="detail-card"><div class="dt">Blockchain-Based AI Projects</div><div class="dd">Bittensor (TAO), Render Network, Fetch.ai, SingularityNET — using crypto tokens to incentivize AI compute contribution, model training, and data sharing. Speculative but growing ecosystem.</div></div>
+    <div class="detail-card"><div class="dt">Privacy-Preserving AI</div><div class="dd">Differential privacy (adding noise to protect individuals), secure multi-party computation (compute on encrypted data), and homomorphic encryption (process data without decrypting). Enable AI on sensitive data without exposure.</div></div>
+    <div class="detail-card"><div class="dt">Open Source as Decentralization</div><div class="dd">Open model releases (Llama, Mistral, Qwen) are a form of decentralization — anyone can run them independently. Combined with distributed inference, open models create a decentralized AI ecosystem.</div><div class="dl"><a href="../level-1/foundation-models.html">Foundation Models</a></div></div>
+    <div class="detail-card"><div class="dt">Decentralized AI Governance</div><div class="dd">DAOs (Decentralized Autonomous Organizations) for AI decision-making. Community-governed model training priorities, safety policies, and resource allocation. Early experiments but represents a new governance model.</div></div>
+    <div class="detail-card"><div class="dt">Edge AI</div><div class="dd">Running AI models on local devices (phones, IoT, cars) rather than cloud servers. Apple Intelligence, on-device speech recognition, local LLMs via Ollama. Decentralization at the hardware level — computation stays local.</div></div>
+    <div class="detail-card"><div class="dt">Challenges</div><div class="dd">Coordination overhead slows training. Distributed inference has higher latency. Blockchain AI often prioritizes token economics over utility. Frontier models still require massive centralized compute ($100M+ training runs).</div></div>
+    <div class="detail-card"><div class="dt">The Future Balance</div><div class="dd">The likely outcome is a hybrid: frontier research at centralized labs, deployment and fine-tuning decentralized via open models, inference distributed across edge devices and community networks. Neither fully centralized nor fully decentralized.</div></div>
+  </div>
+
+  <div class="section-title">Key Terms</div>
+  <div class="terms-grid">
+    <div class="term-card"><strong>Federated Learning</strong><span>Training AI models across distributed devices without centralizing the raw data.</span></div>
+    <div class="term-card"><strong>Distributed Inference</strong><span>Running a single large AI model across multiple machines that each hold part of the model.</span></div>
+    <div class="term-card"><strong>Differential Privacy</strong><span>Mathematical framework for protecting individual data points while enabling aggregate analysis.</span></div>
+    <div class="term-card"><strong>Edge AI</strong><span>Running AI models locally on devices (phones, IoT) rather than sending data to cloud servers.</span></div>
+  </div>
+
+  <div class="section-title">Practical Tips</div>
+  <div class="tip-box"><ul>
+    <li>Try Ollama to experience decentralized AI firsthand — running models locally is the simplest form of decentralization</li>
+    <li>Be cautious with blockchain-AI projects — many prioritize token speculation over genuine technical innovation</li>
+    <li>Federated learning is the most mature decentralized AI technology — consider it for any project handling sensitive data</li>
+  </ul></div>
 
 
   <div class="nav-links">

@@ -69,15 +69,38 @@ h2 { font-size:28px; margin-bottom:8px; }
   <h2>API Providers</h2>
   <p class="desc">Cloud API providers for accessing AI models without local hardware.</p>
 
+  <div class="overview">
+    <p>API providers offer cloud-hosted AI models accessible via HTTP APIs — no hardware, no model management, pay-per-use pricing. The big three (OpenAI, Anthropic, Google) develop their own frontier models, while inference providers (Together AI, Groq, Fireworks) host open-source models at competitive prices. Aggregators like OpenRouter provide a single API for all providers.</p>
+    <p>Choosing a provider involves balancing model quality, latency, cost, and features. OpenAI offers the broadest ecosystem, Anthropic excels at complex reasoning and safety, Google provides the largest context windows. For open models, inference providers can be 5-10x cheaper than the big three. Understanding the landscape helps you optimize for your specific use case.</p>
+  </div>
   <div class="section-title">Key Topics Covered</div>
-  <ul class="detail-list">
-      <li>OpenAI API: models, pricing, features</li>
-      <li>Anthropic API: Claude models and capabilities</li>
-      <li>Google AI: Gemini API and Vertex AI</li>
-      <li>OpenRouter: unified multi-provider access</li>
-      <li>Together AI, Fireworks, Groq: inference providers</li>
-      <li>Cost optimization strategies</li>
-  </ul>
+  <div class="detail-cards">
+    <div class="detail-card"><div class="dt">OpenAI API</div><div class="dd">GPT-4o, GPT-4-turbo, o1/o3 reasoning models. The largest ecosystem: assistants, fine-tuning, image generation (DALL-E), speech-to-text (Whisper), embeddings. The default choice for most projects.</div><div class="dl"><a href="../level-1/foundation-models.html">Foundation Models</a></div></div>
+    <div class="detail-card"><div class="dt">Anthropic API</div><div class="dd">Claude Opus, Sonnet, and Haiku models. Excels at complex analysis, coding, and long-context tasks (200K tokens). Features: tool use, vision, prompt caching, batch API. Known for safety and instruction-following.</div><div class="dl"><a href="tool-use.html">Tool Use</a></div></div>
+    <div class="detail-card"><div class="dt">Google AI (Gemini)</div><div class="dd">Gemini Pro and Ultra with 1M+ token context windows. Gemini API for developers, Vertex AI for enterprise. Multimodal native: text, images, video, audio in one model. Competitive pricing.</div><div class="dl"><a href="../level-1/multimodality.html">Multimodality</a></div></div>
+    <div class="detail-card"><div class="dt">OpenRouter</div><div class="dd">Unified API gateway for 100+ models across all major providers. Single API key, consistent format, automatic fallbacks. Great for comparing models or switching providers without code changes.</div></div>
+    <div class="detail-card"><div class="dt">Together AI</div><div class="dd">Leading open-source model hosting. Runs Llama, Mixtral, Qwen, and other open models at low cost. Fine-tuning service included. Often 5-10x cheaper than frontier model APIs for similar-quality open models.</div></div>
+    <div class="detail-card"><div class="dt">Groq</div><div class="dd">Specialized inference provider using custom LPU chips. Extremely fast inference (500+ tokens/second) for supported models. Best for latency-critical applications where speed matters most.</div><div class="dl"><a href="hardware.html">Hardware Basics</a></div></div>
+    <div class="detail-card"><div class="dt">Fireworks AI</div><div class="dd">Fast inference with function calling optimization. Strong at serving fine-tuned models and compound AI systems. Good balance of speed, cost, and features for production workloads.</div></div>
+    <div class="detail-card"><div class="dt">Pricing Models</div><div class="dd">Pay-per-token (most providers), pay-per-second (some inference), subscription tiers (OpenAI Plus). Input tokens are cheaper than output. Prompt caching (Anthropic, Google) reduces costs for repeated prefixes.</div><div class="dl"><a href="../level-2/token.html">Token</a></div></div>
+    <div class="detail-card"><div class="dt">Cost Optimization</div><div class="dd">Use smaller models for simple tasks (Haiku, GPT-4o-mini). Cache prompts for repeated contexts. Batch non-urgent requests (50% discount). Use open models via inference providers when frontier quality is not needed.</div></div>
+    <div class="detail-card"><div class="dt">Provider Selection Strategy</div><div class="dd">Prototype: OpenAI (best docs, widest support). Complex reasoning: Anthropic Claude. Long context: Google Gemini. Budget: Together AI or Groq. Production: start with one, add OpenRouter for fallback.</div></div>
+  </div>
+
+  <div class="section-title">Key Terms</div>
+  <div class="terms-grid">
+    <div class="term-card"><strong>Inference Provider</strong><span>Service that hosts and runs AI models, offering API access without requiring your own hardware or model management.</span></div>
+    <div class="term-card"><strong>Token Pricing</strong><span>Pay-per-use model where costs are calculated based on number of input and output tokens processed.</span></div>
+    <div class="term-card"><strong>Prompt Caching</strong><span>Provider feature that reduces costs and latency by caching repeated prompt prefixes across API calls.</span></div>
+    <div class="term-card"><strong>API Gateway</strong><span>Unified access point (like OpenRouter) that routes requests to multiple AI providers through a single API.</span></div>
+  </div>
+
+  <div class="section-title">Practical Tips</div>
+  <div class="tip-box"><ul>
+    <li>Use GPT-4o-mini or Claude Haiku for simple tasks — they are 10-20x cheaper than frontier models and fast enough for most use cases</li>
+    <li>Always implement provider fallbacks in production — OpenRouter makes this easy with automatic routing between providers</li>
+    <li>Enable prompt caching on Anthropic and Google when you have repeated system prompts — it can cut costs by 90% for cached portions</li>
+  </ul></div>
 
     <div class="section-title">Related Community Discussions</div>
     <div class="related-topics">

@@ -69,15 +69,38 @@ h2 { font-size:28px; margin-bottom:8px; }
   <h2>ШІ-протоколи</h2>
   <p class="desc">Комунікаційні протоколи, що з'єднують моделі ШІ з інструментами та сервісами.</p>
 
+  <div class="overview">
+    <p>В міру зростання можливостей систем ШІ, їм потрібні стандартизовані способи комунікації з інструментами, джерелами даних та іншими агентами. ШІ-протоколи визначають ці інтерфейси — від MCP (Model Context Protocol), що з'єднує моделі із зовнішніми інструментами через універсальний стандарт, до A2A (Agent-to-Agent) для міжагентної комунікації, до протоколів стримінгу для відповідей у реальному часі.</p>
+    <p>Ці протоколи — це &quot;сантехніка&quot; екосистеми ШІ. Так само як HTTP стандартизував веб-комунікацію, протоколи як MCP стандартизують взаємодію моделей ШІ зі світом. Розуміння їх критичне для побудови інтероперабельних ШІ-додатків, що можуть підключатися до зростаючої екосистеми інструментів та сервісів.</p>
+  </div>
   <div class="section-title">Основні теми</div>
-  <ul class="detail-list">
-      <li>MCP (Model Context Protocol): архітектура та сервери</li>
-      <li>A2A (Agent-to-Agent): міжагентна комунікація</li>
-      <li>Протокол виклику функцій OpenAI</li>
-      <li>Стандарти використання інструментів між провайдерами</li>
-      <li>Server-Sent Events для стримінгу</li>
-      <li>ШІ-комунікація на базі WebSocket</li>
-  </ul>
+  <div class="detail-cards">
+    <div class="detail-card"><div class="dt">MCP (Model Context Protocol)</div><div class="dd">Відкритий стандарт Anthropic для з'єднання ШІ з інструментами та даними. Сервери надають ресурси, інструменти та промпти через стандартний JSON-RPC протокол. Один MCP-сервер працює з будь-яким MCP-клієнтом (Claude, Cursor тощо).</div><div class="dl"><a href="tool-use.html">Використання інструментів</a></div></div>
+    <div class="detail-card"><div class="dt">Архітектура MCP</div><div class="dd">Клієнт-серверна модель: MCP-хости (ШІ-додатки) з'єднуються з MCP-серверами (провайдери інструментів). Сервери декларують можливості. Транспорт: stdio (локальний), SSE/HTTP (віддалений). Stateful сесії з узгодженням можливостей.</div></div>
+    <div class="detail-card"><div class="dt">A2A (Agent-to-Agent Protocol)</div><div class="dd">Протокол Google для інтероперабельності агентів. Дозволяє агентам на різних фреймворках знаходити одне одного, узгоджувати можливості та співпрацювати. Доповнює MCP (інструменти) — A2A обробляє агент-агент комунікацію.</div><div class="dl"><a href="agents.html">Агенти</a></div></div>
+    <div class="detail-card"><div class="dt">Виклик функцій OpenAI</div><div class="dd">Перший широко прийнятий протокол tool-use. Визначення функцій через JSON Schema, модель генерує структуровані виклики. Тепер індустріальний стандарт, прийнятий Anthropic, Google та іншими.</div><div class="dl"><a href="tool-use.html">Використання інструментів</a></div></div>
+    <div class="detail-card"><div class="dt">Server-Sent Events (SSE)</div><div class="dd">Односпрямований стрімінг-протокол для доставки токенів LLM у реальному часі. На базі HTTP, простий у реалізації, працює через проксі. Використовується OpenAI, Anthropic та більшістю API-провайдерів.</div></div>
+    <div class="detail-card"><div class="dt">WebSocket ШІ-комунікація</div><div class="dd">Двонаправлений стрімінг для ШІ-взаємодій у реальному часі. Використовується для голосового ШІ (OpenAI Realtime API, Google Gemini Live), інтерактивних агентів та сценаріїв з низькою затримкою.</div></div>
+    <div class="detail-card"><div class="dt">Протокол OpenAI Assistants</div><div class="dd">Stateful управління розмовами з threads, runs та вбудованими інструментами (code interpreter, file search). Вищий рівень ніж сирі chat completions. Вплинув на дизайн керованих агентних API інших провайдерів.</div></div>
+    <div class="detail-card"><div class="dt">Стандарти структурованого виходу</div><div class="dd">Примусове дотримання JSON Schema у всіх провайдерів. Strict mode OpenAI, tool results Anthropic, controlled generation Google. Конвергенція до спільного стандарту структурованих відповідей ШІ.</div><div class="dl"><a href="prompting-techniques.html">Техніки промптингу</a></div></div>
+    <div class="detail-card"><div class="dt">OAuth та автентифікація</div><div class="dd">Стандарти безпечного доступу до інструментів, що формуються. MCP підтримує OAuth 2.0 для автентифікованих з'єднань. Управління ключами, ротація токенів та привілеї на основі скоупів.</div></div>
+    <div class="detail-card"><div class="dt">Ландшафт протоколів</div><div class="dd">MCP для модель-інструмент. A2A для агент-агент. Function calling для контекстного tool use. SSE/WebSocket для стримінгу. Екосистема конвергує, але ще не повністю стандартизована — очікуйте консолідацію.</div></div>
+  </div>
+
+  <div class="section-title">Ключові терміни</div>
+  <div class="terms-grid">
+    <div class="term-card"><strong>MCP</strong><span>Model Context Protocol — відкритий стандарт Anthropic для універсальної з'єднуваності інструментів та даних для моделей ШІ.</span></div>
+    <div class="term-card"><strong>A2A</strong><span>Agent-to-Agent Protocol — стандарт Google для взаємного виявлення та комунікації ШІ-агентів.</span></div>
+    <div class="term-card"><strong>SSE</strong><span>Server-Sent Events — HTTP-протокол для стримінгу відповідей LLM токен за токеном у реальному часі.</span></div>
+    <div class="term-card"><strong>JSON-RPC</strong><span>Протокол віддаленого виклику процедур через JSON — транспортний механізм комунікації MCP.</span></div>
+  </div>
+
+  <div class="section-title">Практичні поради</div>
+  <div class="tip-box"><ul>
+    <li>Вивчіть MCP першим — він стає універсальним стандартом і вже підтримується Claude, Cursor, VS Code та багатьма іншими</li>
+    <li>Для стримінгу відповідей у веб-додатках SSE простіший за WebSockets, якщо не потрібна двонаправлена комунікація (як голос)</li>
+    <li>При побудові інструментів для ШІ пріоритизуйте хороші JSON Schema описи — протокол менш важливий ніж чіткі визначення інструментів</li>
+  </ul></div>
 
     <div class="section-title">Пов'язані обговорення спільноти</div>
     <div class="related-topics">

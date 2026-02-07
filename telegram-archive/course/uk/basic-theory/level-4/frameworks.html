@@ -69,15 +69,38 @@ h2 { font-size:28px; margin-bottom:8px; }
   <h2>Прикладні фреймворки</h2>
   <p class="desc">Практичні фреймворки для створення продакшн ШІ-додатків.</p>
 
+  <div class="overview">
+    <p>Прикладні ШІ-фреймворки заповнюють розрив між сирими API моделей та продакшн-готовими додатками. Замість будування всього з нуля — логіки маршрутизації, UI, управління пам'яттю, деплою — ці фреймворки надають структури, що обробляють типові патерни, щоб ви могли зосередитися на вашому конкретному випадку.</p>
+    <p>Ландшафт простягається від візуальних конструкторів (Dify, Flowise), де не-розробники можуть створювати ШІ-воркфлоу перетягуванням вузлів, до фреймворків для розробників (Vercel AI SDK, патерни FastAPI), що дають програмний контроль з продакшн-інструментарієм. Вибір правильного фреймворку залежить від навичок команди, цільової платформи та потрібного рівня кастомізації.</p>
+  </div>
   <div class="section-title">Основні теми</div>
-  <ul class="detail-list">
-      <li>Dify: візуальний конструктор ШІ-воркфлоу</li>
-      <li>n8n: автоматизація воркфлоу з ШІ-вузлами</li>
-      <li>Flowise: візуальний конструктор LangChain</li>
-      <li>Vercel AI SDK для веб-додатків</li>
-      <li>Паттерни інтеграції FastAPI + LLM</li>
-      <li>Low-code/no-code ШІ-платформи</li>
-  </ul>
+  <div class="detail-cards">
+    <div class="detail-card"><div class="dt">Dify</div><div class="dd">Open-source візуальний конструктор ШІ-воркфлоу. Drag-and-drop інтерфейс для чатботів, RAG-додатків та агентних воркфлоу. Підтримує кількох LLM-провайдерів, вбудовану базу знань та API-деплой.</div><div class="dl"><a href="rag.html">RAG</a></div></div>
+    <div class="detail-card"><div class="dt">n8n</div><div class="dd">Платформа автоматизації воркфлоу з потужними ШІ-вузлами. З'єднує LLM з 400+ інтеграціями (Slack, пошта, бази даних, API). Самохостинг, подієва модель, ідеальний для бізнес-автоматизації з ШІ.</div><div class="dl"><a href="agents.html">Агенти</a></div></div>
+    <div class="detail-card"><div class="dt">Flowise</div><div class="dd">Візуальний конструктор LangChain — створення LLM-ланцюгів та агентів з'єднанням вузлів у браузері. Нижчий бар'єр входу ніж кодування LangChain напряму. Добрий для прототипування RAG та агентів.</div><div class="dl"><a href="base-tools.html">Інструменти та бібліотеки</a></div></div>
+    <div class="detail-card"><div class="dt">Vercel AI SDK</div><div class="dd">TypeScript-first фреймворк для ШІ веб-додатків. Обробляє стрімінг, виклик інструментів, багатокрокові взаємодії та генеративний UI в React/Next.js. Стандарт для ШІ веб-додатків.</div></div>
+    <div class="detail-card"><div class="dt">Паттерни FastAPI + LLM</div><div class="dd">Патерни Python-бекенду: асинхронні стрімінг-ендпоінти для відповідей LLM, WebSocket для реал-тайм чату, dependency injection для зміни провайдера, валідація структурованого виходу через Pydantic.</div><div class="dl"><a href="api-providers.html">API-провайдери</a></div></div>
+    <div class="detail-card"><div class="dt">Streamlit та Gradio</div><div class="dd">Фреймворки швидкого прототипування для ШІ-демо. Streamlit створює data-додатки з Python-скриптів. Gradio будує інтерфейси ML-моделей з автоматичною генерацією API. Обидва деплояться за хвилини.</div></div>
+    <div class="detail-card"><div class="dt">LangServe та LangGraph</div><div class="dd">Інструменти деплою та stateful воркфлоу від LangChain. LangServe деплоїть ланцюги як REST API. LangGraph будує складні багатокрокові агентні воркфлоу зі стейт-менеджментом та циклами.</div><div class="dl"><a href="agents.html">Агенти</a></div></div>
+    <div class="detail-card"><div class="dt">CrewAI та AutoGen</div><div class="dd">Фреймворки оркестрації мультиагентних систем. CrewAI призначає ролі та задачі агентам-співробітникам. AutoGen (Microsoft) забезпечує розмовні команди агентів. Обидва спрощують побудову агентних систем.</div><div class="dl"><a href="agents.html">Агенти</a></div></div>
+    <div class="detail-card"><div class="dt">Low-Code ШІ-платформи</div><div class="dd">Платформи як Zapier AI, Make.com та Bubble з ШІ-плагінами. Дозволяють не-розробникам будувати ШІ-воркфлоу. Обмін гнучкості на швидкість та доступність.</div></div>
+    <div class="detail-card"><div class="dt">Вибір фреймворку</div><div class="dd">Нетехнічна команда: Dify/Flowise. Автоматизація: n8n. Веб-додаток: Vercel AI SDK. Python API: FastAPI. Прототип: Streamlit/Gradio. Складні агенти: LangGraph. Завжди прототипуйте перед вибором.</div></div>
+  </div>
+
+  <div class="section-title">Ключові терміни</div>
+  <div class="terms-grid">
+    <div class="term-card"><strong>Візуальний конструктор</strong><span>Інструмент для створення ШІ-додатків з'єднанням вузлів у drag-and-drop інтерфейсі замість написання коду.</span></div>
+    <div class="term-card"><strong>Стрімінг</strong><span>Доставка відповідей LLM токен за токеном у реальному часі замість очікування повної відповіді.</span></div>
+    <div class="term-card"><strong>LangGraph</strong><span>Фреймворк LangChain для побудови stateful, багатокрокових агентних воркфлоу з циклами та розгалуженням.</span></div>
+    <div class="term-card"><strong>Low-Code ШІ</strong><span>Платформи для розробки ШІ-додатків з мінімальним програмуванням через візуальні інтерфейси та готові компоненти.</span></div>
+  </div>
+
+  <div class="section-title">Практичні поради</div>
+  <div class="tip-box"><ul>
+    <li>Почніть з Dify або Flowise для швидких прототипів, потім мігруйте на кодові фреймворки коли потрібен більший контроль</li>
+    <li>n8n — це швейцарський ніж для ШІ-автоматизації: якщо воркфлоу включає з'єднання кількох сервісів, почніть тут</li>
+    <li>Не перефреймворкуйте: для простих викликів LLM API пряме використання SDK простіше та підтримуваніше ніж додавання фреймворку</li>
+  </ul></div>
 
     <div class="section-title">Пов'язані обговорення спільноти</div>
     <div class="related-topics">

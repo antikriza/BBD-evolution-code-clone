@@ -69,15 +69,38 @@ h2 { font-size:28px; margin-bottom:8px; }
   <h2>Формати моделей</h2>
   <p class="desc">Розуміння різних форматів розповсюдження та виконання моделей.</p>
 
+  <div class="overview">
+    <p>Моделі ШІ потрібно серіалізувати у файли для розповсюдження та завантаження. Різні формати оптимізують різні цілі: GGUF пріоритизує запуск на споживчому обладнанні з розподілом CPU+GPU, GPTQ та AWQ оптимізовані для GPU з максимальною пропускною здатністю, SafeTensors забезпечує безпечне завантаження без ризиків виконання коду, ONNX надає кросплатформну сумісність.</p>
+    <p>Розуміння форматів моделей необхідне для локального деплою ШІ. Формат визначає який движок інференсу ви можете використати (llama.cpp, vLLM, TensorRT), на якому обладнанні він працює, скільки пам'яті потрібно та наскільки швидко генеруються токени. Більшість моделей на Hugging Face доступні у кількох форматах.</p>
+  </div>
   <div class="section-title">Основні теми</div>
-  <ul class="detail-list">
-      <li>GGUF: формат llama.cpp для інференсу на CPU/GPU</li>
-      <li>GPTQ, AWQ: оптимізовані для GPU квантизовані формати</li>
-      <li>SafeTensors: безпечна серіалізація моделей</li>
-      <li>ONNX: кросплатформний формат моделей</li>
-      <li>Формати ExLlamaV2, Marlin kernel</li>
-      <li>Вибір правильного формату для вашого обладнання</li>
-  </ul>
+  <div class="detail-cards">
+    <div class="detail-card"><div class="dt">GGUF (llama.cpp)</div><div class="dd">Найуніверсальніший формат для локального інференсу. Підтримує CPU, GPU та змішане виконання CPU+GPU. Розповсюдження одним файлом з вбудованими метаданими. Основний формат для споживчого обладнання.</div><div class="dl"><a href="hardware.html">Основи обладнання</a></div></div>
+    <div class="detail-card"><div class="dt">GPTQ</div><div class="dd">Оптимізований для GPU формат пост-тренувальної квантизації. Моделі квантизуються до 4-біт або 8-біт з калібраційними даними. Швидший за GGUF на чистому GPU, але вимагає повного вміщення в VRAM.</div><div class="dl"><a href="../level-3/model-optimization.html">Оптимізація моделей</a></div></div>
+    <div class="detail-card"><div class="dt">AWQ (Activation-Aware Quantization)</div><div class="dd">Просунута GPU-квантизація, що зберігає важливі ваги на основі патернів активації. Зазвичай краща якість ніж GPTQ при однаковій бітності. Підтримується vLLM та TensorRT-LLM.</div></div>
+    <div class="detail-card"><div class="dt">SafeTensors</div><div class="dd">Безпечний формат серіалізації від Hugging Face, що запобігає виконанню довільного коду при завантаженні, підтримує memory-mapping та є стандартом на Hugging Face Hub.</div></div>
+    <div class="detail-card"><div class="dt">ONNX (Open Neural Network Exchange)</div><div class="dd">Кросплатформний формат від Microsoft, Google та інших. Дозволяє запускати моделі на різному обладнанні (CPU, GPU, NPU) через ONNX Runtime. Для edge-деплою та мобільного інференсу.</div></div>
+    <div class="detail-card"><div class="dt">ExLlamaV2 та EXL2</div><div class="dd">Високооптимізований GPU-інференс зі змінною квантизацією — різні шари можуть мати різну бітність. Найкраща якість на біт серед квантизованих форматів. Популярний серед ентузіастів.</div></div>
+    <div class="detail-card"><div class="dt">TensorRT-LLM</div><div class="dd">Високопродуктивний движок інференсу від NVIDIA. Компілює моделі в оптимізовані плани виконання для GPU NVIDIA. Максимальна пропускна здатність для продакшн-серверів, але вимагає обладнання NVIDIA.</div><div class="dl"><a href="hardware.html">Основи обладнання</a></div></div>
+    <div class="detail-card"><div class="dt">Рівні квантизації</div><div class="dd">Від Q2 (найменший, найнижча якість) до Q8 (найбільший, найвища якість). Q4_K_M — оптимальний баланс для GGUF. Q5+ рекомендується для задач з інтенсивним міркуванням.</div><div class="dl"><a href="../level-3/model-optimization.html">Оптимізація моделей</a></div></div>
+    <div class="detail-card"><div class="dt">Розповсюдження моделей</div><div class="dd">Hugging Face — основний хаб. Моделі завантажуються у кількох форматах спеціалістами з квантизації (TheBloke, bartowski). Ollama та LM Studio завантажують GGUF моделі в один клік.</div></div>
+    <div class="detail-card"><div class="dt">Вибір правильного формату</div><div class="dd">Споживчий GPU: GGUF або EXL2. Продакшн GPU-сервер: AWQ або TensorRT-LLM. Тільки CPU: GGUF. Кросплатформа: ONNX. Мобільний/edge: ONNX або CoreML. Якщо сумніваєтесь: GGUF Q4_K_M.</div></div>
+  </div>
+
+  <div class="section-title">Ключові терміни</div>
+  <div class="terms-grid">
+    <div class="term-card"><strong>GGUF</strong><span>Формат моделей llama.cpp для інференсу CPU+GPU — найпопулярніший формат для запуску моделей на споживчому обладнанні.</span></div>
+    <div class="term-card"><strong>SafeTensors</strong><span>Безпечний формат серіалізації моделей, що запобігає атакам виконання коду при завантаженні.</span></div>
+    <div class="term-card"><strong>Рівень квантизації</strong><span>Бітна точність ваг моделі (Q2-Q8) — менше біт означає менші файли, але знижену якість.</span></div>
+    <div class="term-card"><strong>VRAM</strong><span>Відеопам'ять GPU — основне обмеження, що визначає які розміри та формати моделей можуть працювати на вашому обладнанні.</span></div>
+  </div>
+
+  <div class="section-title">Практичні поради</div>
+  <div class="tip-box"><ul>
+    <li>Почніть з GGUF Q4_K_M для будь-якої нової моделі — це найкращий баланс якості та розміру для більшості споживчих конфігурацій</li>
+    <li>Якщо маєте виділений GPU NVIDIA з достатньою VRAM, спробуйте AWQ або EXL2 для помітно швидшого інференсу ніж GGUF</li>
+    <li>Завжди використовуйте SafeTensors коли доступно — ніколи не завантажуйте ненадійні серіалізовані файли моделей, що можуть виконати довільний код</li>
+  </ul></div>
 
     <div class="section-title">Пов'язані обговорення спільноти</div>
     <div class="related-topics">
