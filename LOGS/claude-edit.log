@@ -91,3 +91,9 @@ Description: Regenerated all Ukrainian pages. Same enrichments as EN, fully tran
 [2026-02-07 17:37:00] EDIT: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/telegram-archive/course/twa/index.html (514KB)
 Description: Regenerated Mini App with all enriched content. File grew from 458KB to 514KB. All 42 topics now have complete, consistent content structure.
 ---
+[2026-02-07 18:15:00] CREATE: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/telegram-archive/course/docs/telegram-posts-en.md
+Description: Telegram-ready posts in English for all 42 course topics + 5 level overview posts + full course link. Each post contains emoji, title, description, and deep link to Mini App topic.
+---
+[2026-02-07 18:15:00] CREATE: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/telegram-archive/course/docs/telegram-posts-uk.md
+Description: Telegram-ready posts in Ukrainian for all 42 course topics + 5 level overview posts + full course link. Same structure as EN version, fully translated.
+---
