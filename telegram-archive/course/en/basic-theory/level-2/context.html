@@ -95,6 +95,13 @@ h2 { font-size:28px; margin-bottom:8px; }
     <div class="term-card"><strong>Context Engineering</strong><span>The practice of deliberately structuring and managing what information enters the model's context.</span></div>
   </div>
 
+  <div class="section-title">Practical Tips</div>
+  <div class="tip-box"><ul>
+    <li>Put the most important information at the beginning and end of your prompt — models pay less attention to the middle (the &quot;lost in the middle&quot; effect)</li>
+    <li>For long-context tasks, chunk your input and summarize irrelevant sections rather than feeding everything in — focused context produces better results than exhaustive context</li>
+    <li>Use RAG instead of stuffing everything into context — retrieve only what's relevant for the specific query, even if the model has a huge context window</li>
+  </ul></div>
+
     <div class="section-title">Related Community Discussions</div>
     <div class="related-topics">
       <a href="#">Agents &amp; Tools</a>

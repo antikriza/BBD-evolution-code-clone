@@ -95,6 +95,13 @@ h2 { font-size:28px; margin-bottom:8px; }
     <div class="term-card"><strong>Prompt Caching</strong><span>API feature that caches common prompt prefixes to reduce cost on repeated similar requests.</span></div>
   </div>
 
+  <div class="section-title">Practical Tips</div>
+  <div class="tip-box"><ul>
+    <li>Estimate token counts before making API calls: 1 token is roughly 4 English characters or 0.75 words — a page of text is about 500 tokens</li>
+    <li>Non-Latin scripts (Ukrainian, Chinese, Arabic) use more tokens per word — budget 2-3x more tokens for multilingual applications</li>
+    <li>To reduce costs, compress system prompts and reuse cached prefixes — Anthropic and OpenAI both support prompt caching for significant savings</li>
+  </ul></div>
+
     <div class="section-title">Related Community Discussions</div>
     <div class="related-topics">
       <a href="#">Agents &amp; Tools</a>

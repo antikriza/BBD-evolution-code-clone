@@ -14,9 +14,9 @@ A structured AI course with 42 topics across 5 progressive levels, generated fro
 |-------|-----------|-----------|--------|---------------|
 | 1 | Beginner | Novachok | 9 | Rich detail cards with cross-links |
 | 2 | User | Korystuvach | 5 | Rich detail cards with cross-links |
-| 3 | Professional | Profesional | 5 | Overview + bullet points |
-| 4 | Master | Maister | 10 | Overview + bullet points |
-| 5 | Horizons | Horyzonty | 13 | Overview + bullet points |
+| 3 | Professional | Profesional | 5 | Rich detail cards with cross-links |
+| 4 | Master | Maister | 10 | Rich detail cards with cross-links |
+| 5 | Horizons | Horyzonty | 13 | Rich detail cards with cross-links |
 
 Each topic page includes:
 - Multi-paragraph overview
@@ -30,7 +30,7 @@ Each topic page includes:
 ## Architecture
 
 ```
-build-all.js          # Single generator script (~1700 lines)
+build-all.js          # Single generator script (~3600 lines)
   |                   #   - All 42 topics with bilingual content
   |                   #   - All UI translations (EN/UK)
   |                   #   - Page generators for each output type
@@ -39,7 +39,7 @@ build-all.js          # Single generator script (~1700 lines)
   +---> uk/           # 49 Ukrainian HTML pages (same structure)
   +---> index.html    # Language selector (EN/UK entry point)
   +---> twa/
-        index.html    # Telegram Mini App (~212KB, single self-contained SPA)
+        index.html    # Telegram Mini App (~514KB, single self-contained SPA)
 ```
 
 ### Content Data Format
@@ -50,9 +50,8 @@ All content lives in `build-all.js` as JavaScript objects. Every string is bilin
 title: { en: 'Generative AI', uk: 'Генеративний ШІ' }
 ```
 
-Topic details use two formats:
-- **Rich cards** (Level 1-2): `{ text, desc, links: [{ title, href }] }` — rendered as cards with descriptions and clickable cross-link pills
-- **Plain strings** (Level 3-5): Simple text strings — rendered as arrow-prefixed list items
+All topic details use the rich card format:
+- **Rich cards** (all levels): `{ text, desc, links: [{ title, href }] }` — rendered as cards with descriptions and clickable cross-link pills
 
 ## Telegram Mini App (TWA)
 
@@ -201,7 +200,7 @@ GitHub Pages rebuilds automatically on push (~1-2 minutes).
 | `en/` | 49 | English pages (1 index + 48 topics) |
 | `uk/` | 49 | Ukrainian pages (1 index + 48 topics) |
 | `basic-theory/` | 48 | Legacy single-language pages |
-| `twa/index.html` | 1 | Telegram Mini App (212KB) |
+| `twa/index.html` | 1 | Telegram Mini App (514KB) |
 | **Total** | **150** | **HTML + JS files** |
 
 ## Technical Notes

@@ -409,6 +409,18 @@ const levels = [
             { term: 'Авторегресивний', def: 'Генерація по одному токену за раз, де кожен новий токен залежить від усіх попередніх.' }
           ]
         },
+        tips: {
+          en: [
+            'When comparing LLMs, check both the base model and its fine-tuned variants — a well-tuned 70B can outperform a poorly-tuned 405B model',
+            'Model size alone doesn\'t determine quality — architecture, training data quality, and alignment methods matter just as much',
+            'For cost-effective development, prototype with frontier models (GPT-4, Claude), then evaluate if a smaller open model can handle your specific use case'
+          ],
+          uk: [
+            'Порівнюючи LLM, перевіряйте як базову модель так і файн-тюнені варіанти — добре тюнена 70B може перевершити погано тюнену 405B',
+            'Розмір моделі сам по собі не визначає якість — архітектура, якість навчальних даних та методи вирівнювання важать не менше',
+            'Для ефективної розробки прототипуйте з фронтирними моделями (GPT-4, Claude), потім оцініть чи менша відкрита модель підходить для вашого випадку'
+          ]
+        },
         related: ['Models', 'Feed']
       },
       {
@@ -466,6 +478,18 @@ const levels = [
             { term: 'Латентний простір', def: 'Стиснуте математичне представлення зображень, в якому моделі працюють для ефективності.' },
             { term: 'LoRA', def: 'Low-Rank Adaptation — легкий метод кастомізації моделей без повного перенавчання.' },
             { term: 'ControlNet', def: 'Розширення, що додає структурне керування (краї, пози, глибина) до дифузійної генерації.' }
+          ]
+        },
+        tips: {
+          en: [
+            'For best image generation results, study existing images on platforms like CivitAI to learn which keywords and styles produce consistent quality',
+            'Use ControlNet or reference images to maintain consistency across multiple generations — pure text prompts alone give unpredictable variation',
+            'Video generation AI is progressing fast but still struggles with physics and temporal consistency — use it for creative exploration, not production'
+          ],
+          uk: [
+            'Для найкращих результатів генерації зображень вивчіть наявні зображення на платформах як CivitAI, щоб дізнатись які ключові слова дають стабільну якість',
+            'Використовуйте ControlNet або референсні зображення для стабільності між кількома генераціями — чисті текстові промпти дають непередбачувані варіації',
+            'Генерація відео ШІ прогресує швидко, але все ще має проблеми з фізикою та часовою послідовністю — використовуйте для креативного дослідження, не для продакшну'
           ]
         },
         related: ['Feed']
@@ -527,6 +551,18 @@ const levels = [
             { term: 'Кросмодальний', def: 'Конвертація між типами даних, напр., генерація зображення з текстового опису.' }
           ]
         },
+        tips: {
+          en: [
+            'When working with vision models, providing high-resolution images with clear context significantly improves accuracy — blurry or cropped images cause hallucinations',
+            'Multimodal models are great for automating document processing — invoices, receipts, forms — by combining OCR with language understanding in a single step',
+            'Test multimodal inputs carefully: models often perform differently on photos vs screenshots vs diagrams, even when the content is similar'
+          ],
+          uk: [
+            'При роботі з візуальними моделями надання зображень високої роздільності з чітким контекстом значно покращує точність — розмиті зображення спричиняють галюцинації',
+            'Мультимодальні моделі чудові для автоматизації обробки документів — рахунки, чеки, форми — поєднуючи OCR з мовним розумінням в одному кроці',
+            'Ретельно тестуйте мультимодальні входи: моделі часто працюють по-різному на фото vs скріншотах vs діаграмах, навіть коли контент схожий'
+          ]
+        },
         related: ['Models', 'Feed']
       },
       {
@@ -584,6 +620,18 @@ const levels = [
             { term: 'Токени мислення', def: 'Внутрішні сліди міркувань, згенеровані моделями перед фінальним результатом.' },
             { term: 'Система 1/Система 2', def: 'Фреймворк Канемана: швидке інтуїтивне vs повільне обдумане мислення, застосоване до ШІ.' },
             { term: 'Обчислення під час тесту', def: 'Виділення більше обробки під час інференсу для покращення міркувань на складніших задачах.' }
+          ]
+        },
+        tips: {
+          en: [
+            'For complex problems, explicitly ask the model to "think step by step" — this simple instruction activates chain-of-thought reasoning and can double accuracy on math and logic tasks',
+            'Reasoning models (o1, Claude with extended thinking) cost more and are slower — use them for hard problems, and faster models for simple tasks',
+            'If a model gives a wrong answer, try breaking the problem into smaller sub-questions rather than just asking again — decomposition often fixes reasoning failures'
+          ],
+          uk: [
+            'Для складних задач явно попросіть модель "думати крок за кроком" — ця проста інструкція активує ланцюг думок і може подвоїти точність на математичних та логічних задачах',
+            'Моделі міркування (o1, Claude з розширеним мисленням) дорожчі та повільніші — використовуйте їх для складних задач, а швидші моделі для простих',
+            'Якщо модель дала неправильну відповідь, спробуйте розбити задачу на менші підзадачі замість повторного запитання — декомпозиція часто виправляє збої міркування'
           ]
         },
         related: ['Models', 'Feed']
@@ -645,6 +693,18 @@ const levels = [
             { term: 'Файн-тюнінг', def: 'Подальше навчання попередньо навченої моделі на задачно-специфічних даних.' }
           ]
         },
+        tips: {
+          en: [
+            'Don\'t assume the newest model is always best for your task — smaller, specialized models often outperform general-purpose frontier models in narrow domains',
+            'Open-weight models (Llama, Qwen, Mistral) let you run AI locally with no API costs and full data privacy — evaluate them before committing to paid APIs',
+            'Foundation models improve rapidly — reevaluate your model choice every 3-6 months, as a free open model today may match last year\'s frontier'
+          ],
+          uk: [
+            'Не припускайте що найновіша модель завжди найкраща для вашої задачі — менші спеціалізовані моделі часто перевершують загальні фронтирні у вузьких доменах',
+            'Відкриті моделі (Llama, Qwen, Mistral) дозволяють запускати ШІ локально без витрат на API та з повною приватністю — оцініть їх перед зобов\'язанням платних API',
+            'Фундаментальні моделі покращуються стрімко — переоцінюйте вибір кожні 3-6 місяців, бо безкоштовна відкрита модель сьогодні може дорівнювати минулорічній фронтирній'
+          ]
+        },
         related: ['Models']
       },
       {
@@ -700,6 +760,18 @@ const levels = [
             { term: 'Модальність', def: 'Тип даних, з яким працює модель: текст, зображення, аудіо, відео або код.' },
             { term: 'Пайплайн', def: 'Ланцюг моделей, що обробляють дані, напр., аудіо→текст→текст→аудіо для голосового чатбота.' },
             { term: 'Ембедінг', def: 'Числове представлення даних (тексту, зображення) у векторному просторі для семантичного пошуку.' }
+          ]
+        },
+        tips: {
+          en: [
+            'When choosing a model, first identify your primary data modality — a text-to-image model is different from a text+image understanding model, even if both involve images',
+            'Build pipelines of specialized models (speech-to-text → LLM → text-to-speech) rather than using one model for everything — specialized models are usually better and cheaper',
+            'Embedding models are underrated tools — they enable semantic search, recommendation systems, and clustering at a fraction of the cost of LLM calls'
+          ],
+          uk: [
+            'При виборі моделі спочатку визначте основну модальність — модель текст-в-зображення відрізняється від моделі розуміння тексту+зображення, навіть якщо обидві працюють із зображеннями',
+            'Будуйте пайплайни спеціалізованих моделей (мова-в-текст → LLM → текст-в-мову) замість однієї моделі для всього — спеціалізовані зазвичай кращі та дешевші',
+            'Моделі ембедінгів — це недооцінені інструменти: вони дозволяють семантичний пошук, рекомендаційні системи та кластеризацію за частку вартості LLM-викликів'
           ]
         },
         related: ['Models']
@@ -909,6 +981,18 @@ const levels = [
             { term: 'Кешування промптів', def: 'Функція API, що кешує спільні префікси промптів для зменшення витрат на повторні запити.' }
           ]
         },
+        tips: {
+          en: [
+            'Estimate token counts before making API calls: 1 token is roughly 4 English characters or 0.75 words — a page of text is about 500 tokens',
+            'Non-Latin scripts (Ukrainian, Chinese, Arabic) use more tokens per word — budget 2-3x more tokens for multilingual applications',
+            'To reduce costs, compress system prompts and reuse cached prefixes — Anthropic and OpenAI both support prompt caching for significant savings'
+          ],
+          uk: [
+            'Оцінюйте кількість токенів перед API-викликами: 1 токен — це приблизно 4 англійські символи або 0.75 слова — сторінка тексту це ~500 токенів',
+            'Нелатинські скрипти (українська, китайська, арабська) використовують більше токенів на слово — закладайте 2-3x більше для мультимовних додатків',
+            'Для зменшення витрат стискайте системні промпти та повторно використовуйте кешовані префікси — Anthropic і OpenAI підтримують кешування промптів'
+          ]
+        },
         related: ['Agents & Tools']
       },
       {
@@ -963,6 +1047,18 @@ const levels = [
             { term: 'Загубленість у середині', def: 'Моделі краще звертають увагу на початок та кінець контексту, часто пропускаючи середину.' },
             { term: 'RAG', def: 'Генерація з пошуковим доповненням — динамічне витягування релевантних документів для додавання в контекст.' },
             { term: 'Контекст-інженерія', def: 'Практика навмисного структурування та управління інформацією, що потрапляє в контекст моделі.' }
+          ]
+        },
+        tips: {
+          en: [
+            'Put the most important information at the beginning and end of your prompt — models pay less attention to the middle (the "lost in the middle" effect)',
+            'For long-context tasks, chunk your input and summarize irrelevant sections rather than feeding everything in — focused context produces better results than exhaustive context',
+            'Use RAG instead of stuffing everything into context — retrieve only what\'s relevant for the specific query, even if the model has a huge context window'
+          ],
+          uk: [
+            'Розміщуйте найважливішу інформацію на початку та в кінці промпту — моделі менше уваги приділяють середині (ефект "загубленості в середині")',
+            'Для задач з довгим контекстом чанкуйте вхід та сумаризуйте нерелевантні секції — фокусований контекст дає кращі результати ніж вичерпний',
+            'Використовуйте RAG замість заповнення всього в контекст — витягуйте лише релевантне для конкретного запиту, навіть якщо модель має величезне контекстне вікно'
           ]
         },
         related: ['Agents & Tools', 'Feed']
@@ -1021,6 +1117,18 @@ const levels = [
             { term: 'Калібрування', def: 'Наскільки впевненість моделі відповідає її реальній точності — добре калібровані моделі знають, коли невпевнені.' }
           ]
         },
+        tips: {
+          en: [
+            'Always verify AI-generated facts, especially numbers, dates, URLs, and citations — these are the most common hallucination categories',
+            'Ask the model "Are you certain about this?" or "What are you least confident about?" — models can sometimes self-identify uncertain claims',
+            'For high-stakes tasks, use RAG with verified sources rather than relying on the model\'s parametric knowledge — grounded responses hallucinate far less'
+          ],
+          uk: [
+            'Завжди перевіряйте факти, згенеровані ШІ, особливо числа, дати, URL та цитати — це найпоширеніші категорії галюцинацій',
+            'Запитайте модель "Ви впевнені в цьому?" або "В чому ви найменш впевнені?" — моделі іноді можуть самостійно ідентифікувати невпевнені твердження',
+            'Для критичних задач використовуйте RAG з верифікованими джерелами замість покладання на параметричні знання моделі — заземлені відповіді галюцинують значно менше'
+          ]
+        },
         related: ['Feed']
       },
       {
@@ -1077,6 +1185,18 @@ const levels = [
             { term: 'Агентне кодування', def: 'ШІ-асистенти, що можуть автономно планувати, писати, тестувати та дебажити код.' }
           ]
         },
+        tips: {
+          en: [
+            'Write clear specifications before vibecoding — the better your description, the better the AI-generated code. A vague request produces vague code',
+            'Always review and understand generated code before committing — vibecoding is faster than manual coding, but blind acceptance creates hidden technical debt',
+            'Use vibecoding for prototypes and standard patterns, switch to manual coding for performance-critical or security-sensitive components'
+          ],
+          uk: [
+            'Пишіть чіткі специфікації перед вайбкодингом — чим кращий ваш опис, тим кращий згенерований код. Розмитий запит створює розмитий код',
+            'Завжди переглядайте та розумійте згенерований код перед комітом — вайбкодинг швидший за ручне кодування, але сліпе прийняття створює прихований технічний борг',
+            'Використовуйте вайбкодинг для прототипів та стандартних патернів, переходьте на ручне кодування для критичних до продуктивності або безпеки компонентів'
+          ]
+        },
         related: ['Feed', 'Video Content']
       }
     ]
@@ -1090,30 +1210,325 @@ const levels = [
     },
     topics: [
       { slug: 'neural-networks', title: { en: 'Neural Network Fundamentals', uk: 'Основи нейромереж' }, desc: { en: 'Architecture of neural networks - layers, activation functions, and how learning happens.', uk: 'Архітектура нейромереж — шари, функції активації та як відбувається навчання.' },
-        overview: { en: ['Neural networks are the mathematical foundation underlying all modern AI. They are loosely inspired by biological neurons but in practice are systems of matrix multiplications and nonlinear functions organized into layers. Understanding how they work — forward propagation, loss computation, and backpropagation — is essential for anyone wanting to go beyond surface-level AI usage.'], uk: ['Нейронні мережі — це математична основа, що лежить під усім сучасним ШІ. Вони натхненні біологічними нейронами, але на практиці є системами матричних множень та нелінійних функцій, організованих у шари. Розуміння їх роботи — прямого поширення, обчислення втрат та зворотного поширення — є необхідним для тих, хто хоче вийти за межі поверхневого використання ШІ.'] },
-        details: { en: ['Neurons: weighted sum of inputs + activation function = output', 'Layers: input → hidden layers → output. Deep = many hidden layers', 'Activation functions: ReLU, GELU, Sigmoid, Softmax — introduce nonlinearity', 'Forward propagation: data flows through layers to produce a prediction', 'Loss functions: measuring how wrong the prediction is (cross-entropy, MSE)', 'Backpropagation: computing gradients of loss with respect to each weight', 'Gradient descent: adjusting weights to minimize loss over many iterations', 'Convolutional networks (CNNs): specialized for images — filters detect patterns', 'Recurrent networks (RNNs, LSTMs): designed for sequences, now largely replaced by Transformers', 'Transformer architecture: self-attention mechanism enabling parallel sequence processing'], uk: ['Нейрони: зважена сума входів + функція активації = вихід', 'Шари: вхід → приховані шари → вихід. Глибокий = багато прихованих шарів', 'Функції активації: ReLU, GELU, Sigmoid, Softmax — вводять нелінійність', 'Пряме поширення: дані проходять через шари для отримання передбачення', 'Функції втрат: вимірювання наскільки передбачення хибне (cross-entropy, MSE)', 'Зворотне поширення: обчислення градієнтів втрат відносно кожної ваги', 'Градієнтний спуск: корекція ваг для мінімізації втрат через багато ітерацій', 'Конволюційні мережі (CNN): спеціалізовані для зображень — фільтри виявляють патерни', 'Рекурентні мережі (RNN, LSTM): створені для послідовностей, зараз замінені Transformer', 'Архітектура Transformer: механізм самоуваги для паралельної обробки послідовностей'] },
-        keyTerms: { en: [{ term: 'Backpropagation', def: 'Algorithm for computing how each weight contributes to the error, enabling learning.' }, { term: 'Gradient Descent', def: 'Optimization algorithm that adjusts weights in the direction that reduces error.' }, { term: 'Self-Attention', def: 'Mechanism where each element in a sequence can attend to every other element.' }], uk: [{ term: 'Зворотне поширення', def: 'Алгоритм обчислення як кожна вага впливає на помилку, забезпечуючи навчання.' }, { term: 'Градієнтний спуск', def: 'Алгоритм оптимізації, що корегує ваги у напрямку зменшення помилки.' }, { term: 'Самоувага', def: 'Механізм, де кожен елемент послідовності може звертати увагу на кожен інший.' }] },
-        related: [] },
+        overview: {
+          en: [
+            'Neural networks are the mathematical foundation underlying all modern AI. They are loosely inspired by biological neurons but in practice are systems of matrix multiplications and nonlinear functions organized into layers. Understanding how they work — forward propagation, loss computation, and backpropagation — is essential for anyone wanting to go beyond surface-level AI usage.',
+            'The field has evolved from simple perceptrons in the 1950s to today\'s trillion-parameter transformer networks. Each architectural breakthrough — from convolutional layers for vision to attention mechanisms for language — expanded what neural networks could do. Knowing these fundamentals helps you understand why certain models excel at certain tasks and what the actual limitations of "AI" are.'
+          ],
+          uk: [
+            'Нейронні мережі — це математична основа, що лежить під усім сучасним ШІ. Вони натхненні біологічними нейронами, але на практиці є системами матричних множень та нелінійних функцій, організованих у шари. Розуміння їх роботи — прямого поширення, обчислення втрат та зворотного поширення — є необхідним для тих, хто хоче вийти за межі поверхневого використання ШІ.',
+            'Сфера еволюціонувала від простих перцептронів 1950-х до сучасних трильйон-параметрових трансформерних мереж. Кожен архітектурний прорив — від конволюційних шарів для зору до механізмів уваги для мови — розширював можливості нейромереж. Знання цих основ допомагає зрозуміти, чому певні моделі відмінні в певних задачах і які справжні обмеження "ШІ".'
+          ]
+        },
+        details: {
+          en: [
+            { text: 'Neurons and Weighted Sums', desc: 'A neuron computes a weighted sum of its inputs, adds a bias term, then passes the result through an activation function. This simple operation, repeated billions of times across layers, is how neural networks compute.', links: [{ title: 'Foundation Models', href: '../level-1/foundation-models.html' }] },
+            { text: 'Network Layers', desc: 'Input layer receives raw data, hidden layers extract increasingly abstract features, output layer produces the final prediction. "Deep" learning means many hidden layers — modern LLMs have 80-120+ layers.', links: [{ title: 'LLM', href: '../level-2/llm.html' }] },
+            { text: 'Activation Functions', desc: 'ReLU (most common, simple max(0,x)), GELU (used in transformers, smoother), Sigmoid (squashes to 0-1), Softmax (outputs probability distribution). These introduce nonlinearity — without them, the entire network would collapse to a single linear transformation.', links: [] },
+            { text: 'Forward Propagation', desc: 'Data flows through the network layer by layer — each layer transforms its input and passes the result to the next. The final output is a prediction that can be compared to the true answer to compute error.', links: [] },
+            { text: 'Loss Functions', desc: 'Measuring how wrong the prediction is. Cross-entropy loss for classification, MSE for regression, next-token prediction loss for language models. The entire training process is about minimizing this loss function.', links: [{ title: 'Data to Model', href: 'data-to-model.html' }] },
+            { text: 'Backpropagation', desc: 'The algorithm that makes learning possible. It computes how much each weight contributed to the error by applying the chain rule of calculus backwards through the network — hence "back" propagation.', links: [{ title: 'Training & Fine-tuning', href: 'training-finetuning.html' }] },
+            { text: 'Gradient Descent Optimization', desc: 'Adjusting weights in the direction that reduces loss. Adam optimizer (used by almost all modern models) adapts learning rates per-parameter. Learning rate scheduling, warmup, and weight decay are critical training hyperparameters.', links: [{ title: 'Model Optimization', href: 'model-optimization.html' }] },
+            { text: 'Convolutional Networks (CNNs)', desc: 'Specialized for spatial data like images. Convolutional filters slide across the input detecting edges, textures, and patterns. Still used in vision AI but increasingly replaced by Vision Transformers (ViT).', links: [{ title: 'Multimodal AI', href: '../level-1/multimodal-ai.html' }] },
+            { text: 'Recurrent Networks (RNNs, LSTMs)', desc: 'Designed for sequential data — text, time series, audio. They maintain a hidden state that carries information across time steps. Largely replaced by Transformers which process sequences in parallel.', links: [{ title: 'Model Types', href: 'model-types.html' }] },
+            { text: 'The Transformer Architecture', desc: 'The 2017 breakthrough that powers all modern LLMs. Self-attention allows each token to attend to every other token in the sequence, capturing long-range dependencies that RNNs struggled with. Multi-head attention runs several attention computations in parallel.', links: [{ title: 'Model Types', href: 'model-types.html' }] }
+          ],
+          uk: [
+            { text: 'Нейрони та зважені суми', desc: 'Нейрон обчислює зважену суму входів, додає зміщення, потім пропускає результат через функцію активації. Ця проста операція, повторена мільярди разів через шари, є основою обчислень нейромереж.', links: [{ title: 'Фундаментальні моделі', href: '../level-1/foundation-models.html' }] },
+            { text: 'Шари мережі', desc: 'Вхідний шар приймає сирі дані, приховані шари витягують дедалі абстрактніші ознаки, вихідний шар видає фінальне передбачення. "Глибоке" навчання означає багато прихованих шарів — сучасні LLM мають 80-120+ шарів.', links: [{ title: 'LLM', href: '../level-2/llm.html' }] },
+            { text: 'Функції активації', desc: 'ReLU (найпоширеніша, простий max(0,x)), GELU (використовується в трансформерах, плавніша), Sigmoid (стискає до 0-1), Softmax (видає розподіл ймовірностей). Вони вводять нелінійність — без них вся мережа звелась би до одного лінійного перетворення.', links: [] },
+            { text: 'Пряме поширення', desc: 'Дані проходять через мережу шар за шаром — кожен шар трансформує свій вхід і передає результат наступному. Фінальний вихід — передбачення, яке порівнюється з правильною відповіддю для обчислення помилки.', links: [] },
+            { text: 'Функції втрат', desc: 'Вимірювання наскільки передбачення хибне. Cross-entropy для класифікації, MSE для регресії, передбачення наступного токена для мовних моделей. Весь процес навчання — це мінімізація цієї функції втрат.', links: [{ title: 'Від даних до моделі', href: 'data-to-model.html' }] },
+            { text: 'Зворотне поширення', desc: 'Алгоритм, що робить навчання можливим. Він обчислює внесок кожної ваги в помилку, застосовуючи ланцюгове правило числення назад через мережу — звідси "зворотне" поширення.', links: [{ title: 'Навчання та файн-тюнінг', href: 'training-finetuning.html' }] },
+            { text: 'Оптимізація градієнтним спуском', desc: 'Корекція ваг у напрямку зменшення втрат. Оптимізатор Adam (використовується майже всіма сучасними моделями) адаптує швидкість навчання для кожного параметра. Планування швидкості, прогрів та затухання ваг — критичні гіперпараметри.', links: [{ title: 'Оптимізація моделей', href: 'model-optimization.html' }] },
+            { text: 'Конволюційні мережі (CNN)', desc: 'Спеціалізовані для просторових даних як зображення. Конволюційні фільтри ковзають по входу, виявляючи краї, текстури та патерни. Все ще використовуються у комп\'ютерному зорі, але замінюються Vision Transformers (ViT).', links: [{ title: 'Мультимодальний ШІ', href: '../level-1/multimodal-ai.html' }] },
+            { text: 'Рекурентні мережі (RNN, LSTM)', desc: 'Створені для послідовних даних — текст, часові ряди, аудіо. Вони зберігають прихований стан, що несе інформацію через часові кроки. Здебільшого замінені Трансформерами, які обробляють послідовності паралельно.', links: [{ title: 'Типи моделей', href: 'model-types.html' }] },
+            { text: 'Архітектура Transformer', desc: 'Прорив 2017 року, що лежить в основі всіх сучасних LLM. Самоувага дозволяє кожному токену звертати увагу на кожен інший в послідовності, захоплюючи далекосяжні залежності, з якими RNN мали проблеми. Багатоголова увага запускає кілька обчислень уваги паралельно.', links: [{ title: 'Типи моделей', href: 'model-types.html' }] }
+          ]
+        },
+        keyTerms: {
+          en: [
+            { term: 'Backpropagation', def: 'Algorithm for computing how each weight contributes to the error by applying the chain rule backwards through the network.' },
+            { term: 'Gradient Descent', def: 'Optimization algorithm that iteratively adjusts weights in the direction that reduces error, using computed gradients.' },
+            { term: 'Self-Attention', def: 'Mechanism where each element in a sequence computes relevance scores with every other element, enabling context-aware processing.' },
+            { term: 'Activation Function', def: 'Nonlinear function applied after weighted sums — without it, neural networks could only model linear relationships.' }
+          ],
+          uk: [
+            { term: 'Зворотне поширення', def: 'Алгоритм обчислення внеску кожної ваги в помилку через застосування ланцюгового правила назад через мережу.' },
+            { term: 'Градієнтний спуск', def: 'Алгоритм оптимізації, що ітеративно корегує ваги у напрямку зменшення помилки, використовуючи обчислені градієнти.' },
+            { term: 'Самоувага', def: 'Механізм, де кожен елемент послідовності обчислює оцінки релевантності з кожним іншим елементом для контекстно-залежної обробки.' },
+            { term: 'Функція активації', def: 'Нелінійна функція, що застосовується після зважених сум — без неї нейромережі могли б моделювати лише лінійні залежності.' }
+          ]
+        },
+        tips: {
+          en: [
+            'You don\'t need to code neural networks from scratch — but understanding backpropagation and gradient descent explains why models sometimes fail to learn',
+            'When a model "forgets" things during fine-tuning (catastrophic forgetting), it\'s because gradient updates for new data override weights learned for old data',
+            'Visualize neural network layers with tools like Netron or TensorBoard to build intuition about how data transforms through the architecture'
+          ],
+          uk: [
+            'Не потрібно писати нейромережі з нуля — але розуміння зворотного поширення та градієнтного спуску пояснює, чому моделі іноді не навчаються',
+            'Коли модель "забуває" при файн-тюнінгу (катастрофічне забування), це тому що оновлення градієнтів для нових даних перезаписують ваги старих',
+            'Візуалізуйте шари нейромереж інструментами як Netron або TensorBoard для побудови інтуїції про трансформацію даних через архітектуру'
+          ]
+        },
+        related: ['Models', 'Video Content'] },
       { slug: 'data-to-model', title: { en: 'Data to Model', uk: 'Від даних до моделі' }, desc: { en: 'The complete pipeline from raw data to a trained model.', uk: 'Повний пайплайн від сирих даних до навченої моделі.' },
-        overview: { en: ['The journey from raw data to a working AI model involves a complex pipeline of collection, cleaning, preprocessing, training, and evaluation. Data quality is often more important than model architecture — the AI community saying "garbage in, garbage out" has never been more relevant. Understanding this pipeline helps you appreciate why some models are better than others and how to create effective fine-tuned models.'], uk: ['Шлях від сирих даних до працюючої моделі ШІ включає складний пайплайн збору, очищення, попередньої обробки, навчання та оцінки. Якість даних часто важливіша за архітектуру моделі — вислів спільноти ШІ "сміття на вході — сміття на виході" ніколи не був більш актуальним.'] },
-        details: { en: ['Data collection at scale: web crawling (Common Crawl), books, code repositories, scientific papers', 'Data cleaning: removing duplicates, low-quality content, personally identifiable information (PII)', 'Deduplication: exact and near-duplicate removal to prevent memorization and data leakage', 'Filtering: removing harmful, toxic, or copyrighted content from training data', 'Preprocessing: tokenization, format normalization, language identification', 'Dataset formats: JSONL, Parquet, Arrow — efficient storage for billion-scale datasets', 'Data quality vs quantity: smaller high-quality datasets can outperform larger noisy ones', 'Synthetic data: using AI to generate training data for specific capabilities or scarce domains', 'Data annotation: human labelers creating supervised examples for fine-tuning', 'Open datasets: The Pile, RedPajama, FineWeb — understanding what trains open models'], uk: ['Збір даних у масштабі: веб-краулінг (Common Crawl), книги, репозиторії коду, наукові статті', 'Очищення даних: видалення дублікатів, низькоякісного контенту, персональних даних (PII)', 'Дедуплікація: видалення точних та близьких дублікатів для запобігання запам\'ятовування', 'Фільтрація: видалення шкідливого, токсичного або захищеного авторським правом контенту', 'Попередня обробка: токенізація, нормалізація форматів, визначення мови', 'Формати датасетів: JSONL, Parquet, Arrow — ефективне зберігання для мільярдних датасетів', 'Якість vs кількість даних: менші якісні датасети можуть перевершити більші зашумлені', 'Синтетичні дані: використання ШІ для генерації навчальних даних', 'Анотація даних: людські розмітники створюють приклади для файн-тюнінгу', 'Відкриті датасети: The Pile, RedPajama, FineWeb — розуміння на чому навчені відкриті моделі'] },
-        keyTerms: { en: [{ term: 'Common Crawl', def: 'Massive open web archive used as primary data source for training most LLMs.' }, { term: 'Synthetic Data', def: 'Training data generated by AI models rather than collected from real sources.' }, { term: 'Data Deduplication', def: 'Removing duplicate or near-duplicate examples to improve training quality.' }], uk: [{ term: 'Common Crawl', def: 'Масивний відкритий веб-архів, що використовується як основне джерело даних для навчання більшості LLM.' }, { term: 'Синтетичні дані', def: 'Навчальні дані, згенеровані моделями ШІ замість збору з реальних джерел.' }, { term: 'Дедуплікація даних', def: 'Видалення дублікатів або близьких дублікатів для покращення якості навчання.' }] },
-        related: [] },
+        overview: {
+          en: [
+            'The journey from raw data to a working AI model involves a complex pipeline of collection, cleaning, preprocessing, training, and evaluation. Data quality is often more important than model architecture — the AI community saying "garbage in, garbage out" has never been more relevant. Understanding this pipeline helps you appreciate why some models are better than others and how to create effective fine-tuned models.',
+            'The data pipeline is where the real competitive advantage lies. Companies like OpenAI, Anthropic, and Google invest heavily in data curation — not just finding more data, but finding better data. Filtering, deduplication, and synthetic data generation have become entire subdisciplines as the AI community realizes that the quality ceiling of a model is set by its training data.'
+          ],
+          uk: [
+            'Шлях від сирих даних до працюючої моделі ШІ включає складний пайплайн збору, очищення, попередньої обробки, навчання та оцінки. Якість даних часто важливіша за архітектуру моделі — вислів спільноти ШІ "сміття на вході — сміття на виході" ніколи не був більш актуальним. Розуміння цього пайплайну допомагає зрозуміти, чому деякі моделі кращі за інших.',
+            'Пайплайн даних — це де справжня конкурентна перевага. Компанії як OpenAI, Anthropic та Google інвестують масштабно в курацію даних — не просто знаходження більше даних, а знаходження кращих. Фільтрація, дедуплікація та генерація синтетичних даних стали цілими піддисциплінами, бо спільнота ШІ усвідомила, що стеля якості моделі визначається її навчальними даними.'
+          ]
+        },
+        details: {
+          en: [
+            { text: 'Data Collection at Scale', desc: 'Web crawling (Common Crawl — petabytes of web pages), digitized books, GitHub code repositories, scientific papers (arXiv, PubMed), Wikipedia. The scale is staggering: trillions of tokens from billions of documents.', links: [{ title: 'Foundation Models', href: '../level-1/foundation-models.html' }] },
+            { text: 'Data Cleaning', desc: 'Removing duplicates, low-quality content, boilerplate HTML, personally identifiable information (PII), and machine-generated spam. Up to 90% of raw crawled data may be discarded during cleaning.', links: [] },
+            { text: 'Deduplication', desc: 'Exact and near-duplicate removal to prevent memorization and data leakage. MinHash, SimHash, and suffix array techniques identify similar content. Critical for preventing models from memorizing and regurgitating specific texts.', links: [] },
+            { text: 'Content Filtering', desc: 'Removing harmful, toxic, or copyrighted content from training data. Classifier-based filtering, keyword blocklists, and domain-level decisions. Balancing thorough filtering with preserving data diversity is a core challenge.', links: [{ title: 'AI Safety', href: '../level-5/ai-safety.html' }] },
+            { text: 'Tokenization and Preprocessing', desc: 'Converting raw text into tokens the model can process. BPE (Byte Pair Encoding) and SentencePiece are dominant methods. Vocabulary size (32K-100K+ tokens) trades memory for encoding efficiency. Multilingual tokenizers must balance all languages.', links: [{ title: 'Token', href: '../level-2/token.html' }] },
+            { text: 'Dataset Formats', desc: 'JSONL (human-readable, line-per-example), Parquet (columnar, compressed), Arrow (in-memory, zero-copy). Efficient storage is critical when datasets reach terabytes. Hugging Face datasets library standardizes access.', links: [{ title: 'Tools & Libraries', href: '../level-4/base-tools.html' }] },
+            { text: 'Data Quality vs Quantity', desc: 'Smaller high-quality datasets can outperform larger noisy ones. Microsoft\'s Phi models proved this: carefully curated "textbook quality" data trained models that punched far above their parameter count.', links: [{ title: 'Model Optimization', href: 'model-optimization.html' }] },
+            { text: 'Synthetic Data Generation', desc: 'Using existing AI models to generate training data for specific capabilities. Self-instruct, Evol-Instruct, and distillation pipelines create millions of instruction-response pairs. Enables training on domains where real data is scarce or expensive.', links: [{ title: 'LLM', href: '../level-2/llm.html' }] },
+            { text: 'Human Data Annotation', desc: 'Human labelers creating supervised examples for fine-tuning and RLHF. Annotation quality varies widely — detailed guidelines, multiple annotators per example, and inter-annotator agreement checks are essential.', links: [{ title: 'Training & Fine-tuning', href: 'training-finetuning.html' }] },
+            { text: 'Open Datasets', desc: 'The Pile (EleutherAI), RedPajama (Together AI), FineWeb (HuggingFace), SlimPajama — open datasets that power open-source models. Understanding their composition explains model capabilities and biases.', links: [{ title: 'Data Classification', href: '../level-1/data-classification.html' }] }
+          ],
+          uk: [
+            { text: 'Збір даних у масштабі', desc: 'Веб-краулінг (Common Crawl — петабайти веб-сторінок), оцифровані книги, репозиторії коду GitHub, наукові статті (arXiv, PubMed), Вікіпедія. Масштаб вражаючий: трильйони токенів з мільярдів документів.', links: [{ title: 'Фундаментальні моделі', href: '../level-1/foundation-models.html' }] },
+            { text: 'Очищення даних', desc: 'Видалення дублікатів, низькоякісного контенту, шаблонного HTML, персональних даних (PII) та машинного спаму. До 90% сирих краулених даних може бути відкинуто під час очищення.', links: [] },
+            { text: 'Дедуплікація', desc: 'Видалення точних та близьких дублікатів для запобігання запам\'ятовуванню. Техніки MinHash, SimHash та суфіксних масивів ідентифікують схожий контент. Критична для запобігання заучування моделлю конкретних текстів.', links: [] },
+            { text: 'Фільтрація контенту', desc: 'Видалення шкідливого, токсичного або захищеного авторським правом контенту. Класифікаторна фільтрація, блокліст ключових слів та рішення на рівні доменів. Баланс фільтрації зі збереженням різноманіття — ключовий виклик.', links: [{ title: 'Безпека ШІ', href: '../level-5/ai-safety.html' }] },
+            { text: 'Токенізація та попередня обробка', desc: 'Конвертація тексту у токени. BPE (Byte Pair Encoding) та SentencePiece — домінуючі методи. Розмір словника (32K-100K+ токенів) обмінює пам\'ять на ефективність кодування. Мультимовні токенізатори повинні балансувати всі мови.', links: [{ title: 'Токен', href: '../level-2/token.html' }] },
+            { text: 'Формати датасетів', desc: 'JSONL (людино-читабельний), Parquet (колонковий, стиснутий), Arrow (у пам\'яті, zero-copy). Ефективне зберігання критичне при терабайтних датасетах. Бібліотека Hugging Face datasets стандартизує доступ.', links: [{ title: 'Інструменти та бібліотеки', href: '../level-4/base-tools.html' }] },
+            { text: 'Якість vs кількість даних', desc: 'Менші якісні датасети можуть перевершити більші зашумлені. Моделі Phi від Microsoft це довели: ретельно кураторські дані "підручникової якості" навчили моделі, що перевершували значно більші.', links: [{ title: 'Оптимізація моделей', href: 'model-optimization.html' }] },
+            { text: 'Генерація синтетичних даних', desc: 'Використання існуючих ШІ-моделей для генерації навчальних даних. Self-instruct, Evol-Instruct та пайплайни дистиляції створюють мільйони пар інструкція-відповідь. Дозволяє навчання на доменах де реальні дані дефіцитні.', links: [{ title: 'LLM', href: '../level-2/llm.html' }] },
+            { text: 'Людська анотація даних', desc: 'Людські розмітники створюють приклади для файн-тюнінгу та RLHF. Якість анотації варіюється — детальні гайдлайни, кілька розмітників на приклад та перевірка узгодженості між розмітниками є необхідними.', links: [{ title: 'Навчання та файн-тюнінг', href: 'training-finetuning.html' }] },
+            { text: 'Відкриті датасети', desc: 'The Pile (EleutherAI), RedPajama (Together AI), FineWeb (HuggingFace), SlimPajama — відкриті датасети для open-source моделей. Розуміння їх складу пояснює можливості та упередження моделей.', links: [{ title: 'Класифікація даних', href: '../level-1/data-classification.html' }] }
+          ]
+        },
+        keyTerms: {
+          en: [
+            { term: 'Common Crawl', def: 'Massive open web archive containing petabytes of web pages, used as primary data source for training most LLMs.' },
+            { term: 'Synthetic Data', def: 'Training data generated by AI models rather than collected from real sources, enabling training on scarce domains.' },
+            { term: 'Data Deduplication', def: 'Removing duplicate or near-duplicate examples using hashing techniques to prevent memorization and improve quality.' },
+            { term: 'BPE Tokenization', def: 'Byte Pair Encoding — the dominant method for splitting text into sub-word tokens that models can process.' }
+          ],
+          uk: [
+            { term: 'Common Crawl', def: 'Масивний відкритий веб-архів з петабайтами веб-сторінок, основне джерело даних для навчання більшості LLM.' },
+            { term: 'Синтетичні дані', def: 'Навчальні дані, згенеровані моделями ШІ замість збору з реальних джерел, що дозволяють навчання на дефіцитних доменах.' },
+            { term: 'Дедуплікація даних', def: 'Видалення дублікатів або близьких дублікатів хешуванням для запобігання запам\'ятовування та покращення якості.' },
+            { term: 'BPE токенізація', def: 'Byte Pair Encoding — домінуючий метод розбиття тексту на під-словесні токени для обробки моделями.' }
+          ]
+        },
+        tips: {
+          en: [
+            'When fine-tuning, spend 80% of your time on data preparation and only 20% on training — data quality determines the ceiling',
+            'Always inspect your training data manually before launching a run — even a few corrupted or mislabeled examples can derail the model',
+            'For custom datasets, start with 1,000 high-quality examples rather than 100,000 noisy ones — iterate on quality before scaling quantity'
+          ],
+          uk: [
+            'При файн-тюнінгу витрачайте 80% часу на підготовку даних і лише 20% на навчання — якість даних визначає стелю',
+            'Завжди перевіряйте навчальні дані вручну перед запуском — навіть кілька пошкоджених прикладів можуть зіпсувати модель',
+            'Для власних датасетів почніть з 1000 якісних прикладів замість 100000 зашумлених — ітеруйте якість перед масштабуванням'
+          ]
+        },
+        related: ['Models', 'Video Content'] },
       { slug: 'training-finetuning', title: { en: 'Training & Fine-tuning', uk: 'Навчання та файн-тюнінг' }, desc: { en: 'How models are trained from scratch and adapted for specific tasks.', uk: 'Як моделі навчаються з нуля та адаптуються для конкретних задач.' },
-        overview: { en: ['Model training happens in stages. Pre-training teaches the model general language understanding by predicting next tokens on internet-scale data — this costs millions of dollars and requires thousands of GPUs. Fine-tuning then adapts this general model for specific tasks using much smaller, curated datasets. Finally, alignment training (RLHF or DPO) teaches the model to be helpful, honest, and safe.'], uk: ['Навчання моделі відбувається етапами. Попереднє навчання вчить модель загальному розумінню мови через передбачення наступних токенів на інтернет-масштабних даних — це коштує мільйони доларів та вимагає тисячі GPU. Файн-тюнінг потім адаптує цю загальну модель для конкретних задач на значно менших кураторських датасетах. Нарешті, навчання вирівнювання (RLHF або DPO) вчить модель бути корисною, чесною та безпечною.'] },
-        details: { en: ['Pre-training: massive compute (thousands of GPUs for months) on trillions of tokens', 'Supervised Fine-Tuning (SFT): training on curated instruction-response pairs', 'RLHF: Reinforcement Learning from Human Feedback — using human preferences to improve outputs', 'DPO: Direct Preference Optimization — simpler alternative to RLHF without reward model', 'LoRA: Low-Rank Adaptation — fine-tuning only a small number of additional parameters (1-5%)', 'QLoRA: quantized LoRA — enabling fine-tuning on consumer GPUs by quantizing the base model', 'Full fine-tuning vs PEFT: when do you need to update all parameters vs just adapters?', 'When to fine-tune vs prompt engineer: fine-tuning for consistent style/format, prompting for flexible tasks', 'Cost comparison: pre-training ($10M+) vs fine-tuning ($100-10K) vs prompting (free/cheap)', 'Evaluation: measuring fine-tuned model quality with held-out test sets and human evaluation'], uk: ['Попереднє навчання: масивні обчислення (тисячі GPU протягом місяців) на трильйонах токенів', 'Кероване файн-тюнінг (SFT): навчання на кураторських парах інструкція-відповідь', 'RLHF: навчання з підкріпленням за зворотним зв\'язком від людей', 'DPO: пряма оптимізація переваг — простіша альтернатива RLHF без моделі нагороди', 'LoRA: Low-Rank Adaptation — файн-тюнінг лише малої кількості додаткових параметрів (1-5%)', 'QLoRA: квантизований LoRA — файн-тюнінг на споживчих GPU через квантизацію базової моделі', 'Повний файн-тюнінг vs PEFT: коли потрібно оновити всі параметри vs лише адаптери?', 'Коли файн-тюнити vs промпт-інженерити: файн-тюнінг для стабільного стилю/формату', 'Порівняння витрат: попереднє навчання ($10M+) vs файн-тюнінг ($100-10K) vs промптинг', 'Оцінка: вимірювання якості файн-тюнінгу тестовими наборами та людською оцінкою'] },
-        keyTerms: { en: [{ term: 'RLHF', def: 'Reinforcement Learning from Human Feedback — training models to align with human preferences using reward signals.' }, { term: 'LoRA', def: 'Low-Rank Adaptation — efficient fine-tuning method that trains only small additional matrices.' }, { term: 'SFT', def: 'Supervised Fine-Tuning — training on curated instruction-response pairs to teach model behavior.' }], uk: [{ term: 'RLHF', def: 'Навчання з підкріпленням за зворотним зв\'язком від людей — навчання моделей відповідно до людських переваг.' }, { term: 'LoRA', def: 'Low-Rank Adaptation — ефективний метод файн-тюнінгу з навчанням лише малих додаткових матриць.' }, { term: 'SFT', def: 'Кероване файн-тюнінг — навчання на кураторських парах інструкція-відповідь.' }] },
-        related: ['Video Content'] },
+        overview: {
+          en: [
+            'Model training happens in stages. Pre-training teaches the model general language understanding by predicting next tokens on internet-scale data — this costs millions of dollars and requires thousands of GPUs. Fine-tuning then adapts this general model for specific tasks using much smaller, curated datasets. Finally, alignment training (RLHF or DPO) teaches the model to be helpful, honest, and safe.',
+            'The rise of parameter-efficient methods like LoRA has democratized fine-tuning — you can now adapt a 70B parameter model on a single consumer GPU. This has created a vibrant ecosystem of community-created fine-tunes for specific domains, languages, and use cases. Understanding when to fine-tune vs when to just prompt better is a key skill for AI practitioners.'
+          ],
+          uk: [
+            'Навчання моделі відбувається етапами. Попереднє навчання вчить модель загальному розумінню мови через передбачення наступних токенів на інтернет-масштабних даних — це коштує мільйони доларів та вимагає тисячі GPU. Файн-тюнінг потім адаптує цю загальну модель для конкретних задач на значно менших кураторських датасетах. Нарешті, навчання вирівнювання (RLHF або DPO) вчить модель бути корисною, чесною та безпечною.',
+            'Поява параметрично-ефективних методів як LoRA демократизувала файн-тюнінг — тепер можна адаптувати модель з 70B параметрів на одному споживчому GPU. Це створило живу екосистему спільнотних файн-тюнів для специфічних доменів, мов та випадків використання. Розуміння коли файн-тюнити vs коли просто краще промптити — ключова навичка для практиків ШІ.'
+          ]
+        },
+        details: {
+          en: [
+            { text: 'Pre-training', desc: 'Massive compute (thousands of GPUs for months) on trillions of tokens. The model learns language structure, world knowledge, and reasoning by predicting the next token. Costs $10M-$100M+ for frontier models.', links: [{ title: 'Data to Model', href: 'data-to-model.html' }, { title: 'Hardware', href: '../level-4/hardware.html' }] },
+            { text: 'Supervised Fine-Tuning (SFT)', desc: 'Training on curated instruction-response pairs to teach the model to follow instructions and produce useful outputs. Thousands to millions of examples, typically taking hours to days on a few GPUs.', links: [{ title: 'Prompt', href: '../level-2/prompt.html' }] },
+            { text: 'RLHF', desc: 'Reinforcement Learning from Human Feedback — humans compare model outputs, a reward model learns their preferences, then the LLM is optimized to maximize that reward. The technique that made ChatGPT work.', links: [{ title: 'Alignment', href: '../level-5/alignment.html' }] },
+            { text: 'DPO', desc: 'Direct Preference Optimization — a simpler alternative to RLHF that eliminates the separate reward model. Directly optimizes the LLM on preference pairs. Increasingly popular for its stability and simplicity.', links: [{ title: 'Alignment', href: '../level-5/alignment.html' }] },
+            { text: 'LoRA', desc: 'Low-Rank Adaptation — fine-tuning only small additional matrices (1-5% of parameters) while keeping the original model frozen. Produces tiny adapter files (10-100MB) that can be swapped in and out.', links: [{ title: 'Model Optimization', href: 'model-optimization.html' }] },
+            { text: 'QLoRA', desc: 'Quantized LoRA — combines model quantization (4-bit) with LoRA adapters, enabling fine-tuning of 70B models on a single 24GB GPU. A breakthrough for accessible AI customization.', links: [{ title: 'Model Optimization', href: 'model-optimization.html' }] },
+            { text: 'Full Fine-tuning vs PEFT', desc: 'Full fine-tuning updates all parameters — maximum quality but requires multi-GPU setups and risks catastrophic forgetting. Parameter-Efficient Fine-Tuning (PEFT) methods like LoRA are cheaper and preserve base model knowledge.', links: [{ title: 'Neural Networks', href: 'neural-networks.html' }] },
+            { text: 'When to Fine-tune vs Prompt', desc: 'Fine-tune for: consistent style/format, domain-specific knowledge, specific output structures. Prompt for: flexible tasks, rapid iteration, no training data available. Fine-tuning is a commitment; prompting is an experiment.', links: [{ title: 'Prompting Techniques', href: '../level-4/prompting-techniques.html' }] },
+            { text: 'Training Cost Spectrum', desc: 'Pre-training ($10M+) vs fine-tuning ($100-10K) vs prompting (free/cheap). API-based fine-tuning (OpenAI, Anthropic) costs pennies per example. Self-hosted fine-tuning requires GPU rental ($1-5/hr for A100).', links: [{ title: 'API Providers', href: '../level-4/api-providers.html' }] },
+            { text: 'Evaluation and Iteration', desc: 'Measuring fine-tuned model quality with held-out test sets, automated metrics (perplexity, BLEU, ROUGE), and human evaluation. Always compare against the base model to quantify improvement.', links: [{ title: 'SOTA', href: '../level-1/sota.html' }] }
+          ],
+          uk: [
+            { text: 'Попереднє навчання', desc: 'Масивні обчислення (тисячі GPU протягом місяців) на трильйонах токенів. Модель вивчає мовну структуру, знання про світ та міркування через передбачення наступного токена. Коштує $10M-$100M+ для фронтирних моделей.', links: [{ title: 'Від даних до моделі', href: 'data-to-model.html' }, { title: 'Обладнання', href: '../level-4/hardware.html' }] },
+            { text: 'Кероване файн-тюнінг (SFT)', desc: 'Навчання на кураторських парах інструкція-відповідь для вчення моделі слідувати інструкціям. Тисячі до мільйонів прикладів, зазвичай від годин до днів на кількох GPU.', links: [{ title: 'Промпт', href: '../level-2/prompt.html' }] },
+            { text: 'RLHF', desc: 'Навчання з підкріпленням за зворотним зв\'язком від людей — люди порівнюють виходи моделі, модель нагороди вивчає їх переваги, потім LLM оптимізується для максимізації цієї нагороди. Техніка, що зробила ChatGPT робочим.', links: [{ title: 'Вирівнювання', href: '../level-5/alignment.html' }] },
+            { text: 'DPO', desc: 'Пряма оптимізація переваг — простіша альтернатива RLHF без окремої моделі нагороди. Напряму оптимізує LLM на парах переваг. Дедалі популярніша за стабільність та простоту.', links: [{ title: 'Вирівнювання', href: '../level-5/alignment.html' }] },
+            { text: 'LoRA', desc: 'Low-Rank Adaptation — файн-тюнінг лише малих додаткових матриць (1-5% параметрів) при замороженій оригінальній моделі. Створює крихітні файли адаптерів (10-100МБ), які можна підміняти.', links: [{ title: 'Оптимізація моделей', href: 'model-optimization.html' }] },
+            { text: 'QLoRA', desc: 'Квантизований LoRA — поєднує квантизацію моделі (4-біт) з LoRA адаптерами, дозволяючи файн-тюнінг 70B моделей на одному 24ГБ GPU. Прорив для доступної кастомізації ШІ.', links: [{ title: 'Оптимізація моделей', href: 'model-optimization.html' }] },
+            { text: 'Повний файн-тюнінг vs PEFT', desc: 'Повний файн-тюнінг оновлює всі параметри — максимальна якість, але вимагає мульти-GPU та ризикує катастрофічним забуванням. PEFT методи як LoRA дешевші та зберігають знання базової моделі.', links: [{ title: 'Основи нейромереж', href: 'neural-networks.html' }] },
+            { text: 'Коли файн-тюнити vs промптити', desc: 'Файн-тюнити для: стабільного стилю/формату, доменних знань, специфічних структур виходу. Промптити для: гнучких задач, швидкої ітерації, відсутності навчальних даних. Файн-тюнінг — зобов\'язання; промптинг — експеримент.', links: [{ title: 'Техніки промптингу', href: '../level-4/prompting-techniques.html' }] },
+            { text: 'Спектр витрат навчання', desc: 'Попереднє навчання ($10M+) vs файн-тюнінг ($100-10K) vs промптинг (безкоштовно). API файн-тюнінг (OpenAI, Anthropic) коштує копійки за приклад. Власний файн-тюнінг вимагає оренди GPU ($1-5/год за A100).', links: [{ title: 'API-провайдери', href: '../level-4/api-providers.html' }] },
+            { text: 'Оцінка та ітерація', desc: 'Вимірювання якості файн-тюнінгу тестовими наборами, автоматичними метриками (перплексія, BLEU, ROUGE) та людською оцінкою. Завжди порівнюйте з базовою моделлю для кількісної оцінки покращення.', links: [{ title: 'SOTA', href: '../level-1/sota.html' }] }
+          ]
+        },
+        keyTerms: {
+          en: [
+            { term: 'RLHF', def: 'Reinforcement Learning from Human Feedback — training models to align with human preferences using a learned reward model.' },
+            { term: 'LoRA', def: 'Low-Rank Adaptation — efficient fine-tuning that trains only small additional matrices while keeping the base model frozen.' },
+            { term: 'SFT', def: 'Supervised Fine-Tuning — training on curated instruction-response pairs to teach the model to follow instructions.' },
+            { term: 'DPO', def: 'Direct Preference Optimization — simpler alternative to RLHF that directly optimizes on human preference pairs without a reward model.' }
+          ],
+          uk: [
+            { term: 'RLHF', def: 'Навчання з підкріпленням за зворотним зв\'язком від людей — навчання моделей відповідно до людських переваг через модель нагороди.' },
+            { term: 'LoRA', def: 'Low-Rank Adaptation — ефективний файн-тюнінг з навчанням лише малих додаткових матриць при замороженій базовій моделі.' },
+            { term: 'SFT', def: 'Кероване файн-тюнінг — навчання на кураторських парах інструкція-відповідь для вчення моделі слідувати інструкціям.' },
+            { term: 'DPO', def: 'Пряма оптимізація переваг — простіша альтернатива RLHF без моделі нагороди, що напряму оптимізує на парах переваг.' }
+          ]
+        },
+        tips: {
+          en: [
+            'Try prompting and few-shot examples first — fine-tuning is worth it only when prompting hits a quality ceiling you cannot overcome',
+            'Start with LoRA/QLoRA before attempting full fine-tuning — you\'ll get 90% of the quality at 5% of the cost and compute',
+            'Always hold out 10-20% of your data for evaluation — without a test set, you cannot tell if your fine-tune actually improved the model'
+          ],
+          uk: [
+            'Спробуйте промптинг та few-shot приклади спочатку — файн-тюнінг варто лише коли промптинг досягає стелі якості',
+            'Почніть з LoRA/QLoRA перед повним файн-тюнінгом — отримаєте 90% якості за 5% витрат та обчислень',
+            'Завжди залишайте 10-20% даних для оцінки — без тестового набору ви не зможете визначити чи файн-тюнінг покращив модель'
+          ]
+        },
+        related: ['Models', 'Video Content'] },
       { slug: 'model-optimization', title: { en: 'Model Optimization', uk: 'Оптимізація моделей' }, desc: { en: 'Making models faster, smaller, and cheaper to run.', uk: 'Як зробити моделі швидшими, меншими та дешевшими у запуску.' },
-        overview: { en: ['Running large AI models requires expensive hardware. Model optimization techniques reduce computational requirements while maintaining quality. Quantization (reducing numerical precision), pruning (removing unnecessary connections), and distillation (training smaller models from larger ones) make it possible to run models on consumer hardware that would otherwise require data center GPUs.'], uk: ['Запуск великих моделей ШІ вимагає дорогого обладнання. Техніки оптимізації моделей зменшують обчислювальні вимоги при збереженні якості. Квантизація (зменшення числової точності), прунінг (видалення непотрібних з\'єднань) та дистиляція (навчання менших моделей з більших) дозволяють запускати моделі на споживчому обладнанні.'] },
-        details: { en: ['Quantization: reducing precision from FP32 → FP16 → INT8 → INT4 to shrink model size', 'GPTQ, AWQ: GPU-optimized quantization methods for fast inference', 'GGUF: llama.cpp format enabling CPU+GPU inference on consumer machines', 'Pruning: removing weights close to zero that contribute little to output quality', 'Knowledge distillation: training a small "student" model from a large "teacher" model', 'Flash Attention: memory-efficient attention computation that reduces GPU memory usage', 'Speculative decoding: using a fast small model to draft tokens, verified by the large model', 'KV cache optimization: efficiently storing attention key/value pairs across generation steps', 'Model merging: combining weights from multiple fine-tuned models (TIES, DARE, SLERP)', 'Practical impact: 70B model quantized to Q4 fits in 48GB VRAM, runs on 2x consumer GPUs'], uk: ['Квантизація: зменшення точності від FP32 → FP16 → INT8 → INT4 для зменшення розміру', 'GPTQ, AWQ: оптимізовані для GPU методи квантизації для швидкого інференсу', 'GGUF: формат llama.cpp для інференсу CPU+GPU на споживчих машинах', 'Прунінг: видалення ваг близьких до нуля, що мало впливають на якість', 'Дистиляція знань: навчання малого "учня" з великого "вчителя"', 'Flash Attention: пам\'ять-ефективне обчислення уваги, що зменшує використання GPU пам\'яті', 'Спекулятивне декодування: використання швидкої малої моделі для чернетки токенів', 'Оптимізація KV кешу: ефективне зберігання пар ключ/значення уваги через кроки генерації', 'Злиття моделей: комбінування ваг з кількох файн-тюнених моделей (TIES, DARE, SLERP)', 'Практичний вплив: 70B модель квантизована до Q4 вміщується в 48GB VRAM'] },
-        keyTerms: { en: [{ term: 'Quantization', def: 'Reducing numerical precision of model weights to decrease size and speed up inference.' }, { term: 'Distillation', def: 'Training a smaller model to mimic a larger model\'s behavior and capabilities.' }, { term: 'Flash Attention', def: 'Memory-efficient implementation of attention that reduces GPU memory requirements.' }], uk: [{ term: 'Квантизація', def: 'Зменшення числової точності ваг моделі для зменшення розміру та прискорення інференсу.' }, { term: 'Дистиляція', def: 'Навчання меншої моделі імітувати поведінку та можливості більшої моделі.' }, { term: 'Flash Attention', def: 'Пам\'ять-ефективна реалізація уваги, що зменшує вимоги до GPU пам\'яті.' }] },
-        related: ['Video Content'] },
+        overview: {
+          en: [
+            'Running large AI models requires expensive hardware. Model optimization techniques reduce computational requirements while maintaining quality. Quantization (reducing numerical precision), pruning (removing unnecessary connections), and distillation (training smaller models from larger ones) make it possible to run models on consumer hardware that would otherwise require data center GPUs.',
+            'Optimization is what makes AI practical. Without it, only companies with massive GPU clusters could use frontier models. Thanks to quantization and efficient inference engines like llama.cpp and vLLM, a 70B parameter model can run on a gaming PC, and inference costs have dropped 100x in two years. This democratization drives the open-source AI movement.'
+          ],
+          uk: [
+            'Запуск великих моделей ШІ вимагає дорогого обладнання. Техніки оптимізації моделей зменшують обчислювальні вимоги при збереженні якості. Квантизація (зменшення числової точності), прунінг (видалення непотрібних з\'єднань) та дистиляція (навчання менших моделей з більших) дозволяють запускати моделі на споживчому обладнанні.',
+            'Оптимізація — це те, що робить ШІ практичним. Без неї лише компанії з масивними GPU-кластерами могли б використовувати фронтирні моделі. Завдяки квантизації та ефективним рушіям інференсу як llama.cpp та vLLM, модель з 70B параметрів може працювати на ігровому ПК, а витрати на інференс впали у 100 разів за два роки. Ця демократизація рухає open-source ШІ рух.'
+          ]
+        },
+        details: {
+          en: [
+            { text: 'Quantization Basics', desc: 'Reducing numerical precision from FP32 (32 bits per weight) → FP16 → INT8 → INT4 shrinks model size 2-8x. Each step trades a small amount of quality for major size and speed improvements.', links: [{ title: 'Model Formats', href: '../level-4/model-formats.html' }] },
+            { text: 'GPTQ and AWQ', desc: 'GPU-optimized post-training quantization methods. GPTQ uses calibration data for higher quality. AWQ (Activation-aware Weight Quantization) preserves important weights based on activation patterns. Both enable fast GPU inference.', links: [{ title: 'Hardware', href: '../level-4/hardware.html' }] },
+            { text: 'GGUF and llama.cpp', desc: 'GGUF is the format for llama.cpp, enabling mixed CPU+GPU inference on consumer machines. Supports quantization from Q2 (smallest) to Q8 (highest quality). Q4_K_M is the popular sweet spot.', links: [{ title: 'Model Formats', href: '../level-4/model-formats.html' }] },
+            { text: 'Pruning', desc: 'Removing weights close to zero that contribute little to output quality. Structured pruning removes entire neurons or attention heads. Can reduce model size 50-90% with careful calibration.', links: [{ title: 'Neural Networks', href: 'neural-networks.html' }] },
+            { text: 'Knowledge Distillation', desc: 'Training a small "student" model from a large "teacher" model. The student learns from the teacher\'s probability distributions, not just hard labels, capturing richer information. GPT-4 distilled into GPT-4o mini is a practical example.', links: [{ title: 'Foundation Models', href: '../level-1/foundation-models.html' }] },
+            { text: 'Flash Attention', desc: 'Memory-efficient attention computation by Tri Dao that fuses operations and uses tiling to avoid materializing the full attention matrix. Reduces GPU memory usage 5-20x and speeds up training by 2-4x.', links: [{ title: 'Model Types', href: 'model-types.html' }] },
+            { text: 'Speculative Decoding', desc: 'Using a fast small model to draft multiple tokens at once, then the large model verifies them in a single forward pass. Achieves 2-3x speedup without quality loss since rejected tokens are regenerated.', links: [{ title: 'LLM', href: '../level-2/llm.html' }] },
+            { text: 'KV Cache Optimization', desc: 'During generation, each token must attend to all previous tokens. KV cache stores these attention states but grows with sequence length. PagedAttention (vLLM) manages this memory like virtual memory in operating systems.', links: [{ title: 'Context', href: '../level-2/context.html' }] },
+            { text: 'Model Merging', desc: 'Combining weights from multiple fine-tuned models without additional training. Methods like TIES, DARE, and SLERP interpolate between model checkpoints. Community merges on HuggingFace often outperform individual fine-tunes.', links: [{ title: 'Training & Fine-tuning', href: 'training-finetuning.html' }] },
+            { text: 'Practical Impact', desc: 'A 70B model quantized to Q4 fits in 48GB VRAM (2x consumer GPUs). vLLM serves models 24x faster than naive inference. These optimizations mean a $2000 PC can run models that cost $100K+ to train.', links: [{ title: 'API Providers', href: '../level-4/api-providers.html' }] }
+          ],
+          uk: [
+            { text: 'Основи квантизації', desc: 'Зменшення числової точності від FP32 (32 біти на вагу) → FP16 → INT8 → INT4 зменшує модель у 2-8 разів. Кожен крок обмінює малу кількість якості на значне покращення розміру та швидкості.', links: [{ title: 'Формати моделей', href: '../level-4/model-formats.html' }] },
+            { text: 'GPTQ та AWQ', desc: 'Оптимізовані для GPU методи пост-тренувальної квантизації. GPTQ використовує калібраційні дані для вищої якості. AWQ зберігає важливі ваги на основі патернів активації. Обидва забезпечують швидкий GPU інференс.', links: [{ title: 'Обладнання', href: '../level-4/hardware.html' }] },
+            { text: 'GGUF та llama.cpp', desc: 'GGUF — формат для llama.cpp, що дозволяє змішаний CPU+GPU інференс на споживчих машинах. Підтримує квантизацію від Q2 (найменший) до Q8 (найвища якість). Q4_K_M — популярний оптимальний баланс.', links: [{ title: 'Формати моделей', href: '../level-4/model-formats.html' }] },
+            { text: 'Прунінг', desc: 'Видалення ваг близьких до нуля, що мало впливають на якість. Структурований прунінг видаляє цілі нейрони або голови уваги. Може зменшити модель на 50-90% при ретельній калібрації.', links: [{ title: 'Основи нейромереж', href: 'neural-networks.html' }] },
+            { text: 'Дистиляція знань', desc: 'Навчання малого "учня" з великого "вчителя". Учень вчиться з розподілів ймовірностей вчителя, а не лише з жорстких міток, захоплюючи багатшу інформацію. GPT-4 дистильований у GPT-4o mini — практичний приклад.', links: [{ title: 'Фундаментальні моделі', href: '../level-1/foundation-models.html' }] },
+            { text: 'Flash Attention', desc: 'Пам\'ять-ефективне обчислення уваги від Tri Dao, що об\'єднує операції та використовує тайлінг. Зменшує використання GPU пам\'яті в 5-20 разів та прискорює навчання в 2-4 рази.', links: [{ title: 'Типи моделей', href: 'model-types.html' }] },
+            { text: 'Спекулятивне декодування', desc: 'Швидка мала модель генерує кілька токенів-чернеток, потім велика модель верифікує їх одним прямим проходом. Досягає 2-3x прискорення без втрати якості, бо відхилені токени перегенеровуються.', links: [{ title: 'LLM', href: '../level-2/llm.html' }] },
+            { text: 'Оптимізація KV кешу', desc: 'Під час генерації кожен токен повинен звертати увагу на всі попередні. KV кеш зберігає ці стани, але росте з довжиною. PagedAttention (vLLM) керує цією пам\'яттю як віртуальна пам\'ять в ОС.', links: [{ title: 'Контекст', href: '../level-2/context.html' }] },
+            { text: 'Злиття моделей', desc: 'Комбінування ваг з кількох файн-тюнених моделей без додаткового навчання. Методи TIES, DARE та SLERP інтерполюють між чекпоінтами. Спільнотні злиття на HuggingFace часто перевершують індивідуальні файн-тюни.', links: [{ title: 'Навчання та файн-тюнінг', href: 'training-finetuning.html' }] },
+            { text: 'Практичний вплив', desc: '70B модель квантизована до Q4 вміщується в 48ГБ VRAM (2x споживчі GPU). vLLM обслуговує моделі в 24 рази швидше за наївний інференс. Ці оптимізації означають, що ПК за $2000 може запускати моделі, навчання яких коштувало $100K+.', links: [{ title: 'API-провайдери', href: '../level-4/api-providers.html' }] }
+          ]
+        },
+        keyTerms: {
+          en: [
+            { term: 'Quantization', def: 'Reducing numerical precision of model weights (FP32→INT4) to decrease size 2-8x and speed up inference.' },
+            { term: 'Distillation', def: 'Training a smaller student model to mimic a larger teacher model\'s probability distributions and capabilities.' },
+            { term: 'Flash Attention', def: 'Memory-efficient attention implementation that avoids materializing the full attention matrix, reducing GPU memory 5-20x.' },
+            { term: 'Speculative Decoding', def: 'Using a fast draft model to generate candidate tokens, verified in batch by the larger model for 2-3x speedup.' }
+          ],
+          uk: [
+            { term: 'Квантизація', def: 'Зменшення числової точності ваг моделі (FP32→INT4) для зменшення розміру у 2-8 разів та прискорення інференсу.' },
+            { term: 'Дистиляція', def: 'Навчання меншого учня імітувати розподіли ймовірностей та можливості більшого вчителя.' },
+            { term: 'Flash Attention', def: 'Пам\'ять-ефективна реалізація уваги без матеріалізації повної матриці, що зменшує GPU пам\'ять у 5-20 разів.' },
+            { term: 'Спекулятивне декодування', def: 'Використання швидкої чернеткової моделі для генерації кандидат-токенів, верифікованих пакетом великою моделлю для 2-3x прискорення.' }
+          ]
+        },
+        tips: {
+          en: [
+            'For local model inference, start with GGUF Q4_K_M quantization — it offers the best quality-to-size ratio for most use cases',
+            'Use vLLM or TGI for serving models in production — they implement PagedAttention and continuous batching for 10-24x throughput improvement',
+            'Before optimizing, profile your bottleneck: is it memory (try quantization), compute (try smaller model or distillation), or latency (try speculative decoding)?'
+          ],
+          uk: [
+            'Для локального інференсу почніть з GGUF Q4_K_M квантизації — вона пропонує найкращий баланс якості до розміру для більшості випадків',
+            'Використовуйте vLLM або TGI для обслуговування моделей у продакшні — вони реалізують PagedAttention та безперервний батчинг для 10-24x покращення пропускної здатності',
+            'Перед оптимізацією профілюйте вузьке місце: пам\'ять (спробуйте квантизацію), обчислення (менша модель або дистиляція) чи затримка (спекулятивне декодування)?'
+          ]
+        },
+        related: ['Models', 'Video Content'] },
       { slug: 'model-types', title: { en: 'Model Types & Structures', uk: 'Типи та структури моделей' }, desc: { en: 'Different model architectures and their trade-offs.', uk: 'Різні архітектури моделей та їх компроміси.' },
-        overview: { en: ['Not all neural networks are structured the same way. Different architectures have different strengths. Decoder-only transformers (GPT, Llama) excel at text generation. Encoder-decoder models (T5) are great for translation and summarization. MoE (Mixture of Experts) architectures enable much larger models by only activating a subset of parameters per input, and newer state-space models (Mamba) offer alternatives to the quadratic cost of attention.'], uk: ['Не всі нейромережі мають однакову структуру. Різні архітектури мають різні переваги. Декодер-only трансформери (GPT, Llama) відмінні у генерації тексту. Моделі енкодер-декодер (T5) чудові для перекладу. MoE архітектури дозволяють значно більші моделі, активуючи лише підмножину параметрів, а нові моделі простору станів (Mamba) пропонують альтернативи квадратичній вартості уваги.'] },
-        details: { en: ['Transformer variants: encoder-only (BERT), decoder-only (GPT/Llama), encoder-decoder (T5/BART)', 'Decoder-only dominance: GPT, Claude, Gemini, Llama all use decoder-only architecture', 'Mixture of Experts (MoE): routing each token to only 2 of 8+ expert sub-networks', 'MoE examples: Mixtral 8x7B (46B total params, 12B active), GPT-4 (rumored MoE)', 'Dense vs sparse models: dense activates all parameters, sparse (MoE) only a fraction', 'Multi-head attention: parallel attention heads capture different types of relationships', 'State-space models (Mamba, S4): O(n) sequence processing vs O(n^2) for attention', 'Hybrid architectures: combining attention with state-space layers for different benefits', 'Model depth vs width: more layers vs wider layers — trade-offs for different tasks', 'Architecture search and scaling: how labs decide on model dimensions'], uk: ['Варіанти Transformer: encoder-only (BERT), decoder-only (GPT/Llama), encoder-decoder (T5/BART)', 'Домінування decoder-only: GPT, Claude, Gemini, Llama використовують decoder-only архітектуру', 'Mixture of Experts (MoE): маршрутизація кожного токена лише до 2 з 8+ експертних підмереж', 'Приклади MoE: Mixtral 8x7B (46B загальних параметрів, 12B активних), GPT-4 (ймовірно MoE)', 'Щільні vs розріджені моделі: щільні активують усі параметри, розріджені (MoE) лише частку', 'Багатоголова увага: паралельні голови уваги захоплюють різні типи зв\'язків', 'Моделі простору станів (Mamba, S4): O(n) обробка послідовностей vs O(n^2) для уваги', 'Гібридні архітектури: комбінування уваги з шарами простору станів', 'Глибина vs ширина моделі: більше шарів vs ширші шари — компроміси', 'Пошук архітектури та масштабування: як лабораторії вирішують розміри моделей'] },
-        keyTerms: { en: [{ term: 'MoE', def: 'Mixture of Experts — architecture that routes inputs to specialized sub-networks, activating only a fraction of total parameters.' }, { term: 'Decoder-Only', def: 'Transformer variant that generates text autoregressively — the dominant architecture for modern LLMs.' }, { term: 'State-Space Model', def: 'Alternative to attention that processes sequences in linear time rather than quadratic.' }], uk: [{ term: 'MoE', def: 'Mixture of Experts — архітектура, що маршрутизує входи до спеціалізованих підмереж, активуючи лише частку параметрів.' }, { term: 'Decoder-Only', def: 'Варіант Transformer для авторегресивної генерації тексту — домінуюча архітектура сучасних LLM.' }, { term: 'Модель простору станів', def: 'Альтернатива увазі, що обробляє послідовності за лінійний час замість квадратичного.' }] },
-        related: ['Models'] }
+        overview: {
+          en: [
+            'Not all neural networks are structured the same way. Different architectures have different strengths. Decoder-only transformers (GPT, Llama) excel at text generation. Encoder-decoder models (T5) are great for translation and summarization. MoE (Mixture of Experts) architectures enable much larger models by only activating a subset of parameters per input, and newer state-space models (Mamba) offer alternatives to the quadratic cost of attention.',
+            'Architecture choice has massive practical implications. MoE models like Mixtral offer frontier-level quality at a fraction of the inference cost because only a small portion of parameters activate per token. State-space models promise efficient processing of extremely long sequences. Understanding these trade-offs helps you choose the right model for your specific performance, cost, and latency requirements.'
+          ],
+          uk: [
+            'Не всі нейромережі мають однакову структуру. Різні архітектури мають різні переваги. Декодер-only трансформери (GPT, Llama) відмінні у генерації тексту. Моделі енкодер-декодер (T5) чудові для перекладу. MoE архітектури дозволяють значно більші моделі, активуючи лише підмножину параметрів, а нові моделі простору станів (Mamba) пропонують альтернативи квадратичній вартості уваги.',
+            'Вибір архітектури має масивні практичні наслідки. MoE моделі як Mixtral пропонують фронтирну якість за частку витрат інференсу, бо лише мала частина параметрів активується на токен. Моделі простору станів обіцяють ефективну обробку надзвичайно довгих послідовностей. Розуміння цих компромісів допомагає обрати правильну модель для ваших вимог до продуктивності, вартості та затримки.'
+          ]
+        },
+        details: {
+          en: [
+            { text: 'Transformer Variants', desc: 'Encoder-only (BERT — great for classification, embeddings), decoder-only (GPT, Llama — text generation), encoder-decoder (T5, BART — translation, summarization). Each variant processes text differently based on its attention mask pattern.', links: [{ title: 'Neural Networks', href: 'neural-networks.html' }] },
+            { text: 'Decoder-Only Dominance', desc: 'GPT, Claude, Gemini, Llama all use decoder-only architecture. It won out because it scales efficiently, can be pre-trained with simple next-token prediction, and handles both understanding and generation in one model.', links: [{ title: 'LLM', href: '../level-2/llm.html' }] },
+            { text: 'Mixture of Experts (MoE)', desc: 'Each token is routed to only 2 of 8+ specialized expert sub-networks by a learned router. This means a model with 46B total parameters may only use 12B per forward pass, making it dramatically faster than a dense model of equal quality.', links: [{ title: 'Foundation Models', href: '../level-1/foundation-models.html' }] },
+            { text: 'MoE in Practice', desc: 'Mixtral 8x7B (46B total, 12B active), DeepSeek-V3, and likely GPT-4. MoE models need more memory (all experts loaded) but compute less per token. Ideal for deployment where memory is cheap but compute/latency matter.', links: [{ title: 'Model Optimization', href: 'model-optimization.html' }] },
+            { text: 'Dense vs Sparse Models', desc: 'Dense models (Llama, Claude) activate all parameters for every token — predictable, easier to optimize. Sparse models (MoE) activate only a fraction — more efficient but harder to train and balance across experts.', links: [] },
+            { text: 'Multi-Head Attention', desc: 'Multiple parallel attention heads capture different types of relationships — syntax, semantics, long-range dependencies. Modern models use 32-128 heads. Grouped Query Attention (GQA) reduces memory by sharing key/value heads.', links: [{ title: 'Context', href: '../level-2/context.html' }] },
+            { text: 'State-Space Models', desc: 'Mamba and S4 process sequences in O(n) time vs O(n^2) for attention. They maintain a compressed state that evolves as they read each token. Promising for extremely long sequences (100K+ tokens) where attention becomes prohibitively expensive.', links: [] },
+            { text: 'Hybrid Architectures', desc: 'Combining attention layers with state-space or linear attention layers. Jamba (AI21) mixes Mamba and Transformer layers. Hybrids aim to get the best of both: global attention for reasoning, efficient processing for long contexts.', links: [] },
+            { text: 'Model Depth vs Width', desc: 'More layers (deeper) vs wider layers (more parameters per layer). Deeper models tend to reason better but are slower. Wider models process faster but may reason less deeply. Scaling laws help labs find optimal proportions.', links: [{ title: 'Data to Model', href: 'data-to-model.html' }] },
+            { text: 'Vision and Multimodal Architectures', desc: 'Vision Transformers (ViT) apply attention to image patches. Multimodal models combine text transformers with vision encoders (CLIP, SigLIP). Diffusion models use a completely different architecture for image generation.', links: [{ title: 'Multimodal AI', href: '../level-1/multimodal-ai.html' }] }
+          ],
+          uk: [
+            { text: 'Варіанти Transformer', desc: 'Encoder-only (BERT — класифікація, ембедінги), decoder-only (GPT, Llama — генерація тексту), encoder-decoder (T5, BART — переклад, сумаризація). Кожен варіант обробляє текст по-різному завдяки патерну маски уваги.', links: [{ title: 'Основи нейромереж', href: 'neural-networks.html' }] },
+            { text: 'Домінування Decoder-Only', desc: 'GPT, Claude, Gemini, Llama — всі decoder-only. Перемогла, бо ефективно масштабується, навчається простим передбаченням наступного токена і обробляє розуміння та генерацію в одній моделі.', links: [{ title: 'LLM', href: '../level-2/llm.html' }] },
+            { text: 'Mixture of Experts (MoE)', desc: 'Кожен токен маршрутизується лише до 2 з 8+ спеціалізованих експертних підмереж. Модель з 46B загальних параметрів може використовувати лише 12B на прямий прохід, що робить її драматично швидшою за щільну модель рівної якості.', links: [{ title: 'Фундаментальні моделі', href: '../level-1/foundation-models.html' }] },
+            { text: 'MoE на практиці', desc: 'Mixtral 8x7B (46B загальних, 12B активних), DeepSeek-V3 та ймовірно GPT-4. MoE потребують більше пам\'яті (всі експерти завантажені), але обчислюють менше на токен. Ідеальні де пам\'ять дешева, а обчислення/затримка важливі.', links: [{ title: 'Оптимізація моделей', href: 'model-optimization.html' }] },
+            { text: 'Щільні vs розріджені моделі', desc: 'Щільні (Llama, Claude) активують усі параметри — передбачувані, легші в оптимізації. Розріджені (MoE) активують частку — ефективніші, але складніші в навчанні та балансуванні між експертами.', links: [] },
+            { text: 'Багатоголова увага', desc: 'Кілька паралельних голів уваги захоплюють різні зв\'язки — синтаксис, семантику, далекосяжні залежності. Сучасні моделі мають 32-128 голів. Grouped Query Attention (GQA) зменшує пам\'ять спільним використанням голів ключ/значення.', links: [{ title: 'Контекст', href: '../level-2/context.html' }] },
+            { text: 'Моделі простору станів', desc: 'Mamba та S4 обробляють послідовності за O(n) час vs O(n^2) для уваги. Вони зберігають стиснутий стан, що еволюціонує з кожним токеном. Перспективні для надзвичайно довгих послідовностей (100K+ токенів).', links: [] },
+            { text: 'Гібридні архітектури', desc: 'Комбінування шарів уваги з шарами простору станів. Jamba (AI21) змішує шари Mamba та Transformer. Гібриди прагнуть поєднати переваги: глобальну увагу для міркування, ефективну обробку для довгих контекстів.', links: [] },
+            { text: 'Глибина vs ширина моделі', desc: 'Більше шарів (глибша) vs ширші шари (більше параметрів на шар). Глибші моделі краще міркують, але повільніші. Ширші обробляють швидше, але міркують менш глибоко. Закони масштабування допомагають знайти оптимум.', links: [{ title: 'Від даних до моделі', href: 'data-to-model.html' }] },
+            { text: 'Архітектури для зору та мультимодальності', desc: 'Vision Transformers (ViT) застосовують увагу до патчів зображень. Мультимодальні моделі поєднують текстові трансформери з візуальними енкодерами (CLIP, SigLIP). Дифузійні моделі використовують зовсім іншу архітектуру для генерації зображень.', links: [{ title: 'Мультимодальний ШІ', href: '../level-1/multimodal-ai.html' }] }
+          ]
+        },
+        keyTerms: {
+          en: [
+            { term: 'MoE', def: 'Mixture of Experts — architecture that routes each token to specialized sub-networks, using only a fraction of total parameters per forward pass.' },
+            { term: 'Decoder-Only', def: 'Transformer variant that generates text autoregressively by predicting one token at a time — the dominant architecture for modern LLMs.' },
+            { term: 'State-Space Model', def: 'Alternative to attention (Mamba, S4) that processes sequences in linear O(n) time rather than quadratic O(n^2).' },
+            { term: 'Grouped Query Attention', def: 'Memory optimization where multiple attention heads share key/value projections, reducing KV cache memory 4-8x.' }
+          ],
+          uk: [
+            { term: 'MoE', def: 'Mixture of Experts — архітектура, що маршрутизує кожен токен до спеціалізованих підмереж, використовуючи лише частку параметрів на прохід.' },
+            { term: 'Decoder-Only', def: 'Варіант Transformer для авторегресивної генерації тексту по одному токену — домінуюча архітектура сучасних LLM.' },
+            { term: 'Модель простору станів', def: 'Альтернатива увазі (Mamba, S4), що обробляє послідовності за лінійний O(n) час замість квадратичного O(n^2).' },
+            { term: 'Grouped Query Attention', def: 'Оптимізація пам\'яті де кілька голів уваги спільно використовують проєкції ключ/значення, зменшуючи KV кеш у 4-8 разів.' }
+          ]
+        },
+        tips: {
+          en: [
+            'When choosing a model, check if it\'s dense or MoE — MoE models need more RAM but run faster per token, which matters for real-time applications',
+            'For embedding and classification tasks, encoder models (BERT variants) are still better and far cheaper than using LLMs via their API',
+            'Watch the state-space model space (Mamba, RWKV) — if they close the quality gap with transformers, they will enable much cheaper inference on long documents'
+          ],
+          uk: [
+            'При виборі моделі перевірте чи вона щільна чи MoE — MoE потребують більше RAM, але працюють швидше на токен, що важливо для реал-тайм застосунків',
+            'Для ембедінгів та класифікації encoder моделі (варіанти BERT) все ще кращі та значно дешевші ніж використання LLM через API',
+            'Слідкуйте за моделями простору станів (Mamba, RWKV) — якщо вони закриють розрив якості з трансформерами, вони дозволять значно дешевший інференс на довгих документах'
+          ]
+        },
+        related: ['Models', 'Video Content'] }
     ]
   },
   {
@@ -1901,7 +2316,7 @@ const levels = [
             'Проблема контролю застосовується на всіх рівнях можливостей — її вирішення для вузького ШІ готує до більш загальних систем'
           ]
         },
-        related: [] },
+        related: ['Feed', 'Video Content'] },
       { slug: 'singularity', title: { en: 'Technological Singularity', uk: 'Технологічна сингулярність' }, desc: { en: 'The hypothetical point where AI improvement becomes self-sustaining.', uk: 'Гіпотетична точка, де вдосконалення ШІ стає самопідтримуючим.' },
         overview: {
           en: [
@@ -1965,7 +2380,7 @@ const levels = [
             'Читайте і оптимістів (Курцвейл) і скептиків (Гері Маркус) для формування збалансованого погляду на траєкторію ШІ'
           ]
         },
-        related: [] },
+        related: ['Feed', 'Video Content'] },
       { slug: 'intelligence-explosion', title: { en: 'Intelligence Explosion', uk: 'Вибух інтелекту' }, desc: { en: 'The rapid, recursive improvement of AI capabilities.', uk: 'Швидке, рекурсивне покращення можливостей ШІ.' },
         overview: {
           en: [
@@ -2029,7 +2444,7 @@ const levels = [
             'Навіть без драматичного "вибуху", прискорення темпу прогресу ШІ вимагає безперервного навчання та адаптації'
           ]
         },
-        related: [] },
+        related: ['Feed'] },
       { slug: 'transhumanism', title: { en: 'Transhumanism', uk: 'Трансгуманізм' }, desc: { en: 'Human enhancement through technology and AI.', uk: 'Покращення людини за допомогою технологій та ШІ.' },
         overview: {
           en: [
@@ -2093,7 +2508,7 @@ const levels = [
             'Наслідки рівності когнітивного покращення повинні інформувати ваше мислення про доступ до ШІ та політику сьогодні'
           ]
         },
-        related: [] },
+        related: ['Feed'] },
       { slug: 'spatial-intelligence', title: { en: 'Spatial Intelligence', uk: 'Просторовий інтелект' }, desc: { en: 'AI understanding of 3D space, physics, and physical world.', uk: 'Розуміння ШІ 3D-простору, фізики та фізичного світу.' },
         overview: {
           en: [
@@ -2157,7 +2572,7 @@ const levels = [
             'Розрив sim-to-real — найбільше вузьке місце в ШІ для робототехніки: якщо працюєте у цій сфері, зосередьтесь на подоланні його'
           ]
         },
-        related: [] },
+        related: ['Video Content'] },
       { slug: 'world-model', title: { en: 'General World Model', uk: 'Загальна модель світу' }, desc: { en: 'AI systems that build internal representations of how the world works.', uk: 'Системи ШІ, що будують внутрішні уявлення про те, як працює світ.' },
         overview: {
           en: [
@@ -2221,7 +2636,7 @@ const levels = [
             'Дебати "чи розуміють LLM?" варті уваги — вони мають практичні наслідки для побудови та довіри до систем ШІ'
           ]
         },
-        related: [] },
+        related: ['Video Content'] },
       { slug: 'accelerationists', title: { en: 'Techno-Optimists', uk: 'Техно-оптимісти' }, desc: { en: 'The e/acc movement and arguments for accelerating AI development.', uk: 'Рух e/acc та аргументи на користь прискорення розвитку ШІ.' },
         overview: {
           en: [
@@ -2285,7 +2700,7 @@ const levels = [
             'Найсильніша позиція поєднує оптимізм щодо потенціалу ШІ з серйозним залученням до безпеки — чистий оптимізм чи страх обидва неповні'
           ]
         },
-        related: [] },
+        related: ['Feed', 'Video Content'] },
       { slug: 'doomers', title: { en: 'Techno-Pessimists', uk: 'Техно-песимісти' }, desc: { en: 'Concerns about existential risk from advanced AI.', uk: 'Занепокоєння щодо екзистенційного ризику від просунутого ШІ.' },
         overview: {
           en: [
@@ -2349,7 +2764,7 @@ const levels = [
             'Найближчі ризики ШІ (діпфейки, нагляд) варті серйозного ставлення незалежно від вашого погляду на довгостроковий екзистенційний ризик'
           ]
         },
-        related: [] },
+        related: ['Feed', 'Video Content'] },
       { slug: 'ai-safety', title: { en: 'AI Safety', uk: 'Безпека ШІ' }, desc: { en: 'Research and practices for building safe AI systems.', uk: 'Дослідження та практики побудови безпечних систем ШІ.' },
         overview: {
           en: [
@@ -2413,7 +2828,7 @@ const levels = [
             'Безпека ШІ — зростаюча кар\'єрна сфера з високим попитом: розгляньте внесок незалежно від вашого бекграунду'
           ]
         },
-        related: [] },
+        related: ['Feed', 'Video Content'] },
       { slug: 'alignment', title: { en: 'AI Alignment', uk: 'Вирівнювання ШІ' }, desc: { en: 'Ensuring AI systems act in accordance with human values.', uk: 'Забезпечення дій систем ШІ відповідно до людських цінностей.' },
         overview: {
           en: [
@@ -2477,7 +2892,7 @@ const levels = [
             'Якщо цікаво робити внесок у безпеку ШІ, дослідження інтерпретованості — одна з найдоступніших точок входу'
           ]
         },
-        related: [] },
+        related: ['Feed', 'Video Content'] },
       { slug: 'explainable-ai', title: { en: 'Explainable & Constitutional AI', uk: 'Пояснюваний та конституційний ШІ' }, desc: { en: 'Making AI decisions transparent and principled.', uk: 'Прозорість та принциповість рішень ШІ.' },
         overview: {
           en: [
@@ -2541,7 +2956,7 @@ const levels = [
             'Якщо будуєте ШІ-продукти для регульованих галузей (фінанси, охорона здоров\'я), плануйте вимоги пояснюваності з самого початку'
           ]
         },
-        related: [] },
+        related: ['Feed'] },
       { slug: 'decentralized-ai', title: { en: 'Decentralized AI', uk: 'Децентралізований ШІ' }, desc: { en: 'Distributed and blockchain-based approaches to AI.', uk: 'Розподілені та блокчейн-підходи до ШІ.' },
         overview: {
           en: [
@@ -2605,7 +3020,7 @@ const levels = [
             'Федеративне навчання — найзріліша децентралізована ШІ-технологія: розгляньте для будь-якого проєкту з чутливими даними'
           ]
         },
-        related: [] }
+        related: ['Feed'] }
     ]
   }
 ];

@@ -71,30 +71,40 @@ h2 { font-size:28px; margin-bottom:8px; }
 
   <div class="overview">
     <p>Model training happens in stages. Pre-training teaches the model general language understanding by predicting next tokens on internet-scale data — this costs millions of dollars and requires thousands of GPUs. Fine-tuning then adapts this general model for specific tasks using much smaller, curated datasets. Finally, alignment training (RLHF or DPO) teaches the model to be helpful, honest, and safe.</p>
+    <p>The rise of parameter-efficient methods like LoRA has democratized fine-tuning — you can now adapt a 70B parameter model on a single consumer GPU. This has created a vibrant ecosystem of community-created fine-tunes for specific domains, languages, and use cases. Understanding when to fine-tune vs when to just prompt better is a key skill for AI practitioners.</p>
   </div>
   <div class="section-title">Key Topics Covered</div>
-  <ul class="detail-list">
-      <li>Pre-training: massive compute (thousands of GPUs for months) on trillions of tokens</li>
-      <li>Supervised Fine-Tuning (SFT): training on curated instruction-response pairs</li>
-      <li>RLHF: Reinforcement Learning from Human Feedback — using human preferences to improve outputs</li>
-      <li>DPO: Direct Preference Optimization — simpler alternative to RLHF without reward model</li>
-      <li>LoRA: Low-Rank Adaptation — fine-tuning only a small number of additional parameters (1-5%)</li>
-      <li>QLoRA: quantized LoRA — enabling fine-tuning on consumer GPUs by quantizing the base model</li>
-      <li>Full fine-tuning vs PEFT: when do you need to update all parameters vs just adapters?</li>
-      <li>When to fine-tune vs prompt engineer: fine-tuning for consistent style/format, prompting for flexible tasks</li>
-      <li>Cost comparison: pre-training ($10M+) vs fine-tuning ($100-10K) vs prompting (free/cheap)</li>
-      <li>Evaluation: measuring fine-tuned model quality with held-out test sets and human evaluation</li>
-  </ul>
+  <div class="detail-cards">
+    <div class="detail-card"><div class="dt">Pre-training</div><div class="dd">Massive compute (thousands of GPUs for months) on trillions of tokens. The model learns language structure, world knowledge, and reasoning by predicting the next token. Costs $10M-$100M+ for frontier models.</div><div class="dl"><a href="data-to-model.html">Data to Model</a><a href="../level-4/hardware.html">Hardware</a></div></div>
+    <div class="detail-card"><div class="dt">Supervised Fine-Tuning (SFT)</div><div class="dd">Training on curated instruction-response pairs to teach the model to follow instructions and produce useful outputs. Thousands to millions of examples, typically taking hours to days on a few GPUs.</div><div class="dl"><a href="../level-2/prompt.html">Prompt</a></div></div>
+    <div class="detail-card"><div class="dt">RLHF</div><div class="dd">Reinforcement Learning from Human Feedback — humans compare model outputs, a reward model learns their preferences, then the LLM is optimized to maximize that reward. The technique that made ChatGPT work.</div><div class="dl"><a href="../level-5/alignment.html">Alignment</a></div></div>
+    <div class="detail-card"><div class="dt">DPO</div><div class="dd">Direct Preference Optimization — a simpler alternative to RLHF that eliminates the separate reward model. Directly optimizes the LLM on preference pairs. Increasingly popular for its stability and simplicity.</div><div class="dl"><a href="../level-5/alignment.html">Alignment</a></div></div>
+    <div class="detail-card"><div class="dt">LoRA</div><div class="dd">Low-Rank Adaptation — fine-tuning only small additional matrices (1-5% of parameters) while keeping the original model frozen. Produces tiny adapter files (10-100MB) that can be swapped in and out.</div><div class="dl"><a href="model-optimization.html">Model Optimization</a></div></div>
+    <div class="detail-card"><div class="dt">QLoRA</div><div class="dd">Quantized LoRA — combines model quantization (4-bit) with LoRA adapters, enabling fine-tuning of 70B models on a single 24GB GPU. A breakthrough for accessible AI customization.</div><div class="dl"><a href="model-optimization.html">Model Optimization</a></div></div>
+    <div class="detail-card"><div class="dt">Full Fine-tuning vs PEFT</div><div class="dd">Full fine-tuning updates all parameters — maximum quality but requires multi-GPU setups and risks catastrophic forgetting. Parameter-Efficient Fine-Tuning (PEFT) methods like LoRA are cheaper and preserve base model knowledge.</div><div class="dl"><a href="neural-networks.html">Neural Networks</a></div></div>
+    <div class="detail-card"><div class="dt">When to Fine-tune vs Prompt</div><div class="dd">Fine-tune for: consistent style/format, domain-specific knowledge, specific output structures. Prompt for: flexible tasks, rapid iteration, no training data available. Fine-tuning is a commitment; prompting is an experiment.</div><div class="dl"><a href="../level-4/prompting-techniques.html">Prompting Techniques</a></div></div>
+    <div class="detail-card"><div class="dt">Training Cost Spectrum</div><div class="dd">Pre-training ($10M+) vs fine-tuning ($100-10K) vs prompting (free/cheap). API-based fine-tuning (OpenAI, Anthropic) costs pennies per example. Self-hosted fine-tuning requires GPU rental ($1-5/hr for A100).</div><div class="dl"><a href="../level-4/api-providers.html">API Providers</a></div></div>
+    <div class="detail-card"><div class="dt">Evaluation and Iteration</div><div class="dd">Measuring fine-tuned model quality with held-out test sets, automated metrics (perplexity, BLEU, ROUGE), and human evaluation. Always compare against the base model to quantify improvement.</div><div class="dl"><a href="../level-1/sota.html">SOTA</a></div></div>
+  </div>
 
   <div class="section-title">Key Terms</div>
   <div class="terms-grid">
-    <div class="term-card"><strong>RLHF</strong><span>Reinforcement Learning from Human Feedback — training models to align with human preferences using reward signals.</span></div>
-    <div class="term-card"><strong>LoRA</strong><span>Low-Rank Adaptation — efficient fine-tuning method that trains only small additional matrices.</span></div>
-    <div class="term-card"><strong>SFT</strong><span>Supervised Fine-Tuning — training on curated instruction-response pairs to teach model behavior.</span></div>
+    <div class="term-card"><strong>RLHF</strong><span>Reinforcement Learning from Human Feedback — training models to align with human preferences using a learned reward model.</span></div>
+    <div class="term-card"><strong>LoRA</strong><span>Low-Rank Adaptation — efficient fine-tuning that trains only small additional matrices while keeping the base model frozen.</span></div>
+    <div class="term-card"><strong>SFT</strong><span>Supervised Fine-Tuning — training on curated instruction-response pairs to teach the model to follow instructions.</span></div>
+    <div class="term-card"><strong>DPO</strong><span>Direct Preference Optimization — simpler alternative to RLHF that directly optimizes on human preference pairs without a reward model.</span></div>
   </div>
+
+  <div class="section-title">Practical Tips</div>
+  <div class="tip-box"><ul>
+    <li>Try prompting and few-shot examples first — fine-tuning is worth it only when prompting hits a quality ceiling you cannot overcome</li>
+    <li>Start with LoRA/QLoRA before attempting full fine-tuning — you'll get 90% of the quality at 5% of the cost and compute</li>
+    <li>Always hold out 10-20% of your data for evaluation — without a test set, you cannot tell if your fine-tune actually improved the model</li>
+  </ul></div>
 
     <div class="section-title">Related Community Discussions</div>
     <div class="related-topics">
+      <a href="#">Models</a>
       <a href="#">Video Content</a>
     </div>
 

@@ -77,3 +77,17 @@ Description: Regenerated all Ukrainian pages. Same enrichments as EN, fully tran
 [2026-02-07 16:13:00] EDIT: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/telegram-archive/course/twa/index.html (458KB)
 Description: Regenerated Mini App with all expanded content. File grew from 217KB to 458KB. All 42 topics now have full educational content in both languages.
 ---
+[2026-02-07 17:37:00] EDIT: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/telegram-archive/course/build-all.js
+Description: Upgraded all 5 Level 3 topics (neural-networks, data-to-model, training-finetuning, model-optimization, model-types) from plain string format to rich detail card format with {text, desc, links} objects and cross-links. Added second overview paragraph, 4th keyTerm, 3 tips, and related tags to each. Added tips to 10 Level 1-2 topics (llm-and-gpt, diffusion-models, multimodality, reasoning, foundation-models, data-classification, token, context, hallucination, vibecoding). Populated related tags for all 12 Level 5 topics that had empty arrays. File grew from 3218 to 3633 lines.
+Old content: Level 3 topics had plain string details, 1 overview paragraph, 3 keyTerms, no tips, empty related. 10 L1-L2 topics missing tips. 12 L5 topics with empty related.
+New content: All 42 topics now have consistent rich format: 2-paragraph overview, 10 rich detail cards, 4 keyTerms, 3 tips, populated related tags.
+---
+[2026-02-07 17:37:00] EDIT: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/telegram-archive/course/en/ (48 files regenerated)
+Description: Regenerated all English pages. Level 3 topics now have rich detail cards with cross-links, tips, and expanded content. Level 1-2 topics now have tips sections.
+---
+[2026-02-07 17:37:00] EDIT: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/telegram-archive/course/uk/ (48 files regenerated)
+Description: Regenerated all Ukrainian pages. Same enrichments as EN, fully translated.
+---
+[2026-02-07 17:37:00] EDIT: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/telegram-archive/course/twa/index.html (514KB)
+Description: Regenerated Mini App with all enriched content. File grew from 458KB to 514KB. All 42 topics now have complete, consistent content structure.
+---

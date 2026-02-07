@@ -71,28 +71,42 @@ h2 { font-size:28px; margin-bottom:8px; }
 
   <div class="overview">
     <p>The journey from raw data to a working AI model involves a complex pipeline of collection, cleaning, preprocessing, training, and evaluation. Data quality is often more important than model architecture — the AI community saying &quot;garbage in, garbage out&quot; has never been more relevant. Understanding this pipeline helps you appreciate why some models are better than others and how to create effective fine-tuned models.</p>
+    <p>The data pipeline is where the real competitive advantage lies. Companies like OpenAI, Anthropic, and Google invest heavily in data curation — not just finding more data, but finding better data. Filtering, deduplication, and synthetic data generation have become entire subdisciplines as the AI community realizes that the quality ceiling of a model is set by its training data.</p>
   </div>
   <div class="section-title">Key Topics Covered</div>
-  <ul class="detail-list">
-      <li>Data collection at scale: web crawling (Common Crawl), books, code repositories, scientific papers</li>
-      <li>Data cleaning: removing duplicates, low-quality content, personally identifiable information (PII)</li>
-      <li>Deduplication: exact and near-duplicate removal to prevent memorization and data leakage</li>
-      <li>Filtering: removing harmful, toxic, or copyrighted content from training data</li>
-      <li>Preprocessing: tokenization, format normalization, language identification</li>
-      <li>Dataset formats: JSONL, Parquet, Arrow — efficient storage for billion-scale datasets</li>
-      <li>Data quality vs quantity: smaller high-quality datasets can outperform larger noisy ones</li>
-      <li>Synthetic data: using AI to generate training data for specific capabilities or scarce domains</li>
-      <li>Data annotation: human labelers creating supervised examples for fine-tuning</li>
-      <li>Open datasets: The Pile, RedPajama, FineWeb — understanding what trains open models</li>
-  </ul>
+  <div class="detail-cards">
+    <div class="detail-card"><div class="dt">Data Collection at Scale</div><div class="dd">Web crawling (Common Crawl — petabytes of web pages), digitized books, GitHub code repositories, scientific papers (arXiv, PubMed), Wikipedia. The scale is staggering: trillions of tokens from billions of documents.</div><div class="dl"><a href="../level-1/foundation-models.html">Foundation Models</a></div></div>
+    <div class="detail-card"><div class="dt">Data Cleaning</div><div class="dd">Removing duplicates, low-quality content, boilerplate HTML, personally identifiable information (PII), and machine-generated spam. Up to 90% of raw crawled data may be discarded during cleaning.</div></div>
+    <div class="detail-card"><div class="dt">Deduplication</div><div class="dd">Exact and near-duplicate removal to prevent memorization and data leakage. MinHash, SimHash, and suffix array techniques identify similar content. Critical for preventing models from memorizing and regurgitating specific texts.</div></div>
+    <div class="detail-card"><div class="dt">Content Filtering</div><div class="dd">Removing harmful, toxic, or copyrighted content from training data. Classifier-based filtering, keyword blocklists, and domain-level decisions. Balancing thorough filtering with preserving data diversity is a core challenge.</div><div class="dl"><a href="../level-5/ai-safety.html">AI Safety</a></div></div>
+    <div class="detail-card"><div class="dt">Tokenization and Preprocessing</div><div class="dd">Converting raw text into tokens the model can process. BPE (Byte Pair Encoding) and SentencePiece are dominant methods. Vocabulary size (32K-100K+ tokens) trades memory for encoding efficiency. Multilingual tokenizers must balance all languages.</div><div class="dl"><a href="../level-2/token.html">Token</a></div></div>
+    <div class="detail-card"><div class="dt">Dataset Formats</div><div class="dd">JSONL (human-readable, line-per-example), Parquet (columnar, compressed), Arrow (in-memory, zero-copy). Efficient storage is critical when datasets reach terabytes. Hugging Face datasets library standardizes access.</div><div class="dl"><a href="../level-4/base-tools.html">Tools &amp; Libraries</a></div></div>
+    <div class="detail-card"><div class="dt">Data Quality vs Quantity</div><div class="dd">Smaller high-quality datasets can outperform larger noisy ones. Microsoft's Phi models proved this: carefully curated &quot;textbook quality&quot; data trained models that punched far above their parameter count.</div><div class="dl"><a href="model-optimization.html">Model Optimization</a></div></div>
+    <div class="detail-card"><div class="dt">Synthetic Data Generation</div><div class="dd">Using existing AI models to generate training data for specific capabilities. Self-instruct, Evol-Instruct, and distillation pipelines create millions of instruction-response pairs. Enables training on domains where real data is scarce or expensive.</div><div class="dl"><a href="../level-2/llm.html">LLM</a></div></div>
+    <div class="detail-card"><div class="dt">Human Data Annotation</div><div class="dd">Human labelers creating supervised examples for fine-tuning and RLHF. Annotation quality varies widely — detailed guidelines, multiple annotators per example, and inter-annotator agreement checks are essential.</div><div class="dl"><a href="training-finetuning.html">Training &amp; Fine-tuning</a></div></div>
+    <div class="detail-card"><div class="dt">Open Datasets</div><div class="dd">The Pile (EleutherAI), RedPajama (Together AI), FineWeb (HuggingFace), SlimPajama — open datasets that power open-source models. Understanding their composition explains model capabilities and biases.</div><div class="dl"><a href="../level-1/data-classification.html">Data Classification</a></div></div>
+  </div>
 
   <div class="section-title">Key Terms</div>
   <div class="terms-grid">
-    <div class="term-card"><strong>Common Crawl</strong><span>Massive open web archive used as primary data source for training most LLMs.</span></div>
-    <div class="term-card"><strong>Synthetic Data</strong><span>Training data generated by AI models rather than collected from real sources.</span></div>
-    <div class="term-card"><strong>Data Deduplication</strong><span>Removing duplicate or near-duplicate examples to improve training quality.</span></div>
+    <div class="term-card"><strong>Common Crawl</strong><span>Massive open web archive containing petabytes of web pages, used as primary data source for training most LLMs.</span></div>
+    <div class="term-card"><strong>Synthetic Data</strong><span>Training data generated by AI models rather than collected from real sources, enabling training on scarce domains.</span></div>
+    <div class="term-card"><strong>Data Deduplication</strong><span>Removing duplicate or near-duplicate examples using hashing techniques to prevent memorization and improve quality.</span></div>
+    <div class="term-card"><strong>BPE Tokenization</strong><span>Byte Pair Encoding — the dominant method for splitting text into sub-word tokens that models can process.</span></div>
   </div>
 
+  <div class="section-title">Practical Tips</div>
+  <div class="tip-box"><ul>
+    <li>When fine-tuning, spend 80% of your time on data preparation and only 20% on training — data quality determines the ceiling</li>
+    <li>Always inspect your training data manually before launching a run — even a few corrupted or mislabeled examples can derail the model</li>
+    <li>For custom datasets, start with 1,000 high-quality examples rather than 100,000 noisy ones — iterate on quality before scaling quantity</li>
+  </ul></div>
+
+    <div class="section-title">Related Community Discussions</div>
+    <div class="related-topics">
+      <a href="#">Models</a>
+      <a href="#">Video Content</a>
+    </div>
 
   <div class="nav-links">
     <a href="neural-networks.html">&larr; Neural Network Fundamentals</a>

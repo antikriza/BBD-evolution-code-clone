@@ -71,28 +71,42 @@ h2 { font-size:28px; margin-bottom:8px; }
 
   <div class="overview">
     <p>Neural networks are the mathematical foundation underlying all modern AI. They are loosely inspired by biological neurons but in practice are systems of matrix multiplications and nonlinear functions organized into layers. Understanding how they work — forward propagation, loss computation, and backpropagation — is essential for anyone wanting to go beyond surface-level AI usage.</p>
+    <p>The field has evolved from simple perceptrons in the 1950s to today's trillion-parameter transformer networks. Each architectural breakthrough — from convolutional layers for vision to attention mechanisms for language — expanded what neural networks could do. Knowing these fundamentals helps you understand why certain models excel at certain tasks and what the actual limitations of &quot;AI&quot; are.</p>
   </div>
   <div class="section-title">Key Topics Covered</div>
-  <ul class="detail-list">
-      <li>Neurons: weighted sum of inputs + activation function = output</li>
-      <li>Layers: input → hidden layers → output. Deep = many hidden layers</li>
-      <li>Activation functions: ReLU, GELU, Sigmoid, Softmax — introduce nonlinearity</li>
-      <li>Forward propagation: data flows through layers to produce a prediction</li>
-      <li>Loss functions: measuring how wrong the prediction is (cross-entropy, MSE)</li>
-      <li>Backpropagation: computing gradients of loss with respect to each weight</li>
-      <li>Gradient descent: adjusting weights to minimize loss over many iterations</li>
-      <li>Convolutional networks (CNNs): specialized for images — filters detect patterns</li>
-      <li>Recurrent networks (RNNs, LSTMs): designed for sequences, now largely replaced by Transformers</li>
-      <li>Transformer architecture: self-attention mechanism enabling parallel sequence processing</li>
-  </ul>
+  <div class="detail-cards">
+    <div class="detail-card"><div class="dt">Neurons and Weighted Sums</div><div class="dd">A neuron computes a weighted sum of its inputs, adds a bias term, then passes the result through an activation function. This simple operation, repeated billions of times across layers, is how neural networks compute.</div><div class="dl"><a href="../level-1/foundation-models.html">Foundation Models</a></div></div>
+    <div class="detail-card"><div class="dt">Network Layers</div><div class="dd">Input layer receives raw data, hidden layers extract increasingly abstract features, output layer produces the final prediction. &quot;Deep&quot; learning means many hidden layers — modern LLMs have 80-120+ layers.</div><div class="dl"><a href="../level-2/llm.html">LLM</a></div></div>
+    <div class="detail-card"><div class="dt">Activation Functions</div><div class="dd">ReLU (most common, simple max(0,x)), GELU (used in transformers, smoother), Sigmoid (squashes to 0-1), Softmax (outputs probability distribution). These introduce nonlinearity — without them, the entire network would collapse to a single linear transformation.</div></div>
+    <div class="detail-card"><div class="dt">Forward Propagation</div><div class="dd">Data flows through the network layer by layer — each layer transforms its input and passes the result to the next. The final output is a prediction that can be compared to the true answer to compute error.</div></div>
+    <div class="detail-card"><div class="dt">Loss Functions</div><div class="dd">Measuring how wrong the prediction is. Cross-entropy loss for classification, MSE for regression, next-token prediction loss for language models. The entire training process is about minimizing this loss function.</div><div class="dl"><a href="data-to-model.html">Data to Model</a></div></div>
+    <div class="detail-card"><div class="dt">Backpropagation</div><div class="dd">The algorithm that makes learning possible. It computes how much each weight contributed to the error by applying the chain rule of calculus backwards through the network — hence &quot;back&quot; propagation.</div><div class="dl"><a href="training-finetuning.html">Training &amp; Fine-tuning</a></div></div>
+    <div class="detail-card"><div class="dt">Gradient Descent Optimization</div><div class="dd">Adjusting weights in the direction that reduces loss. Adam optimizer (used by almost all modern models) adapts learning rates per-parameter. Learning rate scheduling, warmup, and weight decay are critical training hyperparameters.</div><div class="dl"><a href="model-optimization.html">Model Optimization</a></div></div>
+    <div class="detail-card"><div class="dt">Convolutional Networks (CNNs)</div><div class="dd">Specialized for spatial data like images. Convolutional filters slide across the input detecting edges, textures, and patterns. Still used in vision AI but increasingly replaced by Vision Transformers (ViT).</div><div class="dl"><a href="../level-1/multimodal-ai.html">Multimodal AI</a></div></div>
+    <div class="detail-card"><div class="dt">Recurrent Networks (RNNs, LSTMs)</div><div class="dd">Designed for sequential data — text, time series, audio. They maintain a hidden state that carries information across time steps. Largely replaced by Transformers which process sequences in parallel.</div><div class="dl"><a href="model-types.html">Model Types</a></div></div>
+    <div class="detail-card"><div class="dt">The Transformer Architecture</div><div class="dd">The 2017 breakthrough that powers all modern LLMs. Self-attention allows each token to attend to every other token in the sequence, capturing long-range dependencies that RNNs struggled with. Multi-head attention runs several attention computations in parallel.</div><div class="dl"><a href="model-types.html">Model Types</a></div></div>
+  </div>
 
   <div class="section-title">Key Terms</div>
   <div class="terms-grid">
-    <div class="term-card"><strong>Backpropagation</strong><span>Algorithm for computing how each weight contributes to the error, enabling learning.</span></div>
-    <div class="term-card"><strong>Gradient Descent</strong><span>Optimization algorithm that adjusts weights in the direction that reduces error.</span></div>
-    <div class="term-card"><strong>Self-Attention</strong><span>Mechanism where each element in a sequence can attend to every other element.</span></div>
+    <div class="term-card"><strong>Backpropagation</strong><span>Algorithm for computing how each weight contributes to the error by applying the chain rule backwards through the network.</span></div>
+    <div class="term-card"><strong>Gradient Descent</strong><span>Optimization algorithm that iteratively adjusts weights in the direction that reduces error, using computed gradients.</span></div>
+    <div class="term-card"><strong>Self-Attention</strong><span>Mechanism where each element in a sequence computes relevance scores with every other element, enabling context-aware processing.</span></div>
+    <div class="term-card"><strong>Activation Function</strong><span>Nonlinear function applied after weighted sums — without it, neural networks could only model linear relationships.</span></div>
   </div>
 
+  <div class="section-title">Practical Tips</div>
+  <div class="tip-box"><ul>
+    <li>You don't need to code neural networks from scratch — but understanding backpropagation and gradient descent explains why models sometimes fail to learn</li>
+    <li>When a model &quot;forgets&quot; things during fine-tuning (catastrophic forgetting), it's because gradient updates for new data override weights learned for old data</li>
+    <li>Visualize neural network layers with tools like Netron or TensorBoard to build intuition about how data transforms through the architecture</li>
+  </ul></div>
+
+    <div class="section-title">Related Community Discussions</div>
+    <div class="related-topics">
+      <a href="#">Models</a>
+      <a href="#">Video Content</a>
+    </div>
 
   <div class="nav-links">
     <span class="disabled">&larr;</span>

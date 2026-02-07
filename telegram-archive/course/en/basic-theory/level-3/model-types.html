@@ -71,31 +71,41 @@ h2 { font-size:28px; margin-bottom:8px; }
 
   <div class="overview">
     <p>Not all neural networks are structured the same way. Different architectures have different strengths. Decoder-only transformers (GPT, Llama) excel at text generation. Encoder-decoder models (T5) are great for translation and summarization. MoE (Mixture of Experts) architectures enable much larger models by only activating a subset of parameters per input, and newer state-space models (Mamba) offer alternatives to the quadratic cost of attention.</p>
+    <p>Architecture choice has massive practical implications. MoE models like Mixtral offer frontier-level quality at a fraction of the inference cost because only a small portion of parameters activate per token. State-space models promise efficient processing of extremely long sequences. Understanding these trade-offs helps you choose the right model for your specific performance, cost, and latency requirements.</p>
   </div>
   <div class="section-title">Key Topics Covered</div>
-  <ul class="detail-list">
-      <li>Transformer variants: encoder-only (BERT), decoder-only (GPT/Llama), encoder-decoder (T5/BART)</li>
-      <li>Decoder-only dominance: GPT, Claude, Gemini, Llama all use decoder-only architecture</li>
-      <li>Mixture of Experts (MoE): routing each token to only 2 of 8+ expert sub-networks</li>
-      <li>MoE examples: Mixtral 8x7B (46B total params, 12B active), GPT-4 (rumored MoE)</li>
-      <li>Dense vs sparse models: dense activates all parameters, sparse (MoE) only a fraction</li>
-      <li>Multi-head attention: parallel attention heads capture different types of relationships</li>
-      <li>State-space models (Mamba, S4): O(n) sequence processing vs O(n^2) for attention</li>
-      <li>Hybrid architectures: combining attention with state-space layers for different benefits</li>
-      <li>Model depth vs width: more layers vs wider layers — trade-offs for different tasks</li>
-      <li>Architecture search and scaling: how labs decide on model dimensions</li>
-  </ul>
+  <div class="detail-cards">
+    <div class="detail-card"><div class="dt">Transformer Variants</div><div class="dd">Encoder-only (BERT — great for classification, embeddings), decoder-only (GPT, Llama — text generation), encoder-decoder (T5, BART — translation, summarization). Each variant processes text differently based on its attention mask pattern.</div><div class="dl"><a href="neural-networks.html">Neural Networks</a></div></div>
+    <div class="detail-card"><div class="dt">Decoder-Only Dominance</div><div class="dd">GPT, Claude, Gemini, Llama all use decoder-only architecture. It won out because it scales efficiently, can be pre-trained with simple next-token prediction, and handles both understanding and generation in one model.</div><div class="dl"><a href="../level-2/llm.html">LLM</a></div></div>
+    <div class="detail-card"><div class="dt">Mixture of Experts (MoE)</div><div class="dd">Each token is routed to only 2 of 8+ specialized expert sub-networks by a learned router. This means a model with 46B total parameters may only use 12B per forward pass, making it dramatically faster than a dense model of equal quality.</div><div class="dl"><a href="../level-1/foundation-models.html">Foundation Models</a></div></div>
+    <div class="detail-card"><div class="dt">MoE in Practice</div><div class="dd">Mixtral 8x7B (46B total, 12B active), DeepSeek-V3, and likely GPT-4. MoE models need more memory (all experts loaded) but compute less per token. Ideal for deployment where memory is cheap but compute/latency matter.</div><div class="dl"><a href="model-optimization.html">Model Optimization</a></div></div>
+    <div class="detail-card"><div class="dt">Dense vs Sparse Models</div><div class="dd">Dense models (Llama, Claude) activate all parameters for every token — predictable, easier to optimize. Sparse models (MoE) activate only a fraction — more efficient but harder to train and balance across experts.</div></div>
+    <div class="detail-card"><div class="dt">Multi-Head Attention</div><div class="dd">Multiple parallel attention heads capture different types of relationships — syntax, semantics, long-range dependencies. Modern models use 32-128 heads. Grouped Query Attention (GQA) reduces memory by sharing key/value heads.</div><div class="dl"><a href="../level-2/context.html">Context</a></div></div>
+    <div class="detail-card"><div class="dt">State-Space Models</div><div class="dd">Mamba and S4 process sequences in O(n) time vs O(n^2) for attention. They maintain a compressed state that evolves as they read each token. Promising for extremely long sequences (100K+ tokens) where attention becomes prohibitively expensive.</div></div>
+    <div class="detail-card"><div class="dt">Hybrid Architectures</div><div class="dd">Combining attention layers with state-space or linear attention layers. Jamba (AI21) mixes Mamba and Transformer layers. Hybrids aim to get the best of both: global attention for reasoning, efficient processing for long contexts.</div></div>
+    <div class="detail-card"><div class="dt">Model Depth vs Width</div><div class="dd">More layers (deeper) vs wider layers (more parameters per layer). Deeper models tend to reason better but are slower. Wider models process faster but may reason less deeply. Scaling laws help labs find optimal proportions.</div><div class="dl"><a href="data-to-model.html">Data to Model</a></div></div>
+    <div class="detail-card"><div class="dt">Vision and Multimodal Architectures</div><div class="dd">Vision Transformers (ViT) apply attention to image patches. Multimodal models combine text transformers with vision encoders (CLIP, SigLIP). Diffusion models use a completely different architecture for image generation.</div><div class="dl"><a href="../level-1/multimodal-ai.html">Multimodal AI</a></div></div>
+  </div>
 
   <div class="section-title">Key Terms</div>
   <div class="terms-grid">
-    <div class="term-card"><strong>MoE</strong><span>Mixture of Experts — architecture that routes inputs to specialized sub-networks, activating only a fraction of total parameters.</span></div>
-    <div class="term-card"><strong>Decoder-Only</strong><span>Transformer variant that generates text autoregressively — the dominant architecture for modern LLMs.</span></div>
-    <div class="term-card"><strong>State-Space Model</strong><span>Alternative to attention that processes sequences in linear time rather than quadratic.</span></div>
+    <div class="term-card"><strong>MoE</strong><span>Mixture of Experts — architecture that routes each token to specialized sub-networks, using only a fraction of total parameters per forward pass.</span></div>
+    <div class="term-card"><strong>Decoder-Only</strong><span>Transformer variant that generates text autoregressively by predicting one token at a time — the dominant architecture for modern LLMs.</span></div>
+    <div class="term-card"><strong>State-Space Model</strong><span>Alternative to attention (Mamba, S4) that processes sequences in linear O(n) time rather than quadratic O(n^2).</span></div>
+    <div class="term-card"><strong>Grouped Query Attention</strong><span>Memory optimization where multiple attention heads share key/value projections, reducing KV cache memory 4-8x.</span></div>
   </div>
+
+  <div class="section-title">Practical Tips</div>
+  <div class="tip-box"><ul>
+    <li>When choosing a model, check if it's dense or MoE — MoE models need more RAM but run faster per token, which matters for real-time applications</li>
+    <li>For embedding and classification tasks, encoder models (BERT variants) are still better and far cheaper than using LLMs via their API</li>
+    <li>Watch the state-space model space (Mamba, RWKV) — if they close the quality gap with transformers, they will enable much cheaper inference on long documents</li>
+  </ul></div>
 
     <div class="section-title">Related Community Discussions</div>
     <div class="related-topics">
       <a href="#">Models</a>
+      <a href="#">Video Content</a>
     </div>
 
   <div class="nav-links">
