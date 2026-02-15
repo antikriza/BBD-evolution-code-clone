@@ -1,0 +1,40 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(node build-pages.js:*)",
+      "WebFetch(domain:learn.evocoders.ai)",
+      "Bash(node build-basic-theory.js:*)",
+      "Bash(node -e:*)",
+      "Bash(node build-all.js:*)",
+      "Bash(file:*)",
+      "WebSearch",
+      "WebFetch(domain:core.telegram.org)",
+      "Bash(lsof:*)",
+      "Bash(xargs kill:*)",
+      "Bash(git add:*)",
+      "Bash(git reset:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(git config:*)",
+      "Bash(curl:*)",
+      "Bash(gh api:*)",
+      "Bash(gh repo edit:*)",
+      "Bash(node:*)",
+      "Bash(/tmp/extract.js:*)",
+      "Bash(/tmp/extract-level5.js << 'EOF'\nconst fs = require\\('fs'\\);\nconst content = fs.readFileSync\\('/Users/selik/Documents/GitHub/BBD-evolution-code-clone/telegram-archive/course/build-all.js', 'utf-8'\\);\n\n// Find the level 5 section\nconst level5Start = content.indexOf\\('num: 5, emoji:'\\);\nconst level5End = content.indexOf\\('// ===', level5Start + 100\\);\nconst level5Content = content.substring\\(level5Start, level5End\\);\n\n// Extract topics specifically from level 5\nconst topicRegex = /slug: '\\([^']+\\)',\\\\s*title: \\\\{\\\\s*en: '\\([^']*\\(?:\\\\\\\\'[^']*\\)*\\)',\\\\s*uk: '\\([^']*\\(?:\\\\\\\\'[^']*\\)*\\)'\\\\s*\\\\},\\\\s*desc: \\\\{\\\\s*en: '\\([^']*\\(?:\\\\\\\\'[^']*\\)*\\)',\\\\s*uk: '\\([^']*\\(?:\\\\\\\\'[^']*\\)*\\)'/g;\n\nlet match;\nconst level5Topics = [];\n\nwhile \\(\\(match = topicRegex.exec\\(level5Content\\)\\) !== null\\) {\n  level5Topics.push\\({\n    slug: match[1],\n    titleEN: match[2].replace\\(/\\\\\\\\'/g, \"'\"\\),\n    titleUK: match[3].replace\\(/\\\\\\\\'/g, \"'\"\\),\n    descEN: match[4].replace\\(/\\\\\\\\'/g, \"'\"\\),\n    descUK: match[5].replace\\(/\\\\\\\\'/g, \"'\"\\)\n  }\\);\n}\n\nconsole.log\\('LEVEL 5 - All Topics:\\\\n'\\);\nlevel5Topics.forEach\\(\\(topic, idx\\) => {\n  console.log\\(`${idx + 1}. slug: ${topic.slug}`\\);\n  console.log\\(`   EN: ${topic.titleEN}`\\);\n  console.log\\(`   UK: ${topic.titleUK}`\\);\n  console.log\\(`   descEN: ${topic.descEN}`\\);\n  console.log\\(`   descUK: ${topic.descUK}`\\);\n  console.log\\(''\\);\n}\\);\n\nconsole.log\\(`\\\\nTotal Level 5 topics: ${level5Topics.length}`\\);\nEOF)",
+      "Bash(gh repo view:*)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(gh repo fork:*)",
+      "Bash(go build:*)",
+      "Bash(/Users/selik/Documents/GitHub/BBD-evolution-code-clone/LOGS/claude-edit.log << 'LOGEOF'\n[2026-02-07 12:30:00] EDIT: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/evo-bot-go/README.md\nDescription: Complete rewrite — rebranded from \"Evocoders Telegram Bot\" to \"AI & Programming Course Bot\", updated Go badge to 1.23+, added Quick Start section with .env.example, added fork attribution, added Course Integration section, added architecture tree diagram, restructured Configuration into Required/Topic IDs/Optional tables, condensed Testing section, added Upstream section listing fork changes, simplified Database table to single-column\nOld content: Evocoders Club branding, Go 1.21+ badge, verbose Windows set commands, detailed test instructions\nNew content: AI & Programming Course Bot, Go 1.23+, Quick Start, fork note, architecture tree, compact tables, Upstream section\n---\n[2026-02-07 12:30:00] EDIT: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/evo-bot-go/CLAUDE.md\nDescription: Rewritten — added project context \\(fork info, Mini App URL\\), restructured architecture as table, added entry point flow, documented handler contexts, key services, and important patterns\nOld content: \"Evocoders Club\" references, prose-style architecture description\nNew content: Fork context, tabular architecture, entry point flow, handler/service details\n---\nLOGEOF)",
+      "Bash(python3:*)",
+      "Bash([ \"$desc\" != \"Bad Request: method is available only for supergroups\" ])",
+      "Bash(then echo \"Thread $tid: ok=$ok desc=$desc\" else echo \"Thread $tid: EXISTS \\(topic not modified = it exists\\)\" fi done)",
+      "Bash(docker compose up:*)",
+      "Bash(docker compose:*)",
+      "Bash(docker network:*)"
+    ]
+  }
+}

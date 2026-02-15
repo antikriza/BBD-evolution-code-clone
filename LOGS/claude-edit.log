@@ -97,3 +97,159 @@ Description: Telegram-ready posts in English for all 42 course topics + 5 level 
 [2026-02-07 18:15:00] CREATE: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/telegram-archive/course/docs/telegram-posts-uk.md
 Description: Telegram-ready posts in Ukrainian for all 42 course topics + 5 level overview posts + full course link. Same structure as EN version, fully translated.
 ---
+[2026-02-07 19:00:00] EDIT: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/evo-bot-go/internal/services/permissions_service.go
+Description: Translated all Russian strings to English (3 strings: admin-only message, private-chat-only message, club-member-only message)
+Old content: "Эта команда доступна только администраторам.", "*Прошу прощения*...", "Эта команда доступна только участникам клуба."
+New content: "This command is only available to administrators.", "*My apologies*...", "This command is only available to group members."
+---
+[2026-02-07 19:00:00] EDIT: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/evo-bot-go/internal/services/random_coffee_service.go
+Description: Translated all Russian strings to English (9 strings: poll intro message, poll question, poll options, error messages, pairing header, unpaired user text, meeting instructions, profile link text)
+Old content: "Привет! Открываю запись...", "Будешь участвовать...", "Да!", "Не в этот раз", "Пары для рандом кофе", "без пары и ищет компанию", "профиль", etc.
+New content: "Hey! Opening registration...", "Will you participate...", "Yes!", "Not this time", "Random Coffee pairs", "is unpaired and looking for company", "profile", etc.
+---
+[2026-02-07 19:00:00] EDIT: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/evo-bot-go/internal/services/message_sender_service.go
+Description: Translated Russian greetings to English in the greetings array (replaced "Ку!", "Приветы!", "Дзень добры!", "Пинг!" with "Hey!", "Hello!", "Howdy!", "Hi there!")
+Old content: "Ку!", "Приветы!", "Дзень добры!", "Пинг!"
+New content: "Hey!", "Hello!", "Howdy!", "Hi there!"
+---
+[2026-02-07 19:00:00] EDIT: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/evo-bot-go/internal/services/grouphandlersservices/clean_closed_threads_service.go
+Description: Translated the notification message sent to users when their message is deleted from a read-only channel
+Old content: "Приношу свои извинения... Твоё сообщение в канале... было удалено... Копия твоего сообщения"
+New content: "My apologies... Your message in the channel... has been removed... A copy of your message"
+---
+[2026-02-07 19:00:00] EDIT: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/evo-bot-go/internal/services/grouphandlersservices/randomcofee_poll_answers_service.go
+Description: Translated two ban/bot notification messages to English
+Old content: "К сожалению, участие в опросе Random Coffee для ботов недоступно...", "К сожалению, участие в опросе Random Coffee для тебя недоступно..."
+New content: "Unfortunately, bots cannot participate in the Random Coffee poll...", "Unfortunately, you cannot participate in the Random Coffee poll because you are banned..."
+---
+[2026-02-07 19:00:00] EDIT: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/evo-bot-go/internal/services/grouphandlersservices/replies_from_closed_threads_service.go
+Description: Translated reply forwarding prefix text from Russian to English
+Old content: "oтвет @%s на сообщение в канале", "oтвет @%s на", "сообщение"
+New content: "reply by @%s to a message in channel", "reply by @%s to a", "message"
+---
+[2026-02-07 19:30:00] EDIT: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/evo-bot-go/internal/handlers/privatehandlers/profile_handler.go
+Description: Translated all Russian strings to English (~30 strings: menu headers, field labels, status messages, error messages, profile publish notifications, cancel messages)
+Old content: "Меню \"Профиль\"", "Профиль → Редактирование", "└ ❌ Имя", "Тут ты можешь редактировать свой профиль...", "обновлённую биографию", etc.
+New content: "Profile Menu", "Profile → Edit", "└ ❌ First Name", "Here you can edit your profile...", "your updated bio", etc.
+---
+[2026-02-07 19:30:00] EDIT: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/evo-bot-go/internal/handlers/privatehandlers/tools_handler.go
+Description: Translated all Russian strings to English (~12 strings: search prompts, empty query messages, search type labels, error messages, cancel messages)
+Old content: "Пришли мне поисковый запрос по инструментам:", "быстрый", "глубокий", "Ищу информацию по запросу:", "Операция поиска инструментов отменена.", etc.
+New content: "Send me a search query for tools:", "fast", "deep", "Searching for:", "Tool search operation cancelled.", etc.
+---
+[2026-02-07 19:30:00] EDIT: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/evo-bot-go/internal/handlers/privatehandlers/content_handler.go
+Description: Translated all Russian strings to English (~12 strings: search prompts, empty query messages, search type labels, error messages, cancel messages)
+Old content: "Пришли мне поисковый запрос по контенту:", "быстрый", "глубокий", "Ищу информацию по запросу:", "Операция поиска контента отменена.", etc.
+New content: "Send me a search query for content:", "fast", "deep", "Searching for:", "Content search operation cancelled.", etc.
+---
+[2026-02-07 19:30:00] EDIT: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/evo-bot-go/internal/handlers/privatehandlers/events_handler.go
+Description: Translated all Russian strings to English (~5 strings: error messages, empty events, event list header, topic commands, calendar link removed)
+Old content: "Ошибка при получении списка мероприятий.", "📋 Список ближайших мероприятий", "Больше информации о мероприятиях смотри в [клубном календаре](https://itbeard.com/s/evo-calendar).", etc.
+New content: "Error retrieving the list of events.", "📋 Upcoming Events", "For more event information, check the group for updates.", etc.
+---
+[2026-02-07 19:30:00] EDIT: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/evo-bot-go/internal/handlers/privatehandlers/intro_handler.go
+Description: Translated all Russian strings to English (~12 strings: search prompts, member search intro, search type labels, error messages, cancel messages)
+Old content: "Для быстрого полнотекстового поиска...", "Пришли мне поисковый запрос для интеллектуального поиска по участникам клуба.", "Поиск отменён.", etc.
+New content: "For a quick full-text search...", "Send me a search query for an AI-powered search across group members.", "Search cancelled.", etc.
+---
+[2026-02-07 19:30:00] EDIT: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/evo-bot-go/internal/handlers/privatehandlers/topicshandlers/topic_add_handler.go
+Description: Translated all Russian strings to English (~12 strings: event list errors, event selection prompts, topic entry prompts, admin notifications, success/error/cancel messages)
+Old content: "Выбери ID мероприятия, к которому ты хочешь закинуть темы или вопросы", "Отправь мне темы и вопросы к мероприятию", "Новая тема добавлена", "Операция добавления темы отменена.", etc.
+New content: "Select the event ID you want to add topics or questions to", "Send me topics and questions for the event", "New topic added", "Topic addition operation cancelled.", etc.
+---
+[2026-02-07 19:30:00] EDIT: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/evo-bot-go/internal/handlers/privatehandlers/topicshandlers/topics_handler.go
+Description: Translated all Russian strings to English (~7 strings: event list errors, event selection prompts, topic retrieval errors, cancel messages)
+Old content: "Выбери ID мероприятия, для которого ты хочешь увидеть темы и вопросы", "Ошибка при получении тем и вопросов для выбранного мероприятия.", "Операция просмотра тем отменена.", etc.
+New content: "Select the event ID for which you want to see topics and questions", "Error retrieving topics and questions for the selected event.", "Topic viewing operation cancelled.", etc.
+---
+[2026-02-07 20:00:00] EDIT: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/evo-bot-go/internal/handlers/adminhandlers/profiles_manager_handler.go
+Description: Translated all Russian strings to English. Menu headers (e.g. "Менеджер профилей" -> "Profile Manager"), user prompts, validation errors, search/create messages, field labels, profile publishing messages, coffee ban status texts, success/cancel messages. ~35 string literals translated.
+---
+[2026-02-07 20:00:00] EDIT: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/evo-bot-go/internal/handlers/adminhandlers/show_topics_handler.go
+Description: Translated all Russian strings to English. Event list title, action descriptions, error/success messages for topic viewing and deletion, cancel messages. ~15 string literals translated.
+---
+[2026-02-07 20:00:00] EDIT: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/evo-bot-go/internal/handlers/adminhandlers/eventhandlers/event_delete_handler.go
+Description: Translated all Russian strings to English. Error messages, list title, action description, confirmation prompt, success/cancel messages, fallback name. ~12 string literals translated.
+---
+[2026-02-07 20:00:00] EDIT: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/evo-bot-go/internal/handlers/adminhandlers/eventhandlers/event_edit_handler.go
+Description: Translated all Russian strings to English. List title, action descriptions, edit type menu, field labels, validation messages, success/cancel messages. ~25 string literals translated.
+---
+[2026-02-07 20:00:00] EDIT: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/evo-bot-go/internal/handlers/adminhandlers/eventhandlers/event_setup_handler.go
+Description: Translated all Russian strings to English. Name/type/date prompts, validation messages, error messages, success/cancel messages. ~15 string literals translated.
+---
+[2026-02-07 20:00:00] EDIT: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/evo-bot-go/internal/handlers/adminhandlers/eventhandlers/event_start_handler.go
+Description: Translated all Russian strings to English. Confirmation constants ("yes"/"no"), event list, link prompts, confirmation dialog, announcement message, Zoom button text, club call rules link text, success/cancel messages. ~20 string literals translated.
+---
+[2026-02-07 20:00:00] EDIT: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/evo-bot-go/internal/handlers/adminhandlers/testhandlers/try_create_coffee_pool_handler.go
+Description: Translated all Russian strings to English. Menu header, warning/confirmation prompts, processing/error/success messages, cancel message, code comments. ~8 string literals translated.
+---
+[2026-02-07 20:00:00] EDIT: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/evo-bot-go/internal/handlers/adminhandlers/testhandlers/try_generate_coffee_pairs_handler.go
+Description: Translated all Russian strings to English. Menu header, error messages, confirmation prompt with poll details, processing/error/success messages, cancel message. ~10 string literals translated.
+---
+[2026-02-07 20:00:00] EDIT: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/evo-bot-go/internal/handlers/adminhandlers/testhandlers/try_summarize_handler.go
+Description: Translated all Russian strings to English. Admin-only error, summarization confirmation prompt, cancel messages, processing/error/success messages, button prompt. ~8 string literals translated.
+---
+[2026-02-07 20:30:00] FORK: https://github.com/it-beard/evo-bot-go -> /Users/selik/Documents/GitHub/BBD-evolution-code-clone/evo-bot-go
+Description: Forked evo-bot-go Telegram community bot for customization
+---
+[2026-02-07 20:30:00] CREATE: evo-bot-go/.env.example
+Description: Environment variable template with all required and optional configuration for the bot
+---
+[2026-02-07 20:30:00] EDIT: evo-bot-go/internal/constants/handlers_private_constants.go
+Description: Removed Эволюция Кода copyright string
+---
+[2026-02-07 20:30:00] EDIT: evo-bot-go/internal/handlers/start_handler.go
+Description: Replaced bot persona (Дженкинс Вебстер / Эволюция Кода) with "AI & Programming Course Bot". Added Mini App link button for group members.
+---
+[2026-02-07 20:30:00] EDIT: evo-bot-go/internal/formatters/help_message_formatter.go
+Description: Translated entire help message from Russian to English. Updated all command descriptions. Replaced evocoders guide link with Mini App course link.
+---
+[2026-02-07 20:30:00] EDIT: evo-bot-go/internal/formatters/event_formatters.go
+Description: Translated all Russian strings to English. Renamed GetTypeInRussian to GetTypeName. Translated event types, date formats, topic lists, admin prompts.
+---
+[2026-02-07 20:30:00] EDIT: evo-bot-go/internal/formatters/profile_formaters.go
+Description: Translated all Russian strings to English (profile view, admin manager view, public profile).
+---
+[2026-02-07 20:30:00] EDIT: evo-bot-go/internal/database/prompts/tool_prompt.go
+Description: Translated entire AI search prompt from Russian to English.
+---
+[2026-02-07 20:30:00] EDIT: evo-bot-go/internal/database/prompts/content_prompt.go
+Description: Translated entire AI content search prompt from Russian to English.
+---
+[2026-02-07 20:30:00] EDIT: evo-bot-go/internal/database/prompts/intro_prompt.go
+Description: Translated entire AI intro search prompt from Russian to English. Replaced "Эволюция Кода" with generic "group members".
+---
+[2026-02-07 20:30:00] EDIT: evo-bot-go/internal/database/prompts/summarization_prompt.go
+Description: Translated entire daily summarization prompt from Russian to English.
+---
+[2026-02-07 20:30:00] EDIT: evo-bot-go/internal/handlers/adminhandlers/testhandlers/try_link_to_learn_handler.go
+Description: Replaced Эволюция Кода knowledge base link with Mini App course link.
+---
+[2026-02-07 20:30:00] EDIT: evo-bot-go/internal/buttons/general_buttons.go
+Description: Translated all button labels from Russian to English (Cancel, Confirm, Back, Fast, Deep).
+---
+[2026-02-07 20:30:00] EDIT: evo-bot-go/internal/buttons/profile_handler_buttons.go
+Description: Translated all profile button labels from Russian to English (Edit, Search, First Name, Last Name, Bio, Back, Cancel).
+---
+[2026-02-07 20:30:00] EDIT: evo-bot-go/internal/buttons/profiles_manager_handler_buttons.go
+Description: Translated all admin profile manager button labels from Russian to English (Search by Username/ID/Name, Create profile, Publish, Coffee ban toggle).
+---
+[2026-02-07 20:30:00] EDIT: evo-bot-go/internal/services/summarization_service.go
+Description: Translated chat summary title from Russian to English.
+---
+[2026-02-07 20:30:00] EDIT: evo-bot-go/internal/services/grouphandlersservices/admin_save_message_service.go
+Description: Translated 3 admin notification messages from Russian to English (failed to update, successfully added/updated, successfully deleted).
+---
+[2026-02-07 20:30:00] EDIT: evo-bot-go/.gitignore
+Description: Added .env to gitignore to prevent committing secrets.
+---
+[2026-02-07 12:30:00] EDIT: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/evo-bot-go/README.md
+Description: Complete rewrite — rebranded from "Evocoders Telegram Bot" to "AI & Programming Course Bot", updated Go badge to 1.23+, added Quick Start section with .env.example, added fork attribution, added Course Integration section, added architecture tree diagram, restructured Configuration into Required/Topic IDs/Optional tables, condensed Testing section, added Upstream section listing fork changes, simplified Database table to single-column
+Old content: Evocoders Club branding, Go 1.21+ badge, verbose Windows set commands, detailed test instructions
+New content: AI & Programming Course Bot, Go 1.23+, Quick Start, fork note, architecture tree, compact tables, Upstream section
+---
+[2026-02-07 12:30:00] EDIT: /Users/selik/Documents/GitHub/BBD-evolution-code-clone/evo-bot-go/CLAUDE.md
+Description: Rewritten — added project context (fork info, Mini App URL), restructured architecture as table, added entry point flow, documented handler contexts, key services, and important patterns
+Old content: "Evocoders Club" references, prose-style architecture description
+New content: Fork context, tabular architecture, entry point flow, handler/service details
+---
