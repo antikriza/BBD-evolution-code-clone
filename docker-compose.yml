@@ -1,0 +1,22 @@
+services:
+  web:
+    build: .
+    container_name: bbd-evolution-site
+    ports:
+      - "8888:80"
+    restart: unless-stopped
+
+  bot:
+    build: ./bot
+    container_name: bbd-evolution-bot
+    env_file:
+      - .env
+    volumes:
+      - ./telegram-archive/course/course-data.json:/app/data/course-data.json:ro
+      - bot-state:/app/state
+    depends_on:
+      - web
+    restart: unless-stopped
+
+volumes:
+  bot-state:

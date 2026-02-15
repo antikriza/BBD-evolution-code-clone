@@ -17,9 +17,16 @@ const fs = require('fs');
 const path = require('path');
 
 // ============================================================
-// UI TRANSLATIONS
+// COURSE DATA (loaded from shared JSON)
 // ============================================================
-const ui = {
+const _courseData = JSON.parse(fs.readFileSync(path.join(__dirname, 'course-data.json'), 'utf8'));
+const ui = _courseData.ui;
+const levels = _courseData.levels;
+
+// ============================================================
+// ORIGINAL INLINE DATA (kept for reference, skipped at runtime)
+// ============================================================
+const _ui_unused = {
   en: {
     lang: 'en',
     langName: 'English',
@@ -151,9 +158,9 @@ const ui = {
 };
 
 // ============================================================
-// BASIC THEORY COURSE DATA (both languages)
+// BASIC THEORY COURSE DATA (both languages) — original inline data
 // ============================================================
-const levels = [
+const _levels_unused = [
   {
     num: 1, emoji: '🌱',
     title: { en: 'Beginner', uk: 'Новачок' },
