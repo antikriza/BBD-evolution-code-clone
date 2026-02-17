@@ -1,8 +1,15 @@
 const { InlineKeyboard } = require('grammy');
 const config = require('../config');
+const { startOnboarding } = require('./onboarding');
 
 module.exports = function (bot) {
   bot.command('start', async (ctx) => {
+    // In private chat, check if user needs onboarding first
+    if (ctx.chat.type === 'private') {
+      const started = await startOnboarding(ctx);
+      if (started) return; // Onboarding in progress
+    }
+
     const lang = ctx.lang;
     const texts = {
       en: {

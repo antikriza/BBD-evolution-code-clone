@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PM AI Club — Bot User Journey</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #232733;
+    --border: #2e3345;
+    --text: #e1e4ed;
+    --muted: #8b8fa3;
+    --accent: #6c8cff;
+    --accent2: #a78bfa;
+    --green: #34d399;
+    --orange: #fb923c;
+    --pink: #f472b6;
+    --cyan: #22d3ee;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 0 20px;
+  }
+
+  .container { max-width: 960px; margin: 0 auto; padding: 60px 0 80px; }
+
+  h1 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .subtitle {
+    text-align: center;
+    color: var(--muted);
+    font-size: 1.1rem;
+    margin-bottom: 50px;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 50px 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  h2 .emoji { margin-right: 8px; }
+
+  h3 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin: 30px 0 12px;
+    color: var(--accent);
+  }
+
+  p { margin-bottom: 14px; color: var(--text); }
+
+  /* Journey flow */
+  .journey {
+    position: relative;
+    padding-left: 40px;
+    margin: 30px 0;
+  }
+  .journey::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--accent), var(--accent2), var(--green));
+  }
+  .step {
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 22px;
+    margin-bottom: 20px;
+  }
+  .step::before {
+    content: attr(data-num);
+    position: absolute;
+    left: -40px;
+    top: 18px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .step.green::before { background: var(--green); }
+  .step.orange::before { background: var(--orange); }
+  .step.pink::before { background: var(--pink); }
+  .step-title { font-weight: 600; font-size: 1.05rem; margin-bottom: 6px; }
+  .step-desc { color: var(--muted); font-size: 0.95rem; }
+  .step-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .step-options .opt {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 5px 14px;
+    font-size: 0.85rem;
+    color: var(--text);
+  }
+
+  /* Command cards */
+  .cmd-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 14px;
+    margin: 20px 0;
+  }
+  .cmd-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 20px;
+    transition: border-color 0.2s;
+  }
+  .cmd-card:hover { border-color: var(--accent); }
+  .cmd-name {
+    font-family: 'Consolas', 'Fira Code', monospace;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--accent);
+  }
+  .cmd-desc { font-size: 0.9rem; color: var(--muted); margin-top: 4px; }
+  .cmd-usage {
+    font-family: monospace;
+    font-size: 0.82rem;
+    color: var(--accent2);
+    background: var(--surface2);
+    padding: 3px 8px;
+    border-radius: 6px;
+    display: inline-block;
+    margin-top: 8px;
+  }
+
+  /* Level path */
+  .level-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px 26px;
+    margin-bottom: 16px;
+  }
+  .level-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .level-emoji { font-size: 1.8rem; }
+  .level-title { font-size: 1.2rem; font-weight: 600; }
+  .level-num {
+    font-size: 0.75rem;
+    font-weight: 700;
+    background: var(--accent);
+    color: #fff;
+    padding: 2px 10px;
+    border-radius: 20px;
+  }
+  .topic-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .topic-tag {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 4px 12px;
+    font-size: 0.85rem;
+    color: var(--text);
+    transition: border-color 0.2s;
+  }
+  .topic-tag:hover { border-color: var(--accent2); }
+  .topic-tag code {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-left: 4px;
+  }
+
+  /* Feature sections */
+  .feature-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0;
+  }
+  @media (max-width: 640px) { .feature-row { grid-template-columns: 1fr; } }
+  .feature-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .feature-box h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .feature-box p { color: var(--muted); font-size: 0.9rem; margin-bottom: 0; }
+
+  /* Info box */
+  .info-box {
+    background: var(--surface);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 12px 12px 0;
+    padding: 16px 22px;
+    margin: 20px 0;
+    color: var(--muted);
+    font-size: 0.92rem;
+  }
+  .info-box strong { color: var(--text); }
+
+  /* Schema table */
+  .schema-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 0.9rem;
+  }
+  .schema-table th, .schema-table td {
+    text-align: left;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .schema-table th {
+    font-weight: 600;
+    color: var(--muted);
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .schema-table td code {
+    font-size: 0.85rem;
+    color: var(--accent);
+  }
+
+  /* Nav */
+  .toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px 28px;
+    margin-bottom: 40px;
+  }
+  .toc-title { font-weight: 600; margin-bottom: 12px; }
+  .toc-list { list-style: none; }
+  .toc-list li { margin-bottom: 6px; }
+  .toc-list a {
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 0.95rem;
+  }
+  .toc-list a:hover { text-decoration: underline; }
+
+  /* Misc */
+  .badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 2px 10px;
+    border-radius: 20px;
+    margin-left: 8px;
+  }
+  .badge-dm { background: #1e3a5f; color: var(--cyan); }
+  .badge-group { background: #3b1f4a; color: var(--pink); }
+  .arrow { color: var(--muted); margin: 0 6px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <h1>PM AI Club Bot</h1>
+  <p class="subtitle">User Journey &amp; Complete Feature Guide</p>
+
+  <div class="toc">
+    <div class="toc-title">Contents</div>
+    <ul class="toc-list">
+      <li><a href="#new-user">1. New User Join Process</a></li>
+      <li><a href="#commands">2. All Bot Commands</a></li>
+      <li><a href="#group-behavior">3. Group Behavior</a></li>
+      <li><a href="#learning-path">4. Learning Path — 5 Levels, 42 Topics</a></li>
+      <li><a href="#interactive">5. Interactive Features</a></li>
+      <li><a href="#profile-data">6. User Profile &amp; Database</a></li>
+      <li><a href="#tech">7. Technical Architecture</a></li>
+    </ul>
+  </div>
+
+  <!-- ============================================ -->
+  <h2 id="new-user"><span class="emoji">👋</span> 1. New User Join Process</h2>
+
+  <p>When a new user joins the Telegram group, the bot automatically starts an onboarding flow to collect their profile and guide them into the course.</p>
+
+  <div class="journey">
+    <div class="step" data-num="1">
+      <div class="step-title">User Joins Group</div>
+      <div class="step-desc">Bot detects the <code>new_chat_members</code> event. If the user hasn't been onboarded yet, the bot attempts to send a welcome DM.</div>
+    </div>
+
+    <div class="step" data-num="2">
+      <div class="step-title">DM Welcome / Fallback Button</div>
+      <div class="step-desc">If the user has previously started a chat with the bot, they receive a DM directly. If not, the bot posts a temporary "Start introduction" button in the group (auto-deletes after 30s). Clicking it opens the bot DM with <code>/start onboard</code>.</div>
+    </div>
+
+    <div class="step orange" data-num="3">
+      <div class="step-title">Question 1 — Name</div>
+      <div class="step-desc">The bot asks: <strong>"What should we call you?"</strong> — the user types their name as free text.</div>
+    </div>
+
+    <div class="step orange" data-num="4">
+      <div class="step-title">Question 2 — Role</div>
+      <div class="step-desc">The bot asks: <strong>"What's your role?"</strong> — the user picks from buttons:</div>
+      <div class="step-options">
+        <span class="opt">Developer</span>
+        <span class="opt">Project Manager</span>
+        <span class="opt">Designer</span>
+        <span class="opt">Student</span>
+        <span class="opt">Other</span>
+      </div>
+    </div>
+
+    <div class="step orange" data-num="5">
+      <div class="step-title">Question 3 — AI Experience</div>
+      <div class="step-desc">The bot asks: <strong>"Your AI experience level?"</strong> — inline buttons:</div>
+      <div class="step-options">
+        <span class="opt">Beginner</span>
+        <span class="opt">Intermediate</span>
+        <span class="opt">Advanced</span>
+        <span class="opt">Expert</span>
+      </div>
+    </div>
+
+    <div class="step orange" data-num="6">
+      <div class="step-title">Question 4 — Interests (Multi-Select)</div>
+      <div class="step-desc">The bot asks: <strong>"What interests you?"</strong> — toggle multiple options, then press "Done":</div>
+      <div class="step-options">
+        <span class="opt">AI Models</span>
+        <span class="opt">Coding Tools</span>
+        <span class="opt">AI Agents</span>
+        <span class="opt">Prompt Engineering</span>
+        <span class="opt">Career</span>
+      </div>
+    </div>
+
+    <div class="step green" data-num="✓">
+      <div class="step-title">Profile Saved</div>
+      <div class="step-desc">The bot shows a summary of the profile and saves it to the SQLite database. The user can now use all bot commands. <code>/help</code> lists everything available.</div>
+    </div>
+  </div>
+
+  <div class="info-box">
+    <strong>Bilingual:</strong> All onboarding messages appear in the user's detected language (English or Ukrainian). Users can switch anytime with <code>/lang</code>.
+  </div>
+
+  <!-- ============================================ -->
+  <h2 id="commands"><span class="emoji">📋</span> 2. All Bot Commands</h2>
+
+  <h3>Course Navigation</h3>
+  <div class="cmd-grid">
+    <div class="cmd-card">
+      <div class="cmd-name">/course</div>
+      <div class="cmd-desc">Course overview — shows all 5 levels with topic counts. Click any level to drill down.</div>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-name">/level</div>
+      <div class="cmd-desc">View all topics within a specific level.</div>
+      <div class="cmd-usage">/level 3</div>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-name">/topic</div>
+      <div class="cmd-desc">Show topic details: overview, key terms, tips. Interactive buttons for deeper content.</div>
+      <div class="cmd-usage">/topic prompt</div>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-name">/glossary</div>
+      <div class="cmd-desc">Look up a key term from any topic. Fuzzy-matches across all 170 terms.</div>
+      <div class="cmd-usage">/glossary transformer</div>
+    </div>
+  </div>
+
+  <h3>Interactive</h3>
+  <div class="cmd-grid">
+    <div class="cmd-card">
+      <div class="cmd-name">/quiz</div>
+      <div class="cmd-desc">Random quiz question from course material. 4 question types: term matching, topic ID, level classification, true/false. Inline buttons for answers, with "Next question" button.</div>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-name">/random</div>
+      <div class="cmd-desc">Random tip or interesting fact from the course. Button to get another one.</div>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-name">/today</div>
+      <div class="cmd-desc">Topic of the day — rotates through all 42 topics based on the calendar date.</div>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-name">/search</div>
+      <div class="cmd-desc">Full-text search across titles, terms, details, tips. Scores &amp; ranks results.</div>
+      <div class="cmd-usage">/search neural network</div>
+    </div>
+  </div>
+
+  <h3>Community</h3>
+  <div class="cmd-grid">
+    <div class="cmd-card">
+      <div class="cmd-name">/rules</div>
+      <div class="cmd-desc">Group rules — respect, stay on-topic, no spam, questions welcome at all levels.</div>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-name">/links</div>
+      <div class="cmd-desc">Useful links — Course Mini App, English course, Ukrainian course.</div>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-name">/faq</div>
+      <div class="cmd-desc">Frequently asked questions about the course, quizzes, language, and searching.</div>
+    </div>
+  </div>
+
+  <h3>Settings</h3>
+  <div class="cmd-grid">
+    <div class="cmd-card">
+      <div class="cmd-name">/start</div>
+      <div class="cmd-desc">Welcome message with course link and language selector. Triggers onboarding if not completed.</div>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-name">/help</div>
+      <div class="cmd-desc">Full list of all available commands, grouped by category.</div>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-name">/lang</div>
+      <div class="cmd-desc">Switch between English and Ukrainian. Persists across sessions.</div>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <h2 id="group-behavior"><span class="emoji">💬</span> 3. Group Behavior</h2>
+
+  <div class="feature-row">
+    <div class="feature-box">
+      <h4>Commands in Group <span class="badge badge-group">GROUP</span></h4>
+      <p>When a user sends any command in the group chat, the bot <strong>deletes</strong> the command message immediately and sends the response to the user's <strong>private DM</strong> instead. A brief note ("check your DM") appears in the group for 5 seconds then auto-deletes.</p>
+    </div>
+    <div class="feature-box">
+      <h4>Commands in DM <span class="badge badge-dm">DM</span></h4>
+      <p>In private chat, commands work normally. Responses appear directly in the conversation with full interactive keyboards.</p>
+    </div>
+  </div>
+
+  <div class="info-box">
+    <strong>First-time DM:</strong> If a user hasn't started the bot in DM yet, the bot posts a temporary "Start chat with bot" button in the group (auto-deletes after 15s). The user clicks it to open the bot, then commands redirect to DM.
+  </div>
+
+  <!-- ============================================ -->
+  <h2 id="learning-path"><span class="emoji">🎓</span> 4. Learning Path — 5 Levels, 42 Topics</h2>
+
+  <p>The course follows a progressive structure from fundamentals to frontier concepts. Use <code>/course</code> to browse, <code>/level N</code> to explore a level, <code>/topic name</code> for deep dives.</p>
+
+  <div class="level-card">
+    <div class="level-header">
+      <span class="level-emoji">🌱</span>
+      <span class="level-title">Level 1 — Beginner</span>
+      <span class="level-num">9 topics</span>
+    </div>
+    <p style="color: var(--muted); font-size: 0.9rem; margin-bottom: 10px;">Core AI concepts: what generative AI is, who the major players are, and how models work at a high level.</p>
+    <div class="topic-list">
+      <span class="topic-tag">Generative AI <code>/topic generative-ai</code></span>
+      <span class="topic-tag">The Big Players <code>/topic big-players</code></span>
+      <span class="topic-tag">LLM and GPT <code>/topic llm-and-gpt</code></span>
+      <span class="topic-tag">Diffusion Models <code>/topic diffusion-models</code></span>
+      <span class="topic-tag">Multimodality <code>/topic multimodality</code></span>
+      <span class="topic-tag">Reasoning <code>/topic reasoning</code></span>
+      <span class="topic-tag">Foundation Models <code>/topic foundation-models</code></span>
+      <span class="topic-tag">Data Classification <code>/topic data-classification</code></span>
+      <span class="topic-tag">SOTA <code>/topic sota</code></span>
+    </div>
+  </div>
+
+  <div class="level-card">
+    <div class="level-header">
+      <span class="level-emoji">💡</span>
+      <span class="level-title">Level 2 — User</span>
+      <span class="level-num">5 topics</span>
+    </div>
+    <p style="color: var(--muted); font-size: 0.9rem; margin-bottom: 10px;">Practical skills: how to interact with AI effectively — prompts, tokens, context, common pitfalls.</p>
+    <div class="topic-list">
+      <span class="topic-tag">Prompt <code>/topic prompt</code></span>
+      <span class="topic-tag">Token <code>/topic token</code></span>
+      <span class="topic-tag">Context <code>/topic context</code></span>
+      <span class="topic-tag">Hallucinations <code>/topic hallucination</code></span>
+      <span class="topic-tag">Vibecoding <code>/topic vibecoding</code></span>
+    </div>
+  </div>
+
+  <div class="level-card">
+    <div class="level-header">
+      <span class="level-emoji">⚡</span>
+      <span class="level-title">Level 3 — Professional</span>
+      <span class="level-num">5 topics</span>
+    </div>
+    <p style="color: var(--muted); font-size: 0.9rem; margin-bottom: 10px;">Technical depth: neural networks, training, fine-tuning, model optimization and architecture types.</p>
+    <div class="topic-list">
+      <span class="topic-tag">Neural Networks <code>/topic neural-networks</code></span>
+      <span class="topic-tag">Data to Model <code>/topic data-to-model</code></span>
+      <span class="topic-tag">Training &amp; Fine-tuning <code>/topic training-finetuning</code></span>
+      <span class="topic-tag">Model Optimization <code>/topic model-optimization</code></span>
+      <span class="topic-tag">Model Types <code>/topic model-types</code></span>
+    </div>
+  </div>
+
+  <div class="level-card">
+    <div class="level-header">
+      <span class="level-emoji">🚀</span>
+      <span class="level-title">Level 4 — Master</span>
+      <span class="level-num">10 topics</span>
+    </div>
+    <p style="color: var(--muted); font-size: 0.9rem; margin-bottom: 10px;">Applied mastery: prompting techniques, agents, RAG, frameworks, APIs, hardware, and protocols.</p>
+    <div class="topic-list">
+      <span class="topic-tag">Prompting Techniques <code>/topic prompting-techniques</code></span>
+      <span class="topic-tag">Tools &amp; Libraries <code>/topic base-tools</code></span>
+      <span class="topic-tag">Agents <code>/topic agents</code></span>
+      <span class="topic-tag">Tool Use <code>/topic tool-use</code></span>
+      <span class="topic-tag">RAG <code>/topic rag</code></span>
+      <span class="topic-tag">Frameworks <code>/topic frameworks</code></span>
+      <span class="topic-tag">Model Formats <code>/topic model-formats</code></span>
+      <span class="topic-tag">AI Protocols <code>/topic ai-protocols</code></span>
+      <span class="topic-tag">Hardware <code>/topic hardware</code></span>
+      <span class="topic-tag">API Providers <code>/topic api-providers</code></span>
+    </div>
+  </div>
+
+  <div class="level-card">
+    <div class="level-header">
+      <span class="level-emoji">🌌</span>
+      <span class="level-title">Level 5 — Horizons</span>
+      <span class="level-num">13 topics</span>
+    </div>
+    <p style="color: var(--muted); font-size: 0.9rem; margin-bottom: 10px;">Frontier thinking: AGI, ASI, singularity, alignment, safety, decentralization, and philosophical perspectives.</p>
+    <div class="topic-list">
+      <span class="topic-tag">AGI <code>/topic agi</code></span>
+      <span class="topic-tag">ASI <code>/topic asi</code></span>
+      <span class="topic-tag">Singularity <code>/topic singularity</code></span>
+      <span class="topic-tag">Intelligence Explosion <code>/topic intelligence-explosion</code></span>
+      <span class="topic-tag">Transhumanism <code>/topic transhumanism</code></span>
+      <span class="topic-tag">Spatial Intelligence <code>/topic spatial-intelligence</code></span>
+      <span class="topic-tag">World Model <code>/topic world-model</code></span>
+      <span class="topic-tag">Techno-Optimists <code>/topic accelerationists</code></span>
+      <span class="topic-tag">Techno-Pessimists <code>/topic doomers</code></span>
+      <span class="topic-tag">AI Safety <code>/topic ai-safety</code></span>
+      <span class="topic-tag">AI Alignment <code>/topic alignment</code></span>
+      <span class="topic-tag">Explainable AI <code>/topic explainable-ai</code></span>
+      <span class="topic-tag">Decentralized AI <code>/topic decentralized-ai</code></span>
+    </div>
+  </div>
+
+  <div class="info-box">
+    <strong>Suggested learning path:</strong> Start at Level 1 and progress sequentially. Each topic includes an overview, detailed breakdown, key terms, and practical tips. Use <code>/quiz</code> after each level to test your knowledge. Use <code>/today</code> for daily micro-learning.
+  </div>
+
+  <!-- ============================================ -->
+  <h2 id="interactive"><span class="emoji">🎮</span> 5. Interactive Features</h2>
+
+  <div class="feature-row">
+    <div class="feature-box">
+      <h4>Quiz System</h4>
+      <p><code>/quiz</code> generates questions from course data with 4 types: term-definition matching (40%), topic identification (25%), level classification (20%), true/false tips (15%). Each question shows the correct answer with explanation. "Next question" button chains quizzes.</p>
+    </div>
+    <div class="feature-box">
+      <h4>Random Tips &amp; Facts</h4>
+      <p><code>/random</code> pulls a random tip or fact from the pool of 126 tips. Each shows the source topic and level. "Another" button to keep exploring.</p>
+    </div>
+  </div>
+
+  <div class="feature-row">
+    <div class="feature-box">
+      <h4>Full-Text Search</h4>
+      <p><code>/search keyword</code> searches across titles, overviews, details, key terms, and tips. Results are scored and ranked by relevance (title matches score highest). Shows top 5 results with snippets.</p>
+    </div>
+    <div class="feature-box">
+      <h4>Topic Navigation</h4>
+      <p>Topic cards include inline buttons: "Key Terms", "Tips", "Back to Level", "Back to Course". Navigation is fully keyboard-driven — no need to type commands once inside the course flow.</p>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <h2 id="profile-data"><span class="emoji">👤</span> 6. User Profile &amp; Database</h2>
+
+  <p>Every user who interacts with the bot gets a profile stored in SQLite. Onboarding enriches the profile with self-reported data for future analytics.</p>
+
+  <table class="schema-table">
+    <thead>
+      <tr><th>Field</th><th>Description</th><th>Source</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>telegram_id</code></td><td>Unique Telegram user ID</td><td>Auto (Telegram)</td></tr>
+      <tr><td><code>username</code></td><td>Telegram @username</td><td>Auto (Telegram)</td></tr>
+      <tr><td><code>first_name</code></td><td>Telegram first name</td><td>Auto (Telegram)</td></tr>
+      <tr><td><code>display_name</code></td><td>User's preferred name</td><td>Onboarding Q1</td></tr>
+      <tr><td><code>role</code></td><td>developer / pm / designer / student / other</td><td>Onboarding Q2</td></tr>
+      <tr><td><code>experience</code></td><td>beginner / intermediate / advanced / expert</td><td>Onboarding Q3</td></tr>
+      <tr><td><code>interests</code></td><td>Comma-separated: ai-models, coding-tools, agents, prompt-eng, career</td><td>Onboarding Q4</td></tr>
+      <tr><td><code>lang</code></td><td>en or uk</td><td>Auto-detected / /lang</td></tr>
+      <tr><td><code>onboarding_step</code></td><td>0–4 (current question)</td><td>System</td></tr>
+      <tr><td><code>onboarding_complete</code></td><td>0 or 1</td><td>System</td></tr>
+      <tr><td><code>joined_at</code></td><td>First interaction timestamp</td><td>Auto</td></tr>
+      <tr><td><code>updated_at</code></td><td>Last update timestamp</td><td>Auto</td></tr>
+    </tbody>
+  </table>
+
+  <div class="info-box">
+    <strong>Data persistence:</strong> SQLite database at <code>/app/state/bot.db</code>, persisted via Docker named volume <code>bot-state</code>. Survives container rebuilds and restarts. Only <code>docker compose down -v</code> would delete it.
+  </div>
+
+  <!-- ============================================ -->
+  <h2 id="tech"><span class="emoji">🔧</span> 7. Technical Architecture</h2>
+
+  <div class="feature-row">
+    <div class="feature-box">
+      <h4>Stack</h4>
+      <p>Node.js 20 + grammY (Telegram Bot framework) + better-sqlite3. Docker Alpine containers. nginx for static course site.</p>
+    </div>
+    <div class="feature-box">
+      <h4>Course Data</h4>
+      <p>676KB JSON extracted from build-all.js. 5 levels, 42 topics, 170 terms (per language), 126 tips (per language). Shared between web build and bot.</p>
+    </div>
+  </div>
+
+  <div class="feature-row">
+    <div class="feature-box">
+      <h4>Middleware Chain</h4>
+      <p>1. Language detection → 2. Course data → 3. DB user profile → 4. Group-to-DM redirect → 5. Onboarding → 6. Command handlers → 7. Callback router</p>
+    </div>
+    <div class="feature-box">
+      <h4>Bilingual Support</h4>
+      <p>Auto-detected from Telegram language_code (uk/ru → Ukrainian, else English). Persisted per-user in file + SQLite. Switchable via /lang at any time.</p>
+    </div>
+  </div>
+
+  <p style="text-align: center; color: var(--muted); margin-top: 60px; font-size: 0.85rem;">
+    PM AI Club — Mentor: Oleksandr Selivanskyi (@selivansky)
+  </p>
+
+</div>
+</body>
+</html>

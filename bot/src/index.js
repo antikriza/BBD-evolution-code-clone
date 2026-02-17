@@ -20,7 +20,23 @@ bot.use((ctx, next) => {
   return next();
 });
 
-// Register handlers
+// DB user profile middleware
+const { ensureUser, getUser } = require('./db/users');
+bot.use((ctx, next) => {
+  const userId = ctx.from?.id;
+  if (userId) {
+    ensureUser(userId, ctx.from.username, ctx.from.first_name, ctx.lang);
+    ctx.userProfile = getUser(userId);
+  }
+  return next();
+});
+
+// Group commands -> DM redirect
+const { groupDmMiddleware } = require('./middleware/group-dm');
+groupDmMiddleware(bot);
+
+// Register handlers (onboarding first to catch /start with onboard param + text input)
+require('./handlers/onboarding')(bot);
 require('./handlers/start')(bot);
 require('./handlers/course')(bot);
 require('./handlers/glossary')(bot);

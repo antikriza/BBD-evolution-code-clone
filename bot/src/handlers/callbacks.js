@@ -4,6 +4,8 @@ const { activeQuizzes, sendQuiz } = require('./quiz');
 const { sendRandom } = require('./random');
 const { escHtml } = require('../utils/format');
 const { setUserLang } = require('../middleware/language');
+const { getUser, setOnboardingStep, updateField, completeOnboarding } = require('../db/users');
+const { INTERESTS, sendStep, sendProfileSummary } = require('./onboarding');
 
 module.exports = function (bot) {
   bot.on('callback_query:data', async (ctx) => {
@@ -108,6 +110,80 @@ module.exports = function (bot) {
         try {
           await ctx.editMessageText(msg);
         } catch (e) { /* not modified */ }
+      } else if (data.startsWith('onboard:role:')) {
+        const roleId = data.split(':')[2];
+        const userId = ctx.from?.id;
+        if (userId) {
+          updateField(userId, 'role', roleId);
+          setOnboardingStep(userId, 2);
+          const user = getUser(userId);
+          const lang = ctx.lang;
+          try { await ctx.editMessageReplyMarkup({ reply_markup: undefined }); } catch (e) {}
+          await sendStep(ctx, user, lang);
+        }
+        await ctx.answerCallbackQuery();
+      } else if (data.startsWith('onboard:exp:')) {
+        const expId = data.split(':')[2];
+        const userId = ctx.from?.id;
+        if (userId) {
+          updateField(userId, 'experience', expId);
+          setOnboardingStep(userId, 3);
+          const user = getUser(userId);
+          const lang = ctx.lang;
+          try { await ctx.editMessageReplyMarkup({ reply_markup: undefined }); } catch (e) {}
+          await sendStep(ctx, user, lang);
+        }
+        await ctx.answerCallbackQuery();
+      } else if (data === 'onboard:int:done') {
+        const userId = ctx.from?.id;
+        if (userId) {
+          const user = getUser(userId);
+          const lang = ctx.lang;
+          if (user) {
+            completeOnboarding(userId, {
+              displayName: user.display_name,
+              role: user.role,
+              experience: user.experience,
+              interests: user.interests || '',
+            });
+            try { await ctx.editMessageReplyMarkup({ reply_markup: undefined }); } catch (e) {}
+            const finalUser = getUser(userId);
+            await sendProfileSummary(ctx, finalUser, lang);
+          }
+        }
+        await ctx.answerCallbackQuery();
+      } else if (data.startsWith('onboard:int:')) {
+        const interestId = data.split(':')[2];
+        const userId = ctx.from?.id;
+        if (userId) {
+          const user = getUser(userId);
+          if (user) {
+            const current = (user.interests || '').split(',').filter(Boolean);
+            const idx = current.indexOf(interestId);
+            if (idx >= 0) {
+              current.splice(idx, 1);
+            } else {
+              current.push(interestId);
+            }
+            updateField(userId, 'interests', current.join(','));
+
+            // Rebuild keyboard with updated selections
+            const lang = ctx.lang;
+            const selected = current;
+            const kb = new InlineKeyboard();
+            INTERESTS.forEach((item) => {
+              const isSelected = selected.includes(item.id);
+              const label = `${isSelected ? '✅ ' : ''}${item[lang] || item.en}`;
+              kb.text(label, `onboard:int:${item.id}`).row();
+            });
+            kb.text(lang === 'uk' ? '✔️ Готово' : '✔️ Done', 'onboard:int:done');
+
+            try {
+              await ctx.editMessageReplyMarkup({ reply_markup: kb });
+            } catch (e) {}
+          }
+        }
+        await ctx.answerCallbackQuery();
       } else if (data === 'back:course') {
         // Re-trigger course view
         const lang = ctx.lang;

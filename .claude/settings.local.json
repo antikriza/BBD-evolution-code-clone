@@ -34,7 +34,20 @@
       "Bash(then echo \"Thread $tid: ok=$ok desc=$desc\" else echo \"Thread $tid: EXISTS \\(topic not modified = it exists\\)\" fi done)",
       "Bash(docker compose up:*)",
       "Bash(docker compose:*)",
-      "Bash(docker network:*)"
+      "Bash(docker network:*)",
+      "Bash(docker --version:*)",
+      "Bash(docker ps:*)",
+      "mcp__chrome-devtools__navigate_page",
+      "mcp__chrome-devtools__take_screenshot",
+      "mcp__chrome-devtools__new_page",
+      "Bash(git -C . diff --stat)",
+      "Bash(git -C \"F:/Github/BBD-evolution-code-clone\" status)",
+      "Bash(npm install:*)",
+      "Bash(git -C \"F:/Github/BBD-evolution-code-clone\" diff --stat)",
+      "Bash(git -C \"F:/Github/BBD-evolution-code-clone\" log --oneline -5)",
+      "Bash(git -C \"F:/Github/BBD-evolution-code-clone\" add .gitignore Dockerfile docker-compose.yml nginx.conf bot/package.json bot/package-lock.json bot/.env.example bot/Dockerfile bot/src/ telegram-archive/course/course-data.json telegram-archive/course/extract-data.js telegram-archive/course/build-all.js)",
+      "Bash(git -C:*)",
+      "Bash(docker exec:*)"
     ]
   }
 }
