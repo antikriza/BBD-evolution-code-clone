@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PM AI Club Bot — Documentation</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-light: #dbeafe;
+      --secondary: #7c3aed;
+      --accent: #059669;
+      --accent-light: #d1fae5;
+      --warning: #d97706;
+      --warning-light: #fef3c7;
+      --danger: #dc2626;
+      --danger-light: #fee2e2;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-300: #d1d5db;
+      --gray-500: #6b7280;
+      --gray-700: #374151;
+      --gray-900: #111827;
+      --radius: 12px;
+      --shadow: 0 1px 3px rgba(0,0,0,.1), 0 1px 2px rgba(0,0,0,.06);
+      --shadow-md: 0 4px 6px rgba(0,0,0,.1), 0 2px 4px rgba(0,0,0,.06);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: var(--gray-900);
+      line-height: 1.6;
+      background: var(--gray-50);
+    }
+
+    /* ── Header ── */
+    .hero {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: #fff;
+      padding: 60px 20px;
+      text-align: center;
+    }
+    .hero h1 { font-size: 2.5rem; margin-bottom: 12px; }
+    .hero p { font-size: 1.15rem; opacity: .9; max-width: 640px; margin: 0 auto; }
+
+    /* ── Navigation ── */
+    .toc {
+      max-width: 960px;
+      margin: -32px auto 0;
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-md);
+      padding: 28px 32px;
+      position: relative;
+      z-index: 1;
+    }
+    .toc h2 { font-size: 1.1rem; color: var(--gray-500); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 16px; }
+    .toc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; }
+    .toc a {
+      display: block;
+      padding: 8px 14px;
+      border-radius: 8px;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: background .15s;
+    }
+    .toc a:hover { background: var(--primary-light); }
+
+    /* ── Content ── */
+    .container { max-width: 960px; margin: 0 auto; padding: 40px 20px; }
+    section { background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); padding: 32px; margin-bottom: 32px; }
+    h2 { font-size: 1.6rem; color: var(--primary); margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid var(--primary-light); }
+    h3 { font-size: 1.2rem; color: var(--gray-700); margin: 24px 0 12px; }
+    h4 { font-size: 1.05rem; color: var(--gray-700); margin: 16px 0 8px; }
+    p { margin-bottom: 12px; color: var(--gray-700); }
+    ul, ol { margin: 8px 0 16px 24px; color: var(--gray-700); }
+    li { margin-bottom: 6px; }
+
+    /* ── Tags ── */
+    .tag {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 999px;
+      font-size: .8rem;
+      font-weight: 600;
+      margin-right: 4px;
+    }
+    .tag-user { background: var(--primary-light); color: var(--primary); }
+    .tag-admin { background: var(--warning-light); color: var(--warning); }
+    .tag-bot { background: var(--accent-light); color: var(--accent); }
+    .tag-group { background: #ede9fe; color: var(--secondary); }
+    .tag-dm { background: var(--gray-100); color: var(--gray-700); }
+
+    /* ── Flow diagrams ── */
+    .flow {
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      padding: 20px;
+      margin: 16px 0;
+      overflow-x: auto;
+    }
+    .flow-steps {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .flow-step {
+      background: #fff;
+      border: 2px solid var(--primary);
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-weight: 500;
+      font-size: .9rem;
+      min-width: 120px;
+      text-align: center;
+    }
+    .flow-step.highlight {
+      background: var(--primary);
+      color: #fff;
+    }
+    .flow-arrow {
+      color: var(--primary);
+      font-size: 1.4rem;
+      font-weight: bold;
+    }
+
+    /* ── Command table ── */
+    table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+    th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--gray-200); }
+    th { background: var(--gray-50); font-weight: 600; font-size: .85rem; text-transform: uppercase; letter-spacing: .04em; color: var(--gray-500); }
+    td { font-size: .95rem; }
+    td code { background: var(--gray-100); padding: 2px 6px; border-radius: 4px; font-size: .85rem; }
+
+    /* ── Info boxes ── */
+    .info-box {
+      border-left: 4px solid var(--primary);
+      background: var(--primary-light);
+      padding: 14px 18px;
+      border-radius: 0 8px 8px 0;
+      margin: 16px 0;
+    }
+    .info-box.warn {
+      border-color: var(--warning);
+      background: var(--warning-light);
+    }
+    .info-box.success {
+      border-color: var(--accent);
+      background: var(--accent-light);
+    }
+    .info-box.danger {
+      border-color: var(--danger);
+      background: var(--danger-light);
+    }
+    .info-box strong { display: block; margin-bottom: 4px; }
+
+    /* ── Cards ── */
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin: 16px 0; }
+    .card {
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      padding: 18px;
+      background: var(--gray-50);
+    }
+    .card h4 { margin-top: 0; color: var(--primary); }
+
+    /* ── Dashboard screenshots placeholder ── */
+    .ui-mock {
+      background: var(--gray-100);
+      border: 2px dashed var(--gray-300);
+      border-radius: 8px;
+      padding: 24px;
+      text-align: center;
+      color: var(--gray-500);
+      margin: 16px 0;
+      font-style: italic;
+    }
+
+    /* ── Level badge ── */
+    .level-table td:first-child { font-size: 1.4rem; }
+    .xp-bar {
+      display: inline-block;
+      width: 120px;
+      height: 10px;
+      background: var(--gray-200);
+      border-radius: 5px;
+      overflow: hidden;
+      vertical-align: middle;
+    }
+    .xp-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--primary));
+      border-radius: 5px;
+    }
+
+    @media (max-width: 640px) {
+      .hero h1 { font-size: 1.8rem; }
+      .toc-grid { grid-template-columns: 1fr; }
+      .card-grid { grid-template-columns: 1fr; }
+      .flow-steps { flex-direction: column; }
+      .flow-arrow { transform: rotate(90deg); }
+      section { padding: 20px; }
+    }
+
+    .footer {
+      text-align: center;
+      padding: 32px 20px;
+      color: var(--gray-500);
+      font-size: .9rem;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════ HERO ════════════════════════════════════════════ -->
+<div class="hero">
+  <h1>PM AI Club Bot</h1>
+  <p>Complete documentation covering user journeys, admin workflows, gamification, contests, group moderation, and the web admin dashboard.</p>
+</div>
+
+<!-- ════════════════════════════════════════════ TOC ════════════════════════════════════════════ -->
+<nav class="toc">
+  <h2>Table of Contents</h2>
+  <div class="toc-grid">
+    <a href="#overview">1. Overview</a>
+    <a href="#onboarding">2. User Onboarding</a>
+    <a href="#course">3. Course Navigation</a>
+    <a href="#xp">4. XP &amp; Levels</a>
+    <a href="#homework">5. Homework System</a>
+    <a href="#contests">6. Contests &amp; Voting</a>
+    <a href="#subscriptions">7. Subscriptions</a>
+    <a href="#broadcast">8. Broadcast &amp; Schedule</a>
+    <a href="#moderation">9. Group Moderation</a>
+    <a href="#group-mgmt">10. Group Management</a>
+    <a href="#commands">11. Command Reference</a>
+    <a href="#dashboard">12. Web Admin Dashboard</a>
+    <a href="#architecture">13. Architecture</a>
+  </div>
+</nav>
+
+<div class="container">
+
+<!-- ════════════════════════════════════════════ 1. OVERVIEW ════════════════════════════════════ -->
+<section id="overview">
+  <h2>1. Overview</h2>
+  <p>The PM AI Club Bot is a bilingual (English / Ukrainian) Telegram bot that delivers a structured product management &amp; AI course. It combines course content delivery with gamification, community contests, homework verification, and group moderation &mdash; all managed through a web-based admin dashboard.</p>
+
+  <h3>Core Capabilities</h3>
+  <div class="card-grid">
+    <div class="card">
+      <h4>Course Delivery</h4>
+      <p>42 topics across 5 levels. Users browse by level, search content, get random tips, and receive a daily "topic of the day".</p>
+    </div>
+    <div class="card">
+      <h4>Gamification (XP)</h4>
+      <p>7 RPG-style levels from Newbie to Legend. XP earned via quizzes, homework, contests, daily activity, and onboarding.</p>
+    </div>
+    <div class="card">
+      <h4>Homework</h4>
+      <p>Admin-assigned topic bundles with deadlines. Users complete homework by passing topic-specific quizzes.</p>
+    </div>
+    <div class="card">
+      <h4>Contests</h4>
+      <p>Three contest types: Polls (instant voting), Quiz contests (timed multi-question), Challenges (submission + community voting).</p>
+    </div>
+    <div class="card">
+      <h4>Moderation</h4>
+      <p>In-group admin commands: warn, mute, unmute, ban. Auto-mute at 3 warnings. Full warning audit trail.</p>
+    </div>
+    <div class="card">
+      <h4>Admin Dashboard</h4>
+      <p>10-page web UI for managing users, settings, broadcasts, schedules, leaderboards, homework, contests, and group messages.</p>
+    </div>
+  </div>
+
+  <h3>Roles</h3>
+  <table>
+    <tr><th>Role</th><th>Where</th><th>Capabilities</th></tr>
+    <tr>
+      <td><span class="tag tag-user">User</span></td>
+      <td>Telegram DM &amp; Group</td>
+      <td>Course browsing, quizzes, XP, homework, contests, subscriptions</td>
+    </tr>
+    <tr>
+      <td><span class="tag tag-admin">Admin</span></td>
+      <td>Telegram &amp; Web Dashboard</td>
+      <td>All user capabilities + moderation, broadcast, scheduling, homework creation, contest creation, group management</td>
+    </tr>
+  </table>
+</section>
+
+<!-- ════════════════════════════════════════════ 2. ONBOARDING ═════════════════════════════════ -->
+<section id="onboarding">
+  <h2>2. User Onboarding</h2>
+  <p>New users go through a 4-step onboarding flow when they first interact with the bot. This personalizes their experience and awards initial XP.</p>
+
+  <h3>Onboarding Flow</h3>
+  <div class="flow">
+    <div class="flow-steps">
+      <div class="flow-step highlight">User sends /start</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step">Step 1: Choose Name</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step">Step 2: Select Role</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step">Step 3: Experience Level</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step">Step 4: Interests (multi-select)</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step highlight">+50 XP Awarded</div>
+    </div>
+  </div>
+
+  <h4>Step-by-Step Detail</h4>
+  <ol>
+    <li><strong>Name:</strong> User types a display name (plain text input). This becomes their profile name shown in leaderboards.</li>
+    <li><strong>Role:</strong> Inline keyboard with options configured in admin settings (e.g., "PM", "Developer", "Designer"). Single selection.</li>
+    <li><strong>Experience:</strong> Inline keyboard with experience levels (e.g., "Beginner", "Intermediate", "Advanced"). Single selection.</li>
+    <li><strong>Interests:</strong> Multi-select inline keyboard. Users tap topics to toggle selection (checkmarks appear). Press "Done" to finish. Interests stored comma-separated.</li>
+  </ol>
+
+  <div class="info-box success">
+    <strong>XP Reward</strong>
+    On completing onboarding, the user receives <strong>50 XP</strong> (reason: "onboarding") and starts as a <strong>Newbie</strong> at Level 1.
+  </div>
+
+  <h3>Group Join Auto-Welcome</h3>
+  <p>When a new member joins the Telegram group, the bot:</p>
+  <ol>
+    <li>Tries to DM the user with a welcome message + onboarding prompt</li>
+    <li>If DM fails (user hasn't started bot), posts a group message with a button linking to the bot's DM</li>
+  </ol>
+
+  <h3>Language Selection</h3>
+  <p>Users can switch between English and Ukrainian at any time with <code>/lang</code>. The preference is persisted per-user in a JSON file. All bot messages, commands, and content are bilingual.</p>
+</section>
+
+<!-- ════════════════════════════════════════════ 3. COURSE ═════════════════════════════════════ -->
+<section id="course">
+  <h2>3. Course Navigation</h2>
+  <p>The course has 42 topics organized across 5 difficulty levels. Users can browse, search, and get recommendations.</p>
+
+  <h3>User Commands</h3>
+  <table>
+    <tr><th>Command</th><th>Action</th></tr>
+    <tr><td><code>/course</code></td><td>Show course overview with all 5 levels as inline keyboard buttons</td></tr>
+    <tr><td><code>/level 3</code></td><td>List all topics in level 3 with emoji indicators</td></tr>
+    <tr><td><code>/topic agile</code></td><td>Show topic detail: title, description, tips, related topics, quiz prompt</td></tr>
+    <tr><td><code>/search keyword</code></td><td>Full-text search across all topic titles and descriptions</td></tr>
+    <tr><td><code>/today</code></td><td>Get the "topic of the day" (rotates daily across all topics)</td></tr>
+    <tr><td><code>/random</code></td><td>Get a random tip or fact from the course content</td></tr>
+    <tr><td><code>/glossary term</code></td><td>Look up a specific term in the course glossary</td></tr>
+    <tr><td><code>/quiz</code></td><td>Get a random quiz question with inline answer buttons</td></tr>
+  </table>
+
+  <h3>Quiz System</h3>
+  <div class="flow">
+    <div class="flow-steps">
+      <div class="flow-step">User sends /quiz</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step">Bot picks random question</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step">Shows question + answer buttons</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step">User taps answer</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step highlight">Correct: +10 XP (max 3/day)</div>
+    </div>
+  </div>
+  <p>Quiz answers are delivered via inline keyboard callbacks. Correct answers award <strong>10 XP</strong> per question, with a daily cap of 3 quiz XP awards. If the user levels up from a quiz answer, a congratulatory message is shown.</p>
+
+  <h3>Community Resources</h3>
+  <table>
+    <tr><th>Command</th><th>Action</th></tr>
+    <tr><td><code>/rules</code></td><td>Display group rules</td></tr>
+    <tr><td><code>/links</code></td><td>Show useful links and resources</td></tr>
+    <tr><td><code>/faq</code></td><td>Frequently asked questions</td></tr>
+  </table>
+</section>
+
+<!-- ════════════════════════════════════════════ 4. XP & LEVELS ════════════════════════════════ -->
+<section id="xp">
+  <h2>4. XP &amp; Levels (Gamification)</h2>
+  <p>The XP engine rewards users for engagement. Every XP-awarding action is logged with a reason, and users progress through 7 levels.</p>
+
+  <h3>Level Progression</h3>
+  <table class="level-table">
+    <tr><th>Level</th><th>Title</th><th>XP Required</th><th>Emoji</th></tr>
+    <tr><td>1</td><td>Newbie</td><td>0</td><td>&#x1F331;</td></tr>
+    <tr><td>2</td><td>Learner</td><td>100</td><td>&#x1F4D6;</td></tr>
+    <tr><td>3</td><td>Practitioner</td><td>300</td><td>&#x1F527;</td></tr>
+    <tr><td>4</td><td>Specialist</td><td>600</td><td>&#x2B50;</td></tr>
+    <tr><td>5</td><td>Expert</td><td>1,000</td><td>&#x1F3C6;</td></tr>
+    <tr><td>6</td><td>Master</td><td>1,500</td><td>&#x1F451;</td></tr>
+    <tr><td>7</td><td>Legend</td><td>2,500</td><td>&#x1F48E;</td></tr>
+  </table>
+
+  <h3>XP Sources</h3>
+  <table>
+    <tr><th>Action</th><th>XP</th><th>Limit</th></tr>
+    <tr><td>Complete onboarding</td><td>+50</td><td>Once</td></tr>
+    <tr><td>Daily activity (any bot interaction)</td><td>+5</td><td>Once per day</td></tr>
+    <tr><td>Quiz correct answer</td><td>+10</td><td>3 per day</td></tr>
+    <tr><td>Homework topic completion</td><td>+30 (configurable)</td><td>Per topic</td></tr>
+    <tr><td>Poll participation</td><td>+5</td><td>Once per poll</td></tr>
+    <tr><td>Quiz contest &mdash; 1st place</td><td>+50</td><td>Per contest</td></tr>
+    <tr><td>Quiz contest &mdash; 2nd place</td><td>+30</td><td>Per contest</td></tr>
+    <tr><td>Quiz contest &mdash; 3rd place</td><td>+15</td><td>Per contest</td></tr>
+    <tr><td>Challenge submission</td><td>+5</td><td>Once per challenge</td></tr>
+    <tr><td>Challenge voting</td><td>+5</td><td>Once per challenge</td></tr>
+  </table>
+
+  <h3>User Commands</h3>
+  <table>
+    <tr><th>Command</th><th>Shows</th></tr>
+    <tr><td><code>/xp</code></td><td>Personal XP profile: current level, total XP, visual progress bar to next level, rank position, breakdown by reason</td></tr>
+    <tr><td><code>/leaderboard</code></td><td>Top 10 users with medals (gold/silver/bronze), XP totals, and level titles</td></tr>
+  </table>
+
+  <h3>Level-Up Notification</h3>
+  <p>When a user's XP crosses a level threshold, the bot immediately sends a congratulatory message showing the new level emoji, title, and encouragement. This is checked within the same transaction that awards XP.</p>
+</section>
+
+<!-- ════════════════════════════════════════════ 5. HOMEWORK ═══════════════════════════════════ -->
+<section id="homework">
+  <h2>5. Homework System</h2>
+  <p>Admins assign topic bundles as homework. Users complete them by passing topic-specific quizzes. The system tracks per-topic progress with XP rewards.</p>
+
+  <h3>Admin: Creating Homework</h3>
+  <div class="flow">
+    <div class="flow-steps">
+      <div class="flow-step highlight">Admin: /assign</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step">Set title, topics, deadline, XP</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step">Homework saved to DB</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step">Bot DMs all users</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step">Users see assignment</div>
+    </div>
+  </div>
+
+  <h4>Via Telegram</h4>
+  <p>Admin sends <code>/assign</code> followed by the title. The bot then prompts for topic selection (inline keyboard with all course topics), deadline, and XP reward. After confirmation, the homework is created and broadcast to all users via DM.</p>
+
+  <h4>Via Dashboard</h4>
+  <p>Navigate to the <strong>Homework</strong> page. Fill in the form with title, select topics from the dropdown, set an optional deadline, and specify XP reward. Click "Create".</p>
+
+  <h3>User: Completing Homework</h3>
+  <div class="flow">
+    <div class="flow-steps">
+      <div class="flow-step">User: /homework</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step">See active assignments</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step">User: /complete [topic]</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step">Quiz verification</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step highlight">Pass: +XP per topic</div>
+    </div>
+  </div>
+
+  <ol>
+    <li><code>/homework</code> &mdash; Shows all active homework assignments with per-topic completion status (checkmarks for completed topics)</li>
+    <li><code>/complete [topic-slug]</code> &mdash; Starts quiz verification for a specific topic</li>
+    <li>Bot generates topic-specific quiz questions from course content</li>
+    <li>User answers via inline keyboard buttons</li>
+    <li>If the user passes (all correct), the topic is marked complete and XP is awarded</li>
+    <li>When all topics in a homework are completed, the homework is marked as fully done</li>
+  </ol>
+
+  <div class="info-box">
+    <strong>Auto-Close</strong>
+    The scheduler automatically closes homework assignments when their deadline passes. Admins can also close homework manually from the dashboard.
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ 6. CONTESTS ═══════════════════════════════════ -->
+<section id="contests">
+  <h2>6. Contests &amp; Voting</h2>
+  <p>Three contest types provide different engagement mechanics: instant polls, timed quiz competitions, and creative challenges with community voting.</p>
+
+  <h3>Contest Type Comparison</h3>
+  <table>
+    <tr><th>Type</th><th>Mechanic</th><th>Voting</th><th>XP Rewards</th><th>Duration</th></tr>
+    <tr>
+      <td><strong>Poll</strong></td>
+      <td>Single-question vote</td>
+      <td>Inline buttons, one vote per user</td>
+      <td>+5 for voting</td>
+      <td>Until closed</td>
+    </tr>
+    <tr>
+      <td><strong>Quiz</strong></td>
+      <td>Multi-question timed contest</td>
+      <td>No voting &mdash; scored by correctness + speed</td>
+      <td>1st: +50, 2nd: +30, 3rd: +15</td>
+      <td>30 sec per question</td>
+    </tr>
+    <tr>
+      <td><strong>Challenge</strong></td>
+      <td>Creative submissions</td>
+      <td>Community voting on entries</td>
+      <td>+5 for submitting, +5 for voting</td>
+      <td>Until deadline &rarr; voting phase</td>
+    </tr>
+  </table>
+
+  <!-- POLLS -->
+  <h3>6a. Polls</h3>
+  <h4>Admin Creates Poll</h4>
+  <div class="flow">
+    <div class="flow-steps">
+      <div class="flow-step highlight">Admin: /poll</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step">Enter question</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step">Enter options (one per line)</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step">Poll goes live in group</div>
+    </div>
+  </div>
+
+  <h4>User Votes</h4>
+  <div class="flow">
+    <div class="flow-steps">
+      <div class="flow-step">User sees poll in group</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step">Taps option button</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step">Vote recorded</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step highlight">+5 XP</div>
+    </div>
+  </div>
+  <p>Poll options are shown as inline keyboard buttons. Each user can vote once. Tapping updates the message with current vote counts. Voting awards 5 XP. Re-voting is blocked with a "You already voted" message.</p>
+
+  <!-- QUIZ CONTEST -->
+  <h3>6b. Quiz Contests</h3>
+  <h4>Admin Creates Quiz Contest</h4>
+  <p>Admin uses <code>/contest</code> and selects "quiz" type. Configures the question set and starts the contest. Questions are defined in the contest config JSON (question text, options, correct answer index).</p>
+
+  <h4>User Participates</h4>
+  <div class="flow">
+    <div class="flow-steps">
+      <div class="flow-step">User joins via /contest</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step">Question 1 (30s timer)</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step">Question 2 (30s timer)</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step">...</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step highlight">Results + XP</div>
+    </div>
+  </div>
+  <ol>
+    <li>User joins an active quiz contest</li>
+    <li>Questions appear one at a time with a <strong>30-second timer</strong></li>
+    <li>User taps an answer button before time runs out</li>
+    <li>Correct answers score +1 point; faster answers are used as tiebreaker</li>
+    <li>After all questions, the bot shows final results</li>
+    <li>Top 3 receive XP: 1st place +50, 2nd +30, 3rd +15</li>
+  </ol>
+
+  <div class="info-box">
+    <strong>Real-Time State</strong>
+    Quiz contests maintain in-memory state per active contest. Each participant's progress (current question, score, start time) is tracked in a Map. Auto-advance occurs when the timer expires.
+  </div>
+
+  <!-- CHALLENGE -->
+  <h3>6c. Challenges</h3>
+  <h4>Admin Creates Challenge</h4>
+  <p>Admin uses <code>/contest</code> and selects "challenge" type. Sets a title, description, deadline, and XP reward.</p>
+
+  <h4>User Submits Entry</h4>
+  <div class="flow">
+    <div class="flow-steps">
+      <div class="flow-step">User: /submit [text]</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step">Entry saved</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step highlight">+5 XP for submitting</div>
+    </div>
+  </div>
+  <p>Users submit entries via DM with <code>/submit</code> followed by their submission text. One entry per user per challenge. Submission awards +5 XP.</p>
+
+  <h4>Community Voting Phase</h4>
+  <div class="flow">
+    <div class="flow-steps">
+      <div class="flow-step">Deadline passes</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step">Status &rarr; "voting"</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step">Users browse entries</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step">Vote via buttons</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step highlight">+5 XP for voting</div>
+    </div>
+  </div>
+  <p>When the deadline passes (or admin manually transitions), the challenge enters "voting" status. Users can browse all entries and vote using inline keyboard buttons. Each user gets one vote. Voting awards +5 XP.</p>
+
+  <h4>Contest Lifecycle</h4>
+  <table>
+    <tr><th>Status</th><th>Poll</th><th>Quiz</th><th>Challenge</th></tr>
+    <tr><td><code>active</code></td><td>Accepting votes</td><td>Running questions</td><td>Accepting submissions</td></tr>
+    <tr><td><code>voting</code></td><td>&mdash;</td><td>&mdash;</td><td>Community voting on entries</td></tr>
+    <tr><td><code>closed</code></td><td>Results frozen</td><td>Results shown</td><td>Winner determined</td></tr>
+  </table>
+</section>
+
+<!-- ════════════════════════════════════════════ 7. SUBSCRIPTIONS ══════════════════════════════ -->
+<section id="subscriptions">
+  <h2>7. Topic Subscriptions</h2>
+  <p>Users can subscribe to specific course topics to receive targeted updates and broadcasts.</p>
+
+  <h3>User Commands</h3>
+  <table>
+    <tr><th>Command</th><th>Action</th></tr>
+    <tr><td><code>/subscribe</code></td><td>Show all topics with subscribe/unsubscribe toggle buttons</td></tr>
+    <tr><td><code>/mysubs</code></td><td>List all current subscriptions</td></tr>
+  </table>
+
+  <h3>How It Works</h3>
+  <ol>
+    <li>User sends <code>/subscribe</code></li>
+    <li>Bot shows all 42 topics with inline keyboard buttons</li>
+    <li>Tapping a topic toggles subscription (subscribe/unsubscribe)</li>
+    <li>Subscribed topics are stored in the <code>subscriptions</code> table</li>
+    <li>When an admin broadcasts to a specific topic audience, only subscribed users receive the message</li>
+  </ol>
+</section>
+
+<!-- ════════════════════════════════════════════ 8. BROADCAST & SCHEDULE ═══════════════════════ -->
+<section id="broadcast">
+  <h2>8. Broadcast &amp; Scheduled Messages</h2>
+
+  <h3>Immediate Broadcast</h3>
+  <p><span class="tag tag-admin">Admin</span> Admins can send messages to users immediately.</p>
+
+  <h4>Audience Options</h4>
+  <table>
+    <tr><th>Audience</th><th>Recipients</th></tr>
+    <tr><td><strong>All Users</strong></td><td>Every user who has interacted with the bot</td></tr>
+    <tr><td><strong>Completed Users</strong></td><td>Users who finished onboarding</td></tr>
+    <tr><td><strong>Topic Subscribers</strong></td><td>Users subscribed to a specific topic</td></tr>
+  </table>
+
+  <h4>Broadcast Flow</h4>
+  <div class="flow">
+    <div class="flow-steps">
+      <div class="flow-step highlight">Admin sends broadcast</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step">API returns immediately</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step">Messages sent async</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step">Rate limit: 25/sec</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step">Logged to console</div>
+    </div>
+  </div>
+  <p>Messages are sent with HTML parse mode. The sender pauses for 1 second every 25 messages to respect Telegram's rate limits.</p>
+
+  <h3>Scheduled Messages</h3>
+  <p><span class="tag tag-admin">Admin</span> Messages can be scheduled to send at a future date/time.</p>
+
+  <h4>Creating a Scheduled Message</h4>
+  <ul>
+    <li><strong>Telegram:</strong> <code>/schedule_add 2026-03-01 09:00 Good morning, everyone!</code></li>
+    <li><strong>Dashboard:</strong> Navigate to Schedule tab &rarr; fill form &rarr; set date/time, audience, message text &rarr; Create</li>
+  </ul>
+
+  <h4>Scheduler Engine</h4>
+  <p>A background job runs every <strong>60 seconds</strong> checking for pending messages where <code>send_at &le; now</code>. When found:</p>
+  <ol>
+    <li>Status set to "sending" (prevents double-send)</li>
+    <li>Recipients determined by audience type</li>
+    <li>Messages sent with rate limiting</li>
+    <li>Status updated to "sent" with count</li>
+  </ol>
+
+  <div class="info-box warn">
+    <strong>Scheduler Also Handles</strong>
+    The same background job manages homework deadline auto-close, contest deadline transitions (active &rarr; voting or closed), and old group message cleanup (rolling 7-day buffer).
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ 9. MODERATION ═════════════════════════════════ -->
+<section id="moderation">
+  <h2>9. Group Moderation</h2>
+  <p><span class="tag tag-admin">Admin</span> <span class="tag tag-group">Group</span> Moderation commands work <strong>in-group only</strong> (not redirected to DM). The bot must be a group admin with restrict/delete permissions.</p>
+
+  <h3>Moderation Commands</h3>
+  <table>
+    <tr><th>Command</th><th>Action</th><th>Details</th></tr>
+    <tr>
+      <td><code>/warn</code></td>
+      <td>Add warning to user</td>
+      <td>Reply to a message. Optionally add a reason. <strong>Auto-mute at 3 warnings</strong> (1 hour).</td>
+    </tr>
+    <tr>
+      <td><code>/mute [minutes]</code></td>
+      <td>Restrict user</td>
+      <td>User cannot send messages. Default: 60 minutes. Reply to target's message.</td>
+    </tr>
+    <tr>
+      <td><code>/unmute</code></td>
+      <td>Remove restrictions</td>
+      <td>Restores full messaging permissions.</td>
+    </tr>
+    <tr>
+      <td><code>/ban</code></td>
+      <td>Ban user from group</td>
+      <td>Permanent ban. User must be unbanned manually.</td>
+    </tr>
+    <tr>
+      <td><code>/warnings</code></td>
+      <td>View warning history</td>
+      <td>Shows count and list of warnings for the replied-to user.</td>
+    </tr>
+    <tr>
+      <td><code>/clearwarnings</code></td>
+      <td>Reset warnings</td>
+      <td>Clears all warnings for the user.</td>
+    </tr>
+  </table>
+
+  <h3>Warning Escalation Flow</h3>
+  <div class="flow">
+    <div class="flow-steps">
+      <div class="flow-step">Warning 1</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step">Warning 2</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step highlight">Warning 3 &rarr; Auto-mute 1h</div>
+    </div>
+  </div>
+
+  <div class="info-box danger">
+    <strong>Targeting Users</strong>
+    All moderation commands identify the target by <strong>replying to a message</strong>. The admin must reply to the offending user's message and type the command. This avoids ambiguity and creates an audit trail linked to the specific message.
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ 10. GROUP MANAGEMENT ══════════════════════════ -->
+<section id="group-mgmt">
+  <h2>10. Group Message Management</h2>
+  <p><span class="tag tag-admin">Admin</span> Admins can manage bot messages and monitor group chat through the web dashboard.</p>
+
+  <h3>Group Message Logging</h3>
+  <p>The bot passively logs all text messages in the group (group and supergroup chats). Messages are stored with user ID, chat ID, message ID, username, and text. A rolling 7-day buffer automatically cleans up old entries.</p>
+
+  <h3>Dashboard Capabilities</h3>
+  <div class="card-grid">
+    <div class="card">
+      <h4>Send Bot Messages</h4>
+      <p>Send HTML-formatted messages to the group. Optionally target a specific thread (topic) by providing a thread ID. Messages are tracked in the bot_messages table.</p>
+    </div>
+    <div class="card">
+      <h4>Edit Bot Messages</h4>
+      <p>Edit previously sent bot messages. The dashboard shows all tracked bot messages with an edit button that opens an inline editor.</p>
+    </div>
+    <div class="card">
+      <h4>Delete Bot Messages</h4>
+      <p>Delete bot messages from the group. Removes both the Telegram message and the database record.</p>
+    </div>
+    <div class="card">
+      <h4>Monitor Group Chat</h4>
+      <p>View recent group messages from all users. Admins can delete inappropriate messages and issue warnings directly from the chat log.</p>
+    </div>
+  </div>
+
+  <h3>Warn from Dashboard</h3>
+  <div class="flow">
+    <div class="flow-steps">
+      <div class="flow-step">Admin views group chat</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step">Spots violation</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step">Clicks "Warn" button</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step">Warning added to user</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step">Warning count returned</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ 11. COMMAND REFERENCE ═════════════════════════ -->
+<section id="commands">
+  <h2>11. Full Command Reference</h2>
+
+  <h3>User Commands <span class="tag tag-user">User</span></h3>
+  <table>
+    <tr><th>Command</th><th>Description</th><th>Works In</th></tr>
+    <tr><td><code>/start</code></td><td>Welcome message &amp; onboarding</td><td><span class="tag tag-dm">DM</span></td></tr>
+    <tr><td><code>/help</code></td><td>List all commands</td><td><span class="tag tag-dm">DM</span></td></tr>
+    <tr><td><code>/lang</code></td><td>Switch language (EN/UK)</td><td><span class="tag tag-dm">DM</span></td></tr>
+    <tr><td><code>/course</code></td><td>Course overview</td><td><span class="tag tag-dm">DM</span></td></tr>
+    <tr><td><code>/level [1-5]</code></td><td>Topics by level</td><td><span class="tag tag-dm">DM</span></td></tr>
+    <tr><td><code>/topic [slug]</code></td><td>Topic details</td><td><span class="tag tag-dm">DM</span></td></tr>
+    <tr><td><code>/glossary [term]</code></td><td>Look up a term</td><td><span class="tag tag-dm">DM</span></td></tr>
+    <tr><td><code>/quiz</code></td><td>Random quiz question</td><td><span class="tag tag-dm">DM</span></td></tr>
+    <tr><td><code>/random</code></td><td>Random tip or fact</td><td><span class="tag tag-dm">DM</span></td></tr>
+    <tr><td><code>/today</code></td><td>Topic of the day</td><td><span class="tag tag-dm">DM</span></td></tr>
+    <tr><td><code>/search [keyword]</code></td><td>Search course content</td><td><span class="tag tag-dm">DM</span></td></tr>
+    <tr><td><code>/subscribe</code></td><td>Subscribe to topics</td><td><span class="tag tag-dm">DM</span></td></tr>
+    <tr><td><code>/mysubs</code></td><td>My subscriptions</td><td><span class="tag tag-dm">DM</span></td></tr>
+    <tr><td><code>/xp</code></td><td>Your XP profile &amp; level</td><td><span class="tag tag-dm">DM</span></td></tr>
+    <tr><td><code>/leaderboard</code></td><td>Top 10 leaderboard</td><td><span class="tag tag-dm">DM</span></td></tr>
+    <tr><td><code>/homework</code></td><td>Your homework assignments</td><td><span class="tag tag-dm">DM</span></td></tr>
+    <tr><td><code>/complete [topic]</code></td><td>Complete a homework topic via quiz</td><td><span class="tag tag-dm">DM</span></td></tr>
+    <tr><td><code>/contest</code></td><td>View active contests</td><td><span class="tag tag-dm">DM</span></td></tr>
+    <tr><td><code>/submit [text]</code></td><td>Submit challenge entry</td><td><span class="tag tag-dm">DM</span></td></tr>
+    <tr><td><code>/rules</code></td><td>Group rules</td><td><span class="tag tag-dm">DM</span></td></tr>
+    <tr><td><code>/links</code></td><td>Useful links</td><td><span class="tag tag-dm">DM</span></td></tr>
+    <tr><td><code>/faq</code></td><td>FAQ</td><td><span class="tag tag-dm">DM</span></td></tr>
+  </table>
+
+  <h3>Admin Commands <span class="tag tag-admin">Admin</span></h3>
+  <table>
+    <tr><th>Command</th><th>Description</th><th>Works In</th></tr>
+    <tr><td><code>/admin</code></td><td>Admin panel with inline buttons</td><td><span class="tag tag-dm">DM</span></td></tr>
+    <tr><td><code>/assign</code></td><td>Create homework assignment</td><td><span class="tag tag-dm">DM</span></td></tr>
+    <tr><td><code>/poll</code></td><td>Create a poll contest</td><td><span class="tag tag-dm">DM</span> <span class="tag tag-group">Group</span></td></tr>
+    <tr><td><code>/contest</code></td><td>Create quiz or challenge contest</td><td><span class="tag tag-dm">DM</span></td></tr>
+    <tr><td><code>/schedule</code></td><td>View upcoming scheduled messages</td><td><span class="tag tag-dm">DM</span></td></tr>
+    <tr><td><code>/schedule_add</code></td><td>Schedule a broadcast</td><td><span class="tag tag-dm">DM</span></td></tr>
+    <tr><td><code>/warn</code></td><td>Warn a user (reply)</td><td><span class="tag tag-group">Group only</span></td></tr>
+    <tr><td><code>/mute [min]</code></td><td>Mute a user (reply)</td><td><span class="tag tag-group">Group only</span></td></tr>
+    <tr><td><code>/unmute</code></td><td>Unmute a user (reply)</td><td><span class="tag tag-group">Group only</span></td></tr>
+    <tr><td><code>/ban</code></td><td>Ban a user (reply)</td><td><span class="tag tag-group">Group only</span></td></tr>
+    <tr><td><code>/warnings</code></td><td>View user warnings (reply)</td><td><span class="tag tag-group">Group only</span></td></tr>
+    <tr><td><code>/clearwarnings</code></td><td>Clear user warnings (reply)</td><td><span class="tag tag-group">Group only</span></td></tr>
+  </table>
+
+  <div class="info-box">
+    <strong>Group &rarr; DM Redirect</strong>
+    Most user commands sent in the group are intercepted and redirected to DM to keep the group clean. The bot replies in-group with a link to its DM. Moderation commands are excluded from this redirect.
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ 12. DASHBOARD ═════════════════════════════════ -->
+<section id="dashboard">
+  <h2>12. Web Admin Dashboard</h2>
+  <p>The admin dashboard is a single-page application (SPA) with hash-based routing, accessible at <code>http://server:port/admin/</code>. It requires two-layer authentication: nginx basic auth + API bearer token.</p>
+
+  <h3>Authentication</h3>
+  <div class="flow">
+    <div class="flow-steps">
+      <div class="flow-step">Open dashboard URL</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step">nginx basic auth popup</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step">Login screen</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step">Enter API bearer token</div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step highlight">Dashboard loads</div>
+    </div>
+  </div>
+
+  <h3>Dashboard Pages (10)</h3>
+
+  <!-- Dashboard -->
+  <div class="card" style="margin-bottom: 16px;">
+    <h4>1. Dashboard (Home)</h4>
+    <p>Overview statistics: total users, completed onboarding count, role breakdown pie chart, recent user registrations. Provides a quick health check of the community.</p>
+  </div>
+
+  <!-- Users -->
+  <div class="card" style="margin-bottom: 16px;">
+    <h4>2. Users</h4>
+    <p>Paginated user list with search. Each row shows: Telegram ID, username, display name, role, experience, language, onboarding status, join date. Click a user to see their full profile including subscriptions. Export all users to CSV.</p>
+    <table>
+      <tr><th>Feature</th><th>Detail</th></tr>
+      <tr><td>Search</td><td>Search by username, display name, or Telegram ID</td></tr>
+      <tr><td>Pagination</td><td>20 users per page with next/prev navigation</td></tr>
+      <tr><td>User Detail</td><td>Modal showing full profile + subscription list</td></tr>
+      <tr><td>CSV Export</td><td>Download all users as CSV file</td></tr>
+    </table>
+  </div>
+
+  <!-- Settings -->
+  <div class="card" style="margin-bottom: 16px;">
+    <h4>3. Settings</h4>
+    <p>Manage dynamic options for three categories: <strong>Roles</strong>, <strong>Experience Levels</strong>, and <strong>Interests</strong>. Each has bilingual labels (EN/UK). Add new options with ID + labels, or remove existing ones. Changes take effect immediately for new onboarding users.</p>
+  </div>
+
+  <!-- Subscriptions -->
+  <div class="card" style="margin-bottom: 16px;">
+    <h4>4. Subscriptions</h4>
+    <p>View topic subscription analytics: each topic with its subscriber count, sorted by popularity. Shows bilingual topic titles.</p>
+  </div>
+
+  <!-- Broadcast -->
+  <div class="card" style="margin-bottom: 16px;">
+    <h4>5. Broadcast</h4>
+    <p>Send immediate messages to users. Select audience (All / Completed / Topic Subscribers), write HTML-formatted message, and send. Progress shown after dispatch.</p>
+    <table>
+      <tr><th>Field</th><th>Description</th></tr>
+      <tr><td>Audience</td><td>Dropdown: All users, Completed users, Topic subscribers (shows topic picker)</td></tr>
+      <tr><td>Message</td><td>Textarea with HTML formatting support</td></tr>
+      <tr><td>Send</td><td>Dispatches immediately, returns count of targeted users</td></tr>
+    </table>
+  </div>
+
+  <!-- Schedule -->
+  <div class="card" style="margin-bottom: 16px;">
+    <h4>6. Schedule</h4>
+    <p>Manage scheduled broadcasts. View upcoming and past messages with status badges (pending / sending / sent / failed). Create new scheduled messages with date/time picker. Cancel pending messages.</p>
+    <table>
+      <tr><th>Status Badge</th><th>Meaning</th></tr>
+      <tr><td style="color: var(--warning);">pending</td><td>Waiting to be sent at scheduled time</td></tr>
+      <tr><td style="color: var(--primary);">sending</td><td>Currently being delivered</td></tr>
+      <tr><td style="color: var(--accent);">sent</td><td>Successfully delivered (shows sent count)</td></tr>
+      <tr><td style="color: var(--danger);">failed</td><td>Delivery failed</td></tr>
+    </table>
+  </div>
+
+  <!-- Leaderboard -->
+  <div class="card" style="margin-bottom: 16px;">
+    <h4>7. Leaderboard</h4>
+    <p>Top 50 users ranked by XP. Shows rank, display name (or username), total XP, current level with emoji, and level title. Gold/silver/bronze highlighting for top 3. Also displays the full level progression table.</p>
+  </div>
+
+  <!-- Homework -->
+  <div class="card" style="margin-bottom: 16px;">
+    <h4>8. Homework</h4>
+    <p>Manage homework assignments. Create new homework with title, topics, deadline, and XP reward. View all assignments with status (open/closed), completion count, and creation date. Click to see detailed progress per user. Close homework manually.</p>
+    <table>
+      <tr><th>Action</th><th>Detail</th></tr>
+      <tr><td>Create</td><td>Form: title, topic multi-select, deadline date, XP reward amount</td></tr>
+      <tr><td>View List</td><td>Table: ID, title, status badge, topics, completed count, deadline, created date</td></tr>
+      <tr><td>View Detail</td><td>Modal: per-user progress showing which topics are completed</td></tr>
+      <tr><td>Close</td><td>Button to manually close an active homework</td></tr>
+    </table>
+  </div>
+
+  <!-- Contests -->
+  <div class="card" style="margin-bottom: 16px;">
+    <h4>9. Contests</h4>
+    <p>Manage all contest types. Create polls, quiz contests, or challenges. View active/closed contests with type and status badges. Click to see entries and results. Change contest status or close.</p>
+    <table>
+      <tr><th>Action</th><th>Detail</th></tr>
+      <tr><td>Create</td><td>Form: type selector (poll/quiz/challenge), title, description, deadline, config JSON, XP</td></tr>
+      <tr><td>View List</td><td>Table: ID, title, type badge, status badge, deadline, created date</td></tr>
+      <tr><td>View Detail</td><td>Modal: contest info, entries list, results/votes, status management</td></tr>
+      <tr><td>Status Control</td><td>Transition: active &rarr; voting &rarr; closed</td></tr>
+    </table>
+  </div>
+
+  <!-- Group -->
+  <div class="card" style="margin-bottom: 16px;">
+    <h4>10. Group Management</h4>
+    <p>Monitor and manage group messages. Send new bot messages (with optional thread targeting), edit/delete sent bot messages, view recent group chat, delete user messages, and issue warnings.</p>
+    <table>
+      <tr><th>Section</th><th>Capabilities</th></tr>
+      <tr><td>Send Message</td><td>Chat ID, optional thread ID, HTML message textarea, send button</td></tr>
+      <tr><td>Bot Messages</td><td>List of all tracked bot messages with edit/delete actions</td></tr>
+      <tr><td>Group Chat</td><td>Recent messages from all users with delete and warn buttons</td></tr>
+    </table>
+  </div>
+
+  <h3>API Endpoints</h3>
+  <p>All endpoints require the <code>Authorization: Bearer &lt;token&gt;</code> header. When behind nginx, basic auth is also required.</p>
+  <table>
+    <tr><th>Method</th><th>Endpoint</th><th>Description</th></tr>
+    <tr><td>GET</td><td><code>/api/stats</code></td><td>Dashboard statistics</td></tr>
+    <tr><td>GET</td><td><code>/api/users</code></td><td>Paginated user list</td></tr>
+    <tr><td>GET</td><td><code>/api/users/search</code></td><td>Search users</td></tr>
+    <tr><td>GET</td><td><code>/api/users/:id</code></td><td>User detail + subscriptions</td></tr>
+    <tr><td>GET</td><td><code>/api/users/:id/xp</code></td><td>User XP breakdown</td></tr>
+    <tr><td>GET</td><td><code>/api/users/export/csv</code></td><td>Export users CSV</td></tr>
+    <tr><td>GET</td><td><code>/api/settings/:key</code></td><td>Get settings (roles/experience/interests)</td></tr>
+    <tr><td>PUT</td><td><code>/api/settings/:key</code></td><td>Update settings list</td></tr>
+    <tr><td>POST</td><td><code>/api/settings/:key/options</code></td><td>Add option</td></tr>
+    <tr><td>DELETE</td><td><code>/api/settings/:key/options/:id</code></td><td>Remove option</td></tr>
+    <tr><td>GET</td><td><code>/api/subscriptions</code></td><td>Subscription counts</td></tr>
+    <tr><td>GET</td><td><code>/api/topics</code></td><td>All topics list</td></tr>
+    <tr><td>POST</td><td><code>/api/broadcast</code></td><td>Send immediate broadcast</td></tr>
+    <tr><td>GET</td><td><code>/api/schedule</code></td><td>List scheduled messages</td></tr>
+    <tr><td>POST</td><td><code>/api/schedule</code></td><td>Create scheduled message</td></tr>
+    <tr><td>DELETE</td><td><code>/api/schedule/:id</code></td><td>Cancel scheduled message</td></tr>
+    <tr><td>GET</td><td><code>/api/leaderboard</code></td><td>XP leaderboard</td></tr>
+    <tr><td>GET</td><td><code>/api/homework</code></td><td>List all homework</td></tr>
+    <tr><td>POST</td><td><code>/api/homework</code></td><td>Create homework</td></tr>
+    <tr><td>GET</td><td><code>/api/homework/:id</code></td><td>Homework detail + progress</td></tr>
+    <tr><td>PUT</td><td><code>/api/homework/:id/close</code></td><td>Close homework</td></tr>
+    <tr><td>GET</td><td><code>/api/contests</code></td><td>List all contests</td></tr>
+    <tr><td>POST</td><td><code>/api/contests</code></td><td>Create contest</td></tr>
+    <tr><td>GET</td><td><code>/api/contests/:id</code></td><td>Contest detail + entries</td></tr>
+    <tr><td>PUT</td><td><code>/api/contests/:id/close</code></td><td>Close contest</td></tr>
+    <tr><td>PUT</td><td><code>/api/contests/:id/status</code></td><td>Change contest status</td></tr>
+    <tr><td>GET</td><td><code>/api/moderation/warnings</code></td><td>Recent warnings</td></tr>
+    <tr><td>GET</td><td><code>/api/moderation/warnings/:userId</code></td><td>User warnings</td></tr>
+    <tr><td>GET</td><td><code>/api/group/messages</code></td><td>Bot messages list</td></tr>
+    <tr><td>POST</td><td><code>/api/group/send</code></td><td>Send bot message to group</td></tr>
+    <tr><td>PUT</td><td><code>/api/group/messages/:id</code></td><td>Edit bot message</td></tr>
+    <tr><td>DELETE</td><td><code>/api/group/messages/:id</code></td><td>Delete bot message</td></tr>
+    <tr><td>GET</td><td><code>/api/group/chat</code></td><td>Recent group chat</td></tr>
+    <tr><td>DELETE</td><td><code>/api/group/chat/:chatId/:msgId</code></td><td>Delete group message</td></tr>
+    <tr><td>POST</td><td><code>/api/group/chat/:chatId/:msgId/warn</code></td><td>Warn user from chat</td></tr>
+  </table>
+</section>
+
+<!-- ════════════════════════════════════════════ 13. ARCHITECTURE ══════════════════════════════ -->
+<section id="architecture">
+  <h2>13. Architecture</h2>
+
+  <h3>System Diagram</h3>
+  <div class="flow" style="text-align: center; font-family: monospace; font-size: .85rem; line-height: 1.8;">
+    <pre style="display: inline-block; text-align: left;">
+┌─────────────────┐     ┌──────────────────────┐
+│  Telegram Users  │────▶│    Telegram API       │
+└─────────────────┘     └──────────┬───────────┘
+                                   │
+                        ┌──────────▼───────────┐
+                        │   grammY Bot (Node)   │
+                        │                       │
+                        │  ├─ Handlers (12)     │
+                        │  ├─ Middleware (2)     │
+                        │  ├─ Scheduler (cron)  │
+                        │  └─ Express API       │
+                        └──────┬───────┬───────┘
+                               │       │
+                    ┌──────────▼──┐  ┌─▼────────────┐
+                    │   SQLite    │  │   MySQL       │
+                    │  (Primary)  │  │  (Mirror)     │
+                    └─────────────┘  └───────────────┘
+                               │
+                    ┌──────────▼──────────┐
+                    │   nginx (reverse    │
+                    │   proxy + auth)     │
+                    └──────────┬──────────┘
+                               │
+                    ┌──────────▼──────────┐
+                    │   Admin Dashboard   │
+                    │   (SPA, 10 pages)   │
+                    └─────────────────────┘</pre>
+  </div>
+
+  <h3>Tech Stack</h3>
+  <table>
+    <tr><th>Component</th><th>Technology</th></tr>
+    <tr><td>Bot Framework</td><td>grammY (Telegram Bot API)</td></tr>
+    <tr><td>Runtime</td><td>Node.js 20 (Alpine)</td></tr>
+    <tr><td>Primary DB</td><td>better-sqlite3 (WAL mode)</td></tr>
+    <tr><td>Mirror DB</td><td>MySQL 8 (async writes)</td></tr>
+    <tr><td>Web Server</td><td>Express.js (API) + nginx (static + reverse proxy)</td></tr>
+    <tr><td>Frontend</td><td>Vanilla JS SPA (no framework)</td></tr>
+    <tr><td>Deployment</td><td>Docker Compose (2 services: web + bot)</td></tr>
+  </table>
+
+  <h3>Database Tables</h3>
+  <table>
+    <tr><th>Table</th><th>Purpose</th></tr>
+    <tr><td><code>users</code></td><td>User profiles, onboarding data, XP, level</td></tr>
+    <tr><td><code>subscriptions</code></td><td>Topic subscriptions per user</td></tr>
+    <tr><td><code>warnings</code></td><td>Moderation warnings with reasons</td></tr>
+    <tr><td><code>scheduled_messages</code></td><td>Scheduled broadcasts with status tracking</td></tr>
+    <tr><td><code>xp_log</code></td><td>XP transaction log (amount, reason, timestamp)</td></tr>
+    <tr><td><code>homework</code></td><td>Homework assignments (title, topics, deadline, XP)</td></tr>
+    <tr><td><code>homework_progress</code></td><td>Per-user, per-topic completion tracking</td></tr>
+    <tr><td><code>contests</code></td><td>Contest definitions (type, config, status)</td></tr>
+    <tr><td><code>contest_entries</code></td><td>Challenge submissions and quiz scores</td></tr>
+    <tr><td><code>contest_votes</code></td><td>User votes on polls and challenge entries</td></tr>
+    <tr><td><code>bot_messages</code></td><td>Tracked bot messages sent to group</td></tr>
+    <tr><td><code>group_messages</code></td><td>Logged group chat messages (7-day rolling)</td></tr>
+  </table>
+
+  <h3>Security</h3>
+  <ul>
+    <li><strong>Two-layer auth:</strong> nginx basic authentication + Express bearer token middleware</li>
+    <li><strong>Admin verification:</strong> Telegram admin commands check user against ADMIN_IDS environment variable</li>
+    <li><strong>Rate limiting:</strong> Broadcast/scheduled messages pause every 25 messages to respect Telegram API limits</li>
+    <li><strong>Data cleanup:</strong> Group messages auto-expire after 7 days</li>
+    <li><strong>Docker isolation:</strong> Bot and web server run in separate containers on an internal network</li>
+  </ul>
+</section>
+
+</div><!-- /container -->
+
+<div class="footer">
+  <p>PM AI Club Bot Documentation &mdash; Generated February 2026</p>
+</div>
+
+</body>
+</html>

@@ -5,7 +5,9 @@ const { sendRandom } = require('./random');
 const { escHtml } = require('../utils/format');
 const { setUserLang } = require('../middleware/language');
 const { getUser, setOnboardingStep, updateField, completeOnboarding } = require('../db/users');
-const { INTERESTS, sendStep, sendProfileSummary } = require('./onboarding');
+const { sendStep, sendProfileSummary } = require('./onboarding');
+const { getInterests } = require('../db/settings');
+const { awardXp, getDailyXpCount } = require('../db/xp');
 
 module.exports = function (bot) {
   bot.on('callback_query:data', async (ctx) => {
@@ -89,6 +91,25 @@ module.exports = function (bot) {
         }
         resultText += `\n\n${quiz.explanation}`;
 
+        // Award XP for correct quiz answer (max 3/day)
+        if (correct) {
+          const userId = ctx.from?.id;
+          if (userId) {
+            const dailyCount = getDailyXpCount(userId, 'quiz');
+            if (dailyCount < 3) {
+              const result = awardXp(userId, 10, 'quiz');
+              const xpMsg = lang === 'uk' ? `\n\n💎 +10 XP` : `\n\n💎 +10 XP`;
+              resultText += xpMsg;
+              if (result && result.leveledUp) {
+                const lvlTitle = lang === 'uk' ? result.levelTitle.title_uk : result.levelTitle.title_en;
+                resultText += lang === 'uk'
+                  ? `\n🎉 Новий рівень: ${result.newLevel} — ${lvlTitle}!`
+                  : `\n🎉 Level up: ${result.newLevel} — ${lvlTitle}!`;
+              }
+            }
+          }
+        }
+
         const kb = new InlineKeyboard()
           .text(lang === 'uk' ? '🔄 Наступне запитання' : '🔄 Next question', 'quiz:next');
 
@@ -146,6 +167,8 @@ module.exports = function (bot) {
               experience: user.experience,
               interests: user.interests || '',
             });
+            // Award XP for completing onboarding
+            awardXp(userId, 50, 'onboarding');
             try { await ctx.editMessageReplyMarkup({ reply_markup: undefined }); } catch (e) {}
             const finalUser = getUser(userId);
             await sendProfileSummary(ctx, finalUser, lang);
@@ -171,7 +194,7 @@ module.exports = function (bot) {
             const lang = ctx.lang;
             const selected = current;
             const kb = new InlineKeyboard();
-            INTERESTS.forEach((item) => {
+            getInterests().forEach((item) => {
               const isSelected = selected.includes(item.id);
               const label = `${isSelected ? '✅ ' : ''}${item[lang] || item.en}`;
               kb.text(label, `onboard:int:${item.id}`).row();

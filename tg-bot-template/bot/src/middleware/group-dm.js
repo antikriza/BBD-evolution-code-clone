@@ -3,7 +3,6 @@ const { InlineKeyboard } = require('grammy');
 let botUsername = null;
 
 function groupDmMiddleware(bot) {
-  // Cache bot username on first use
   bot.use(async (ctx, next) => {
     if (!botUsername) {
       try { botUsername = (await bot.api.getMe()).username; } catch (e) { /* retry next time */ }
@@ -16,12 +15,7 @@ function groupDmMiddleware(bot) {
     const isCommand = ctx.message?.text?.startsWith('/');
     const isCallback = !!ctx.callbackQuery;
 
-    // Moderation commands stay in group — don't redirect to DM
-    const GROUP_COMMANDS = ['/warn', '/mute', '/unmute', '/ban', '/warnings', '/clearwarnings', '/poll', '/contest'];
-    const cmdName = (ctx.message?.text || '').split(/\s|@/)[0].toLowerCase();
-
-    // Only intercept commands in groups (not callbacks, not DMs, not moderation)
-    if (!isGroup || !isCommand || isCallback || GROUP_COMMANDS.includes(cmdName)) {
+    if (!isGroup || !isCommand || isCallback) {
       return next();
     }
 
@@ -31,12 +25,10 @@ function groupDmMiddleware(bot) {
     const chatId = ctx.chat.id;
     const cmdMsgId = ctx.message.message_id;
 
-    // Delete the user's command from group immediately
     try {
       await bot.api.deleteMessage(chatId, cmdMsgId);
     } catch (e) { /* bot might not have delete permission */ }
 
-    // Override ctx.reply to send to DM instead
     const originalReply = ctx.reply.bind(ctx);
     const dmMessages = [];
 
@@ -46,7 +38,6 @@ function groupDmMiddleware(bot) {
         dmMessages.push(msg);
         return msg;
       } catch (err) {
-        // User hasn't started the bot in DM
         if (err.error_code === 403) {
           const startUrl = `https://t.me/${botUsername || 'bot'}?start=from_group`;
           const kb = new InlineKeyboard().url(
@@ -59,7 +50,6 @@ function groupDmMiddleware(bot) {
               : `${firstName}, please start a DM with the bot first:`,
             { reply_markup: kb }
           );
-          // Auto-delete the notice after 15 seconds
           setTimeout(async () => {
             try { await bot.api.deleteMessage(chatId, notice.message_id); } catch (e) {}
           }, 15000);
@@ -71,14 +61,12 @@ function groupDmMiddleware(bot) {
 
     await next();
 
-    // If DM was sent successfully, post a brief note in group then auto-delete
     if (dmMessages.length > 0) {
       try {
         const note = lang === 'uk'
-          ? `✉️ ${firstName}, відповідь в особистих`
-          : `✉️ ${firstName}, check your DM`;
+          ? `\u2709\uFE0F ${firstName}, \u0432\u0456\u0434\u043F\u043E\u0432\u0456\u0434\u044C \u0432 \u043E\u0441\u043E\u0431\u0438\u0441\u0442\u0438\u0445`
+          : `\u2709\uFE0F ${firstName}, check your DM`;
         const groupMsg = await originalReply(note);
-
         setTimeout(async () => {
           try { await bot.api.deleteMessage(chatId, groupMsg.message_id); } catch (e) {}
         }, 5000);

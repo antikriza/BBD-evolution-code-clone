@@ -1,7 +1,7 @@
 {
-  "name": "bbd-evolution-bot",
+  "name": "telegram-bot",
   "version": "1.0.0",
-  "description": "Telegram group bot for AI & Programming course",
+  "description": "Telegram group bot template with grammy, SQLite, bilingual support",
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
@@ -10,8 +10,6 @@
   "dependencies": {
     "grammy": "^1.35.0",
     "dotenv": "^16.4.0",
-    "better-sqlite3": "^11.7.0",
-    "mysql2": "^3.11.0",
-    "express": "^4.21.0"
+    "better-sqlite3": "^11.7.0"
   }
 }

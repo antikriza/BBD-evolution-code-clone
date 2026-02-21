@@ -4,6 +4,8 @@ services:
     container_name: bbd-evolution-site
     ports:
       - "8888:80"
+    depends_on:
+      - bot
     restart: unless-stopped
 
   bot:
@@ -14,8 +16,8 @@ services:
     volumes:
       - ./telegram-archive/course/course-data.json:/app/data/course-data.json:ro
       - bot-state:/app/state
-    depends_on:
-      - web
+    expose:
+      - "3000"
     restart: unless-stopped
 
 volumes:

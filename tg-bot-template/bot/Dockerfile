@@ -9,6 +9,5 @@ COPY package.json package-lock.json* ./
 RUN npm ci --production 2>/dev/null || npm install --production
 
 COPY src/ ./src/
-COPY admin/ ./admin/
 
 CMD ["node", "src/index.js"]

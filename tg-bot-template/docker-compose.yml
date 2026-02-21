@@ -1,0 +1,12 @@
+services:
+  bot:
+    build: ./bot
+    container_name: telegram-bot
+    env_file:
+      - ./bot/.env
+    volumes:
+      - bot-state:/app/state
+    restart: unless-stopped
+
+volumes:
+  bot-state:

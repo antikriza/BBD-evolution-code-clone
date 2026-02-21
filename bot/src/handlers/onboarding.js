@@ -1,31 +1,10 @@
 const { InlineKeyboard } = require('grammy');
 const { getUser, ensureUser, setOnboardingStep, updateField, completeOnboarding } = require('../db/users');
+const { getRoles, getExperience, getInterests } = require('../db/settings');
 const { escHtml } = require('../utils/format');
+const config = require('../config');
 
 let botUsername = null;
-
-const ROLES = [
-  { id: 'developer', en: 'Developer', uk: 'Розробник' },
-  { id: 'pm', en: 'Project Manager', uk: 'Проєкт-менеджер' },
-  { id: 'designer', en: 'Designer', uk: 'Дизайнер' },
-  { id: 'student', en: 'Student', uk: 'Студент' },
-  { id: 'other', en: 'Other', uk: 'Інше' },
-];
-
-const EXPERIENCE = [
-  { id: 'beginner', en: 'Beginner', uk: 'Початківець' },
-  { id: 'intermediate', en: 'Intermediate', uk: 'Середній' },
-  { id: 'advanced', en: 'Advanced', uk: 'Просунутий' },
-  { id: 'expert', en: 'Expert', uk: 'Експерт' },
-];
-
-const INTERESTS = [
-  { id: 'ai-models', en: 'AI Models', uk: 'ШІ Моделі' },
-  { id: 'coding-tools', en: 'Coding Tools', uk: 'Інструменти коду' },
-  { id: 'agents', en: 'AI Agents', uk: 'ШІ Агенти' },
-  { id: 'prompt-eng', en: 'Prompt Engineering', uk: 'Промпт-інженерія' },
-  { id: 'career', en: 'Career', uk: "Кар'єра" },
-];
 
 function sendStep(ctx, user, lang) {
   const step = user.onboarding_step;
@@ -49,6 +28,7 @@ function sendNameQuestion(ctx, lang) {
 }
 
 function sendRoleQuestion(ctx, lang) {
+  const ROLES = getRoles();
   const text = lang === 'uk'
     ? '💼 <b>Яка твоя роль?</b>'
     : '💼 <b>What\'s your role?</b>';
@@ -61,6 +41,7 @@ function sendRoleQuestion(ctx, lang) {
 }
 
 function sendExperienceQuestion(ctx, lang) {
+  const EXPERIENCE = getExperience();
   const text = lang === 'uk'
     ? '🎯 <b>Який у тебе досвід з ШІ?</b>'
     : '🎯 <b>Your AI experience level?</b>';
@@ -73,6 +54,7 @@ function sendExperienceQuestion(ctx, lang) {
 }
 
 function sendInterestsQuestion(ctx, lang, user) {
+  const INTERESTS = getInterests();
   const selected = (user.interests || '').split(',').filter(Boolean);
   const text = lang === 'uk'
     ? '🧩 <b>Що тебе цікавить?</b>\nОбери один або кілька варіантів, потім натисни "Готово":'
@@ -89,6 +71,10 @@ function sendInterestsQuestion(ctx, lang, user) {
 }
 
 function sendProfileSummary(ctx, user, lang) {
+  const ROLES = getRoles();
+  const EXPERIENCE = getExperience();
+  const INTERESTS = getInterests();
+
   const roleName = ROLES.find(r => r.id === user.role);
   const expName = EXPERIENCE.find(e => e.id === user.experience);
   const interestNames = (user.interests || '').split(',').filter(Boolean)
@@ -160,7 +146,6 @@ module.exports = function (bot) {
           : `👋 Hi, <b>${escHtml(member.first_name || 'there')}</b>! Welcome to <b>PM AI Club</b>!\n\nLet's get acquainted — it'll take a minute.`;
         await bot.api.sendMessage(member.id, dmText, { parse_mode: 'HTML' });
 
-        // Send first question
         const nameText = lang === 'uk'
           ? '<b>Як тебе називати?</b>\nНапиши своє ім\'я:'
           : '<b>What should we call you?</b>\nType your name:';
@@ -177,7 +162,10 @@ module.exports = function (bot) {
             ? `${firstName}, натисни кнопку щоб познайомитись з ботом:`
             : `${firstName}, press the button to introduce yourself to the bot:`;
           try {
-            const msg = await ctx.reply(notice, { reply_markup: kb });
+            const msg = await bot.api.sendMessage(ctx.chat.id, notice, {
+              reply_markup: kb,
+              message_thread_id: config.WELCOME_THREAD_ID,
+            });
             setTimeout(async () => {
               try { await bot.api.deleteMessage(ctx.chat.id, msg.message_id); } catch (e) {}
             }, 30000);
@@ -187,7 +175,7 @@ module.exports = function (bot) {
     }
   });
 
-  // Handle free text for name input (step 0) — must be before other text handlers
+  // Handle free text for name input (step 0)
   bot.on('message:text', async (ctx, next) => {
     if (ctx.chat.type !== 'private') return next();
 
@@ -217,8 +205,5 @@ module.exports = function (bot) {
 };
 
 module.exports.startOnboarding = startOnboarding;
-module.exports.ROLES = ROLES;
-module.exports.EXPERIENCE = EXPERIENCE;
-module.exports.INTERESTS = INTERESTS;
 module.exports.sendStep = sendStep;
 module.exports.sendProfileSummary = sendProfileSummary;

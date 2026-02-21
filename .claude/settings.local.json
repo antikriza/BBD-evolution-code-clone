@@ -47,7 +47,14 @@
       "Bash(git -C \"F:/Github/BBD-evolution-code-clone\" log --oneline -5)",
       "Bash(git -C \"F:/Github/BBD-evolution-code-clone\" add .gitignore Dockerfile docker-compose.yml nginx.conf bot/package.json bot/package-lock.json bot/.env.example bot/Dockerfile bot/src/ telegram-archive/course/course-data.json telegram-archive/course/extract-data.js telegram-archive/course/build-all.js)",
       "Bash(git -C:*)",
-      "Bash(docker exec:*)"
+      "Bash(docker exec:*)",
+      "Bash(openssl passwd:*)",
+      "Bash(openssl rand:*)",
+      "Bash(docker run --rm nginx:alpine sh -c \"echo ''BbdAdmin2026!'' | openssl passwd -stdin -apr1\")",
+      "Bash(docker run --rm nginx:alpine sh -c \"apk add --no-cache apache2-utils > /dev/null 2>&1 && htpasswd -bn admin ''BbdAdmin2026!''\")",
+      "Bash(grep:*)",
+      "Bash(TOKEN=\"8c06a11c7d34e0069de4f41a9e3be6e611e4d9d46a9eb61f\")",
+      "Bash(AUTH=\"-u admin:BbdAdmin2026! -H ''Authorization: Bearer 8c06a11c7d34e0069de4f41a9e3be6e611e4d9d46a9eb61f''\")"
     ]
   }
 }
