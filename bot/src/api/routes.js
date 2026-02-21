@@ -304,5 +304,79 @@ module.exports = function (bot, courseData) {
     res.json({ ok: true });
   });
 
+  // ── Group Management ──
+  const groupDb = require('../db/group');
+
+  router.get('/group/messages', (req, res) => {
+    const limit = Math.min(parseInt(req.query.limit) || 50, 200);
+    res.json({ messages: groupDb.getBotMessages(limit) });
+  });
+
+  router.post('/group/send', async (req, res) => {
+    const { chatId, text, threadId } = req.body;
+    if (!chatId || !text) return res.status(400).json({ error: 'chatId and text required' });
+    try {
+      const opts = { parse_mode: 'HTML' };
+      if (threadId) opts.message_thread_id = threadId;
+      const msg = await bot.api.sendMessage(chatId, text, opts);
+      groupDb.saveBotMessage(chatId, msg.message_id, threadId || null, text, null);
+      res.json({ ok: true, messageId: msg.message_id });
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
+  router.put('/group/messages/:id', async (req, res) => {
+    const { text } = req.body;
+    const botMsg = groupDb.getBotMessage(parseInt(req.params.id));
+    if (!botMsg) return res.status(404).json({ error: 'Not found' });
+    try {
+      await bot.api.editMessageText(botMsg.chat_id, botMsg.message_id, text, { parse_mode: 'HTML' });
+      groupDb.updateBotMessageText(botMsg.id, text);
+      res.json({ ok: true });
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
+  router.delete('/group/messages/:id', async (req, res) => {
+    const botMsg = groupDb.getBotMessage(parseInt(req.params.id));
+    if (!botMsg) return res.status(404).json({ error: 'Not found' });
+    try {
+      await bot.api.deleteMessage(botMsg.chat_id, botMsg.message_id);
+      groupDb.deleteBotMessage(botMsg.id);
+      res.json({ ok: true });
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
+  router.get('/group/chat', (req, res) => {
+    const limit = Math.min(parseInt(req.query.limit) || 100, 500);
+    res.json({ messages: groupDb.getRecentGroupMessages(limit) });
+  });
+
+  router.delete('/group/chat/:chatId/:msgId', async (req, res) => {
+    const chatId = parseInt(req.params.chatId);
+    const msgId = parseInt(req.params.msgId);
+    try {
+      await bot.api.deleteMessage(chatId, msgId);
+      groupDb.deleteGroupMessage(chatId, msgId);
+      res.json({ ok: true });
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
+  router.post('/group/chat/:chatId/:msgId/warn', (req, res) => {
+    const msg = groupDb.getGroupMessage(parseInt(req.params.chatId), parseInt(req.params.msgId));
+    if (!msg) return res.status(404).json({ error: 'Message not found' });
+    const { reason } = req.body;
+    const { addWarning, getWarningCount } = require('../db/moderation');
+    addWarning(msg.user_id, reason || 'Warned from dashboard', 0);
+    const count = getWarningCount(msg.user_id);
+    res.json({ ok: true, warningCount: count });
+  });
+
   return router;
 };

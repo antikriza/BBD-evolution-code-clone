@@ -136,7 +136,7 @@
 
     location.hash = page;
 
-    const renderers = { dashboard: renderDashboard, users: renderUsers, settings: renderSettings, subscriptions: renderSubscriptions, broadcast: renderBroadcast, schedule: renderSchedule, leaderboard: renderLeaderboard, homework: renderHomework, contests: renderContests };
+    const renderers = { dashboard: renderDashboard, users: renderUsers, settings: renderSettings, subscriptions: renderSubscriptions, broadcast: renderBroadcast, schedule: renderSchedule, leaderboard: renderLeaderboard, homework: renderHomework, contests: renderContests, group: renderGroup };
     if (renderers[page]) renderers[page]();
   }
 
@@ -947,6 +947,166 @@
 
     } catch (err) {
       alert('Error loading contest: ' + err.message);
+    }
+  }
+
+  // ── Group Management ──
+  const DEFAULT_GROUP_CHAT_ID = '-1003812557946';
+
+  async function renderGroup() {
+    const el = document.getElementById('page-group');
+    el.innerHTML = '<p class="text-muted">Loading...</p>';
+
+    try {
+      const [botData, chatData] = await Promise.all([
+        api.get('/group/messages'),
+        api.get('/group/chat'),
+      ]);
+      const botMessages = botData.messages || [];
+      const chatMessages = chatData.messages || [];
+
+      let html = `
+        <h2>Group Management</h2>
+
+        <div style="margin-bottom:1.5rem;padding:1rem;background:#f8f9fa;border-radius:8px">
+          <h3 style="margin-top:0">Send Bot Message</h3>
+          <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.5rem">
+            <input id="group-chat-id" value="${DEFAULT_GROUP_CHAT_ID}" placeholder="Chat ID" style="width:200px;padding:0.4rem">
+            <input id="group-thread-id" placeholder="Thread ID (optional)" style="width:160px;padding:0.4rem">
+          </div>
+          <textarea id="group-msg-text" placeholder="Message (HTML supported)" rows="3" style="width:100%;margin-bottom:0.5rem;padding:0.4rem"></textarea>
+          <button id="send-group-msg-btn" class="btn btn-primary">Send Message</button>
+        </div>
+
+        <h3>Bot Messages</h3>
+        <table class="data-table">
+          <thead><tr><th>ID</th><th>Time</th><th>Thread</th><th>Text</th><th>Actions</th></tr></thead>
+          <tbody>
+      `;
+
+      if (botMessages.length === 0) {
+        html += '<tr><td colspan="5" style="text-align:center">No bot messages tracked</td></tr>';
+      } else {
+        for (const m of botMessages) {
+          const preview = (m.text || '').substring(0, 80) + ((m.text || '').length > 80 ? '...' : '');
+          html += `<tr>
+            <td>${m.id}</td>
+            <td>${new Date(m.sent_at).toLocaleString()}</td>
+            <td>${m.thread_id || '—'}</td>
+            <td>${preview}</td>
+            <td>
+              <button class="btn btn-sm edit-bot-msg" data-id="${m.id}">Edit</button>
+              <button class="btn btn-sm btn-danger del-bot-msg" data-id="${m.id}">Delete</button>
+            </td>
+          </tr>`;
+        }
+      }
+
+      html += `</tbody></table>
+
+        <h3>Recent Group Chat</h3>
+        <div style="max-height:500px;overflow-y:auto">
+          <table class="data-table">
+            <thead><tr><th>Time</th><th>User</th><th>Message</th><th>Actions</th></tr></thead>
+            <tbody>
+      `;
+
+      if (chatMessages.length === 0) {
+        html += '<tr><td colspan="4" style="text-align:center">No messages captured</td></tr>';
+      } else {
+        for (const m of chatMessages) {
+          const name = m.first_name || m.username || m.user_id;
+          const userLabel = m.username ? `${name} (@${m.username})` : name;
+          const preview = (m.text || '').substring(0, 120) + ((m.text || '').length > 120 ? '...' : '');
+          html += `<tr>
+            <td style="white-space:nowrap">${new Date(m.received_at).toLocaleString()}</td>
+            <td style="white-space:nowrap">${userLabel}</td>
+            <td>${preview}</td>
+            <td style="white-space:nowrap">
+              <button class="btn btn-sm btn-danger del-chat-msg" data-chat="${m.chat_id}" data-msg="${m.message_id}">Del</button>
+              <button class="btn btn-sm btn-warning warn-chat-msg" data-chat="${m.chat_id}" data-msg="${m.message_id}">Warn</button>
+            </td>
+          </tr>`;
+        }
+      }
+
+      html += '</tbody></table></div>';
+      el.innerHTML = html;
+
+      // Send message
+      document.getElementById('send-group-msg-btn').addEventListener('click', async () => {
+        const chatId = document.getElementById('group-chat-id').value.trim();
+        const threadId = document.getElementById('group-thread-id').value.trim() || undefined;
+        const text = document.getElementById('group-msg-text').value.trim();
+        if (!chatId || !text) return alert('Chat ID and text are required');
+        try {
+          await api.post('/group/send', { chatId: parseInt(chatId), text, threadId: threadId ? parseInt(threadId) : undefined });
+          document.getElementById('group-msg-text').value = '';
+          renderGroup();
+        } catch (err) { alert('Error: ' + err.message); }
+      });
+
+      // Edit bot message
+      el.querySelectorAll('.edit-bot-msg').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const msg = botMessages.find(m => m.id === parseInt(btn.dataset.id));
+          if (!msg) return;
+          const html = `
+            <h3>Edit Bot Message #${msg.id}</h3>
+            <textarea id="edit-msg-text" rows="5" style="width:100%;padding:0.4rem">${msg.text || ''}</textarea>
+            <br><br>
+            <button class="btn btn-primary" id="save-edit-msg">Save</button>
+            <button class="btn btn-secondary" id="cancel-edit-msg">Cancel</button>
+          `;
+          showModal(html);
+          document.getElementById('cancel-edit-msg').addEventListener('click', closeModal);
+          document.getElementById('save-edit-msg').addEventListener('click', async () => {
+            const newText = document.getElementById('edit-msg-text').value.trim();
+            if (!newText) return alert('Text is required');
+            try {
+              await api.put(`/group/messages/${msg.id}`, { text: newText });
+              closeModal();
+              renderGroup();
+            } catch (err) { alert('Error: ' + err.message); }
+          });
+        });
+      });
+
+      // Delete bot message
+      el.querySelectorAll('.del-bot-msg').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          if (!confirm('Delete this bot message from Telegram?')) return;
+          try {
+            await api.del(`/group/messages/${btn.dataset.id}`);
+            renderGroup();
+          } catch (err) { alert('Error: ' + err.message); }
+        });
+      });
+
+      // Delete user message
+      el.querySelectorAll('.del-chat-msg').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          if (!confirm('Delete this message from Telegram?')) return;
+          try {
+            await api.del(`/group/chat/${btn.dataset.chat}/${btn.dataset.msg}`);
+            renderGroup();
+          } catch (err) { alert('Error: ' + err.message); }
+        });
+      });
+
+      // Warn user
+      el.querySelectorAll('.warn-chat-msg').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          const reason = prompt('Warning reason (optional):') || '';
+          try {
+            const result = await api.post(`/group/chat/${btn.dataset.chat}/${btn.dataset.msg}/warn`, { reason });
+            alert(`User warned. Total warnings: ${result.warningCount}`);
+          } catch (err) { alert('Error: ' + err.message); }
+        });
+      });
+
+    } catch (err) {
+      el.innerHTML = `<p class="error">Error: ${err.message}</p>`;
     }
   }
 
