@@ -36,6 +36,48 @@ module.exports = function (bot) {
 
   bot.command('help', async (ctx) => {
     const lang = ctx.lang;
+    const isAdmin = config.ADMIN_IDS.includes(ctx.from?.id);
+
+    const adminBlockEn = isAdmin ? `
+
+<b>Moderation (Group)</b>
+/warn — Warn user (reply to message)
+/mute [min] — Mute user (default 60 min)
+/unmute — Unmute user
+/ban — Ban user
+/warnings — Show user warnings
+/clearwarnings — Reset warnings
+
+<b>Admin</b>
+/admin — Admin panel
+/stats — Bot statistics
+/broadcast — Send broadcast
+/schedule — Upcoming scheduled messages
+
+<b>Content Admin</b>
+/assign — Create homework assignment
+/poll — Create group poll` : '';
+
+    const adminBlockUk = isAdmin ? `
+
+<b>Модерація (Група)</b>
+/warn — Попередити (у відповідь)
+/mute [хв] — Замутити (за замовч. 60 хв)
+/unmute — Розмутити
+/ban — Забанити
+/warnings — Показати попередження
+/clearwarnings — Скинути попередження
+
+<b>Адмін</b>
+/admin — Панель адміна
+/stats — Статистика бота
+/broadcast — Розсилка
+/schedule — Заплановані повідомлення
+
+<b>Контент-адмін</b>
+/assign — Створити домашнє завдання
+/poll — Створити опитування` : '';
+
     const texts = {
       en: `<b>Available Commands:</b>
 
@@ -50,6 +92,18 @@ module.exports = function (bot) {
 /random — Random tip or fact
 /today — Topic of the day
 
+<b>XP & Progress</b>
+/xp — Your XP and level
+/leaderboard — Top 10 leaderboard
+
+<b>Homework</b>
+/homework — Your assignments
+/complete &lt;topic&gt; — Complete a topic quiz
+
+<b>Contests</b>
+/contest — Active contests
+/submit — Submit challenge entry (DM)
+
 <b>Community</b>
 /rules — Group rules
 /links — Useful links
@@ -58,7 +112,7 @@ module.exports = function (bot) {
 
 <b>Settings</b>
 /lang — Switch language (EN/UK)
-/help — This message`,
+/help — This message${adminBlockEn}`,
       uk: `<b>Доступні команди:</b>
 
 <b>Навігація курсом</b>
@@ -72,6 +126,18 @@ module.exports = function (bot) {
 /random — Випадкова порада чи факт
 /today — Тема дня
 
+<b>XP & Прогрес</b>
+/xp — Твій XP та рівень
+/leaderboard — Топ-10 рейтинг
+
+<b>Домашні завдання</b>
+/homework — Твої завдання
+/complete &lt;тема&gt; — Пройти тест по темі
+
+<b>Конкурси</b>
+/contest — Активні конкурси
+/submit — Надіслати роботу (в ЛС)
+
 <b>Спільнота</b>
 /rules — Правила групи
 /links — Корисні посилання
@@ -80,7 +146,7 @@ module.exports = function (bot) {
 
 <b>Налаштування</b>
 /lang — Змінити мову (EN/UK)
-/help — Це повідомлення`,
+/help — Це повідомлення${adminBlockUk}`,
     };
 
     await ctx.reply(texts[lang] || texts.en, { parse_mode: 'HTML' });
