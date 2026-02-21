@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bot Admin</title>
+  <link rel="stylesheet" href="/admin/style.css">
+</head>
+<body>
+  <div id="login-screen">
+    <div class="login-card">
+      <h1>Bot Admin</h1>
+      <p class="login-subtitle">PM AI Club Dashboard</p>
+      <input type="password" id="token-input" placeholder="Admin token">
+      <button id="login-btn">Login</button>
+      <p id="login-error" class="error hidden"></p>
+    </div>
+  </div>
+
+  <div id="app" class="hidden">
+    <nav id="sidebar">
+      <div class="nav-brand">Bot Admin</div>
+      <a href="#dashboard" class="nav-link active" data-page="dashboard">Dashboard</a>
+      <a href="#users" class="nav-link" data-page="users">Users</a>
+      <a href="#settings" class="nav-link" data-page="settings">Settings</a>
+      <a href="#subscriptions" class="nav-link" data-page="subscriptions">Subscriptions</a>
+      <a href="#broadcast" class="nav-link" data-page="broadcast">Broadcast</a>
+      <a href="#schedule" class="nav-link" data-page="schedule">Schedule</a>
+      <a href="#leaderboard" class="nav-link" data-page="leaderboard">Leaderboard</a>
+      <a href="#homework" class="nav-link" data-page="homework">Homework</a>
+      <a href="#contests" class="nav-link" data-page="contests">Contests</a>
+      <div class="nav-footer">
+        <button id="logout-btn">Logout</button>
+      </div>
+    </nav>
+
+    <main id="content">
+      <div id="page-dashboard" class="page"></div>
+      <div id="page-users" class="page hidden"></div>
+      <div id="page-settings" class="page hidden"></div>
+      <div id="page-subscriptions" class="page hidden"></div>
+      <div id="page-broadcast" class="page hidden"></div>
+      <div id="page-schedule" class="page hidden"></div>
+      <div id="page-leaderboard" class="page hidden"></div>
+      <div id="page-homework" class="page hidden"></div>
+      <div id="page-contests" class="page hidden"></div>
+    </main>
+  </div>
+
+  <div id="modal-overlay" class="hidden">
+    <div id="modal-content"></div>
+  </div>
+
+  <script src="/admin/app.js"></script>
+</body>
+</html>
